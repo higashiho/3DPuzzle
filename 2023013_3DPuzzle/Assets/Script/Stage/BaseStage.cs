@@ -18,4 +18,7 @@ public class BaseStage : MonoBehaviour
     [SerializeField]
     protected GameObject[,] tiles;
     public GameObject[,] Tiles{get {return tiles;}private set{tiles = value;}}
+
+    // インスタンス化
+    protected InstanceStage instance = new InstanceStage();
 }

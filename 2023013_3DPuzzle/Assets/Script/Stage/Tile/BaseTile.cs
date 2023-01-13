@@ -18,9 +18,12 @@ public class BaseTile : MonoBehaviour
     //マウスカーソルがSphereに乗った時の処理
     private void OnMouseOver()
     {
-        //Sphereの色を赤色に変化
-        this.GetComponent<Renderer>().material.color = Color.red;
-        player.ChooseObj = this.gameObject;
+        if(!player.OnMove)
+        {
+            //Sphereの色を赤色に変化
+            this.GetComponent<Renderer>().material.color = Color.red;
+            player.ChooseObj = this.gameObject;
+        }
         
     }
 
