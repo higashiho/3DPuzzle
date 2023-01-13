@@ -8,6 +8,7 @@ public class TileController : BaseTile
     void Start()
     {
         startColor = this.GetComponent<Renderer>().material.color;
+        player = GameObject.FindWithTag("Player").GetComponent<BasePlayer>();
     }
 
     // Update is called once per frame
