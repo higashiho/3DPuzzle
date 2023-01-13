@@ -16,7 +16,7 @@ public class BaseStage : MonoBehaviour
     
     //生成オブジェクト格納用
     [SerializeField]
-    protected GameObject[] tiles;
+    protected GameObject[] tiles = new GameObject[20];
     public GameObject[] Tiles{get {return tiles;}private set{tiles = value;}}
 
     // インスタンス化

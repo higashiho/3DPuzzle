@@ -17,18 +17,19 @@ public class InstanceBox
             // 一度生成している要素数ならやり直し
             for(int j = 0; j < tmpNum.Length; j++)
                 if(tmpNum[j] == num)
+                {
+                    Debug.Log("continue");
                     continue;
-
+                }
             // 生成したことないnumの場合保管して生成
             tmpNum[i] = num;
-            MonoBehaviour.Instantiate
-            (
+            MonoBehaviour.Instantiate(
                 tmpBox.PerfabBox, 
                 tmpBox.PerfabBox.transform.position + InGameSceneController.Stages.Tiles[num].transform.position,
                 Quaternion.identity,
                 tmpBox.transform
             );
-            
+
             i++;
         }
     }
