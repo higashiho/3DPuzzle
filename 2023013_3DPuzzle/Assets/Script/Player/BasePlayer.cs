@@ -6,6 +6,7 @@ public class BasePlayer : MonoBehaviour
 {
     [SerializeField]
     protected PlayerData playerData;
+    protected PlayerMove playerMove = new PlayerMove();
     public PlayerData PlayersData{get{return playerData;}private set{playerData = value;}}
 
     // 選択しているタイル
