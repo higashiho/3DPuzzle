@@ -5,9 +5,10 @@ using UnityEngine;
 public class StageController : BaseStage
 {
     // Start is called before the first frame update
-    void Awake()
+    void Start()
     {
         instance.StageMaking(this);
+        instanceBox.CreateBox(this);
     }
 
     // Update is called once per frame
