@@ -327,7 +327,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 302579731704811697, guid: 1bd7cf68ce4ebb24db45b71cc0db38e9, type: 3}
       propertyPath: m_Name
-      value: Stage (1)
+      value: Stage
       objectReference: {fileID: 0}
     - target: {fileID: 302579731704811699, guid: 1bd7cf68ce4ebb24db45b71cc0db38e9, type: 3}
       propertyPath: m_RootOrder

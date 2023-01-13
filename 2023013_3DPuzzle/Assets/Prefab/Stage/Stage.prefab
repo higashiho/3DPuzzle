@@ -210,7 +210,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 302579731062781916}
-  - component: {fileID: 302579731062781917}
   m_Layer: 0
   m_Name: Boxs
   m_TagString: Untagged
@@ -233,19 +232,6 @@ Transform:
   m_Father: {fileID: 302579731704811699}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &302579731062781917
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 302579731062781730}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 54815a25c4d21cc4b9b0591d723e87de, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  prefabBox: {fileID: 3226213973817768160, guid: b0cbd0c35b395cd4faa33b07501de767, type: 3}
 --- !u!1 &302579731215340104
 GameObject:
   m_ObjectHideFlags: 0
@@ -413,6 +399,8 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  prefabBox: {fileID: 3226213973817768160, guid: b0cbd0c35b395cd4faa33b07501de767, type: 3}
+  boxs: {fileID: 302579731062781730}
 --- !u!1 &302579732318022849
 GameObject:
   m_ObjectHideFlags: 0
