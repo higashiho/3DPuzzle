@@ -14,10 +14,10 @@ public class BaseStage : MonoBehaviour
     protected GameObject[] prefabTile = new GameObject[2];
     public GameObject[] PrefabTile{get{return prefabTile;}private set{prefabTile = value;}}
     
-    //内部データ
+    //生成オブジェクト格納用
     [SerializeField]
-    protected GameObject[,] tiles;
-    public GameObject[,] Tiles{get {return tiles;}private set{tiles = value;}}
+    protected GameObject[] tiles;
+    public GameObject[] Tiles{get {return tiles;}private set{tiles = value;}}
 
     // インスタンス化
     protected InstanceStage instance = new InstanceStage();
