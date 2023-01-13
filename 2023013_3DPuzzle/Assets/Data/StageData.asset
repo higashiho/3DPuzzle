@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 470c3b6e774a52e43baa8124ef22cb2d, type: 3}
   m_Name: StageData
   m_EditorClassIdentifier: 
-  tileX: 0
-  tileY: 0
+  tileX: 10
+  tileY: 10
