@@ -4,10 +4,26 @@ using UnityEngine;
 
 public class BaseBox : MonoBehaviour
 {
-    [SerializeField,Header("生成するBox")]
-    protected GameObject prefabBox;
-    public GameObject PerfabBox{get{return prefabBox;}private set{prefabBox = value;}}
 
+    // 初期マテリアルカラー取得
+    [SerializeField, Header("初期色")]
+    protected Color startColor;
+    public Color StartColor{get{return startColor;}set{startColor = value;}}
+
+    
+    //マウスカーソルがSphereに乗った時の処理
+    private void OnMouseOver()
+    {
+        boxMove.Move(this);
+    }
+
+    //マウスカーソルがSphereの上から離れた時の処理
+    private void OnMouseExit()
+    {
+        //Sphereの色が元の色に戻す
+        this.GetComponent<Renderer>().material.color = startColor;
+
+    }
     // インスタンス化
-    protected InstanceBox instanceBox = new InstanceBox();
+    protected BoxMove boxMove = new BoxMove();
 }
