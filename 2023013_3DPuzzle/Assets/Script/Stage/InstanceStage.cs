@@ -8,7 +8,8 @@ public class InstanceStage
     // 生成処理
     public void StageMaking(BaseStage tmpStage)
     {
-        int i = 0;
+        // num:生成オブジェクト個数
+        int i = 0, num = 0;
         // タイル生成個数とタイルのスケールより変数が低い場合は回す
         while (i < tmpStage.StagesData.TileX * tmpStage.PrefabTile[0].transform.localScale.x)
         {
@@ -19,13 +20,14 @@ public class InstanceStage
                 int idx = (i + j) % tmpStage.PrefabTile.Length;
                 
                 //タイルとユニットのポジション
-                float x = i - tmpStage.StagesData.TileX / 3;
-                float y = j - tmpStage.StagesData.TileY / 3;
+                float x = i - tmpStage.StagesData.TileX;
+                float y = j - tmpStage.StagesData.TileY;
 
                 Vector3 pos = new Vector3(x, 0, y);
                 GameObject tile = MonoBehaviour.Instantiate(tmpStage.PrefabTile[idx], pos, Quaternion.identity, tmpStage.transform);
 
-                tmpStage.Tiles[i, j] = tile;
+                if(false);
+                tmpStage.Tiles[num++] = tile;
                 // タイルのスケール分値を増やす
                 j += (int)tmpStage.PrefabTile[0].transform.localScale.y;
 

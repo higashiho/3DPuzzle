@@ -2,14 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StageController : BaseStage
+public class BoxController : BaseBox
 {
     // Start is called before the first frame update
-    void Awake()
+    void Start()
     {
-        // 内部データ初期化
-        tiles = new GameObject[StagesData.TileX * StagesData.TileY];
-        instance.StageMaking(this);
+        instanceBox.CreateBox(this);
     }
 
     // Update is called once per frame

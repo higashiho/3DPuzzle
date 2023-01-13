@@ -12,6 +12,9 @@ public class StageData : ScriptableObject
     private int tileY;
     public int TileY{get{return tileY;}private set{tileY = value;}}
 
+    [SerializeField, Header("生成するBoxオブジェクト数")]
+    private int boxsNum;
+    public int BoxsNum{get{return boxsNum;}private set{boxsNum = value;}}
     
 
 }
