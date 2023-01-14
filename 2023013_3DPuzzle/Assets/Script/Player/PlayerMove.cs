@@ -16,10 +16,11 @@ public class PlayerMove
         {
             destination = tmpPlayer.ChooseObj.transform.position + new Vector3(0, Const.PLAYER_POSY, 0);
             //setDestination = true;
-            var tmpPlayerTween = tmpPlayer.transform.DOMove(destination, 2).SetEase(Ease.Linear)
+            var tmpPlayerTween = tmpPlayer.transform.DOMove(destination, tmpPlayer.PlayersData.PlayerMoveTime).SetEase(Ease.Linear)
             .OnStart(() => startMove(tmpPlayer));
 
             await tmpPlayerTween.AsyncWaitForCompletion();
+            tmpPlayer.MoveCounter.GetComponent<MoveCounter>().MoveCount++;
             compMove(tmpPlayer);
         }
 
