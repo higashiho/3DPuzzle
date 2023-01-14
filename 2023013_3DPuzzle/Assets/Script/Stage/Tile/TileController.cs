@@ -2,17 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TileController : BaseTile
+namespace Stage
 {
-    // Start is called before the first frame update
-    void Start()
+    public class TileController : BaseTile
     {
-        startColor = this.GetComponent<Renderer>().material.color;
-    }
+        // Start is called before the first frame update
+        void Start()
+        {
+            startColor = this.GetComponent<Renderer>().material.color;
+        }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        // Update is called once per frame
+        void Update()
+        {
+            
+        }
     }
 }
