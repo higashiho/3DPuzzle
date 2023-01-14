@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8862320959927448979}
   m_Layer: 0
   m_Name: WhiteTile
-  m_TagString: Tiles
+  m_TagString: Tilles
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -113,7 +113,7 @@ GameObject:
   - component: {fileID: 8174423842820463550}
   m_Layer: 0
   m_Name: Tile
-  m_TagString: Untagged
+  m_TagString: Tilles
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -209,4 +209,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startColor: {r: 0, g: 0, b: 0, a: 0}
-  player: {fileID: 0}

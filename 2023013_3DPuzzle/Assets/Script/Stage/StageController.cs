@@ -2,18 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StageController : BaseStage
+namespace Stage
 {
-    // Start is called before the first frame update
-    void Start()
+    public class StageController : BaseStage
     {
-        instance.StageMaking(this);
-        instanceBox.CreateBox(this);
-    }
+        // Start is called before the first frame update
+        void Start()
+        {
+            instance.StageMaking(this);
+            instanceBox.CreateBox(this);
+        }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        // Update is called once per frame
+        void Update()
+        {
+            
+        }
     }
 }
