@@ -11,6 +11,7 @@ public class BasePlayer : MonoBehaviour
 
     // 選択しているタイル
     public GameObject ChooseObj;
+    public GameObject MoveCounter;
 
     // 移動中か
     public bool OnMove;

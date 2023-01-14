@@ -20,6 +20,7 @@ public class PlayerMove
             .OnStart(() => startMove(tmpPlayer));
 
             await tmpPlayerTween.AsyncWaitForCompletion();
+            tmpPlayer.MoveCounter.GetComponent<MoveCounter>().MoveCount++;
             compMove(tmpPlayer);
         }
 
