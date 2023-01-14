@@ -56,8 +56,16 @@ namespace Box
         {
             // プレイヤーを自身の方向に向けて移動させる
             InGameSceneController.Player.transform.LookAt(tmpBox.transform);
+            // x座標を固定
+            var tmpAngle = InGameSceneController.Player.transform.localEulerAngles;
+            tmpAngle.x = 0;
+            InGameSceneController.Player.transform.localEulerAngles = tmpAngle;
+            
+            // 移動
+            var tmpPos = tmpBox.transform.position;
+            tmpPos.y = InGameSceneController.Player.transform.position.y;
             InGameSceneController.Player.transform.DOMove(
-                tmpBox.transform.position, 
+                tmpPos, 
                 InGameSceneController.Player.PlayersData.PlayerMoveTime
             ).SetEase(Ease.OutSine).OnComplete(() => compMove(tmpBox));
         }
@@ -76,6 +84,9 @@ namespace Box
                 Const.BOX_MOVE_SPEED
                 ).SetEase(Ease.Linear).OnComplete(() =>
                 {
+                    // constrintsを初期化
+                    InGameSceneController.Player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+
                     // TODO : プレイヤーを初期位置に戻す挙動作成
                     Debug.Log("MoveComp");
                 });
