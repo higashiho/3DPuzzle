@@ -130,6 +130,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3454837243272536533, guid: 8d494f49ea1870747948cd7b0338c792, type: 3}
+      propertyPath: MoveCounter
+      value: 
+      objectReference: {fileID: 1811373447}
     - target: {fileID: 3454837243272536534, guid: 8d494f49ea1870747948cd7b0338c792, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -555,6 +559,7 @@ GameObject:
   - component: {fileID: 1811373448}
   - component: {fileID: 1811373450}
   - component: {fileID: 1811373449}
+  - component: {fileID: 1811373451}
   m_Layer: 5
   m_Name: MoveCounter
   m_TagString: Untagged
@@ -624,3 +629,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1811373447}
   m_CullTransparentMesh: 1
+--- !u!114 &1811373451
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1811373447}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22d79b78a1eafe5418a53843a83a4a0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MoveCount: 0
+  moveCountText: {fileID: 0}
