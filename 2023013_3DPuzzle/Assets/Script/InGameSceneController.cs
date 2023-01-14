@@ -8,9 +8,13 @@ public class InGameSceneController : MonoBehaviour
     // ステージ
     public static BaseStage Stages;
 
+    // Player
+    public static BasePlayer Player;
+
     // Start is called before the first frame update
     void Awake() 
     {
         Stages = GameObject.FindWithTag("Stage").GetComponent<BaseStage>();
+        Player = GameObject.FindWithTag("Player").GetComponent<BasePlayer>();
     }
 }

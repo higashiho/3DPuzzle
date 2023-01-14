@@ -10,6 +10,8 @@ public class InstanceStage
     {
         // num:生成オブジェクト個数
         int i = 0, num = 0;
+        // 最大値ー１
+        int tmpNum = tmpStage.StagesData.TileX - 1;
         // タイル生成個数とタイルのスケールより変数が低い場合は回す
         while (i < tmpStage.StagesData.TileX * tmpStage.PrefabTile[0].transform.localScale.x)
         {
@@ -26,8 +28,10 @@ public class InstanceStage
                 Vector3 pos = new Vector3(x, 0, y);
                 GameObject tile = MonoBehaviour.Instantiate(tmpStage.PrefabTile[idx], pos, Quaternion.identity, tmpStage.transform);
 
-                if(false);
-                tmpStage.Tiles[num++] = tile;
+                // 一番右と一番左以外を格納
+                if(i != 0 && i != tmpNum * tmpStage.PrefabTile[0].transform.localScale.x)
+                    tmpStage.Tiles[num++] = tile;
+                
                 // タイルのスケール分値を増やす
                 j += (int)tmpStage.PrefabTile[0].transform.localScale.y;
 

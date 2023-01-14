@@ -5,11 +5,10 @@ using UnityEngine;
 public class StageController : BaseStage
 {
     // Start is called before the first frame update
-    void Awake()
+    void Start()
     {
-        // 内部データ初期化
-        tiles = new GameObject[StagesData.TileX * StagesData.TileY];
         instance.StageMaking(this);
+        instanceBox.CreateBox(this);
     }
 
     // Update is called once per frame
