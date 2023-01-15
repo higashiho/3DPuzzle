@@ -25,9 +25,10 @@ public class PlayerMove
     
     public async void Move(BasePlayer tmpPlayer)
     {
-        // 回転中ならInput受け付けない
-        if(isRotate)    
+        // 回転中またはブロックが移動中ならInput受け付けない
+        if(isRotate || InGameSceneController.Stages.Moving)    
             return;
+
         input(tmpPlayer);
         tmpPlayer.OnMove = true;
         
@@ -38,18 +39,33 @@ public class PlayerMove
             await rotateMove(tmpPlayer, tmpPlayer.GetCancellationTokenOnDestroy()); // 回転
         }   
         
+        resetMoveValue(tmpPlayer);
         
+        
+    }
+
+    /// <summary>
+    /// Move()の変数を初期化する関数
+    /// </summary>
+    /// <param name="tmpPlayer"></param>Playerの実体
+    private void resetMoveValue(BasePlayer tmpPlayer)
+    {
+        var tmpPlayerPos = tmpPlayer.transform.position;
+        var tmpPosX = Mathf.RoundToInt(tmpPlayerPos.x);
+        var tmpPosY = Mathf.RoundToInt(tmpPlayerPos.y);
+        var tmpPosZ = Mathf.RoundToInt(tmpPlayerPos.z);
+        var tmpNewPos = new Vector3(tmpPosX, tmpPosY, tmpPosZ);
+        tmpPlayer.transform.position = tmpNewPos;
         moveCount = 0;  // 回転回数0
         moveFlag &= 0;  // moveFlag全部折る
         tmpPlayer.OnMove = false;
-        
     }
     
     /// <summary>
     /// プレイヤーの座標と移動先のタイルの座標を比較して移動する方向(十字)のフラグを立てる関数
     /// 何マス分移動するかの計算もこの中でする(calcBoxNum()を呼ぶ)
     /// </summary>
-    /// <param name="tmpPlayer"></param>プレイヤー
+    /// <param name="tmpPlayer"></param>プレイヤーの実体
     private void input(BasePlayer tmpPlayer)
     {
         Vector3 pos = tmpPlayer.transform.position;                 // 自身の座標取得
@@ -61,30 +77,33 @@ public class PlayerMove
             
             if(movePos != null)
             {
-                var tmpMovePos = (Vector3)movePos;  // 移動先の座標取得(キャスト用)
-
+                Vector3 tmpMovePos = (Vector3)movePos;  // 移動先の座標取得(キャスト用)
+                var tmpMovePosX = Mathf.RoundToInt(tmpMovePos.x);
+                var tmpMovePosZ = Mathf.RoundToInt(tmpMovePos.z);
+                var tmpPosX = Mathf.RoundToInt(pos.x);
+                var tmpPosZ = Mathf.RoundToInt(pos.z);
                 // 右
-                if((pos.x < tmpMovePos.x && (int)Mathf.Round(pos.z) == tmpMovePos.z))
+                if((tmpPosX < tmpMovePosX && tmpPosZ == tmpMovePosZ))
                 {
                     moveFlag |= Const.RIGHT;            // 移動方向フラグを立てる(右)
                     calcBoxNum(pos.x, tmpMovePos.x);    // 何マス分の移動か求める
                 }   
 
                 // 左
-                if((pos.x > tmpMovePos.x && (int)Mathf.Round(pos.z) == tmpMovePos.z))
+                if((tmpPosX > tmpMovePosX && tmpPosZ == tmpMovePosZ))
                 {
                     moveFlag |= Const.LEFT;             // 移動方向フラグを立てる(左)
                     calcBoxNum(pos.x, tmpMovePos.x);    // 何マス分の移動か求める
                 }
                     
                 // 上
-                if(((int)Mathf.Round(pos.x) == tmpMovePos.x && pos.z < tmpMovePos.z))
+                if((tmpPosX == tmpMovePosX && tmpPosZ < tmpMovePosZ))
                 {
                     moveFlag |= Const.FORWARD;          // 移動方向フラグを立てる(上)
                     calcBoxNum(pos.z, tmpMovePos.z);    // 何マス分の移動か求める
                 }
                 // 下
-                if((Mathf.Round(pos.x) == tmpMovePos.x && pos.z > tmpMovePos.z))
+                if((tmpPosX == tmpMovePosX && tmpPosZ > tmpMovePosZ))
                 {
                     moveFlag |= Const.BACK;             // 移動方向フラグを立てる(下)
                     calcBoxNum(pos.z, tmpMovePos.z);    // 何マス分の移動か求める
@@ -94,7 +113,7 @@ public class PlayerMove
     }
 
     /// <summary>
-    /// 移動する升の数を求める関数(moveCountに代入)
+    /// 移動するタイルの数を求める関数(moveCountに代入)
     /// ２つのオブジェクトの距離を測ってプレイヤーのサイズで割る
     /// </summary>
     /// <param name="point"></param>比較する座標(自身)
@@ -140,11 +159,6 @@ public class PlayerMove
         }
         return Vector3.zero;
     }
-    // public Vector3 SetRotatePoint(BasePlayer tmpPlayer)
-    // {
-    //     Vector3 rotatePos;
-    //     rotatePos = 
-    // }
     
     private async UniTask rotateMove(BasePlayer tmpPlayer, CancellationToken cancellation_token )
     {
