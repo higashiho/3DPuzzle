@@ -29,6 +29,7 @@ public class PlayerMove
         if(isRotate)    
             return;
         input(tmpPlayer);
+        tmpPlayer.OnMove = true;
         
         // moveCountの数だけループ
         for(int i = 0; i < moveCount; i++)
@@ -40,7 +41,7 @@ public class PlayerMove
         
         moveCount = 0;  // 回転回数0
         moveFlag &= 0;  // moveFlag全部折る
-        
+        tmpPlayer.OnMove = false;
         
     }
     
@@ -170,19 +171,12 @@ public class PlayerMove
 
             await UniTask.Yield(PlayerLoopTiming.Update, cancellation_token);
         }
-        
-        
-        
-        
-       
 
         // 回転中のフラグを倒す
         isRotate = false;
         rotatePoint = Vector3.zero;
         //rotateAxis = rotateAxisArr[4];
-        
-
-        
+     
     }
     // public async void Move(BasePlayer tmpPlayer)
     // {
