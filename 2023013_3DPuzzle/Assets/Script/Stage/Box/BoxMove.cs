@@ -17,6 +17,10 @@ namespace Box
             var tmpPos = tmpBox.transform.position;
             tmpPos.y = (float)tmpBox.PosY;
             tmpBox.transform.position = tmpPos;
+
+            // 移動中は色変更
+            if(InGameSceneController.Stages.Moving)
+                tmpBox.GetComponent<Renderer>().material.color = Color.magenta;
         }
         
         /// <summary>
@@ -52,8 +56,8 @@ namespace Box
             var tmpPos = tmpBox.transform.position - InGameSceneController.Player.transform.position;
 
             // 誤差で計算が出来ないためイントにキャスト
-            var tmpPosX = (int)Mathf.Round(tmpPos.x);
-            var tmpPosZ = (int)Mathf.Round(tmpPos.z);
+            var tmpPosX = Mathf.RoundToInt(tmpPos.x);
+            var tmpPosZ = Mathf.RoundToInt(tmpPos.z);
             // プレイヤーの周りにいる確認
             if(tmpPosX == Const.CHECK_POS_X || tmpPosX == -Const.CHECK_POS_X || tmpPosZ == Const.CHECK_POS_Z || tmpPosZ == -Const.CHECK_POS_Z)
             {
@@ -77,7 +81,7 @@ namespace Box
             // プレイヤーの座標一時保管
             var tmpPlayerPos = InGameSceneController.Player.transform.position;
             // ボックスの座標保管
-            var tmpBoxPos = tmpBox.transform.position;
+            var tmpTileObj = tmpBox.Tile;
 
 
             // プレイヤーを自身の方向に向けて移動させる
@@ -97,9 +101,9 @@ namespace Box
             {
                 // 座標をそろえる
                 InGameSceneController.Player.transform.position = tmpPos;
-
-                compMove(tmpBox, tmpPlayerPos, tmpBoxPos);
+                compMove(tmpBox, tmpPlayerPos, tmpTileObj);
             });
+            
         }
 
         /// <summary>
@@ -107,12 +111,12 @@ namespace Box
         /// </summary>
         /// <param name="tmpBox"></param> ボックスの実体
         /// <param name="tmpPos"></param> 押す前のプレイヤーの座標
-        /// <param name="tmpBoxPos"></panam> 押す前のボックスの位置
-        private void compMove(BaseBox tmpBox, Vector3 tmpPlayerPos, Vector3 tmpBoxPos)
+        /// <param name="tmpTileObj"></panam> 押す前のボックスの位置にあるタイル
+        private void compMove(BaseBox tmpBox, Vector3 tmpPlayerPos, GameObject tmpTileObj)
         {
             
             // Boxの座標移動
-            var tmpNewBoxPos = tmpBox.Tille.transform.position;
+            var tmpNewBoxPos = tmpBox.Tile.transform.position;
             tmpNewBoxPos.y = Const.BOX_POS_Y;
 
             // 移動開始
@@ -128,8 +132,14 @@ namespace Box
                     tmpBox.transform.position = tmpNewBoxPos;
 
                     // ボックスの位置が動いていなかったらプレイヤーを動作前の位置に戻す
-                    if(tmpBox.transform.position == tmpBoxPos)
-                        InGameSceneController.Player.transform.position = tmpPlayerPos;
+                    if(tmpBox.Tile == tmpTileObj)
+                    {
+                        var tmpPosX = Mathf.RoundToInt(tmpPlayerPos.x);
+                        var tmpPosY = Mathf.RoundToInt(tmpPlayerPos.y);
+                        var tmpPosZ = Mathf.RoundToInt(tmpPlayerPos.z);
+                        var tmpPlayerNewPos = new Vector3(tmpPosX, tmpPosY, tmpPosZ);
+                        InGameSceneController.Player.transform.position = tmpPlayerNewPos;
+                    }
                     Debug.Log("MoveComp");
                 });
         }
@@ -140,12 +150,14 @@ namespace Box
         /// <param name="tmpBox"></param> ボックスの実体
         private void compReset(BaseBox tmpBox)
         {
-            InGameSceneController.Stages.Moving = false;
-            InGameSceneController.Player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
 
             // 初期化
             tmpBox.transform.SetParent(tmpBox.Parent.transform);
             tmpBox.PosY = null;
+            InGameSceneController.Stages.Moving = false;
+            InGameSceneController.Player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+            tmpBox.GetComponent<Renderer>().material.color = tmpBox.StartColor;
+
 
             // ヴェロシティに値が入っている場合がある為初期化
             var tmpRb = tmpBox.GetComponent<Rigidbody>();
