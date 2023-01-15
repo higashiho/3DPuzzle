@@ -7,6 +7,8 @@ namespace Tile
 {
     public class ColTile : MonoBehaviour
     {
+        [SerializeField]
+        private BaseTile tile;
         // 当たり判定
         private void OnCollisionEnter(Collision col)
         {
@@ -15,6 +17,13 @@ namespace Tile
             {
                 Debug.Log("Enter");
                 col.gameObject.GetComponent<BaseBox>().TileActiveFlag = true;
+            }
+
+            // Boxとの判定
+            if(col.gameObject.tag == "Box")
+            {
+                // 移動可能フラグを折る
+                tile.OnMove = false;
             }
         }
         private void OnCollisionExit(Collision col)
@@ -31,6 +40,11 @@ namespace Tile
                 {
                     tmpObj.SetActive(false);
                 }
+            }
+
+            if(col.gameObject.tag == "Box")
+            {
+                tile.OnMove = true;
             }
         }
     }

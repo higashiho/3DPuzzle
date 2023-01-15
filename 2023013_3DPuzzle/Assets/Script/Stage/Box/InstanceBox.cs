@@ -7,7 +7,10 @@ namespace Box
 {
     public class InstanceBox
     {
-        // Box生成
+        /// <summary>
+        /// Box生成関数
+        /// </summary>
+        /// <param name="tmpStage"></param> ステージの実体
         public void CreateBox(BaseStage tmpStage)
         {
             int i = 0; 

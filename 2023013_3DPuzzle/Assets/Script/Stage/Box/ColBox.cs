@@ -25,7 +25,7 @@ namespace Box
                 box.Tille = col.gameObject;
             }
             // プレイヤーに当たった時の処理
-            if(col.gameObject.tag == "Player" && box.StartColor != Color.yellow)
+            if(col.gameObject.tag == "Player" && box.StartColor != Color.yellow && !col.gameObject.GetComponent<BasePlayer>().OnMove)
             {
                 
                 // 座標固定用変数代入
