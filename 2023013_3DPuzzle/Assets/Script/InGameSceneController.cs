@@ -17,4 +17,5 @@ public class InGameSceneController : MonoBehaviour
         Stages = GameObject.FindWithTag("Stage").GetComponent<BaseStage>();
         Player = GameObject.FindWithTag("Player").GetComponent<BasePlayer>();
     }
+
 }
