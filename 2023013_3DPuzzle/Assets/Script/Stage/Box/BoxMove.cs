@@ -16,14 +16,18 @@ namespace Box
             tmpPos.y = (float)tmpBox.PosY;
             tmpBox.transform.position = tmpPos;
         }
+        
         // 挙動
         public void Move(BaseBox tmpBox)
         {
             if(chack(tmpBox))  
             {
-                tmpBox.GetComponent<Renderer>().material.color = Color.green;
-                if(Input.GetMouseButtonDown(1))
-                    behavior(tmpBox);
+                if(tmpBox.GetComponent<Renderer>().material.color != Color.yellow)
+                {
+                    tmpBox.GetComponent<Renderer>().material.color = Color.green;
+                    if(Input.GetMouseButtonDown(1))
+                        behavior(tmpBox);
+                }
             }
             else   
                 tmpBox.GetComponent<Renderer>().material.color = tmpBox.StartColor;
@@ -38,8 +42,8 @@ namespace Box
             var tmpPos = tmpBox.transform.position - InGameSceneController.Player.transform.position;
 
             // 誤差で計算が出来ないためイントにキャスト
-            int tmpPosX = (int)Mathf.Round(tmpPos.x);
-            int tmpPosZ = (int)Mathf.Round(tmpPos.z);
+            var tmpPosX = (int)Mathf.Round(tmpPos.x);
+            var tmpPosZ = (int)Mathf.Round(tmpPos.z);
             // プレイヤーの周りにいる確認
             if(tmpPosX == Const.CHECK_POS_X || tmpPosX == -Const.CHECK_POS_X || tmpPosZ == Const.CHECK_POS_Z || tmpPosZ == -Const.CHECK_POS_Z)
             {
@@ -84,12 +88,27 @@ namespace Box
                 Const.BOX_MOVE_SPEED
                 ).SetEase(Ease.Linear).OnComplete(() =>
                 {
-                    // constrintsを初期化
-                    InGameSceneController.Player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+                    // 初期化
+                    compReset(tmpBox);
 
                     // TODO : プレイヤーを初期位置に戻す挙動作成
                     Debug.Log("MoveComp");
                 });
+        }
+
+        // 初期化
+        private void compReset(BaseBox tmpBox)
+        {
+            
+            InGameSceneController.Player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+
+            // 初期化
+            tmpBox.transform.SetParent(tmpBox.Parent.transform);
+            tmpBox.PosY = null;
+
+            // ヴェロシティに値が入っている場合がある為初期化
+            var tmpRb = tmpBox.GetComponent<Rigidbody>();
+            tmpRb.velocity = Vector3.zero;
         }
     }
 }

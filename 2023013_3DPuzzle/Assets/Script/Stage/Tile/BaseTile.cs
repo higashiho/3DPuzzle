@@ -17,7 +17,7 @@ namespace Stage
         //マウスカーソルがSphereに乗った時の処理
         private void OnMouseOver()
         {
-            if(!InGameSceneController.Player.OnMove)
+            if(!InGameSceneController.Player.OnMove && this.gameObject.tag != "SwitchTile")
             {
                 //Sphereの色を赤色に変化
                 this.GetComponent<Renderer>().material.color = Color.red;
