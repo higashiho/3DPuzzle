@@ -6,8 +6,10 @@ namespace Stage
 {
     public class InstanceStage
     {
-
-        // 生成処理
+        /// <summary>
+        /// 生成処理関数
+        /// </summary>
+        /// <param name="tmpStage"></param> ステージの実体
         public void StageMaking(BaseStage tmpStage)
         {
             // num:生成オブジェクト個数
@@ -58,8 +60,15 @@ namespace Stage
             }
         }
 
-        // 生成処理
-        // 第一引数：ステージのベース   第二引数：生成ｘ座標    第三引数：生成ｙ座標
+        /// <summary>
+        /// 生成処理関数
+        /// </summary>
+        /// <param name="tmpStage"></param> ステージの実体
+        /// <param name="i"></param>　生成ｘ座標
+        /// <param name="j"></param>　生成ｙ座標
+        /// <param name="tmpSwitchFlag"></param> スイッチを踏んでいるかフラグ
+        /// <param name="tmpBoxActive"></param> アクティブかどうかフラグ
+        /// <param name="tmpElement"></param> GoneTileの配列の要素数
         private void instance(BaseStage tmpStage, int i, int j, ref bool tmpSwitchFlag, bool tmpBoxActive, ref int tmpElement)
         {
             //作成
@@ -108,8 +117,12 @@ namespace Stage
             }
         }
     
-        // ステート更新
-        // 第一引数：ステージのベース   第二引数：周回最大数    第三引数：周回数
+        /// <summary>
+        /// ステート更新関数
+        /// </summary>
+        /// <param name="tmpStage"></param> ステージの実体
+        /// <param name="tmpMaxNum"></param> 周回最大数
+        /// <param name="tmpNum"></param> 周回数
         private void stateUpdate(BaseStage tmpStage, int tmpMaxNum, ref int tmpNum)
         {
              // 最後の一周はゴールステートに変更

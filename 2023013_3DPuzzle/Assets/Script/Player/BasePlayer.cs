@@ -14,5 +14,6 @@ public class BasePlayer : MonoBehaviour
     public GameObject MoveCounter;
 
     // 移動中か
-    public bool OnMove;
+    protected bool onMove = false;
+    public bool OnMove{get{return onMove;}set{onMove = value;}}
 }
