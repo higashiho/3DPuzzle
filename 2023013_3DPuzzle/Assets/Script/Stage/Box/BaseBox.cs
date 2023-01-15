@@ -29,10 +29,6 @@ namespace Box
         public bool TileActiveFlag{get{return tileActiveFlag;}set{tileActiveFlag = value;}}
 
         
-        // 移動中かフラグ
-        private bool moving = false;
-        public bool Moving{get{return moving;}set{moving = value;}}
-        
         //マウスカーソルがSphereに乗った時の処理
         private void OnMouseOver()
         {

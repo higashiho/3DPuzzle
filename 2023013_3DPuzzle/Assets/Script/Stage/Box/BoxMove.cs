@@ -28,7 +28,7 @@ namespace Box
             if(chack(tmpBox))  
             {
                 // 移動不可オブジェクトじゃなくて挙動中じゃない場合
-                if(tmpBox.GetComponent<Renderer>().material.color != Color.yellow && !tmpBox.Moving)
+                if(tmpBox.GetComponent<Renderer>().material.color != Color.yellow && !InGameSceneController.Stages.Moving)
                 {
                     tmpBox.GetComponent<Renderer>().material.color = Color.green;
                     if(Input.GetMouseButtonDown(1))
@@ -72,7 +72,7 @@ namespace Box
         private void behavior(BaseBox tmpBox)
         {
             // 動いているフラグを立てる
-            tmpBox.Moving = true;
+            InGameSceneController.Stages.Moving = true;
 
             // プレイヤーの座標一時保管
             var tmpPlayerPos = InGameSceneController.Player.transform.position;
@@ -140,7 +140,7 @@ namespace Box
         /// <param name="tmpBox"></param> ボックスの実体
         private void compReset(BaseBox tmpBox)
         {
-            tmpBox.Moving = false;
+            InGameSceneController.Stages.Moving = false;
             InGameSceneController.Player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
 
             // 初期化
