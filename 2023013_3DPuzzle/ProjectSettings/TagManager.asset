@@ -5,7 +5,11 @@ TagManager:
   serializedVersion: 2
   tags:
   - Stage
-  - Tilles
+  - Tiles
+  - StartTile
+  - GoalTile
+  - Box
+  - SwitchTile
   layers:
   - Default
   - TransparentFX
