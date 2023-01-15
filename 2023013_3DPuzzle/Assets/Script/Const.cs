@@ -6,6 +6,10 @@ public class Const : MonoBehaviour
 {
     // 以下プレイヤー定数
     public const float PLAYER_POSY = 3f;
+    public const uint RIGHT = 0x0000;
+    public const uint LEFT = 0x0001;
+    public const uint FORWARD = 0x0002;
+    public const uint BACK = 0x0004;
     // 以上プレイヤー定数
 
     // 以下Box用定数
