@@ -23,6 +23,10 @@ namespace Box
         // y座標固定用
         protected float? posY = null;
         public float? PosY{get{return posY;}set{posY = value;}}
+
+        // 消えているタイルを表示できるかフラグ
+        protected bool tileActiveFlag = false;
+        public bool TileActiveFlag{get{return tileActiveFlag;}set{tileActiveFlag = value;}}
         
         //マウスカーソルがSphereに乗った時の処理
         private void OnMouseOver()
@@ -37,6 +41,10 @@ namespace Box
             this.GetComponent<Renderer>().material.color = startColor;
 
         }
+
+        // 移動中かフラグ
+        protected bool moving = false;
+        public bool Moving{get{return moving;}set{moving = value;}}
 
         // インスタンス化
         protected BoxMove boxMove = new BoxMove();
