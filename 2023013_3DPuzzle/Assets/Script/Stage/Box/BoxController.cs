@@ -14,7 +14,11 @@ namespace Box
             if(tmpNum != 0)
                 StartColor = this.GetComponent<Renderer>().material.color;
             else
+            {
                 StartColor = Color.yellow;
+                this.GetComponent<Renderer>().material.color = startColor;
+            }
+
 
             Parent = this.transform.parent.gameObject;
         }

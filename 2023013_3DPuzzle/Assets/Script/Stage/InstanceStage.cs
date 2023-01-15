@@ -14,8 +14,11 @@ namespace Stage
             int i = 0;
             // 周回回数
             var tmpNum = 0;
-            // 最大数ー2
-            var tmpMaxNum = tmpStage.StagesData.TileX - 2;
+            // 最大数ー1
+            var tmpMaxNum = tmpStage.StagesData.TileX - 1;
+
+            // 格納個数
+            var tmpElement = 0;
             
             // スイッチフラグ
             var tmpSwitchFlag = false;
@@ -30,7 +33,7 @@ namespace Stage
                 while (j < tmpStage.StagesData.TileY * tmpStage.PrefabTile[0].transform.localScale.y)
                 {
                     // 生成処理
-                    instance(tmpStage, i, j, ref tmpSwitchFlag, tmpBoxActive);
+                    instance(tmpStage, i, j, ref tmpSwitchFlag, tmpBoxActive, ref tmpElement);
                     
                     // タイルのスケール分値を増やす
                     j += (int)tmpStage.PrefabTile[0].transform.localScale.y;
@@ -57,7 +60,7 @@ namespace Stage
 
         // 生成処理
         // 第一引数：ステージのベース   第二引数：生成ｘ座標    第三引数：生成ｙ座標
-        private void instance(BaseStage tmpStage, int i, int j, ref bool tmpSwitchFlag, bool tmpBoxActive)
+        private void instance(BaseStage tmpStage, int i, int j, ref bool tmpSwitchFlag, bool tmpBoxActive, ref int tmpElement)
         {
             //作成
             int idx = (i + j) % tmpStage.PrefabTile.Length;
@@ -72,6 +75,8 @@ namespace Stage
 
             // Active更新
             tile.SetActive(tmpBoxActive);
+            if(!tmpBoxActive)
+                tmpStage.GoneTile[tmpElement++] = tile;
 
             // スタート位置とゴール位置のオブジェクトのタグを変更
             switch(tmpStage.InstanceStatus)

@@ -14,7 +14,7 @@ namespace Box
         private void OnCollisionEnter(Collision col)
         {
             // タイルに当たった時の処理
-            if(col.gameObject.tag == "Tiles")
+            if(col.gameObject.tag == "Tiles" || col.gameObject.tag == "SwitchTile")
             {
                 // フリーズポジションがオンになっていない場合
                 var tmpRb = this.GetComponent<Rigidbody>();
@@ -25,7 +25,7 @@ namespace Box
                 box.Tille = col.gameObject;
             }
             // プレイヤーに当たった時の処理
-            if(col.gameObject.tag == "Player")
+            if(col.gameObject.tag == "Player" && box.StartColor != Color.yellow)
             {
                 
                 // 座標固定用変数代入
