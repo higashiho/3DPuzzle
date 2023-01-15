@@ -10,7 +10,7 @@ public class BasePlayer : MonoBehaviour
     public PlayerData PlayersData{get{return playerData;}private set{playerData = value;}}
 
     // 選択しているタイル
-    public GameObject ChooseObj;
+    public GameObject ChooseObj = null;
     public GameObject MoveCounter;
 
     // 移動中か

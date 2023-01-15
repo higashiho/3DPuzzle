@@ -8,11 +8,20 @@ using System.Threading;
 public class PlayerMove 
 {
     private Vector3 rotatePoint = Vector3.zero; // 回転中心
-    private Vector3 rotateAxis = Vector3.zero;  // 回転軸
+    private Vector3 rotateAxis;
+    private Vector3[] rotateAxisArr =   // 回転軸
+    {
+        new Vector3(0, 0, -1),      // 右
+        new Vector3(0, 0, 1),       // 左
+        new Vector3(1, 0, 0),       // 上
+        new Vector3(-1, 0, 0),      // 下
+        Vector3.zero                // ０
+    };
     private float cubeAngle = 0f;               // 回転角度
     private int moveCount = 0;  // 移動回数
     private float cubeSizeHalf = 2.5f;     // キューブ半分のサイズ
-    private bool isRotate = false;  // 回転中に立つフラグ(タスク)        
+    private bool isRotate = false;  // 回転中に立つフラグ(タスク) 
+    private uint moveFlag = 0;       
 
     public async void Move(BasePlayer tmpPlayer)
     {
@@ -20,75 +29,112 @@ public class PlayerMove
         
         if(isRotate)
             return;
-        if(Input.GetMouseButtonDown(0))
+        
+        
+        if(Input.GetMouseButtonDown(0) )
         {
-            Vector3 movePos = tmpPlayer.ChooseObj.transform.position;   // 移動先の座標取得
+            Vector3? movePos = tmpPlayer.ChooseObj?.transform.position;   // 移動先の座標取得
             
                 // 右
-            if((pos.x < movePos.x && pos.z == movePos.z))
+            if(movePos != null)
             {
-                moveCount = (int)((movePos.x - pos.x) / (cubeSizeHalf * 2));    // 移動回数設定
+                var tmpMovePos = (Vector3)movePos;  // 移動先の座標取得(キャスト用)
+                if((pos.x < tmpMovePos.x && (int)Mathf.Round(pos.z) == tmpMovePos.z))
+                {
+                    moveCount = (int)((tmpMovePos.x - pos.x) / (cubeSizeHalf * 2));    // 移動回数設定
+                    moveFlag |= Const.RIGHT;
+                        //rotatePoint = new Vector3(cubeSizeHalf, -cubeSizeHalf, 0f);
+                        rotateAxis = rotateAxisArr[0];
+
+                }
+                // 左
+                if((pos.x > tmpMovePos.x && (int)Mathf.Round(pos.z) == tmpMovePos.z))
+                {
+                    moveCount = (int)((pos.x - tmpMovePos.x) / (cubeSizeHalf * 2));
+                    moveFlag |= Const.LEFT;
+                    //rotatePoint = new Vector3(-cubeSizeHalf, -cubeSizeHalf, 0f);
+                    rotateAxis = rotateAxisArr[1];
+                    
+                }
+                // 上
+                if(((int)Mathf.Round(pos.x) == tmpMovePos.x && pos.z < tmpMovePos.z))
+                {
+                    moveCount = (int)((tmpMovePos.z - pos.z) / (cubeSizeHalf * 2));
+                    moveFlag |= Const.FORWARD;
+                        //rotatePoint = new Vector3(0f, -cubeSizeHalf, cubeSizeHalf);
+                        rotateAxis = rotateAxisArr[2];
+                    
+                }
+                // 下
+                if((Mathf.Round(pos.x) == tmpMovePos.x && pos.z > tmpMovePos.z))
+                {
+                    moveCount = (int)((pos.z - tmpMovePos.z) / (cubeSizeHalf * 2));
+                    moveFlag |= Const.BACK;
+                    //rotatePoint = new Vector3(0f, -cubeSizeHalf, -cubeSizeHalf);
+                    rotateAxis = rotateAxisArr[3];
+                    
+                }
                 
-                for(int i = 0; i < moveCount; i++)
-                {
-                    rotatePoint = tmpPlayer.transform.position + new Vector3(cubeSizeHalf, -cubeSizeHalf, 0f);
-                    rotateAxis = new Vector3 (0, 0, -1);
-                }
-
             }
-            // 左
-            if((pos.x > movePos.x && pos.z == movePos.z))
-            {
-                moveCount = (int)((pos.x - movePos.x) / cubeSizeHalf * 2);
-                for(int i = 0; i < moveCount; i++)
-                {
-                    rotatePoint = tmpPlayer.transform.position + new Vector3(-cubeSizeHalf, -cubeSizeHalf, 0f);
-                    rotateAxis = new Vector3(0, 0, 1);
-                }
-            }
-            // 上
-            if((pos.x == movePos.x && pos.z < movePos.z))
-            {
-                Debug.Log("a");
-                moveCount = (int)((movePos.z - pos.z) / (cubeSizeHalf * 2));
-                for(int i = 0; i < moveCount; i++)
-                {
-                    rotatePoint = tmpPlayer.transform.position + new Vector3(0f, -cubeSizeHalf, cubeSizeHalf);
-                    rotateAxis = new Vector3(1, 0, 0);
-                }
-            }
-            // 下
-            if((pos.x == movePos.x && pos.z > movePos.z))
-            {
-                moveCount = (int)((pos.z - movePos.z) / (cubeSizeHalf * 2));
-                for(int i = 0; i < moveCount; i++)
-                {
-                    rotatePoint = tmpPlayer.transform.position + new Vector3(0f, -cubeSizeHalf, -cubeSizeHalf);
-                    rotateAxis = new Vector3 (-1, 0, 0);
-                }
-            }
+            
         }
-         
+
+        for(int i = 0; i < moveCount; i++)
+        {
+            rotatePoint = tmpPlayer.transform.position + setRotatePointOffset(moveFlag);
+            await rotateMove(tmpPlayer, tmpPlayer.GetCancellationTokenOnDestroy());
+        }   
         
-       
-
-        if (rotatePoint == Vector3.zero)
-			return;
-
-        await rotateMove(tmpPlayer, tmpPlayer.GetCancellationTokenOnDestroy());
+        
+        moveCount = 0;
+        moveFlag &= 0;
+        
         
     }
-    
-    public async UniTask rotateMove(BasePlayer tmpPlayer, CancellationToken cancellation_token )
+    private Vector3 setRotatePointOffset(uint moveFlag)
     {
+        Vector3 point;
+        switch(moveFlag)
+        {
+            case Const.RIGHT:
+                point = new Vector3(cubeSizeHalf, -cubeSizeHalf, 0f);
+                return point;
+                
+            case Const.LEFT:
+                point = new Vector3(-cubeSizeHalf, -cubeSizeHalf, 0f);
+                return point;
+            
+            case Const.FORWARD:
+                point = new Vector3(0f, -cubeSizeHalf, cubeSizeHalf);
+                return point;
+            
+            case Const.BACK:
+                point = new Vector3(0f, -cubeSizeHalf, -cubeSizeHalf);
+                return point;
+            default:
+                break;
+                
+        }
+        return Vector3.zero;
+    }
+    // public Vector3 SetRotatePoint(BasePlayer tmpPlayer)
+    // {
+    //     Vector3 rotatePos;
+    //     rotatePos = 
+    // }
+    private async UniTask rotateMove(BasePlayer tmpPlayer, CancellationToken cancellation_token )
+    {
+        
         // 回転中のフラグを立てる
         isRotate = true;
 
         // 回転処理
+        
         float sumAngle = 0f;    // angleの合計を保存
+            
         while(sumAngle < 90f)
         {
-            cubeAngle = 15f;    // 回転速度
+            cubeAngle = 3f;    // 回転速度
             sumAngle += cubeAngle;
 
             // 90°以上回転しないように値を制限
@@ -96,17 +142,24 @@ public class PlayerMove
             {
                 cubeAngle -= sumAngle - 90f;
             }
+            
             tmpPlayer.transform.RotateAround(rotatePoint, rotateAxis, cubeAngle);
 
             await UniTask.Yield(PlayerLoopTiming.Update, cancellation_token);
         }
+        
+        
+        
+        
+       
 
         // 回転中のフラグを倒す
         isRotate = false;
         rotatePoint = Vector3.zero;
-        rotateAxis = Vector3.zero;
+        //rotateAxis = rotateAxisArr[4];
+        
 
-        return;
+        
     }
     // public async void Move(BasePlayer tmpPlayer)
     // {
