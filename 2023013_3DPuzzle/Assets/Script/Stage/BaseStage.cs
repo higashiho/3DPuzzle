@@ -21,6 +21,10 @@ namespace Stage
         [SerializeField, Header("生成したオブジェクト")]
         protected GameObject[] tiles;
         public GameObject[] Tiles{get {return tiles;}private set{tiles = value;}}
+        
+        // ボックスが移動中かフラグ
+        private bool moving = false;
+        public bool Moving{get{return moving;}set{moving = value;}}
 
         // 生成タイル判断用
         public enum InstanceState
@@ -43,6 +47,8 @@ namespace Stage
         [SerializeField, Header("消えているTile")]
         protected GameObject[] goneTile = new GameObject[10];
         public GameObject[] GoneTile{get{return goneTile;}private set{goneTile = value;}}
+
+
         // インスタンス化
         protected InstanceStage instance = new InstanceStage();
         protected InstanceBox instanceBox = new InstanceBox();
