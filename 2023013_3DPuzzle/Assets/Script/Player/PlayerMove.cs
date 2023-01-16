@@ -121,6 +121,8 @@ public class PlayerMove
     private void calcBoxNum(float point, float otherPoint)
     {
         moveCount = (int)((Mathf.Abs(point - otherPoint)) / (cubeSizeHalf * 2));
+        if(moveCount > 2)
+            moveCount = 2;
     }
 
     /// <summary>
