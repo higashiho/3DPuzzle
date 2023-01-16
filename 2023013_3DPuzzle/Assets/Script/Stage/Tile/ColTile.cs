@@ -24,6 +24,8 @@ namespace Tile
             {
                 // 移動可能フラグを折る
                 tile.OnMove = false;
+                // Boxが上にあるフラグ立てる
+                tile.OnBlock = true;
             }
         }
         private void OnCollisionExit(Collision col)
@@ -45,6 +47,7 @@ namespace Tile
             if(col.gameObject.tag == "Box")
             {
                 tile.OnMove = true;
+                tile.OnBlock = false;
             }
         }
     }
