@@ -18,6 +18,7 @@ public class Const : MonoBehaviour
     public const int CHECK_POS_Z = 5;           // 接地判定用
     public const float BOX_MOVE_SPEED = 3f;     // プレイヤーに押された際に移動するまでの時間
     public const float BOX_POS_Y = 4.5f;        // BoxのY座標
+    public const float CUBE_SIZE_HALF = 2.5f;   // Boxな半分のサイズ
     // 以上Box用定数
 
 }
