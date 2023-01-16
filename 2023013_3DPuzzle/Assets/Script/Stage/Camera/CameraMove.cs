@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class CameraMove
 {
-    // 挙動
+    /// <summary>
+    /// 挙動関数
+    /// </summary>
+    /// <param name="tmpCamera"></param> カメラの実体
     public void Move(BaseCamera tmpCamera)
     {
         // キーを押したら表示していない方のカメラを表示

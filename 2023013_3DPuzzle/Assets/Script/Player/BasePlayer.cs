@@ -10,9 +10,11 @@ public class BasePlayer : MonoBehaviour
     public PlayerData PlayersData{get{return playerData;}private set{playerData = value;}}
 
     // 選択しているタイル
-    public GameObject ChooseObj;
-    public GameObject MoveCounter;
+    protected GameObject chooseObj;
+    public GameObject ChooseObj{get{return chooseObj;}set{chooseObj = value;}}
+    
 
     // 移動中か
-    public bool OnMove;
+    protected bool onMove = false;
+    public bool OnMove{get{return onMove;}set{onMove = value;}}
 }
