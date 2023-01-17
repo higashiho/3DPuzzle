@@ -7,21 +7,7 @@ namespace Box
 {
     public class BoxMove
     {
-        /// <summary>
-        /// y座標固定関数
-        /// </summary>
-        /// <param name="tmpBox"></param> ボックスの実体
-        public void FixationPosY(BaseBox tmpBox)
-        {
-            // y座標を一定値で固定する
-            var tmpPos = tmpBox.transform.position;
-            tmpPos.y = (float)tmpBox.PosY;
-            tmpBox.transform.position = tmpPos;
-
-            // 移動中は色変更
-            if(InGameSceneController.Stages.Moving)
-                tmpBox.GetComponent<Renderer>().material.color = Color.magenta;
-        }
+       
         
         /// <summary>
         /// 挙動関数
@@ -72,7 +58,7 @@ namespace Box
         /// <summary>
         /// Boxの挙動関数
         /// </summary>
-        /// <param name="tmpBox"></param> ボックスの実体
+        /// <param name="tmpBox">ボックスの実体</param> 
         private void behavior(BaseBox tmpBox)
         {
             // 動いているフラグを立てる
@@ -109,15 +95,15 @@ namespace Box
         /// <summary>
         /// プレイヤーがBoxを押す動作が終わった時の関数
         /// </summary>
-        /// <param name="tmpBox"></param> ボックスの実体
-        /// <param name="tmpPos"></param> 押す前のプレイヤーの座標
-        /// <param name="tmpTileObj"></panam> 押す前のボックスの位置にあるタイル
+        /// <param name="tmpBox">ボックスの実体</param> 
+        /// <param name="tmpPos">押す前のプレイヤーの座標</param> 
+        /// <param name="tmpTileObj">押す前のボックスの位置にあるタイル</panam> 
         private void compMove(BaseBox tmpBox, Vector3 tmpPlayerPos, GameObject tmpTileObj)
         {
             
             // Boxの座標移動
             var tmpNewBoxPos = tmpBox.Tile.transform.position;
-            tmpNewBoxPos.y = Const.BOX_POS_Y;
+            tmpNewBoxPos.y = tmpBox.transform.position.y;
 
             // 移動開始
             tmpBox.transform.DOMove(
@@ -147,7 +133,7 @@ namespace Box
         /// <summary>
         /// 挙動終了時の初期化関数
         /// </summary>
-        /// <param name="tmpBox"></param> ボックスの実体
+        /// <param name="tmpBox">ボックスの実体</param>
         private void compReset(BaseBox tmpBox)
         {
 

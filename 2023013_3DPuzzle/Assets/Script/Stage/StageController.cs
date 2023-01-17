@@ -10,7 +10,8 @@ namespace Stage
         void Start()
         {
             // ステージ生成
-            instance.StageMaking(this);
+            for (int i = 0; i < 4; i++)
+                instance.StageMaking(this, i);
             tiles = GameObject.FindGameObjectsWithTag("Tiles");
 
             instanceBox.CreateBox(this);

@@ -160,7 +160,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3454837243272536534, guid: 8d494f49ea1870747948cd7b0338c792, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 3454837243272536534, guid: 8d494f49ea1870747948cd7b0338c792, type: 3}
       propertyPath: m_LocalPosition.z
@@ -197,6 +197,10 @@ PrefabInstance:
     - target: {fileID: 3454837243272536555, guid: 8d494f49ea1870747948cd7b0338c792, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 3454837243272536555, guid: 8d494f49ea1870747948cd7b0338c792, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8d494f49ea1870747948cd7b0338c792, type: 3}
@@ -609,6 +613,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 930656240, guid: 1bd7cf68ce4ebb24db45b71cc0db38e9, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 39
+      objectReference: {fileID: 0}
+    - target: {fileID: 930656241, guid: 1bd7cf68ce4ebb24db45b71cc0db38e9, type: 3}
+      propertyPath: field of view
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 963194227, guid: 1bd7cf68ce4ebb24db45b71cc0db38e9, type: 3}
+      propertyPath: field of view
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 963194228, guid: 1bd7cf68ce4ebb24db45b71cc0db38e9, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -14
+      objectReference: {fileID: 0}
+    - target: {fileID: 1153840931, guid: 1bd7cf68ce4ebb24db45b71cc0db38e9, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 19.34
+      objectReference: {fileID: 0}
     - target: {fileID: 302579731704811697, guid: 1bd7cf68ce4ebb24db45b71cc0db38e9, type: 3}
       propertyPath: m_Name
       value: Stage

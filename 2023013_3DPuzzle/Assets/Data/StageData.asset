@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: StageData
   m_EditorClassIdentifier: 
   tileX: 10
-  tileY: 10
+  tileZ: 10
+  tileY: 4
   boxsNum: 25
