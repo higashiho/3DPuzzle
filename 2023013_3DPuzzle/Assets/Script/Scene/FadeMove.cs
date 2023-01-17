@@ -1,18 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class FadeMove : MonoBehaviour
+namespace Scene
 {
-    // Start is called before the first frame update
-    void Start()
+    public class FadeMove
     {
-        
-    }
+        //フェードイン・ロードシーン・フェードアウト
+        public void FadeIn(BaseScene tmpScene, string tmpSceneName)
+        {
+                if(Input.GetKeyDown(KeyCode.Return))
+                {
+                    tmpScene.fadePanel.DOFade(endValue: Const.FADE_END_VALUE,duration: Const.FADE_TIMER).SetEase(Ease.Linear).OnComplete(() =>
+                    {
+                        SceneManager.LoadScene(tmpSceneName);
+                        fadeOut(tmpScene);
+                    });
+                }
+        }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+            //フェードアウト
+        private void fadeOut(BaseScene tmpScene)
+        {
+            tmpScene.fadePanel.DOFade(endValue: 0,duration: Const.FADE_TIMER).SetEase(Ease.Linear);
+        }
     }
 }

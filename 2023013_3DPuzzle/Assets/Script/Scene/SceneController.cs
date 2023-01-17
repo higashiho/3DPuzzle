@@ -1,31 +1,57 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class SceneController : BaseScene
+namespace Scene
 {
-    public static BaseScene  tmpScene{get; private set;}
-
-    void Awake()
+    public class SceneController : BaseScene
     {
-        if(tmpScene != null)
+        //自分を入れる用
+        public static BaseScene  tmpScene{get; set;}
+
+
+        void Awake()
         {
-            Destroy(this.gameObject);
-            return;
+            //複数生成を避ける
+            if(tmpScene != null)
+            {
+                Destroy(this.gameObject);
+                return;
+            }
+            tmpScene = this;
+            DontDestroyOnLoad(this);
         }
-        tmpScene = this;
-        DontDestroyOnLoad(this);
-    }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+        // Start is called before the first frame update
+        void Start()
+        {
+            
+        }
 
-    // Update is called once per frame
-    void Update()
-    {
-        SecenTitle.titleMove(this);
+        // Update is called once per frame
+        void Update()
+        {
+            //各シーンごとの処理(フェードとシーン切り替え)
+            switch(StateScene)
+            {
+                case BaseScene.SceneState.Title:
+                    titleSceneMove.Move(this);
+                break;
+
+                case BaseScene.SceneState.MainFinish:
+                    mainSceneMove.Move(this);
+                break;
+
+                case BaseScene.SceneState.End:
+                    endSceneMove.Move(this);
+                break;
+
+                default:
+                break;
+            }
+
+
+        }
     }
 }

@@ -22,7 +22,7 @@ public class Const : MonoBehaviour
 
     //以下タイトル定数
     public const float FADE_END_VALUE = 1.0f;   //透明度の最大値
-    public const float FADE_TIMER = 3.0f;       //フェードアウト終わるまでの時間
+    public const float FADE_TIMER = 2.0f;       //フェードアウト終わるまでの時間
     //以上タイトル定数
 
 }
