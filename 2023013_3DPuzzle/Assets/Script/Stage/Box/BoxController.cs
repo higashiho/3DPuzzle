@@ -10,7 +10,7 @@ namespace Box
         void Start()
         {
             // 初期代入
-            var tmpNum = UnityEngine.Random.Range(0,2);
+            var tmpNum = UnityEngine.Random.Range(0, Const.BOX_DONT_MOVE_NUM);
             if(tmpNum != 0)
                 StartColor = this.GetComponent<Renderer>().material.color;
             else
