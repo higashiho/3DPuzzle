@@ -29,13 +29,13 @@ namespace Box
         public bool TileActiveFlag{get{return tileActiveFlag;}set{tileActiveFlag = value;}}
 
         
-        //マウスカーソルがSphereに乗った時の処理
+        //マウスカーソルがBoxに乗った時の処理
         private void OnMouseOver()
         {
             boxMove.Move(this);
         }
 
-        //マウスカーソルがSphereの上から離れた時の処理
+        //マウスカーソルがBoxの上から離れた時の処理
         private void OnMouseExit()
         {
             //Sphereの色が元の色に戻す

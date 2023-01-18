@@ -81,7 +81,6 @@ namespace Stage
             // 上段の場合は半分のみ作成
             if(tmpPosY == tmpMaxNum)
             {
-                Debug.Log(tmpHalfNum);
                 if(i <= tmpHalfNum)
                     return;
             }

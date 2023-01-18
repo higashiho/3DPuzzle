@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Box
 {
-    public class StairsController : BaseStairs
+    public class MoveStageController : BaseMoveStage
     {
         // Start is called before the first frame update
         void Start()

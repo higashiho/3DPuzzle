@@ -1,16 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 namespace Box
 {
-    public class BaseStairs : MonoBehaviour
+    public class BaseMoveStage : MonoBehaviour
     {
         // 初期マテリアルカラー取得
         [SerializeField, Header("初期色")]
         protected Color startColor;
         public Color StartColor{get{return startColor;}set{startColor = value;}}
 
+        // 挙動前の座標
+        protected Vector3 lastAngle;
+        public Vector3 LastAngle{get{return lastAngle;}set{lastAngle = value;}}
+
+        // 挙動中のTween
+        protected Tween nowTween = null;
+        public Tween NowTween{get{return nowTween;}set{nowTween = value;}}
 
         //マウスカーソルが階段に乗った時の処理
         private void OnMouseOver()
@@ -28,6 +36,6 @@ namespace Box
 
 
         // インスタンス化
-        protected StairsMove scaleMode = new StairsMove();
+        protected MoveStageMove scaleMode = new MoveStageMove();
     }
 }
