@@ -34,12 +34,27 @@ namespace Box
 
         private void fall(BaseStairs tmpStairs)
         {
+            // 自身の今の向きを取得
+            var tmpAngle = tmpStairs.transform.parent.transform.localEulerAngles;
+            
             // 右クリックで右回転
             if(Input.GetMouseButtonDown(1))
-                tmpStairs.transform.DORotate()
+            {
+                // 何度回すか
+                var tmpSetAngl = Const.ONE_ROUND / 4;
 
+                tmpAngle.x += tmpSetAngl;
+                tmpStairs.transform.transform.parent.transform.DORotate(tmpAngle,3).SetEase(Ease.InOutCubic);
+            }
             // 左クリックで左回転
             else if(Input.GetMouseButtonDown(0))
+            {
+                 // 何度回すか
+                var tmpSetAngl = -Const.ONE_ROUND / 4;
+
+                tmpAngle.x += tmpSetAngl;
+                tmpStairs.transform.transform.parent.transform.DORotate(tmpAngle,3).SetEase(Ease.InOutCubic);
+            }
         }
     }
 }

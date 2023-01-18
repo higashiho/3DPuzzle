@@ -21,4 +21,8 @@ public class Const
     public const int BOX_DONT_MOVE_NUM = 3;   // 動かせないボックスの比率最大数（1/3で出現）
     // 以上Box用定数
 
+
+    // 以下回転用定数
+    public const int ONE_ROUND = 360;       // 一周
+    // 以上回転用定数
 }
