@@ -10,7 +10,9 @@ namespace Stage
         [SerializeField, Header("tileのデータ")]
         protected StageData stageData;
         public StageData StagesData{get{return stageData;}private set{stageData = value;}}
-
+        [SerializeField, Header("タイルの親")]
+        protected GameObject tileParent;
+        public GameObject TileParemt{get{return tileParent;}private set{tileParent = value;}}
         
         //タイルのプレハブ
         [SerializeField, Header("タイルのプレファブ")]
@@ -45,7 +47,7 @@ namespace Stage
         public GameObject Boxs{get{return boxs;}private set{boxs = value;}}
 
         [SerializeField, Header("消えているTile")]
-        protected GameObject[] goneTile = new GameObject[10];
+        protected GameObject[] goneTile = new GameObject[30];
         public GameObject[] GoneTile{get{return goneTile;}private set{goneTile = value;}}
 
 

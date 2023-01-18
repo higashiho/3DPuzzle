@@ -13,8 +13,8 @@ namespace Box
         public Color StartColor{get{return startColor;}set{startColor = value;}}
 
         [SerializeField, Header("プレイヤーに押された時の移動先タイル")]
-        private GameObject tille;
-        public GameObject Tille{get{return tille;}set{tille = value;}}
+        private GameObject tile;
+        public GameObject Tile{get{return tile;}set{tile = value;}}
 
         [SerializeField, Header("親オブジェクト")]
         protected GameObject parent;
