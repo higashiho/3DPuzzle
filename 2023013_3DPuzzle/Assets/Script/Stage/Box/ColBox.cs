@@ -22,7 +22,7 @@ namespace Box
                 {   
                     tmpRb.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotation;
                 }
-                box.Tille = col.gameObject;
+                box.Tile = col.gameObject;
             }
             // プレイヤーに当たった時の処理
             if(col.gameObject.tag == "Player" && box.StartColor != Color.yellow && !col.gameObject.GetComponent<BasePlayer>().OnMove)

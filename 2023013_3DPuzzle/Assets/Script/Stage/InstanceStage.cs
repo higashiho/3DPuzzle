@@ -9,15 +9,12 @@ namespace Stage
         /// <summary>
         /// 生成処理関数
         /// </summary>
-        /// <param name="tmpStage"></param> ステージの実体
-        public void StageMaking(BaseStage tmpStage)
+        /// <param name="tmpStage">ステージの実体</param> 
+        public void StageMaking(BaseStage tmpStage, int tmpPosY)
         {
-            // num:生成オブジェクト個数
-            int i = 0;
-            // 周回回数
-            var tmpNum = 0;
             // 最大数ー1
-            var tmpMaxNum = tmpStage.StagesData.TileX - 1;
+            var tmpMaxNum = tmpStage.StagesData.TileX;
+            tmpMaxNum--;
 
             // 格納個数
             var tmpElement = 0;
@@ -29,58 +26,77 @@ namespace Stage
             // Activeかどうかフラグ
             var tmpBoxActive = true;
             // タイル生成個数とタイルのスケールより変数が低い場合は回す
-            while (i < tmpStage.StagesData.TileX * tmpStage.PrefabTile[0].transform.localScale.x)
+            for (int i = 0; i < tmpStage.StagesData.TileX; i++)
             {
-                int j = 0; 
-                while (j < tmpStage.StagesData.TileY * tmpStage.PrefabTile[0].transform.localScale.y)
+                // 一週目は更新が必要ないので更新しない
+                if(i != 0)
+                    // ステート更新
+                    stateUpdate(tmpStage, tmpMaxNum, i);
+                for (int j = 0; j < tmpStage.StagesData.TileZ; j++)
                 {
                     // 生成処理
-                    instance(tmpStage, i, j, ref tmpSwitchFlag, tmpBoxActive, ref tmpElement);
-                    
-                    // タイルのスケール分値を増やす
-                    j += (int)tmpStage.PrefabTile[0].transform.localScale.y;
+                    instance(tmpStage, i, j, tmpPosY, tmpBoxActive, ref tmpSwitchFlag, ref tmpElement);
 
                 }
                 // Activeフラグ初期化
                 tmpBoxActive = true;
 
 
-                // ステート更新
-                stateUpdate(tmpStage, tmpMaxNum, ref tmpNum);
-                // タイルのスケール分値を増やす
-                i += (int)tmpStage.PrefabTile[0].transform.localScale.x;
-
                 // スイッチが生成されたフラグがtrueの場合はもう一度足す
-                if(tmpSwitchFlag && ! tmpSwitchCreate)
+                if(tmpSwitchFlag && !tmpSwitchCreate)
                 {
                     tmpSwitchCreate = true;
                     // 次の行はActiveをfalseで生成
                     tmpBoxActive = false;
                 }
             }
+            // 初期化
+            tmpStage.InstanceStatus = BaseStage.InstanceState.START;
         }
 
         /// <summary>
         /// 生成処理関数
         /// </summary>
-        /// <param name="tmpStage"></param> ステージの実体
-        /// <param name="i"></param>　生成ｘ座標
-        /// <param name="j"></param>　生成ｙ座標
-        /// <param name="tmpSwitchFlag"></param> スイッチを踏んでいるかフラグ
-        /// <param name="tmpBoxActive"></param> アクティブかどうかフラグ
-        /// <param name="tmpElement"></param> GoneTileの配列の要素数
-        private void instance(BaseStage tmpStage, int i, int j, ref bool tmpSwitchFlag, bool tmpBoxActive, ref int tmpElement)
+        /// <param name="tmpStage">ステージの実体</param> 
+        /// <param name="i">生成ｘ座標</param>　
+        /// <param name="j">生成ｙ座標</param>　
+        /// <param name="tmpSwitchFlag">スイッチを踏んでいるかフラグ</param> 
+        /// <param name="tmpBoxActive">アクティブかどうかフラグ</param> 
+        /// <param name="tmpElement">GoneTileの配列の要素数</param> 
+        private void instance(
+            BaseStage tmpStage, int i, int j, int tmpPosY, bool tmpBoxActive, ref bool tmpSwitchFlag,  ref int tmpElement
+            )
         {
+            // 弾数ー１
+            var tmpMaxNum = tmpStage.StagesData.TileY;
+            tmpMaxNum--;
+
+            // 作成個数のの半分
+            var tmpHalfNum = tmpStage.StagesData.TileX >> 1;
+            // ０～９のため１減らす
+            tmpHalfNum--;
+            // 上段と下段以外は生成しない
+            if(tmpPosY > 0 && tmpPosY < tmpMaxNum)
+                return;
+            // 上段の場合は半分のみ作成
+            if(tmpPosY == tmpMaxNum)
+            {
+                Debug.Log(tmpHalfNum);
+                if(i <= tmpHalfNum)
+                    return;
+            }
             //作成
             int idx = (i + j) % tmpStage.PrefabTile.Length;
             
             //タイルとユニットのポジション
-            float x = i - tmpStage.StagesData.TileX;
-            float y = j - tmpStage.StagesData.TileY;
-
+            float x = (i * (int)tmpStage.PrefabTile[idx].transform.localScale.x) - tmpStage.StagesData.TileX;
+            float z = (j * (int)tmpStage.PrefabTile[idx].transform.localScale.z) - tmpStage.StagesData.TileZ;
+            float y = (tmpPosY * (int)tmpStage.PrefabTile[idx].transform.localScale.z);
             // 座標を確定して生成
-            Vector3 pos = new Vector3(x, 0, y);
-            GameObject tile = MonoBehaviour.Instantiate(tmpStage.PrefabTile[idx], pos, Quaternion.identity, tmpStage.transform);
+            Vector3 pos = new Vector3(x, y, z);
+            GameObject tile = MonoBehaviour.Instantiate(
+                tmpStage.PrefabTile[idx], pos, Quaternion.identity, tmpStage.TileParemt.transform
+                );
 
             // Active更新
             tile.SetActive(tmpBoxActive);
@@ -96,7 +112,8 @@ namespace Stage
                     tile.transform.GetChild(0).tag = "StartTile";
                     break;
                 case BaseStage.InstanceState.NOMAL:
-                    if(!tmpSwitchFlag)
+                // スタンプが作成されていなくて一段目の場合
+                    if(!tmpSwitchFlag && tmpPosY == 0)
                     {
                         //生成する個数分の１でスイッチ生成
                         var tmpNum = UnityEngine.Random.Range(0, tmpStage.StagesData.BoxsNum);
@@ -120,13 +137,12 @@ namespace Stage
         /// <summary>
         /// ステート更新関数
         /// </summary>
-        /// <param name="tmpStage"></param> ステージの実体
-        /// <param name="tmpMaxNum"></param> 周回最大数
-        /// <param name="tmpNum"></param> 周回数
-        private void stateUpdate(BaseStage tmpStage, int tmpMaxNum, ref int tmpNum)
+        /// <param name="tmpStage">ステージの実体</param> 
+        /// <param name="tmpMaxNum">周回最大数</param> 
+        /// <param name="tmpNum">周回数</param> 
+        private void stateUpdate(BaseStage tmpStage, int tmpMaxNum, int tmpNum)
         {
              // 最後の一周はゴールステートに変更
-            tmpNum++;
             if(tmpNum == tmpMaxNum)
                 tmpStage.InstanceStatus = BaseStage.InstanceState.GOAL;
             
