@@ -15,7 +15,7 @@ namespace Box
         /// <param name="tmpBox"></param> ボックスの実体
         public void Move(BaseBox tmpBox)
         {
-            if(chack(tmpBox))  
+            if(Chack(tmpBox.gameObject))  
             {
                 // 移動不可オブジェクトじゃなくて挙動中じゃない場合
                 if(tmpBox.GetComponent<Renderer>().material.color != Color.yellow && !InGameSceneController.Stages.Moving)
@@ -36,7 +36,7 @@ namespace Box
         /// </summary>
         /// <param name="tmpBox"></param> ボックスの実体
         /// <returns></returns> 接地しているかどうか
-        private bool chack(BaseBox tmpBox)
+        public bool Chack(GameObject tmpBox)
         {
             // 自分の座標とプレイヤーの座標を比較
             var tmpPos = tmpBox.transform.position - InGameSceneController.Player.transform.position;
