@@ -68,15 +68,38 @@ namespace Stage
             // 左クリックで左回転
             else if(Input.GetMouseButtonDown(0))
             {
-                 // 何度回すか
-                var tmpSetAngl = Const.ONE_ROUND / 4;
-                var tmpNewAngl = tmpStairs.LastAngle;
-                tmpNewAngl.x += tmpSetAngl;
-                tmpStairs.NowTween = tmpStairs.transform.transform.parent.transform.DORotate(tmpNewAngl, Const.ROTATE_TIME).
-                SetEase(Ease.InQuad).OnComplete(() =>
+                switch(tmpStairs.MoveStageState)
                 {
-                    compReset(tmpStairs);
-                });
+                    // 立っている場合倒す
+                    case Const.STATE_STAND_UP:
+                        // 何度回すか
+                        var tmpSetAngl = Const.ONE_ROUND / 4;
+                        var tmpNewAngl = tmpStairs.LastAngle;
+                        tmpNewAngl.x += tmpSetAngl;
+                        tmpStairs.NowTween = tmpStairs.transform.transform.parent.transform.DORotate(tmpNewAngl, Const.ROTATE_TIME).
+                        SetEase(Ease.InQuad).OnComplete(() =>
+                        {
+                            compReset(tmpStairs);
+                        });
+                        tmpStairs.MoveStageState |= Const.STATE_FALL;
+                        break;
+                    // 倒れている場合立てる
+                    case Const.STATE_FALL:
+                        // 何度回すか
+                        tmpSetAngl = Const.ONE_ROUND / 4;
+                        tmpNewAngl = tmpStairs.LastAngle;
+                        tmpNewAngl.x -= tmpSetAngl;
+                        tmpStairs.NowTween = tmpStairs.transform.transform.parent.transform.DORotate(tmpNewAngl, Const.ROTATE_TIME).
+                        SetEase(Ease.InQuad).OnComplete(() =>
+                        {
+                            compReset(tmpStairs);
+                        });
+                        tmpStairs.MoveStageState |= Const.STATE_STAND_UP;
+                        break;
+                    default:
+                        break;
+                }
+                 
             }
         }
 

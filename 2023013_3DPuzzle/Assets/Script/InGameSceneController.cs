@@ -9,10 +9,14 @@ using Stage;
 public class InGameSceneController : MonoBehaviour
 {
     // 取得用
-    // ステージ
+    /// <summary>
+    /// ステージ
+    /// </summary>
     public static BaseStage Stages;
 
-    // Player
+    /// <summary>
+    /// Player
+    /// </summary>
     public static BasePlayer Player;
 
     // Start is called before the first frame update

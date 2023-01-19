@@ -16,16 +16,47 @@ public class Const
     // 以上プレイヤー定数
     
     // 以下Box用定数
-    public const int CHECK_POS_X = 5;           // 接地判定用
-    public const int CHECK_POS_Z = 5;           // 接地判定用
-    public const float BOX_MOVE_SPEED = 3f;     // プレイヤーに押された際に移動するまでの時間
-    public const float BOX_POS_Y = 4.5f;        // BoxのY座標
-    public const float CUBE_SIZE_HALF = 2.5f;   // Boxな半分のサイズ
-    public const int BOX_DONT_MOVE_NUM = 3;     // 動かせないボックスの比率最大数（1/3で出現）
+    /// <summary>
+    /// 接地判定用x座標
+    /// </summary>
+    public const int CHECK_POS_X = 5;
+    /// <summary>
+    /// 接地判定用y座標
+    /// </summary>
+    public const int CHECK_POS_Z = 5;
+    /// <summary>
+    /// プレイヤーに押された際に移動するまでの時間
+    /// </summary>
+    public const float BOX_MOVE_SPEED = 3f;
+    /// <summary>
+    /// BoxのY座標
+    /// </summary>
+    public const float BOX_POS_Y = 4.5f;
+    /// <summary>
+    /// Boxな半分のサイズ
+    /// </summary>
+    public const float CUBE_SIZE_HALF = 2.5f;
+    /// <summary>
+    /// 動かせないボックスの比率最大数（1/3で出現）
+    /// </summary>
+    public const int BOX_DONT_MOVE_NUM = 3;
     // 以上Box用定数
 
     // 以下ステージ用定数
-    public const float ROTATE_TIME = 3.0f;      // 倒れるスピード
+    /// <summary>
+    /// 倒れるスピード
+    /// </summary>
+    public const float ROTATE_TIME = 3.0f;
+    // 動かせるステージのステート定数==============================
+    /// <summary>
+    /// 立っている状態
+    /// </summary>
+    public const int STATE_STAND_UP = 0x0001;
+    /// <summary>
+    /// 倒れている状態
+    /// </summary>
+    public const int STATE_FALL = 0x0002;
+    // =========================================================
     // 以上ステージ用定数
 
 
@@ -38,7 +69,10 @@ public class Const
     // 以上カメラ用定数
 
     // 以下回転用定数
-    public const int ONE_ROUND = 360;       // 一周
+    /// <summary>
+    /// 一周 (2PI)
+    /// </summary>
+    public const int ONE_ROUND = 360;
     // 以上回転用定数
 
     // 以下アウトゲーム関係

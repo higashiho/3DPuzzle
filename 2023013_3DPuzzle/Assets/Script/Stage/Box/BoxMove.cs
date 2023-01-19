@@ -155,14 +155,14 @@ namespace Box
             // ボックスアクティブフラグが経っている場合全てのGoneTileのActiveをtrueにする
             if(tmpBox.TileActiveFlag)
             { 
-                foreach(GameObject tmpObj in InGameSceneController.Stages.GoneTile)
-                {
-                    // 消えているオブジェクトを表示させて配列に格納
-                    if(!tmpObj.activeSelf)
-                    {
-                        tmpObj.SetActive(true);
-                    }
-                }
+                // foreach(GameObject tmpObj in InGameSceneController.Stages.GoneTile)
+                // {
+                //     // 消えているオブジェクトを表示させて配列に格納
+                //     if(!tmpObj.activeSelf)
+                //     {
+                //         tmpObj.SetActive(true);
+                //     }
+                // }
             }
         }
     }

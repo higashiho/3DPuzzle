@@ -14,8 +14,7 @@ namespace Stage
         {
             // ステージ生成
             // for (int i = 0; i < 4; i++)
-                instance.StageMaking(this, 0);
-            tiles = GameObject.FindGameObjectsWithTag("Tiles");
+            instance.StageMaking(this, filePath);
 
             // instanceBox.CreateBox(this);
         }

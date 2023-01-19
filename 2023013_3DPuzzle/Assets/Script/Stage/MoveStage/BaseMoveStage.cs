@@ -23,6 +23,16 @@ namespace Stage
         protected Tween nowTween = null;
         public Tween NowTween{get{return nowTween;}set{nowTween = value;}}
 
+        /// <summary>
+        /// 挙動ステージ管理ステート
+        /// </summary>
+        protected int moveStageState = Const.STATE_STAND_UP;
+        /// <summary>
+        /// 挙動ステージ管理ステートプロパティ
+        /// </summary>
+        public int MoveStageState{get{return moveStageState;}set{moveStageState = value;}}
+
+
         //マウスカーソルが階段に乗った時の処理
         private void OnMouseOver()
         {
