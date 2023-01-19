@@ -81,6 +81,7 @@ namespace Stage
                         {
                             compReset(tmpStairs);
                         });
+                        tmpStairs.MoveStageState &= ~Const.STATE_STAND_UP;
                         tmpStairs.MoveStageState |= Const.STATE_FALL;
                         break;
                     // 倒れている場合立てる
@@ -94,6 +95,7 @@ namespace Stage
                         {
                             compReset(tmpStairs);
                         });
+                        tmpStairs.MoveStageState &= ~Const.STATE_FALL;
                         tmpStairs.MoveStageState |= Const.STATE_STAND_UP;
                         break;
                     default:
