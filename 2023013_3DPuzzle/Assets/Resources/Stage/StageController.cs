@@ -10,7 +10,7 @@ namespace Stage
     public class StageController : BaseStage
     {
         // Start is called before the first frame update
-        void Start()
+        void Awake()
         {
             // ステージ生成
             instance.StageMaking(this, filePath);

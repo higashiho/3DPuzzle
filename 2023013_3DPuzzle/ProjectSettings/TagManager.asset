@@ -10,6 +10,7 @@ TagManager:
   - GoalTile
   - Box
   - SwitchTile
+  - Needle
   layers:
   - Default
   - TransparentFX
