@@ -9,8 +9,9 @@ TagManager:
   - StartTile
   - GoalTile
   - Box
-  - SwitchTile
   - Needle
+  - WhiteTile
+  - BlackTile
   layers:
   - Default
   - TransparentFX

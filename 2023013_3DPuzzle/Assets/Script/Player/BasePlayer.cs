@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Stage;
 
 public class BasePlayer : MonoBehaviour
 {
@@ -13,6 +14,10 @@ public class BasePlayer : MonoBehaviour
     protected GameObject chooseObj;
     public GameObject ChooseObj{get{return chooseObj;}set{chooseObj = value;}}
     
+    
+    [SerializeField, Header("針管理クラス")]
+    protected BaseNeedle needle;
+    public BaseNeedle Needle{get{return needle;} set{needle = value;}}
 
     // 移動中か
     protected bool onMove = false;
