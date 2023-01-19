@@ -13,12 +13,8 @@ GameObject:
   - component: {fileID: 7470225249941627279}
   - component: {fileID: 8862320959927448979}
   m_Layer: 0
-  m_Name: WhiteTile
-<<<<<<< .merge_file_a28764
-  m_TagString: Untagged
-=======
+  m_Name: WhiteNeedleTile
   m_TagString: Tiles
->>>>>>> .merge_file_a08336
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -117,7 +113,7 @@ GameObject:
   - component: {fileID: 8174423842820463550}
   - component: {fileID: 6379361716011116616}
   m_Layer: 0
-  m_Name: Tile
+  m_Name: NeedleTile
   m_TagString: Tiles
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

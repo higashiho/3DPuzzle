@@ -139,7 +139,11 @@ GameObject:
   - component: {fileID: 3368274335922663073}
   m_Layer: 0
   m_Name: BlackTile
+<<<<<<< .merge_file_a24536
+  m_TagString: Untagged
+=======
   m_TagString: Tiles
+>>>>>>> .merge_file_a32172
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

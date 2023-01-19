@@ -7,7 +7,7 @@ namespace Tile
     /// <summary>
     /// タイルのベースクラス
     /// </summary>
-    public class BaseTile : MonoBehaviour
+        public class BaseTile : MonoBehaviour
     {
         // 初期マテリアルカラー取得
         [SerializeField, Header("初期色")]

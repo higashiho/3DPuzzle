@@ -14,7 +14,7 @@ namespace Stage
         protected string filePath = "Stage/StagesData";     
 
         [SerializeField,Header("生成するステージ")]
-        protected GameObject[] stages = new GameObject[4];
+        protected GameObject[] stages = new GameObject[6];
         public GameObject[] Stages{get{return stages;}private set{stages = value;}}
         
         [SerializeField, Header("タイルの親")]
@@ -30,13 +30,13 @@ namespace Stage
         protected GameObject prefabBox;
         public GameObject PerfabBox{get{return prefabBox;}private set{prefabBox = value;}}
 
-
-        [SerializeField, Header("読み込んだCSVファイルのstringデータ")]
-        public List<string[]> tmpStageDatas = new List<string[]>();
+        [SerializeField, Header("ステージのステート")]
+        protected int stageState;
+        public int StageState{get{return stageState;}set{stageState = value;}}
 
         // インスタンス化
         protected InstanceStage instance = new InstanceStage();
-        protected InstanceBox instanceBox = new InstanceBox();
+        protected StageMove stageMove = new StageMove();
     }
 
 }

@@ -41,6 +41,10 @@ namespace Tile
                 col.gameObject.GetComponent<BaseBox>().TileActiveFlag = false;
 
                 // 消えていたオブジェクトを消す
+                foreach(GameObject tmpObj in InGameSceneController.Stages.GoneTile)
+                {
+                    tmpObj.SetActive(false);
+                }
                 // foreach(GameObject tmpObj in InGameSceneController.Stages.GoneTile)
                 // {
                 //     tmpObj.SetActive(false);
