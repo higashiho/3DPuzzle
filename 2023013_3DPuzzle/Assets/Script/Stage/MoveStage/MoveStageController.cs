@@ -2,8 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Box
+namespace Stage
 {
+    /// <summary>
+    /// 動かせるステージを管理クラス
+    /// </summary>
     public class MoveStageController : BaseMoveStage
     {
         // Start is called before the first frame update

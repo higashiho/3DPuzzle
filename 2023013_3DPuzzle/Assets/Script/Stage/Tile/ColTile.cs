@@ -5,6 +5,9 @@ using Box;
 
 namespace Tile
 {
+    /// <summary>
+    /// タイルの当たり判定管理クラス
+    /// </summary>
     public class ColTile : MonoBehaviour
     {
         [SerializeField]

@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace Stage
 {
+    /// <summary>
+    /// ステージ生成の関数管理クラス
+    /// </summary>
     public class InstanceStage
     {
         /// <summary>

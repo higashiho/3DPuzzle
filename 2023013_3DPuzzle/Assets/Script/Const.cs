@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 定数保存用クラス
+/// </summary>
 public class Const
 {
     // 以下プレイヤー定数

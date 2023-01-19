@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using Stage;
 
+/// <summary>
+/// インゲームでのオブジェクト管理クラス
+/// </summary>
 public class InGameSceneController : MonoBehaviour
 {
     // 取得用

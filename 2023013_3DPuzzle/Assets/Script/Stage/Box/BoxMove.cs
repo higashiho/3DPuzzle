@@ -5,6 +5,9 @@ using DG.Tweening;
 
 namespace Box
 {
+    /// <summary>
+    /// ボックスの挙動関数管理クラス
+    /// </summary>
     public class BoxMove
     {
        

@@ -2,16 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using Box;
 
-namespace Box
+namespace Stage
 {
+    /// <summary>
+    /// 動かせるステージの挙動関数管理クラス
+    /// </summary>
     public class MoveStageMove
     {
-        // インスタンス化
+        /// <summary>
+        /// 接地判定取得関数使用用インスタンス化
+        /// </summary>
+        /// <returns></returns>
         private BoxMove boxMove = new BoxMove();
 
         /// <summary>
-        /// 挙動
+        /// 挙動関数
         /// </summary>
         /// <param name="tmpBox"></param>
         public void Move(BaseMoveStage tmpStairs)
@@ -42,19 +49,22 @@ namespace Box
             if(tmpStairs.LastAngle != tmpStairs.transform.parent.transform.localEulerAngles)
                 tmpStairs.LastAngle = tmpStairs.transform.parent.transform.localEulerAngles;
             
-            // 右クリックで右回転
-            if(Input.GetMouseButtonDown(1))
-            {
-                // 何度回すか
-                var tmpSetAngl = Const.ONE_ROUND / 4;
-                var tmpNewAngl = tmpStairs.LastAngle;
-                tmpNewAngl.x -= tmpSetAngl;
-                tmpStairs.NowTween = tmpStairs.transform.transform.parent.transform.DORotate(tmpNewAngl, Const.ROTATE_TIME).
-                SetEase(Ease.InQuad).OnComplete(() =>
-                {
-                    compReset(tmpStairs);
-                });
-            }
+            // 左クリックのみの挙動にするため一旦コメント
+                // // 右クリックで右回転
+                // if(Input.GetMouseButtonDown(1))
+                // {
+                //     // 何度回すか
+                //     var tmpSetAngl = Const.ONE_ROUND / 4;
+                //     var tmpNewAngl = tmpStairs.LastAngle;
+                //     tmpNewAngl.x -= tmpSetAngl;
+                //     tmpStairs.NowTween = tmpStairs.transform.transform.parent.transform.DORotate(tmpNewAngl, Const.ROTATE_TIME).
+                //     SetEase(Ease.InQuad).OnComplete(() =>
+                //     {
+                //         compReset(tmpStairs);
+                //     });
+                // }
+
+
             // 左クリックで左回転
             else if(Input.GetMouseButtonDown(0))
             {

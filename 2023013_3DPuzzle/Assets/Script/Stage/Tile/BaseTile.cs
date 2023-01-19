@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace Tile
 {
+    /// <summary>
+    /// タイルのベースクラス
+    /// </summary>
     public class BaseTile : MonoBehaviour
     {
         // 初期マテリアルカラー取得

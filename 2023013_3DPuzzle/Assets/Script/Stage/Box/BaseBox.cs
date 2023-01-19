@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace Box
 {
+    /// <summary>
+    /// ボックスのベースクラス
+    /// </summary>
     public class BaseBox : MonoBehaviour
     {
 

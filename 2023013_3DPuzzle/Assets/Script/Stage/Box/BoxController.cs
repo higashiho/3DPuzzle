@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace Box
 {
+    /// <summary>
+    /// ボックスの挙動管理クラス
+    /// </summary>
     public class BoxController : BaseBox
     {
         // Start is called before the first frame update

@@ -5,6 +5,9 @@ using Box;
 
 namespace Stage
 {
+    /// <summary>
+    /// ステージのベースクラス
+    /// </summary>
     public class BaseStage : MonoBehaviour
     {
         [SerializeField, Header("tileのデータ")]

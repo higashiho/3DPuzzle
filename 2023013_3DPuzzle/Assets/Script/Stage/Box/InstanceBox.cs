@@ -5,6 +5,9 @@ using Stage;
 
 namespace Box
 {
+    /// <summary>
+    /// ボックス生成の関数管理クラス
+    /// </summary>
     public class InstanceBox
     {
         /// <summary>

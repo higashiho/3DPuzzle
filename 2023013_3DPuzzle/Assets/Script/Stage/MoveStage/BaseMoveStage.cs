@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-namespace Box
+namespace Stage
 {
+    /// <summary>
+    /// 動かせるステージのベースクラス
+    /// </summary>
     public class BaseMoveStage : MonoBehaviour
     {
         // 初期マテリアルカラー取得

@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace Stage
 {
+    /// <summary>
+    /// ステージの生成管理クラス
+    /// </summary>
     public class StageController : BaseStage
     {
         // Start is called before the first frame update
@@ -14,7 +17,7 @@ namespace Stage
                 instance.StageMaking(this, i);
             tiles = GameObject.FindGameObjectsWithTag("Tiles");
 
-            instanceBox.CreateBox(this);
+            // instanceBox.CreateBox(this);
         }
 
         // Update is called once per frame

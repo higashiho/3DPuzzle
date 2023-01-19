@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-namespace Box
+namespace Stage
 {
+    /// <summary>
+    /// 動かせるステージの当たり判定管理クラス
+    /// </summary>
     public class ColMoveStage : MonoBehaviour
     {
         [SerializeField]
