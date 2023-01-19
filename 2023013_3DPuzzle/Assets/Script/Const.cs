@@ -40,4 +40,8 @@ public class Const
     // 以下回転用定数
     public const int ONE_ROUND = 360;       // 一周
     // 以上回転用定数
+
+    // 以下アウトゲーム関係
+    //public const float MaxPosY = 180;
+    // 以上アウトゲーム関係
 }
