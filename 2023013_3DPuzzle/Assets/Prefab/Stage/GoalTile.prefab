@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 7470225249941627279}
   - component: {fileID: 8862320959927448979}
   m_Layer: 0
-  m_Name: WhiteTile
-  m_TagString: Tiles
+  m_Name: GoalTile
+  m_TagString: GoalTile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -162,7 +162,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 1c4ea9309f9b7714fbb7776a849bafd1, type: 2}
+  - {fileID: 2100000, guid: f2a3e64a98418904f8bf464b96d5595a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

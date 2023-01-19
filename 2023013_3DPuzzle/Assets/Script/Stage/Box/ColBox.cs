@@ -5,6 +5,9 @@ using Stage;
 
 namespace Box
 {
+    /// <summary>
+    /// ボックスの当たり判定管理クラス
+    /// </summary>
     public class ColBox : MonoBehaviour
     {
         [SerializeField]
