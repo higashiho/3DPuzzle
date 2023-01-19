@@ -13,6 +13,10 @@ public class BasePlayer : MonoBehaviour
     // 選択しているタイル
     protected GameObject chooseObj;
     public GameObject ChooseObj{get{return chooseObj;}set{chooseObj = value;}}
+
+    // 初期座標
+    protected Vector3 startPos;
+    public Vector3 StartPos{get{return startPos;}set{startPos = value;}}
     
     
     [SerializeField, Header("針管理クラス")]

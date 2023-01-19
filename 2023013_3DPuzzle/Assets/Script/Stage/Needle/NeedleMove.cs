@@ -88,7 +88,6 @@ namespace Stage
                     tmpObj.transform.parent.GetComponent<Renderer>().material.color != Color.green
                     )
                         tmpObj.transform.parent.GetComponent<Renderer>().material.color = Color.green;
-                    
                 }
             }
             // 3手動いたら出現するニードルタイルを変更

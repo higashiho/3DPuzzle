@@ -18,6 +18,12 @@ namespace Player
                     SceneController.tmpScene.StateScene = BaseScene.SceneState.MainFinish;
                 }
             }
+
+            // ニードルが表示されているニードルタイルを踏んだ時初期座標に移動
+            if(col.gameObject.tag == "Needle" && col.transform.GetChild(0).gameObject.activeSelf)
+            {
+                this.transform.position = InGameSceneController.Player.StartPos;
+            }
         }
     }
 }

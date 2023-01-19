@@ -10,6 +10,7 @@ public class PlayerController : BasePlayer
     void Start()
     {
         Needle = GameObject.Find("Needle").GetComponent<BaseNeedle>();
+        StartPos = this.transform.position;
         ChooseObj = this.gameObject;
     }
 
