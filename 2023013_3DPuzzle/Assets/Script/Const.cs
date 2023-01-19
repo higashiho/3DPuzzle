@@ -27,6 +27,11 @@ public class Const
     // 以下ステージ用定数
     public const float ROTATE_TIME = 3.0f;      // 倒れるスピード
     // 以上ステージ用定数
+    //以下タイトル定数
+    public const float FADE_END_VALUE = 1.0f;   //透明度の最大値
+    public const float FADE_TIMER = 2.0f;       //フェードアウト終わるまでの時間
+    //以上タイトル定数
+
 
     // 以下回転用定数
     public const int ONE_ROUND = 360;       // 一周
