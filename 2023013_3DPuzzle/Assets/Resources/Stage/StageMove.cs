@@ -19,6 +19,9 @@ namespace Stage
                     // ステート更新されていないと更新してvoid処理終了
                     if(tmpStage.StageState != Const.STATE_NEEDLE_STAGE)
                         bitUpdate(tmpStage,Const.STATE_NEEDLE_STAGE);
+
+                    if(InGameSceneController.Player.OnMove)
+                        Debug.Log("Area1");
                     return;
                 }
 
@@ -29,6 +32,9 @@ namespace Stage
                     // ステート更新されていないと更新してvoid処理終了
                     if(tmpStage.StageState != Const.STATE_MOVE_STAGE)
                         bitUpdate(tmpStage,Const.STATE_MOVE_STAGE);
+
+                    if(InGameSceneController.Player.OnMove)
+                        Debug.Log("Area2");
                     return;
                 }
 
@@ -39,6 +45,9 @@ namespace Stage
                     // ステート更新されていないと更新してvoid処理終了
                     if(tmpStage.StageState != Const.STATE_FALLING_STAGE)
                         bitUpdate(tmpStage,Const.STATE_FALLING_STAGE);
+
+                    if(InGameSceneController.Player.OnMove)
+                        Debug.Log("Area3");
                     return;
                 }
 
@@ -49,12 +58,18 @@ namespace Stage
                     // ステート更新されていないと更新してvoid処理終了
                     if(tmpStage.StageState != Const.STATE_SWITCH_STAGE)
                         bitUpdate(tmpStage,Const.STATE_SWITCH_STAGE);
+
+                    if(InGameSceneController.Player.OnMove)
+                        Debug.Log("Area4");
                     return;
                 }
             
             // ステート更新されていなくどこにも入らなければ初期化
             if(tmpStage.StageState != Const.STATE_START)
                 bitUpdate(tmpStage, Const.STATE_START);
+
+            if(InGameSceneController.Player.OnMove)
+                Debug.Log("None");
             
         }
 
