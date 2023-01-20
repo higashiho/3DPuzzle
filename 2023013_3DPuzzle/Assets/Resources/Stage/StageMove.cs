@@ -122,7 +122,7 @@ namespace Stage
                 tmpPath[i].y += Const.CLEAR_MAX_POS_Y;
             }
             // ２秒後に５秒かけて移動
-            InGameSceneController.Player.transform.DOLocalPath(tmpPath, Const.CLEAR_MOVE_TIME).SetDelay(Const.CLEAR_STOP_TIME).
+            InGameSceneController.Player.transform.DOLocalPath(tmpPath, Const.CLEAR_MOVE_TIME, PathType.Linear, PathMode.Full3D).SetDelay(Const.CLEAR_STOP_TIME).
             SetEase(Ease.OutQuad).OnComplete(compReset);
         }
 
@@ -153,7 +153,8 @@ namespace Stage
             var tmpAngle = Const.ONE_ROUND / 2;
             InGameSceneController.Player.PlayerClearTween = 
             InGameSceneController.Player.transform.DORotate(Vector3.up * tmpAngle, Const.CLEAR_ROTATE_TIME).
-            SetEase(Ease.Linear).OnComplete(clearPlayerRotate);
+            SetEase(Ease.Linear).SetLoops(-1, LoopType.Restart);
+            // ループの引数に-1を渡すことで無限ループされる
         }
 
         /// <summary>
@@ -163,7 +164,8 @@ namespace Stage
         {
             // ４秒後にスタート地点に戻る
             InGameSceneController.Player.transform.DORotate(Vector3.zero, Const.START_BACK_TIME).SetEase(Ease.Linear);
-            InGameSceneController.Player.PlayerFailureTween =  InGameSceneController.Player.transform.DOMove(InGameSceneController.Player.StartPos, Const.START_BACK_TIME).
+            InGameSceneController.Player.PlayerFailureTween =  InGameSceneController.Player.transform.DOMove(
+                InGameSceneController.Player.StartPos, Const.START_BACK_TIME).
             SetEase(Ease.Linear).OnComplete(() => InGameSceneController.Player.PlayerFailureTween = null);
 
         }
