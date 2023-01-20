@@ -11,7 +11,7 @@ public class CameraController : BaseCamera
     }
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
         cameraMove.Move(this);
     }

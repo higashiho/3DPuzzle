@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace Tile
 {
+    /// <summary>
+    /// タイルの挙動管理クラス
+    /// </summary>
     public class TileController : BaseTile
     {
         // Start is called before the first frame update

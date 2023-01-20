@@ -4,11 +4,15 @@ using UnityEngine;
 
 namespace Tile
 {
+    /// <summary>
+    /// タイルのベースクラス
+    /// </summary>
     public class BaseTile : MonoBehaviour
     {
         // 初期マテリアルカラー取得
         [SerializeField, Header("初期色")]
         protected Color startColor;
+        public Color StartColor{get{return startColor;}private set{startColor = value;}}
 
         // プレイヤーが動けるかどうか
         protected bool onMove = true;

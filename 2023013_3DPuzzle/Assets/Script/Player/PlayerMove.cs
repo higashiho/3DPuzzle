@@ -90,6 +90,7 @@ public class PlayerMove
             
             if(movePos != null)
             {
+                tmpPlayer.Needle.PlyaerMoveCount++;
                 Vector3 tmpMovePos = (Vector3)movePos;  // 移動先の座標取得(キャスト用)
 
                 // 移動先の座標をintに変換

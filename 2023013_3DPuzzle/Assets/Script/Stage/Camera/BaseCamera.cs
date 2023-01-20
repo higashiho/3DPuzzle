@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class BaseCamera : MonoBehaviour
 {
-    [SerializeField, Header("カメラ")]
-    protected GameObject[] cameras = new GameObject[2];
-    public GameObject[] Cameras{get{return cameras;}private set{cameras = value;}}
+    //今実行しているtween
+    protected Tween acttionTween = null;
+    public Tween ActtinTween{get{return acttionTween;} set{acttionTween = value;}}
+
 
     // インスタンス化
     protected CameraMove cameraMove = new CameraMove();

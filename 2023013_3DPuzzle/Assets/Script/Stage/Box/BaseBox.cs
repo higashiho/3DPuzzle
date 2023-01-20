@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace Box
 {
+    /// <summary>
+    /// ボックスのベースクラス
+    /// </summary>
     public class BaseBox : MonoBehaviour
     {
 
@@ -13,8 +16,8 @@ namespace Box
         public Color StartColor{get{return startColor;}set{startColor = value;}}
 
         [SerializeField, Header("プレイヤーに押された時の移動先タイル")]
-        private GameObject tille;
-        public GameObject Tille{get{return tille;}set{tille = value;}}
+        private GameObject tile;
+        public GameObject Tile{get{return tile;}set{tile = value;}}
 
         [SerializeField, Header("親オブジェクト")]
         protected GameObject parent;
@@ -29,13 +32,13 @@ namespace Box
         public bool TileActiveFlag{get{return tileActiveFlag;}set{tileActiveFlag = value;}}
 
         
-        //マウスカーソルがSphereに乗った時の処理
+        //マウスカーソルがBoxに乗った時の処理
         private void OnMouseOver()
         {
             boxMove.Move(this);
         }
 
-        //マウスカーソルがSphereの上から離れた時の処理
+        //マウスカーソルがBoxの上から離れた時の処理
         private void OnMouseExit()
         {
             //Sphereの色が元の色に戻す
