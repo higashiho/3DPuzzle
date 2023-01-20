@@ -15,13 +15,16 @@ namespace Cam
         // Update is called once per frame
         void LateUpdate()
         {
-            cameraMove.Move(this);
+            if(CameraMoveFlag)
+                cameraMove.Move(this);
 
             cameraRotate.rotateCamera(this);
 
             cameraRotate.ZomeIO(this);
 
             cameraRotate.CameraReset(this);
+
+            cameraMove.SetCamera(this);
         }
     }
 }

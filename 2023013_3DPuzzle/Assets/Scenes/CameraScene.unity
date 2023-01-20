@@ -445,10 +445,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7616e12dc9538b14d82bd57ac5e0f21d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StandCameraPos:
+  - {x: 95, y: 0, z: 25}
+  - {x: 25, y: 0, z: 25}
+  - {x: 25, y: 0, z: 95}
+  - {x: 95, y: 0, z: 95}
+  PlayerIntoEareaPos:
+  - {x: 50, y: 5, z: 70}
+  - {x: 70, y: 5, z: 70}
+  - {x: 70, y: 5, z: 50}
+  - {x: 50, y: 5, z: 50}
   originMousePos: {x: 0, y: 0, z: 0}
   cameraAngle: {x: 340, y: 0, z: 0}
   DefoultRotation: {x: 0, y: 0, z: 0, w: 0}
   camera: {fileID: 0}
+  CameraMoveFlag: 0
 --- !u!4 &597501688
 Transform:
   m_ObjectHideFlags: 0

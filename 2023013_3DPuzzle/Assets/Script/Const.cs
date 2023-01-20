@@ -154,6 +154,14 @@ public class Const
     /// ズームカメラのデフォルト視野狭窄
     /// </summary>
     public const int FIELD_OF_VIEW_DEFAULT = 50;
+    /// <summary>
+    /// カメラのズームスピード
+    /// </summary>
+    public const int ZOME_POWER = 10;
+    /// <summary>
+    /// カメラが各エリアに移るときのスピード
+    /// </summary>
+    public const float CAMERA_MOVE_SPEED = 1.0f;
     // 以上カメラ用定数--------------------------
 
 
@@ -163,11 +171,4 @@ public class Const
     /// </summary>
     public const int ONE_ROUND = 360;
     // 以上回転用定数
-
-    //以下アウトゲーム関係
-    /// <summary>
-    /// ズーム速度
-    /// </summary>
-    public const float ZOME_POWER = 20.0f;
-    // 以上アウトゲーム関係
 }
