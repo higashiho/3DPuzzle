@@ -42,17 +42,17 @@ namespace Box
         public bool Chack(GameObject tmpBox)
         {
             // 自分の座標とプレイヤーの座標を比較
-            var tmpPos = tmpBox.transform.position - InGameSceneController.Player.transform.position;
+            Vector3 tmpPos = tmpBox.transform.position - InGameSceneController.Player.transform.position;
 
             // 誤差で計算が出来ないためイントにキャスト
-            var tmpPosX = Mathf.RoundToInt(tmpPos.x);
-            var tmpPosZ = Mathf.RoundToInt(tmpPos.z);
+            tmpPos.x = Mathf.RoundToInt(tmpPos.x);
+            tmpPos.z = Mathf.RoundToInt(tmpPos.z);
             // プレイヤーの周りにいる確認
-            if(tmpPosX == Const.CHECK_POS_X || tmpPosX == -Const.CHECK_POS_X || tmpPosZ == Const.CHECK_POS_Z || tmpPosZ == -Const.CHECK_POS_Z)
+            if(tmpPos.x == Const.CHECK_POS_X || tmpPos.x == -Const.CHECK_POS_X || tmpPos.z == Const.CHECK_POS_Z || tmpPos.z == -Const.CHECK_POS_Z)
             {
 
                 // プレイヤーの隣にいるか確認
-                if(tmpPosX == 0 || tmpPosZ == 0)   
+                if(tmpPos.x == 0 || tmpPos.z == 0)   
                     return true;
             }
             return false;

@@ -2,17 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Tile
+namespace Stage
 {
     /// <summary>
-    /// タイルの挙動管理クラス
+    /// 落下タイルの挙動管理クラス
     /// </summary>
-    public class TileController : BaseTile
+    public class FallTileController : BaseFallTile
     {
         // Start is called before the first frame update
         void Start()
-        {  
-            startColor = this.GetComponent<Renderer>().material.color;
+        {
+            FallTiles = GameObject.FindGameObjectsWithTag("Fall");
         }
 
         // Update is called once per frame
