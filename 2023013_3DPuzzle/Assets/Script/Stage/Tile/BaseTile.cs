@@ -25,7 +25,7 @@ namespace Tile
         // マウスカーソルがSphereに乗った時の処理
         private void OnMouseOver()
         {
-            if(!InGameSceneController.Player.OnMove && this.gameObject.tag != "SwitchTile" && OnMove)
+            if(!InGameSceneController.Player.OnMove && OnMove)
             {   
                 // プレイヤーが２マス以内にいる && BOXが上に乗っていないとき
                 if(checkTheDistanceFromPlayer() && !onBlock)

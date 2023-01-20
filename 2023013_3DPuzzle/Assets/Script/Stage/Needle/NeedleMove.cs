@@ -93,7 +93,7 @@ namespace Stage
             if((tmpNeedle.PlyaerMoveCount % Const.CHANGE_NEEDLE_NUM) == Const.CHANGE_NEEDLE_TILE_COLOR_NUM)
             {
                 // プレイヤーが失敗していないときのみ更新
-                if(InGameSceneController.Player.PlayerFailureTween == null)
+                if(InGameSceneController.Player.PlayerFailureTween == null && InGameSceneController.Player.PlayerClearTween == null)
                 {
                     foreach(var tmpObj in tmpNeedle.NeedleTiles)
                     {
@@ -109,18 +109,12 @@ namespace Stage
             if((tmpNeedle.PlyaerMoveCount % Const.CHANGE_NEEDLE_NUM) == 0 && tmpMoveCount != tmpNeedle.PlyaerMoveCount)
                 tmpNeedle.NeedleChangeCount++;
         }
-
+        
         /// <summary>
-        /// プレイヤーが針が出現しているニードルタイルに当たった場合の処理関数
+        /// タイルの変化状態を戻す関数
         /// </summary>
-        public void PlayerReset()
+        public void ResetTile()
         {
-            
-            // ４秒後にスタート地点に戻る
-            InGameSceneController.Player.transform.DORotate(Vector3.zero, Const.START_BACK_TIME).SetEase(Ease.Linear);
-            InGameSceneController.Player.PlayerFailureTween =  InGameSceneController.Player.transform.DOMove(InGameSceneController.Player.StartPos, Const.START_BACK_TIME).
-            SetEase(Ease.Linear).OnComplete(() => InGameSceneController.Player.PlayerFailureTween = null);
-
             // タイルの色が変わっている際色を戻す
             foreach(var tmpObj in InGameSceneController.Stages.transform.GetChild(1).GetComponent<BaseNeedle>().NeedleTiles)
             {
@@ -140,5 +134,6 @@ namespace Stage
                 }
             }
         }
+
     }
 }

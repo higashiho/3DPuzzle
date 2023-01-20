@@ -28,6 +28,11 @@ public class BasePlayer : MonoBehaviour
     protected bool onMove = false;
     public bool OnMove{get{return onMove;}set{onMove = value;}}
     
+    // 失敗時のTween
     protected Tween playerFailureTween;
     public Tween PlayerFailureTween{get{return playerFailureTween;}set{playerFailureTween = value;}}
+    // 成功時のTween
+    protected Tween playerClearTween;
+    public Tween PlayerClearTween{get{return playerClearTween;}set{playerClearTween = value;}}
+
 }

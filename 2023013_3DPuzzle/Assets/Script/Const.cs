@@ -64,6 +64,22 @@ public class Const
     /// </summary>
     public const int CHANGE_NEEDLE_TILE_COLOR_NUM = 2;
     /// <summary>
+    /// Clear挙動の移動時間
+    /// </summary>
+    public const float CLEAR_MOVE_TIME = 5.0f;
+    /// <summary>
+    /// Clear挙動の一周の回転時間
+    /// </summary>
+    public const float CLEAR_ROTATE_TIME = 0.5f;
+    /// <summary>
+    ///  Clear挙動のy座標更新用
+    /// </summary>
+    public const float CLEAR_MAX_POS_Y = 100.0f;
+    /// <summary>
+    /// Clear挙動の移動開始待ち時間
+    /// </summary>
+    public const float CLEAR_STOP_TIME = 2.0f;
+    /// <summary>
     /// ステージの左上エリア
     /// </summary>
     public static readonly Vector3 Area1Pos = new Vector3(49.0f, 5.0f, 72.0f);

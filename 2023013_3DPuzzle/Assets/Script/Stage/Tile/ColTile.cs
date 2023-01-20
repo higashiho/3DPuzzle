@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Box;
+using Stage;
 
 namespace Tile
 {
@@ -10,47 +10,51 @@ namespace Tile
     /// </summary>
     public class ColTile : MonoBehaviour
     {
+        // インスタンス化
+        private NeedleMove needleMove = new NeedleMove();
+        private StageMove stageMove = new StageMove();
         [SerializeField]
         private BaseTile tile;
-        // 当たり判定
-        private void OnCollisionEnter(Collision col)
-        {
-            // Boxと当たった時に自分がスイッチの場合
-            if(col.gameObject.tag == "Box" && this.gameObject.tag == "SwitchTile")
-            {
-                Debug.Log("Enter");
-                col.gameObject.GetComponent<BaseBox>().TileActiveFlag = true;
-            }
 
-            // Boxとの判定
-            if(col.gameObject.tag == "Box")
+        /// <summary>
+        /// ステージClear挙動
+        /// </summary>
+        private void stageClearMove()
+        {
+            switch(InGameSceneController.Stages.StageState)
             {
-                // 移動可能フラグを折る
-                tile.OnMove = false;
-                // Boxが上にあるフラグ立てる
-                tile.OnBlock = true;
-            }
+                // 左上ステージ
+                case Const.STATE_NEEDLE_STAGE:
+                    stageMove.StageClear();
+                    needleMove.ResetTile();
+                    break;
+                // 左下ステージ
+                case Const.STATE_MOVE_STAGE:
+                    stageMove.StageClear();
+                    break;
+                // 右上ステージ
+                case Const.STATE_FALLING_STAGE:
+                    stageMove.StageClear();
+                    break;
+                // 右下ステージ
+                case Const.STATE_SWITCH_STAGE:
+                    stageMove.StageClear();
+                    break;
+                default:
+                    break;
+                }
         }
-        private void OnCollisionExit(Collision col)
+        // 当たり判定
+        private void OnCollisionStay(Collision col)
         {
-            
-            // Boxと離れた時に自分がスイッチの場合
-            if(col.gameObject.tag == "Box" && this.gameObject.tag == "SwitchTile")
+            // Playerと当たった時に自分がスイッチの場合
+            if(col.gameObject.tag == "Player" && this.gameObject.tag == "SwitchTile")
             {
-                Debug.Log("Exit");
-                col.gameObject.GetComponent<BaseBox>().TileActiveFlag = false;
+                Debug.Log(InGameSceneController.Player.PlayerClearTween);
 
-                // 消えていたオブジェクトを消す
-                // foreach(GameObject tmpObj in InGameSceneController.Stages.GoneTile)
-                // {
-                //     tmpObj.SetActive(false);
-                // }
-            }
-
-            if(col.gameObject.tag == "Box")
-            {
-                tile.OnMove = true;
-                tile.OnBlock = false;
+                Debug.Log("Stay");
+                if(!InGameSceneController.Player.OnMove && InGameSceneController.Player.PlayerClearTween == null)
+                    stageClearMove();
             }
         }
     }

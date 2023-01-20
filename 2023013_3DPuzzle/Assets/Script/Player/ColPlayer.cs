@@ -11,6 +11,7 @@ namespace Player
     public class ColPlayer : MonoBehaviour
     {
         // インスタンス化
+        private StageMove stageMove = new StageMove();
         private NeedleMove needleMove = new NeedleMove();
         
         void OnCollisionStay(Collision col)
@@ -26,7 +27,12 @@ namespace Player
             // ニードルが表示されているニードルタイルを踏んだ時初期座標に移動
             if(col.gameObject.tag == "Needle" && col.transform.GetChild(0).gameObject.activeSelf)
             {
-                needleMove.PlayerReset();   
+                // 挙動終わりに判定
+                if(!InGameSceneController.Player.OnMove)
+                {
+                    stageMove.StageFailure();   
+                    needleMove.ResetTile();
+                }
             }
         }
     }

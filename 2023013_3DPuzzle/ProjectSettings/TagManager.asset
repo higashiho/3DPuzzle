@@ -12,6 +12,7 @@ TagManager:
   - Needle
   - WhiteTile
   - BlackTile
+  - SwitchTile
   layers:
   - Default
   - TransparentFX
