@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Stage;
+using DG.Tweening;
 
 public class BasePlayer : MonoBehaviour
 {
@@ -26,4 +27,7 @@ public class BasePlayer : MonoBehaviour
     // 移動中か
     protected bool onMove = false;
     public bool OnMove{get{return onMove;}set{onMove = value;}}
+    
+    protected Tween playerFailureTween;
+    public Tween PlayerFailureTween{get{return playerFailureTween;}set{playerFailureTween = value;}}
 }

@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Tile;
+using DG.Tweening;
 
 namespace Stage
 {
@@ -12,6 +12,12 @@ namespace Stage
     {
         // ムーブカウントが増えたか確認用変数
         private int tmpMoveCount;
+
+        // コンストラクタ
+        public NeedleMove()
+        {
+            tmpMoveCount = 0;
+        }
 
         /// <summary>
         /// 挙動関数
@@ -44,6 +50,7 @@ namespace Stage
             foreach(var tmpObj in tmpNeedle.NeedleTiles)
             {
                 tmpObj.transform.GetChild(0).gameObject.SetActive(false);
+                tmpObj.transform.GetChild(1).gameObject.SetActive(false);
             }           
         }
 
@@ -66,9 +73,13 @@ namespace Stage
                     // タイルの色を初期化して表示
                     tmpObj.transform.parent.GetComponent<Renderer>().material.color = tmpColor;
                     tmpObj.transform.GetChild(0).gameObject.SetActive(true);
+                    tmpObj.transform.GetChild(1).gameObject.SetActive(true);
                 }
                 else
+                {
                     tmpObj.transform.GetChild(0).gameObject.SetActive(false);
+                    tmpObj.transform.GetChild(1).gameObject.SetActive(false);
+                }
             }
         }
 
@@ -81,18 +92,53 @@ namespace Stage
             // プレイヤーの手数が２の時次出現するニードルタイルの色変更
             if((tmpNeedle.PlyaerMoveCount % Const.CHANGE_NEEDLE_NUM) == Const.CHANGE_NEEDLE_TILE_COLOR_NUM)
             {
-                foreach(var tmpObj in tmpNeedle.NeedleTiles)
+                // プレイヤーが失敗していないときのみ更新
+                if(InGameSceneController.Player.PlayerFailureTween == null)
                 {
-                    // 非表示のオブジェクトかつ色がまだ変わっていない場合タイルの色を変える
-                    if(!tmpObj.transform.GetChild(0).gameObject.activeSelf && 
-                    tmpObj.transform.parent.GetComponent<Renderer>().material.color != Color.green
-                    )
-                        tmpObj.transform.parent.GetComponent<Renderer>().material.color = Color.green;
+                    foreach(var tmpObj in tmpNeedle.NeedleTiles)
+                    {
+                        // 非表示のオブジェクトかつ色がまだ変わっていない場合タイルの色を変える
+                        if(!tmpObj.transform.GetChild(0).gameObject.activeSelf && 
+                        tmpObj.transform.parent.GetComponent<Renderer>().material.color != Color.green
+                            )
+                            tmpObj.transform.parent.GetComponent<Renderer>().material.color = Color.green;
+                    }
                 }
             }
             // 3手動いたら出現するニードルタイルを変更
             if((tmpNeedle.PlyaerMoveCount % Const.CHANGE_NEEDLE_NUM) == 0 && tmpMoveCount != tmpNeedle.PlyaerMoveCount)
                 tmpNeedle.NeedleChangeCount++;
+        }
+
+        /// <summary>
+        /// プレイヤーが針が出現しているニードルタイルに当たった場合の処理関数
+        /// </summary>
+        public void PlayerReset()
+        {
+            
+            // ４秒後にスタート地点に戻る
+            InGameSceneController.Player.transform.DORotate(Vector3.zero, Const.START_BACK_TIME).SetEase(Ease.Linear);
+            InGameSceneController.Player.PlayerFailureTween =  InGameSceneController.Player.transform.DOMove(InGameSceneController.Player.StartPos, Const.START_BACK_TIME).
+            SetEase(Ease.Linear).OnComplete(() => InGameSceneController.Player.PlayerFailureTween = null);
+
+            // タイルの色が変わっている際色を戻す
+            foreach(var tmpObj in InGameSceneController.Stages.transform.GetChild(1).GetComponent<BaseNeedle>().NeedleTiles)
+            {
+                // ニードルタイルで外枠の色が緑色がある場合
+                if(tmpObj.transform.parent.GetComponent<Renderer>().material.color == Color.green)
+                {
+                    // タイルがWhiteの場合色を黒に変える
+                    if(tmpObj.transform.parent.tag == "WhiteTile")
+                    {
+                        tmpObj.transform.parent.GetComponent<Renderer>().material.color = Color.black;
+                    }
+                    // タイルの色が黒の場合色を白に変える
+                    else
+                    {
+                        tmpObj.transform.parent.GetComponent<Renderer>().material.color = Color.white;
+                    }
+                }
+            }
         }
     }
 }
