@@ -121,7 +121,7 @@ public class Const
     // 以上タイトル定数
 
 
-    // 以下カメラ用定数
+    // 以下カメラ用定数--------------------------
     /// <summary>
     /// カメラの回転範囲の制限値
     /// </summary>
@@ -130,7 +130,16 @@ public class Const
     /// カメラの回転範囲の制限値
     /// </summary>
     public const float LIMIT_CAMERA_ANGLE_X = 20.0f;
-    // 以上カメラ用定数
+    /// <summary>
+    /// カメラ回転速度減補正係数
+    /// </summary>
+    public const float ROTATE_CAMERA_SPEED = 0.1f;
+    /// <summary>
+    /// ズームカメラのデフォルト視野狭窄
+    /// </summary>
+    public const int FIELD_OF_VIEW_DEFAULT = 50;
+    // 以上カメラ用定数--------------------------
+
 
     // 以下回転用定数
     /// <summary>
