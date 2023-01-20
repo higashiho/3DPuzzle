@@ -40,7 +40,10 @@ namespace Tile
         private void OnMouseExit()
         {
             //Sphereの色が元の色に戻す
-            this.GetComponent<Renderer>().material.color = startColor;
+            if(FallCount != Const.FALL_COUNT_MAX)
+                this.GetComponent<Renderer>().material.color = Color.blue;
+            else
+                this.GetComponent<Renderer>().material.color = startColor;
             InGameSceneController.Player.ChooseObj = null;
 
         }
