@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using DG.Tweening;
 
 namespace Cam
 {
@@ -13,47 +12,47 @@ namespace Cam
         /// <param name="tmpCamera"></param>カメラの実体
         public void rotateCamera(BaseCamera tmpCamera)
         {
-            //右クリックした瞬間
+            // 右クリックした瞬間
             if(Input.GetMouseButtonDown(1))
             {
-                // （右クリックしたときの）ローカル座標でのカメラの回転量
-                tmpCamera.cameraAngle = tmpCamera.transform.localEulerAngles;
                 // （右クリックしたときの）マウスの座標を原点とする
                 tmpCamera.originMousePos = Input.mousePosition;
             }
-            // 右クリックしている間
+            // 右クリックしている間　かつ　特定の範囲内のみ
             else if(Input.GetMouseButton(1))
             {
+                // （右クリックしたときの）ローカル座標でのカメラのrotate
+                tmpCamera.cameraAngle = tmpCamera.transform.localEulerAngles;
                 // カメラの回転量を増減
-                tmpCamera.cameraAngle.y -= (Input.mousePosition.x - tmpCamera.originMousePos.x) * 0.1f;
-                tmpCamera.cameraAngle.x -= (Input.mousePosition.y - tmpCamera.originMousePos.y) * 0.1f;
+                //左右と上下が反転しているため、代入先もｘとｙ座標を反対側に代入している
+                tmpCamera.cameraAngle.y += (Input.mousePosition.x - tmpCamera.originMousePos.x) * Const.ROTATE_CAMERA_SPEED;
+                tmpCamera.cameraAngle.x += (Input.mousePosition.y - tmpCamera.originMousePos.y) * Const.ROTATE_CAMERA_SPEED;
+                
+                //カメラの回転の上限、ｙ座標であることに注意
+                //360を超えられないため、直前の359にしておく
+                if(tmpCamera.cameraAngle.x >= 359)
+                {
+                    tmpCamera.cameraAngle.x = 359;
+                }
+                if(tmpCamera.cameraAngle.x <= 300)
+                {
+                    tmpCamera.cameraAngle.x = 300;
+                }
                 // 増減した回転量を更新
-                tmpCamera.gameObject.transform.localEulerAngles = tmpCamera.cameraAngle;
+                tmpCamera.transform.localEulerAngles = tmpCamera.cameraAngle;
                 // 原点を更新、現在のマウスの座標にする
                 tmpCamera.originMousePos = Input.mousePosition;
             }
-            
-            // 特定の方向を向く
-            // if(Input.GetMouseButton(0))
-            // {   // プレイヤーのほうを向く
-            //     tmpCamera.CameraRotation = 
-            //     Quaternion.LookRotation(InGameSceneController.Player.transform.position - tmpCamera.transform.position);
-            //     // カメラをグローバル座標の角度量を、0.5sかけてカメラの角度だけ回転する。
-            //     // 回転が終わったらデバッグログを出す
-            //     tmpCamera.transform.DORotateQuaternion(tmpCamera.CameraRotation, 0.5f)
-            //     .SetEase(Ease.OutQuad).OnComplete(()=> Debug.Log("Finished"));
-            // }
         }
 
         /// <summary>
         /// 初期化・カメラ初期地点設定
         /// </summary>
         /// <param name="tmpCamera"></param>
-        public void CameraTween(BaseCamera tmpCamera)
+        public void CameraInsetance(BaseCamera tmpCamera)
         {
-            // 初期化　（再利用するか、処理中に破棄されたときにセーフモードにするか、エラーの出し方）
-            DOTween.Init(false, true, LogBehaviour.ErrorsOnly);
-            tmpCamera.DefoultRotation = tmpCamera.gameObject.transform.rotation;
+            tmpCamera.camera = Camera.main;               // メインカメラを探す
+            tmpCamera.DefoultRotation = tmpCamera.gameObject.transform.rotation;// 初期位置を設定
         }
 
         /// <summary>
@@ -64,8 +63,12 @@ namespace Cam
         {
             // マウスホイール回転量に係数をかけて数値に変換
             float zomeIn = Input.GetAxis("Mouse ScrollWheel") * Const.ZOME_POWER;
-            //カメラの視野を狭くする　＝　ズームイン
-            tmpCamera.camera.fieldOfView -= zomeIn;
+            // カメラの視野を狭くする　＝　ズームイン
+                tmpCamera.camera.fieldOfView -= zomeIn;
+            if(tmpCamera.camera.fieldOfView <= 20)
+                tmpCamera.camera.fieldOfView = 20;
+            if(tmpCamera.camera.fieldOfView >= 70)
+                tmpCamera.camera.fieldOfView = 70;
         }
 
         /// <summary>
@@ -78,39 +81,7 @@ namespace Cam
             if(Input.GetMouseButtonDown(2))
             {
                 tmpCamera.gameObject.transform.rotation = tmpCamera.DefoultRotation;
-            }
-        }
-
-        /// <summary>
-        /// カメラの移動範囲制限関数
-        /// </summary>
-        /// <param name="tmpCamera"></param>
-        public void RimitAngle(BaseCamera tmpCamera)
-        {
-            if(Input.GetMouseButton(1))
-            {
-            //マウスの移動量を代入
-            tmpCamera.NowAngle.y += Input.GetAxis("Mouse X");
-            tmpCamera.NowAngle.x -= Input.GetAxis("Mouse Y");
-            }
-
-            //マウスの移動量が、基点から設定された数だけ移動したら、移動量を増やさないようにする
-            if(tmpCamera.NowAngle.y <= tmpCamera.PrimaryAngle.y - Const.LIMIT_CAMERA_ANGLE_Y)
-            {
-                tmpCamera.NowAngle.y = tmpCamera.PrimaryAngle.y - Const.LIMIT_CAMERA_ANGLE_Y;
-            }
-            if(tmpCamera.NowAngle.y >= tmpCamera.PrimaryAngle.y + Const.LIMIT_CAMERA_ANGLE_Y)
-            {
-                tmpCamera.NowAngle.y = tmpCamera.PrimaryAngle.y + Const.LIMIT_CAMERA_ANGLE_Y;
-            }
-
-            if(tmpCamera.NowAngle.x <= tmpCamera.PrimaryAngle.x - Const.LIMIT_CAMERA_ANGLE_X)
-            {
-                tmpCamera.NowAngle.x = tmpCamera.PrimaryAngle.x - Const.LIMIT_CAMERA_ANGLE_X;
-            }
-            if(tmpCamera.NowAngle.x >= tmpCamera.PrimaryAngle.x + Const.LIMIT_CAMERA_ANGLE_X)
-            {
-                tmpCamera.NowAngle.x = tmpCamera.PrimaryAngle.x + Const.LIMIT_CAMERA_ANGLE_X;
+                tmpCamera.camera.fieldOfView = Const.FIELD_OF_VIEW_DEFAULT;
             }
         }
     }
