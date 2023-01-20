@@ -99,6 +99,10 @@ public class Const
     /// 倒れるスピード
     /// </summary>
     public const float ROTATE_TIME = 3.0f;
+    /// <summary>
+    /// 落下タイルが落下するまでのカウント最大値
+    /// </summary>
+    public const float FALL_COUNT_MAX = 2.0f;
     // 動かせるステージのステート定数==============================
     /// <summary>
     /// 立っている状態

@@ -6,13 +6,14 @@ using Stage;
 namespace Tile
 {
     /// <summary>
-    /// タイルの当たり判定管理クラス
+    /// スイッチタイルの当たり判定管理クラス
     /// </summary>
-    public class ColTile : MonoBehaviour
+    public class ColSwitchTile : MonoBehaviour
     {
         // インスタンス化
         private NeedleMove needleMove = new NeedleMove();
         private StageMove stageMove = new StageMove();
+        private FallTileMove fallTileMove = new FallTileMove();
         [SerializeField]
         private BaseTile tile;
 
@@ -35,6 +36,7 @@ namespace Tile
                 // 右上ステージ
                 case Const.STATE_FALLING_STAGE:
                     stageMove.StageClear();
+                    fallTileMove.FallTileReset(InGameSceneController.Stages.transform.GetChild(2).GetComponent<BaseFallTile>());
                     break;
                 // 右下ステージ
                 case Const.STATE_SWITCH_STAGE:
