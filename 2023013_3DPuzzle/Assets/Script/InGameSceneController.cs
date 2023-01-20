@@ -17,6 +17,7 @@ public class InGameSceneController : MonoBehaviour
     /// <summary>
     /// Player
     /// </summary>
+
     public static BasePlayer Player;
 
     // Start is called before the first frame update

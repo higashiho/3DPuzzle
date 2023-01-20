@@ -53,6 +53,7 @@ public class Const
     public const int BOX_DONT_MOVE_NUM = 3;
     // 以上Box用定数
 
+
     // 以下ステージ用定数
     /// <summary>
     /// ニードルタイルの出ている針が変わる間隔
@@ -119,7 +120,16 @@ public class Const
     public const float FADE_TIMER = 2.0f;       //フェードアウト終わるまでの時間
     // 以上タイトル定数
 
+
     // 以下カメラ用定数
+    /// <summary>
+    /// カメラの回転範囲の制限値
+    /// </summary>
+    public const float LIMIT_CAMERA_ANGLE_Y = 30.0f;
+    /// <summary>
+    /// カメラの回転範囲の制限値
+    /// </summary>
+    public const float LIMIT_CAMERA_ANGLE_X = 20.0f;
     // 以上カメラ用定数
 
     // 以下回転用定数
@@ -129,7 +139,10 @@ public class Const
     public const int ONE_ROUND = 360;
     // 以上回転用定数
 
-    // 以下アウトゲーム関係
-    //public const float MaxPosY = 180;
+    //以下アウトゲーム関係
+    /// <summary>
+    /// ズーム速度
+    /// </summary>
+    public const float ZOME_POWER = 20.0f;
     // 以上アウトゲーム関係
 }

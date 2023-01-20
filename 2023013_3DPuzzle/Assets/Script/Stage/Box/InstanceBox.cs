@@ -14,6 +14,7 @@ namespace Box
         /// Box生成関数
         /// </summary>
         /// <param name="tmpStage">ステージの実体</param> 
+        
         // public void CreateBox(BaseStage tmpStage)
         // {
         //     // インスタンス化した場所保管用
