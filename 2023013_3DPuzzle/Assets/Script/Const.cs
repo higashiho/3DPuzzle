@@ -20,6 +20,10 @@ public class Const
     public const uint LEFT = 0x0001;
     public const uint FORWARD = 0x0002;
     public const uint BACK = 0x0004;
+    /// <summary>
+    /// 初期座標に戻る時間
+    /// </summary>
+    public const float START_BACK_TIME = 3.0f;
     // 以上プレイヤー定数
     
     // 以下Box用定数
@@ -52,6 +56,17 @@ public class Const
 
     // 以下ステージ用定数
     /// <summary>
+<<<<<<< HEAD
+=======
+    /// ニードルタイルの出ている針が変わる間隔
+    /// </summary>
+    public const int CHANGE_NEEDLE_NUM = 3;
+    /// <summary>
+    /// ニードルタイルの色が変わる値
+    /// </summary>
+    public const int CHANGE_NEEDLE_TILE_COLOR_NUM = 2;
+    /// <summary>
+>>>>>>> develop
     /// ステージの左上エリア
     /// </summary>
     public static readonly Vector3 Area1Pos = new Vector3(45.0f, 5.0f, 75.0f);
@@ -75,29 +90,29 @@ public class Const
     /// <summary>
     /// 立っている状態
     /// </summary>
-    public const int STATE_STAND_UP = 0x0001;
+    public const uint STATE_STAND_UP = 0x0001;
     /// <summary>
     /// 倒れている状態
     /// </summary>
-    public const int STATE_FALL = 0x0002;
+    public const uint STATE_FALL = 0x0002;
     // =========================================================
     // ステージのステート定数
     /// <summary>
     /// 針出現ステージ
     /// </summary>
-    public const int STATE_NEEDLE_STAGE = 0x0001;
+    public const uint STATE_NEEDLE_STAGE = 0x0001;
     /// <summary>
     /// 動かせるステージブロック出現ステージ
     /// </summary>
-    public const int STATE_MOVE_STAGE = 0x0002;
+    public const uint STATE_MOVE_STAGE = 0x0002;
     /// <summary>
     /// 落ちる床出現ステージ
     /// </summary>
-    public const int STATE_FALLING_STAGE = 0x0004;
+    public const uint STATE_FALLING_STAGE = 0x0004;
     /// <summary>
     ///  スイッチ出現ステージ
     /// </summary>
-    public const int STATE_SWITCH_STAGE = 0x0008;
+    public const uint STATE_SWITCH_STAGE = 0x0008;
     // =========================================================
 
     // 以上ステージ用定数

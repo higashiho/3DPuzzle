@@ -14,11 +14,7 @@ GameObject:
   - component: {fileID: 8862320959927448979}
   m_Layer: 0
   m_Name: WhiteTile
-<<<<<<< .merge_file_a28764
-  m_TagString: Untagged
-=======
-  m_TagString: Tiles
->>>>>>> .merge_file_a08336
+  m_TagString: WhiteTile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

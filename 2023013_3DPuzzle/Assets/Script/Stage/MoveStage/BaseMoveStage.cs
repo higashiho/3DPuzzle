@@ -26,11 +26,11 @@ namespace Stage
         /// <summary>
         /// 挙動ステージ管理ステート
         /// </summary>
-        protected int moveStageState = Const.STATE_STAND_UP;
+        protected uint moveStageState = Const.STATE_STAND_UP;
         /// <summary>
         /// 挙動ステージ管理ステートプロパティ
         /// </summary>
-        public int MoveStageState{get{return moveStageState;}set{moveStageState = value;}}
+        public uint MoveStageState{get{return moveStageState;}set{moveStageState = value;}}
 
 
         //マウスカーソルが階段に乗った時の処理

@@ -77,6 +77,7 @@ public class PlayerMove
             
             if(movePos != null)
             {
+                tmpPlayer.Needle.PlyaerMoveCount++;
                 Vector3 tmpMovePos = (Vector3)movePos;  // 移動先の座標取得(キャスト用)
                 var tmpMovePosX = Mathf.RoundToInt(tmpMovePos.x);
                 var tmpMovePosZ = Mathf.RoundToInt(tmpMovePos.z);

@@ -63,7 +63,7 @@ namespace Stage
         /// </summary>
         /// <param name="tmpStage">ステージの実体</param>
         /// <param name="stateNum">変換するステート</param>
-        private void bitUpdate(BaseStage tmpStage, int stateNum)
+        private void bitUpdate(BaseStage tmpStage, uint stateNum)
         {
             tmpStage.StageState &= ~tmpStage.StageState;
             tmpStage.StageState |= stateNum;
