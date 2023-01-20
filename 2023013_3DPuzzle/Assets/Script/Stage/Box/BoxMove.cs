@@ -94,7 +94,7 @@ namespace Box
             });
             
         }
-        
+
         /// <summary>
         /// プレイヤーがBoxを押す動作が終わった時の関数
         /// </summary>
@@ -154,7 +154,8 @@ namespace Box
 
             // ボックスアクティブフラグが経っている場合全てのGoneTileのActiveをtrueにする
             if(tmpBox.TileActiveFlag)
-            { 
+            {    
+                           
                 // foreach(GameObject tmpObj in InGameSceneController.Stages.GoneTile)
                 // {
                 //     // 消えているオブジェクトを表示させて配列に格納

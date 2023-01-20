@@ -56,8 +56,6 @@ public class Const
 
     // 以下ステージ用定数
     /// <summary>
-<<<<<<< HEAD
-=======
     /// ニードルタイルの出ている針が変わる間隔
     /// </summary>
     public const int CHANGE_NEEDLE_NUM = 3;
@@ -66,7 +64,6 @@ public class Const
     /// </summary>
     public const int CHANGE_NEEDLE_TILE_COLOR_NUM = 2;
     /// <summary>
->>>>>>> develop
     /// ステージの左上エリア
     /// </summary>
     public static readonly Vector3 Area1Pos = new Vector3(45.0f, 5.0f, 75.0f);
