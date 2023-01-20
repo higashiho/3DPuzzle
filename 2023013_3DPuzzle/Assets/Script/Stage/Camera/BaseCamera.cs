@@ -19,6 +19,10 @@ namespace Cam
         // 初期回転位置
         public Quaternion DefoultRotation;
         public new Camera camera;
+        //現在のカメラ回転角度
+        public Vector3 NowAngle;
+        //カメラの回転量の基点、ここから一定量離れるとカメラの回転を制限する
+        public Vector3 PrimaryAngle;
 
         // インスタンス化
         protected CameraMove cameraMove = new CameraMove();

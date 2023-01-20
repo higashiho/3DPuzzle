@@ -94,10 +94,11 @@ namespace Box
             });
             
         }
-
+        
         /// <summary>
         /// プレイヤーがBoxを押す動作が終わった時の関数
         /// </summary>
+<<<<<<< HEAD
         /// <param name="tmpBox">ボックスの実体</param> 
         /// <param name="tmpPos">押す前のプレイヤーの座標</param> 
         /// <param name="tmpTileObj">押す前のボックスの位置にあるタイル</panam> 
@@ -105,6 +106,8 @@ namespace Box
         /// <summary>
         /// プレイヤーがBoxを押す動作が終わった時の関数
         /// </summary>
+=======
+>>>>>>> develop
         /// <param name="tmpBox">ボックスの実体</param>
         /// <param name="tmpPlayerPos">押す前のプレイヤーの座標</param>
         /// <param name="tmpTileObj">押す前のボックスの位置にあるタイル</param>

@@ -1,5 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+<<<<<<< HEAD
 <<<<<<< .merge_file_a23896
 --- !u!1 &930656239
 GameObject:
@@ -290,6 +291,8 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 =======
 >>>>>>> .merge_file_a13832
+=======
+>>>>>>> develop
 --- !u!1 &302579731704811697
 GameObject:
   m_ObjectHideFlags: 0
@@ -319,12 +322,15 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+<<<<<<< HEAD
 <<<<<<< .merge_file_a23896
   - {fileID: 302579731062781916}
   - {fileID: 302579731215340107}
   - {fileID: 1153840931}
 =======
 >>>>>>> .merge_file_a13832
+=======
+>>>>>>> develop
   - {fileID: 83021382366656132}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -341,14 +347,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4230cbd00e3e3442a2f77f441e09fb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+<<<<<<< HEAD
 <<<<<<< .merge_file_a23896
   stageData: {fileID: 11400000, guid: 7d3a9370e00f1094a868641b662831b3, type: 2}
+=======
+  stages:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+>>>>>>> develop
   tileParent: {fileID: 8946109332750586246}
-  prefabTile:
-  - {fileID: 4100615882988292552, guid: 5f3504e8f3e2dc645a3b9bf0b827ea32, type: 3}
-  - {fileID: 5168073205655824273, guid: df107c08b4926b548ab0ee9cb165407b, type: 3}
-  tiles: []
   prefabBox: {fileID: 3226213973817768160, guid: b0cbd0c35b395cd4faa33b07501de767, type: 3}
+<<<<<<< HEAD
   boxs: {fileID: 302579731062781730}
   goneTile:
   - {fileID: 0}
@@ -1146,6 +1159,9 @@ BoxCollider:
   prefabBox: {fileID: 3226213973817768160, guid: b0cbd0c35b395cd4faa33b07501de767, type: 3}
   stageState: 0
 >>>>>>> .merge_file_a13832
+=======
+  stageState: 0
+>>>>>>> develop
 --- !u!1 &8946109332750586246
 GameObject:
   m_ObjectHideFlags: 0
@@ -1175,9 +1191,13 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 302579731704811699}
+<<<<<<< HEAD
 <<<<<<< .merge_file_a23896
   m_RootOrder: 3
 =======
   m_RootOrder: 0
 >>>>>>> .merge_file_a13832
+=======
+  m_RootOrder: 0
+>>>>>>> develop
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

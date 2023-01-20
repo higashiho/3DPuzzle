@@ -110,6 +110,14 @@ public class Const
 
 
     // 以下カメラ用定数
+    /// <summary>
+    /// カメラの回転範囲の制限値
+    /// </summary>
+    public const float LIMIT_CAMERA_ANGLE_Y = 30.0f;
+    /// <summary>
+    /// カメラの回転範囲の制限値
+    /// </summary>
+    public const float LIMIT_CAMERA_ANGLE_X = 20.0f;
     // 以上カメラ用定数
 
     // 以下回転用定数

@@ -11,6 +11,8 @@ namespace Cam
         {
             camera = Camera.main;               //メインカメラを探す
             cameraRotate.CameraTween(this);
+            NowAngle = camera.transform.localEulerAngles;       //カメラの現在回転位置を設定
+            PrimaryAngle = camera.transform.localEulerAngles;   //カメラの回転変化量（今後これに足していく）
         }
 
         // Update is called once per frame
@@ -19,6 +21,12 @@ namespace Cam
             cameraMove.Move(this);
 
             cameraRotate.rotateCamera(this);
+
+            cameraRotate.ZomeIO(this);
+
+            cameraRotate.CameraReset(this);
+
+            cameraRotate.RimitAngle(this);
         }
     }
 }
