@@ -81,7 +81,6 @@ public class PlayerMove
 
         // 移動方向フラグを立てる
         moveFlag = setDirection(myPos, destination);
-        Debug.Log(moveFlag);
         // 動く方向にレイを飛ばす
         
         try
@@ -90,8 +89,6 @@ public class PlayerMove
              
             while(calcRoundingHalfUp(tmpPlayer.transform.position) != destination)
             {
-                Debug.Log("destination" + destination);
-                Debug.Log("Player" + tmpPlayer.transform.position);
                 ray = new Ray(tmpPlayer.transform.position, rayAspect[moveFlag]);
                 ray2 = new Ray(tmpPlayer.transform.position, rayAspect[4]);
                 
