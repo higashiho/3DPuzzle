@@ -6,20 +6,24 @@ using Cysharp.Threading.Tasks;
 using System.Threading;
 using System;
 
-// 毎回プレイヤーと移動先の座標を比べる
 /// <summary>
 /// プレイヤーの移動制御クラス
 /// </summary>
 public class PlayerMove 
 {
-    private Vector3 myPos;
-    private Vector3 destination;
-    private Vector3 rotatePoint;
-    private Vector3 rotateAxis;
-    private float cubeAngle;
-    private bool isRotate = false;
-    private int moveFlag = -1;
-    private Vector3[] rotatePointArr = 
+    private Vector3 myPos;      // プレイヤーの座標取得用(キャスト用)
+    private Vector3 destination;// 移動先のタイルの座標取得用(キャスト用)
+    private Vector3 rotatePoint;// 回転中心の座標(ワールド座標)
+    private Vector3 rotateAxis; //回転軸(ワールド座標)
+    private float cubeAngle = 1;    // プレイヤーの回転角
+    private bool isRotate = false;  // 回転中のフラグ
+    private int moveFlag = -1;      // プレイヤーの移動フラグ
+
+    /// <summary>
+    /// 回転軸の座標配列
+    /// </summary>
+    /// <value></value>
+    private Vector3[] rotateAxisArr = 
     {
         new Vector3(0f, 0f, -1f),    // X(正)
         new Vector3(0f, 0f, 1f),   // X(負)
@@ -29,21 +33,35 @@ public class PlayerMove
         new Vector3(0f, -1f, 0f),   // Y(負)
         Vector3.zero                // 初期化用
     };
-    private Vector3[] rayAspectArr = 
+    /// <summary>
+    /// 平面を転がるときの回転中心の座標配列
+    /// </summary>
+    /// <value></value>
+    private Vector3[] rotatePointArr = 
     {
         new Vector3(1f, -1f, 0f),
         new Vector3(-1f, -1f, 0f),
         new Vector3(0f, -1f, 1f),
         new Vector3(0f, -1f, -1f)
     };
+
+    /// <summary>
+    /// Rayを飛ばす方向の配列
+    /// </summary>
+    /// <value></value>
     private Vector3[] rayAspect = 
     {
-        new Vector3(1f, 0f, 0f),
-        new Vector3(-1f, 0f, 0f),
-        new Vector3(0f, 0f, 1f),
-        new Vector3(0f, 0f, -1f),
-        new Vector3(0f, -1f, 0f)
+        new Vector3(1f, 0f, 0f),    // X(正)
+        new Vector3(-1f, 0f, 0f),   // X(負)
+        new Vector3(0f, 0f, 1f),    // Z(正)
+        new Vector3(0f, 0f, -1f),   // Z(負)
+        new Vector3(0f, -1f, 0f)    // Y(負)
+        // Yの正方向には今のところ飛ばすことがないので要素なし
     };
+    /// <summary>
+    /// 上段のタイルに上るときの回転中心座標の配列
+    /// </summary>
+    /// <value></value>
     private Vector3[] goUpRotatePointArr = 
     {
         new Vector3(1f, 1f, 0f),
@@ -52,6 +70,10 @@ public class PlayerMove
         new Vector3(0f, 1f, -1f)
     };
 
+    /// <summary>
+    /// 下段のタイルに降りるときの回転中心座標配列
+    /// </summary>
+    /// <value></value>
     private Vector3[]goDownRotatePointArr = 
     {
         new Vector3(-1f, -1f, 0f),
@@ -60,85 +82,92 @@ public class PlayerMove
         new Vector3(0f, -1f, 1f)
     };
 
-    private Ray ray, ray2;
-    private RaycastHit hit;
+    private Ray ray, ray2;      // 移動方向にブロックがあるか判定するRay
     
     // 移動関数
     public async void Move(BasePlayer tmpPlayer, CancellationTokenSource cts)
     {
+        if(cts.IsCancellationRequested)
+            return;
         // 回転中またはブロックが移動中ならInput受け付けない
         if(isRotate || InGameSceneController.Stages.Moving)    
             return;
         
-        // 目標座標取得
+        // 目標座標取得(キャスト(int) & 四捨五入(整数))
         destination = (calcRoundingHalfUp(input(tmpPlayer)));
+
+        // input関数でゼロが返ってきたらキャンセル(移動先が選択されていないため)
         if(destination == Vector3.zero)
             return;
 
-        // 自身の座標取得
+        // 自身の座標取得(キャスト(int) & 四捨五入(整数))
         myPos = calcRoundingHalfUp(tmpPlayer.transform.position);
+        // 座標調整
         tmpPlayer.transform.position = myPos;
 
         // 移動方向フラグを立てる
         moveFlag = setDirection(myPos, destination);
-        // 動く方向にレイを飛ばす
         
         try
         {
             
-             
+            // プレイヤーが移動先のタイルにたどり着くまで繰り返す
             while(calcRoundingHalfUp(tmpPlayer.transform.position) != destination)
             {
+                // 移動方向前方にBoxがあるか判定するRay
                 ray = new Ray(tmpPlayer.transform.position, rayAspect[moveFlag]);
+                // 自身の下にBoxがあるか判定するRay
                 ray2 = new Ray(tmpPlayer.transform.position, rayAspect[4]);
                 
+                // 移動方向前方にBoxがあったら
                 if(Physics.Raycast(ray, 5f))
                 {
                     // 移動フラグを確認して回転軸と回転中心を設定
                     rotateAxis = setRotateAxis(moveFlag);
                     rotatePoint = setRotatePoint(tmpPlayer, goUpRotatePointArr, moveFlag);
+                    // 回転
                     await rotateMove(tmpPlayer, cts);
                     
                 }
                 
+                // 自身の下にBoxがなかったら
                 if(!Physics.Raycast(ray2, 5f))
                 {
+                    // 移動フラグを確認して回転軸と回転中心を設定
                     rotateAxis = setRotateAxis(moveFlag);
                     rotatePoint = setRotatePoint(tmpPlayer, goDownRotatePointArr, moveFlag);
+                    // 回転
                     await rotateMove(tmpPlayer, cts);
                     
                 }
+                
+                // この時点で移動先タイルに到着していたらループを抜ける
                 if(calcRoundingHalfUp(tmpPlayer.transform.position) == destination)
                     break;
+
+                // 移動フラグを確認して回転軸と回転中心を設定
                 rotateAxis = setRotateAxis(moveFlag);
-                rotatePoint = setRotatePoint(tmpPlayer, rayAspectArr, moveFlag);
+                rotatePoint = setRotatePoint(tmpPlayer, rotatePointArr, moveFlag);
+                // 回転
                 await rotateMove(tmpPlayer, cts);
 
-                
-                
-                
-                
             }
-            
-            
         }
         catch(OperationCanceledException)
         {
             throw;
         }
-        if(cts.IsCancellationRequested)
-            return;
         
-        
+        // 移動に使った値を初期化
         resetMoveValue(tmpPlayer);
        
     }
 
     /// <summary>
-    /// 移動関数処理
+    /// 移動先のタイルの座標を取得する関数
     /// </summary>
-    /// <param name="tmpPlayer">プレイヤーの実体</param>
-    /// <returns>移動先の座標(Vector3(0,0,0)が返ります)</returns>
+    /// <param name="tmpPlayer">Playerの実体</param>
+    /// <returns>移動先のタイルの座標, Vector3.zero(クリックされなかったとき)</returns>
     private Vector3 input(BasePlayer tmpPlayer)
     {
         Vector3? movePos = null; 
@@ -224,31 +253,18 @@ public class PlayerMove
     private Vector3 setRotateAxis(int flag)
     {
         if(flag == Const.RIGHT)
-            return rotatePointArr[0]* Const.CUBE_SIZE_HALF;
+            return rotateAxisArr[0]* Const.CUBE_SIZE_HALF;
         if(flag == Const.LEFT)
-            return rotatePointArr[1]* Const.CUBE_SIZE_HALF;
+            return rotateAxisArr[1]* Const.CUBE_SIZE_HALF;
         if(flag == Const.FORWARD)
-            return rotatePointArr[2]* Const.CUBE_SIZE_HALF;
+            return rotateAxisArr[2]* Const.CUBE_SIZE_HALF;
         if(flag == Const.BACK)
-            return rotatePointArr[3]* Const.CUBE_SIZE_HALF;
+            return rotateAxisArr[3]* Const.CUBE_SIZE_HALF;
         if(flag == Const.UP)
-            return rotatePointArr[4]* Const.CUBE_SIZE_HALF;
+            return rotateAxisArr[4]* Const.CUBE_SIZE_HALF;
         if(flag == Const.DOWN)
-            return rotatePointArr[5]* Const.CUBE_SIZE_HALF;
+            return rotateAxisArr[5]* Const.CUBE_SIZE_HALF;
 
-        return Vector3.zero;
-    }
-    private Vector3 setRayAspect(int flag)
-    {
-        if(flag == Const.RIGHT)
-            return rayAspectArr[0];
-        if(flag == Const.LEFT)
-            return rayAspectArr[1];
-        if(flag == Const.FORWARD)
-            return rayAspectArr[2];
-        if(flag == Const.BACK)
-            return rayAspectArr[3];
-        
         return Vector3.zero;
     }
 
@@ -263,7 +279,7 @@ public class PlayerMove
             if(cts.IsCancellationRequested)
                 return;
 
-            cubeAngle = 1f;     // 回転速度
+            
             sumAngle += cubeAngle;
 
             // 90°以上回転しないように値を制限
@@ -272,6 +288,7 @@ public class PlayerMove
                 cubeAngle -= sumAngle - 90f;
             }
 
+            // 回転と移動
             tmpPlayer.transform.RotateAround(rotatePoint , rotateAxis , cubeAngle);
 
             try
@@ -287,9 +304,12 @@ public class PlayerMove
         }
         // 回転中のフラグを倒す
         isRotate = false;
-        rotatePoint = rotatePointArr[6];
     }
-    // 移動用変数初期化処理関数
+    
+    /// <summary>
+    /// 移動につかった値を初期化する関数(moveFlagとOnMoveをここで初期化)
+    /// </summary>
+    /// <param name="tmpPlayer"></param>
     private void resetMoveValue(BasePlayer tmpPlayer)
     {
         moveFlag = -1;
