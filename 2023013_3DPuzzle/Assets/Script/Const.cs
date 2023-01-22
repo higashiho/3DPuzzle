@@ -17,13 +17,13 @@ public class Const
     // 以下プレイヤー定数
     public const float PLAYER_POSY = 3f;
     public const int PLAYER_ROTATE_MAX = 2;     // プレイヤーの回転可能回数上限
-    public const uint RIGHT = 0x0000;
-    public const uint LEFT = 0x0001;
-    public const uint FORWARD = 0x0002;
-    public const uint BACK = 0x0004;
+    public const int RIGHT = 0;
+    public const int LEFT = 1;
+    public const int FORWARD = 2;
+    public const int BACK = 3;
+    public const int UP = 4;
+    public const int DOWN = 5;
 
-    public const uint UP = 0x00008;
-    public const uint DOWN = 0x0016;
     /// <summary>
     /// 初期座標に戻る時間
     /// </summary>
