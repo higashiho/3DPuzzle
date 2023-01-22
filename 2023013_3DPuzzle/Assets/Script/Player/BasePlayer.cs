@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cysharp.Threading.Tasks;
+using System.Threading;
 using Stage;
 using DG.Tweening;
 
@@ -27,6 +29,16 @@ public class BasePlayer : MonoBehaviour
     // 移動中か
     protected bool onMove = false;
     public bool OnMove{get{return onMove;}set{onMove = value;}}
+
+    // Taskキャンセル処理用
+    public CancellationTokenSource cts{get;private set;} = new CancellationTokenSource();
+    public CancellationToken ct{get;private set;} = new CancellationToken();
+
+    public void OnDestroy()
+    {
+        cts.Cancel();
+    }
+
     
     // 失敗時のTween
     protected Tween playerFailureTween;

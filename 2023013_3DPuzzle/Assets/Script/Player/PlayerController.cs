@@ -17,7 +17,7 @@ public class PlayerController : BasePlayer
     // Update is called once per frame
     void Update()
     {
-        playerMove.Move(this);
+        playerMove.Move(this, this.cts);
     }
     
 }
