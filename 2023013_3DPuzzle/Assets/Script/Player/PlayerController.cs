@@ -9,7 +9,7 @@ public class PlayerController : BasePlayer
     // Start is called before the first frame update
     void Start()
     {
-        Needle = GameObject.Find("Needle").GetComponent<BaseNeedle>();
+        Needle = GameObject.Find("Needles").GetComponent<BaseNeedle>();
         StartPos = this.transform.position;
         ChooseObj = this.gameObject;
     }
@@ -17,7 +17,7 @@ public class PlayerController : BasePlayer
     // Update is called once per frame
     void Update()
     {
-        playerMove.Move(this);
+        playerMove.Move(this, this.cts);
     }
     
 }

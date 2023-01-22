@@ -16,10 +16,14 @@ public class Const
 
     // 以下プレイヤー定数
     public const float PLAYER_POSY = 3f;
-    public const uint RIGHT = 0x0000;
-    public const uint LEFT = 0x0001;
-    public const uint FORWARD = 0x0002;
-    public const uint BACK = 0x0004;
+    public const int PLAYER_ROTATE_MAX = 2;     // プレイヤーの回転可能回数上限
+    public const int RIGHT = 0;
+    public const int LEFT = 1;
+    public const int FORWARD = 2;
+    public const int BACK = 3;
+    public const int UP = 4;
+    public const int DOWN = 5;
+
     /// <summary>
     /// 初期座標に戻る時間
     /// </summary>
@@ -99,6 +103,10 @@ public class Const
     /// 倒れるスピード
     /// </summary>
     public const float ROTATE_TIME = 3.0f;
+    /// <summary>
+    /// 落下タイルが落下するまでのカウント最大値
+    /// </summary>
+    public const float FALL_COUNT_MAX = 2.0f;
     // 動かせるステージのステート定数==============================
     /// <summary>
     /// 立っている状態

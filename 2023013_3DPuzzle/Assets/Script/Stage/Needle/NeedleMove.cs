@@ -31,11 +31,11 @@ namespace Stage
                 // 1/2で表示するニードルタイルを変更
                 if((tmpNeedle.NeedleChangeCount & 1) == 0)
                 {
-                    changeNeedle(tmpNeedle, "WhiteTile", Color.black);
+                    changeNeedle(tmpNeedle, "WhiteTile", Color.white);
                 }
                 else
                 {
-                    changeNeedle(tmpNeedle, "BlackTile", Color.white);
+                    changeNeedle(tmpNeedle, "BlackTile", Color.black);
                 }
 
                 // タイル更新
@@ -50,7 +50,6 @@ namespace Stage
             foreach(var tmpObj in tmpNeedle.NeedleTiles)
             {
                 tmpObj.transform.GetChild(0).gameObject.SetActive(false);
-                tmpObj.transform.GetChild(1).gameObject.SetActive(false);
             }           
         }
 
@@ -64,21 +63,16 @@ namespace Stage
         {
             foreach(var tmpObj in tmpNeedle.NeedleTiles)
             {
-                // 初回のみ処理実装
-                if((tmpNeedle.PlyaerMoveCount % Const.CHANGE_NEEDLE_NUM) != 0)
-                    break;
                 // ブラックニードルタイルの時は表示以外は非表示
                 if(tmpObj.transform.parent.tag == tmpName)
                 {
                     // タイルの色を初期化して表示
-                    tmpObj.transform.parent.GetComponent<Renderer>().material.color = tmpColor;
+                    tmpObj.transform.GetComponent<Renderer>().material.color = tmpColor;
                     tmpObj.transform.GetChild(0).gameObject.SetActive(true);
-                    tmpObj.transform.GetChild(1).gameObject.SetActive(true);
                 }
                 else
                 {
                     tmpObj.transform.GetChild(0).gameObject.SetActive(false);
-                    tmpObj.transform.GetChild(1).gameObject.SetActive(false);
                 }
             }
         }
@@ -99,9 +93,9 @@ namespace Stage
                     {
                         // 非表示のオブジェクトかつ色がまだ変わっていない場合タイルの色を変える
                         if(!tmpObj.transform.GetChild(0).gameObject.activeSelf && 
-                        tmpObj.transform.parent.GetComponent<Renderer>().material.color != Color.green
+                        tmpObj.transform.GetComponent<Renderer>().material.color != Color.green
                             )
-                            tmpObj.transform.parent.GetComponent<Renderer>().material.color = Color.green;
+                            tmpObj.transform.GetComponent<Renderer>().material.color = Color.green;
                     }
                 }
             }
@@ -119,17 +113,17 @@ namespace Stage
             foreach(var tmpObj in InGameSceneController.Stages.transform.GetChild(1).GetComponent<BaseNeedle>().NeedleTiles)
             {
                 // ニードルタイルで外枠の色が緑色がある場合
-                if(tmpObj.transform.parent.GetComponent<Renderer>().material.color == Color.green)
+                if(tmpObj.transform.GetComponent<Renderer>().material.color == Color.green)
                 {
                     // タイルがWhiteの場合色を黒に変える
                     if(tmpObj.transform.parent.tag == "WhiteTile")
                     {
-                        tmpObj.transform.parent.GetComponent<Renderer>().material.color = Color.black;
+                        tmpObj.transform.GetComponent<Renderer>().material.color = Color.white;
                     }
                     // タイルの色が黒の場合色を白に変える
                     else
                     {
-                        tmpObj.transform.parent.GetComponent<Renderer>().material.color = Color.white;
+                        tmpObj.transform.GetComponent<Renderer>().material.color = Color.black;
                     }
                 }
             }
