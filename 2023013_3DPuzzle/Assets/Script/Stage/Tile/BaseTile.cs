@@ -7,28 +7,25 @@ namespace Tile
     /// <summary>
     /// タイルのベースクラス
     /// </summary>
-    public class BaseTile : MonoBehaviour
+        public class BaseTile : MonoBehaviour
     {
         // 初期マテリアルカラー取得
         [SerializeField, Header("初期色")]
         protected Color startColor;
-        public Color StartColor{get{return startColor;}private set{startColor = value;}}
+        public Color StartColor{get{return startColor;}}
 
-        // プレイヤーが動けるかどうか
-        protected bool onMove = true;
-        public bool OnMove{get{return onMove;}set{onMove = value;}}
+        // Fallタイル用
+        protected float fallCount = 2;
+        public float FallCount{get{return fallCount;}set{fallCount = value;}}
 
-        // Boxが上に乗っているか
-        protected bool onBlock = false;
-        public bool OnBlock{get{return onBlock;}set{onBlock = value;}}
         
         // マウスカーソルがSphereに乗った時の処理
         private void OnMouseOver()
         {
-            if(!InGameSceneController.Player.OnMove && this.gameObject.tag != "SwitchTile" && OnMove)
+            if(!InGameSceneController.Player.OnMove)
             {   
                 // プレイヤーが２マス以内にいる && BOXが上に乗っていないとき
-                if(checkTheDistanceFromPlayer() && !onBlock)
+                if(checkTheDistanceFromPlayer())
                 {
                     //Sphereの色を赤色に変化
                     this.GetComponent<Renderer>().material.color = Color.red;

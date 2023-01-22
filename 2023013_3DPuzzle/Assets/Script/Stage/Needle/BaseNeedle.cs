@@ -12,7 +12,7 @@ namespace Stage
     {
         [SerializeField, Header("ニードルタイルオブジェクト")]
         protected GameObject[] needleTiles;
-        public GameObject[] NeedleTiles{get{return needleTiles;}set{needleTiles = value;}}
+        public GameObject[] NeedleTiles{get{return needleTiles;}protected set{needleTiles = value;}}
 
         [SerializeField, Header("Player行動回数(仮)")]
         protected int playerMoveCount;

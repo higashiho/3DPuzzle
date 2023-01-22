@@ -12,12 +12,13 @@ public class InGameSceneController : MonoBehaviour
     /// <summary>
     /// ステージ
     /// </summary>
-    public static BaseStage Stages;
+    public static BaseStage Stages{get; private set;}
 
     /// <summary>
     /// Player
     /// </summary>
-    public static BasePlayer Player;
+
+    public static BasePlayer Player{get; private set;}
 
     // Start is called before the first frame update
     void Awake() 

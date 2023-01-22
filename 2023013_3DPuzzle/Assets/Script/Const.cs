@@ -57,6 +57,7 @@ public class Const
     public const int BOX_DONT_MOVE_NUM = 3;
     // 以上Box用定数
 
+
     // 以下ステージ用定数
     /// <summary>
     /// ニードルタイルの出ている針が変わる間隔
@@ -67,25 +68,45 @@ public class Const
     /// </summary>
     public const int CHANGE_NEEDLE_TILE_COLOR_NUM = 2;
     /// <summary>
+    /// Clear挙動の移動時間
+    /// </summary>
+    public const float CLEAR_MOVE_TIME = 5.0f;
+    /// <summary>
+    /// Clear挙動の一周の回転時間
+    /// </summary>
+    public const float CLEAR_ROTATE_TIME = 0.5f;
+    /// <summary>
+    ///  Clear挙動のy座標更新用
+    /// </summary>
+    public const float CLEAR_MAX_POS_Y = 100.0f;
+    /// <summary>
+    /// Clear挙動の移動開始待ち時間
+    /// </summary>
+    public const float CLEAR_STOP_TIME = 2.0f;
+    /// <summary>
     /// ステージの左上エリア
     /// </summary>
-    public static readonly Vector3 Area1Pos = new Vector3(45.0f, 5.0f, 75.0f);
+    public static readonly Vector3 Area1Pos = new Vector3(49.0f, 5.0f, 72.0f);
     /// <summary>
     /// ステージの左下エリア
     /// </summary>
-    public static readonly Vector3 Area2Pos = new Vector3(45.0f, 5.0f, 45.0f);
+    public static readonly Vector3 Area2Pos = new Vector3(49.0f, 5.0f, 49.0f);
     /// <summary>
     /// ステージの右上エリア
     /// </summary>
-    public static readonly Vector3 Area3Pos = new Vector3(75.0f, 5.0f, 75.0f);
+    public static readonly Vector3 Area3Pos = new Vector3(72.0f, 5.0f, 72.0f);
     /// <summary>
     /// ステージの右下エリア
     /// </summary>
-    public static readonly Vector3 Area4Pos = new Vector3(75.0f, 5.0f, 45.0f);
+    public static readonly Vector3 Area4Pos = new Vector3(72.0f, 5.0f, 49.0f);
     /// <summary>
     /// 倒れるスピード
     /// </summary>
     public const float ROTATE_TIME = 3.0f;
+    /// <summary>
+    /// 落下タイルが落下するまでのカウント最大値
+    /// </summary>
+    public const float FALL_COUNT_MAX = 2.0f;
     // 動かせるステージのステート定数==============================
     /// <summary>
     /// 立っている状態
@@ -123,8 +144,26 @@ public class Const
     public const float FADE_TIMER = 2.0f;       //フェードアウト終わるまでの時間
     // 以上タイトル定数
 
-    // 以下カメラ用定数
-    // 以上カメラ用定数
+
+    // 以下カメラ用定数--------------------------
+    /// <summary>
+    /// カメラの回転範囲の制限値
+    /// </summary>
+    public const float LIMIT_CAMERA_ANGLE_Y = 30.0f;
+    /// <summary>
+    /// カメラの回転範囲の制限値
+    /// </summary>
+    public const float LIMIT_CAMERA_ANGLE_X = 20.0f;
+    /// <summary>
+    /// カメラ回転速度減補正係数
+    /// </summary>
+    public const float ROTATE_CAMERA_SPEED = 0.1f;
+    /// <summary>
+    /// ズームカメラのデフォルト視野狭窄
+    /// </summary>
+    public const int FIELD_OF_VIEW_DEFAULT = 50;
+    // 以上カメラ用定数--------------------------
+
 
     // 以下回転用定数
     /// <summary>
@@ -133,7 +172,10 @@ public class Const
     public const int ONE_ROUND = 360;
     // 以上回転用定数
 
-    // 以下アウトゲーム関係
-    //public const float MaxPosY = 180;
+    //以下アウトゲーム関係
+    /// <summary>
+    /// ズーム速度
+    /// </summary>
+    public const float ZOME_POWER = 20.0f;
     // 以上アウトゲーム関係
 }

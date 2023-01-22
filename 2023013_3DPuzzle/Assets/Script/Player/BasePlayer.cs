@@ -4,6 +4,7 @@ using UnityEngine;
 using Cysharp.Threading.Tasks;
 using System.Threading;
 using Stage;
+using DG.Tweening;
 
 public class BasePlayer : MonoBehaviour
 {
@@ -28,6 +29,7 @@ public class BasePlayer : MonoBehaviour
     // 移動中か
     protected bool onMove = false;
     public bool OnMove{get{return onMove;}set{onMove = value;}}
+
     // Taskキャンセル処理用
     public CancellationTokenSource cts{get;private set;} = new CancellationTokenSource();
     public CancellationToken ct{get;private set;} = new CancellationToken();
@@ -36,4 +38,13 @@ public class BasePlayer : MonoBehaviour
     {
         cts.Cancel();
     }
+
+    
+    // 失敗時のTween
+    protected Tween playerFailureTween;
+    public Tween PlayerFailureTween{get{return playerFailureTween;}set{playerFailureTween = value;}}
+    // 成功時のTween
+    protected Tween playerClearTween;
+    public Tween PlayerClearTween{get{return playerClearTween;}set{playerClearTween = value;}}
+
 }

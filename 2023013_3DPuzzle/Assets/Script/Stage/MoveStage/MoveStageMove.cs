@@ -43,11 +43,11 @@ namespace Stage
         /// 回転挙動関数
         /// </summary>
         /// <param name="tmpStairs">階段の実体</param>
-        private void fall(BaseMoveStage tmpStairs)
+        private void fall(BaseMoveStage tmpMoveStage)
         {
             // 挙動前の向きが自身の座標と違う時自身の今の向きを取得
-            if(tmpStairs.LastAngle != tmpStairs.transform.parent.transform.localEulerAngles)
-                tmpStairs.LastAngle = tmpStairs.transform.parent.transform.localEulerAngles;
+            if(tmpMoveStage.LastAngle != tmpMoveStage.transform.parent.transform.localEulerAngles)
+                tmpMoveStage.LastAngle = tmpMoveStage.transform.parent.transform.localEulerAngles;
             
             // 左クリックのみの挙動にするため一旦コメント
                 // // 右クリックで右回転
@@ -68,35 +68,18 @@ namespace Stage
             // 左クリックで左回転
             else if(Input.GetMouseButtonDown(0))
             {
-                switch(tmpStairs.MoveStageState)
+                var tmpAngle = Const.ONE_ROUND / 4;
+                switch(tmpMoveStage.MoveStageState)
                 {
                     // 立っている場合倒す
                     case Const.STATE_STAND_UP:
-                        // 何度回すか
-                        var tmpSetAngl = Const.ONE_ROUND / 4;
-                        var tmpNewAngl = tmpStairs.LastAngle;
-                        tmpNewAngl.x += tmpSetAngl;
-                        tmpStairs.NowTween = tmpStairs.transform.transform.parent.transform.DORotate(tmpNewAngl, Const.ROTATE_TIME).
-                        SetEase(Ease.InQuad).OnComplete(() =>
-                        {
-                            compReset(tmpStairs);
-                        });
-                        tmpStairs.MoveStageState &= ~Const.STATE_STAND_UP;
-                        tmpStairs.MoveStageState |= Const.STATE_FALL;
+                        // 回転挙動
+                        rotateStage(tmpMoveStage, Const.STATE_FALL, tmpAngle);
                         break;
                     // 倒れている場合立てる
                     case Const.STATE_FALL:
-                        // 何度回すか
-                        tmpSetAngl = Const.ONE_ROUND / 4;
-                        tmpNewAngl = tmpStairs.LastAngle;
-                        tmpNewAngl.x -= tmpSetAngl;
-                        tmpStairs.NowTween = tmpStairs.transform.transform.parent.transform.DORotate(tmpNewAngl, Const.ROTATE_TIME).
-                        SetEase(Ease.InQuad).OnComplete(() =>
-                        {
-                            compReset(tmpStairs);
-                        });
-                        tmpStairs.MoveStageState &= ~Const.STATE_FALL;
-                        tmpStairs.MoveStageState |= Const.STATE_STAND_UP;
+                        // 回転挙動
+                        rotateStage(tmpMoveStage, Const.STATE_STAND_UP, -tmpAngle);
                         break;
                     default:
                         break;
@@ -104,6 +87,28 @@ namespace Stage
                  
             }
         }
+
+        /// <summary>
+        /// ステージが倒れる動作関数
+        /// </summary>
+        /// <param name="tmpMoveStage">動かせるステージの実体</param>
+        private void rotateStage(BaseMoveStage tmpMoveStage, uint tmpState, float tmpSetAngl)
+        {
+            // 何度回すか
+            var tmpNewAngl = tmpMoveStage.LastAngle;
+            tmpNewAngl.x += tmpSetAngl;
+
+            // 店頭挙動
+            tmpMoveStage.NowTween = tmpMoveStage.transform.transform.parent.transform.DORotate(tmpNewAngl, Const.ROTATE_TIME).
+            SetEase(Ease.InQuad).OnComplete(() =>
+            {
+                compReset(tmpMoveStage);
+            });
+            // ステート初期化
+            tmpMoveStage.MoveStageState &= ~tmpMoveStage.MoveStageState;
+            tmpMoveStage.MoveStageState |= tmpState;
+        }
+
 
         /// <summary>
         /// 初期化関数
