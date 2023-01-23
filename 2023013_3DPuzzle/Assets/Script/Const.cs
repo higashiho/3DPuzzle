@@ -17,6 +17,7 @@ public class Const
     // 以下プレイヤー定数
     public const float PLAYER_POSY = 3f;
     public const int PLAYER_ROTATE_MAX = 2;     // プレイヤーの回転可能回数上限
+    public const float PLAYER_MOVABLE_POSY = 5f; // プレイヤーが移動可能なY座標最小値
     public const int RIGHT = 0;
     public const int LEFT = 1;
     public const int FORWARD = 2;
