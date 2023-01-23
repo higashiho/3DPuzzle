@@ -19,7 +19,7 @@ public class BasePlayer : MonoBehaviour
 
     // 初期座標
     protected Vector3 startPos;
-    public Vector3 StartPos{get{return startPos;}set{startPos = value;}}
+    public Vector3 StartPos{get{return startPos;}protected set{startPos = value;}}
     
     
     [SerializeField, Header("針管理クラス")]

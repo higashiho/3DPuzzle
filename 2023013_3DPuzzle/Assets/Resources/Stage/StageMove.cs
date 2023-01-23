@@ -162,10 +162,21 @@ namespace Stage
         /// </summary>
         public void StageFailure()
         {
+            // 中間地点取得用
+            var tmpHalfPos = 
+                InGameSceneController.Player.transform.position - InGameSceneController.Player.StartPos;
+            // 通過目標座標
+            Vector3[] tmpMovePos = new Vector3[2]
+            {
+                InGameSceneController.Player.StartPos + tmpHalfPos,
+                InGameSceneController.Player.StartPos
+            };
+            // 少し上を通過したいので足す
+            tmpMovePos[0].y += Const.PLAYER_POSY;
             // ４秒後にスタート地点に戻る
             InGameSceneController.Player.transform.DORotate(Vector3.zero, Const.START_BACK_TIME).SetEase(Ease.Linear);
-            InGameSceneController.Player.PlayerFailureTween =  InGameSceneController.Player.transform.DOMove(
-                InGameSceneController.Player.StartPos, Const.START_BACK_TIME).
+            InGameSceneController.Player.PlayerFailureTween =  InGameSceneController.Player.transform.DOPath(
+                tmpMovePos, Const.START_BACK_TIME, PathType.CatmullRom, PathMode.Full3D).
             SetEase(Ease.Linear).OnComplete(() => InGameSceneController.Player.PlayerFailureTween = null);
 
         }
