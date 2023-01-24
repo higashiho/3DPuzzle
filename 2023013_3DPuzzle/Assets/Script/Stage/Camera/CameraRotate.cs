@@ -19,24 +19,24 @@ namespace Cam
                 tmpCamera.originMousePos = Input.mousePosition;
             }
             // 右クリックしている間　かつ　特定の範囲内のみ
-            else if(Input.GetMouseButton(1))
+            if(Input.GetMouseButton(1))
             {
                 // （右クリックしたときの）ローカル座標でのカメラのrotate
                 tmpCamera.cameraAngle = tmpCamera.transform.localEulerAngles;
-                // カメラの回転量を増減
+                // カメラの回転量
                 //左右と上下が反転しているため、代入先もｘとｙ座標を反対側に代入している
                 tmpCamera.cameraAngle.y += (Input.mousePosition.x - tmpCamera.originMousePos.x) * Const.ROTATE_CAMERA_SPEED;
                 tmpCamera.cameraAngle.x += (Input.mousePosition.y - tmpCamera.originMousePos.y) * Const.ROTATE_CAMERA_SPEED;
-                
+
                 //カメラの回転の上限、ｙ座標であることに注意
                 //360を超えられないため、直前の359にしておく
-                if(tmpCamera.cameraAngle.x >= 359)
+                if(tmpCamera.cameraAngle.x >= 90)
                 {
-                    tmpCamera.cameraAngle.x = 359;
+                    tmpCamera.cameraAngle.x = 90;
                 }
-                if(tmpCamera.cameraAngle.x <= 300)
+                if(tmpCamera.cameraAngle.x <= 50)
                 {
-                    tmpCamera.cameraAngle.x = 300;
+                    tmpCamera.cameraAngle.x = 50;
                 }
                 // 増減した回転量を更新
                 tmpCamera.transform.localEulerAngles = tmpCamera.cameraAngle;
