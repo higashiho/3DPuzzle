@@ -6,25 +6,16 @@ namespace Cam
 {
     public class BaseCamera : MonoBehaviour
     {
-        //カメラの四方の座標
+        //各ステージのカメラの座標
         public Vector3[] StandCameraPos{get; private set;} =   //各ステージの定点カメラ
         {
-            new Vector3(25, 50, 60),         //左上
-            new Vector3(95, 50, 60),         //右上
-            new Vector3(95, 50, -10),         //右下
-            new Vector3(25, 50, 25),         //左下
-            new Vector3(60, 50, 30),         //中央
+            new Vector3(0, 50, 120),         //左上
+            new Vector3(150, 50, 120),         //右上
+            new Vector3(150, 50, -90),         //右下
+            new Vector3(25, 50, -10),         //左下
+            new Vector3(55, 55, 30),         //中央
         };
 
-        //カメラが始点変更になるトリガー座標
-        public Vector3[] PlayerIntoEareaPos{get; private set;} =   //プレイヤーが各ステージに入った判定がある座標
-        {
-            new Vector3(50, 5, 70),         //左上
-            new Vector3(70, 5, 70),         //右上
-            new Vector3(70, 5, 50),         //右下
-            new Vector3(50, 5, 50),         //左下
-            new Vector3(55, 5, 60),         //中央
-        };
         // 右クリックしたときのマウスの座標
         public Vector3 originMousePos;
         // カメラの角度
