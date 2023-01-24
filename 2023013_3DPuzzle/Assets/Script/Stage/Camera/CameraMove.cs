@@ -21,7 +21,7 @@ namespace Cam
         }
 
         public void SetCamera(BaseCamera tmpCamera)
-        {   //プレイヤーが右上のエリアに着いたら、カメラがステージの中心に動く
+        {   //プレイヤーが右上のエリアに着いたら、カメラが右上のステージの中心に動く
             if(InGameSceneController.Player.transform.position == tmpCamera.PlayerIntoEareaPos[0])
             {
                 tmpCamera.CameraMoveFlag = false;
@@ -41,6 +41,11 @@ namespace Cam
             {
                 tmpCamera.CameraMoveFlag = false;
                 tmpCamera.camera.transform.DOMove(tmpCamera.StandCameraPos[3], Const.CAMERA_MOVE_SPEED).SetEase(Ease.OutSine);
+            }
+            else if(InGameSceneController.Player.transform.position == tmpCamera.PlayerIntoEareaPos[4])
+            {
+                tmpCamera.CameraMoveFlag = false;
+                //tmpCamera.camera.transform.DOMove(tmpCamera.StandCameraPos[4], Const.CAMERA_MOVE_SPEED).SetEase(Ease.OutSine);
             }
         }
     }
