@@ -10,7 +10,6 @@ public class BasePlayer : MonoBehaviour
 {
     [SerializeField]
     protected PlayerData playerData;
-    protected PlayerMove playerMove = new PlayerMove();
     public PlayerData PlayersData{get{return playerData;}private set{playerData = value;}}
 
     // 選択しているタイル
@@ -46,5 +45,8 @@ public class BasePlayer : MonoBehaviour
     // 成功時のTween
     protected Tween playerClearTween;
     public Tween PlayerClearTween{get{return playerClearTween;}set{playerClearTween = value;}}
+
+    // インスタンス化
+    protected PlayerMove playerMove = new PlayerMove();
 
 }
