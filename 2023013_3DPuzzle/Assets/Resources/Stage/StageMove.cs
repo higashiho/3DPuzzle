@@ -26,8 +26,6 @@ namespace Stage
                     if(tmpStage.StageState != Const.STATE_NEEDLE_STAGE)
                         bitUpdate(tmpStage,Const.STATE_NEEDLE_STAGE);
 
-                    if(InGameSceneController.Player.OnMove)
-                        Debug.Log("Area1");
                     return;
                 }
 
@@ -39,8 +37,6 @@ namespace Stage
                     if(tmpStage.StageState != Const.STATE_MOVE_STAGE)
                         bitUpdate(tmpStage,Const.STATE_MOVE_STAGE);
 
-                    if(InGameSceneController.Player.OnMove)
-                        Debug.Log("Area2");
                     return;
                 }
 
@@ -52,8 +48,6 @@ namespace Stage
                     if(tmpStage.StageState != Const.STATE_FALLING_STAGE)
                         bitUpdate(tmpStage,Const.STATE_FALLING_STAGE);
 
-                    if(InGameSceneController.Player.OnMove)
-                        Debug.Log("Area3");
                     return;
                 }
 
@@ -65,8 +59,6 @@ namespace Stage
                     if(tmpStage.StageState != Const.STATE_SWITCH_STAGE)
                         bitUpdate(tmpStage,Const.STATE_SWITCH_STAGE);
 
-                    if(InGameSceneController.Player.OnMove)
-                        Debug.Log("Area4");
                     return;
                 }
             
@@ -74,9 +66,6 @@ namespace Stage
             if(tmpStage.StageState != Const.STATE_START)
                 bitUpdate(tmpStage, Const.STATE_START);
 
-            if(InGameSceneController.Player.OnMove)
-                Debug.Log("None");
-            
         }
 
         /// <summary>
