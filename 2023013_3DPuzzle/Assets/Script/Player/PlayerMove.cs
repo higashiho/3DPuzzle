@@ -18,6 +18,8 @@ public class PlayerMove
     private float cubeAngle = 0;    // プレイヤーの回転角
     private bool isRotate = false;  // 回転中のフラグ
     private int moveFlag = -1;      // プレイヤーの移動フラグ
+    private int moveCount = 0;      // プレイヤーの移動回数
+    public int MoveCount{get{return moveCount;}}
 
     /// <summary>
     /// 回転軸の座標配列
@@ -83,6 +85,7 @@ public class PlayerMove
     };
 
     private Ray ray, ray2;      // 移動方向にブロックがあるか判定するRay
+    private RaycastHit hit;     // Rayに当たったオブジェクト取得用
     
     // 移動関数
     public async void Move(BasePlayer tmpPlayer, CancellationTokenSource cts)
@@ -108,6 +111,9 @@ public class PlayerMove
         // 移動方向フラグを立てる
         moveFlag = setDirection(myPos, (Vector3)destination);
         
+        // moveCount計算して取得
+        moveCount = rotateCounter(myPos, (Vector3)destination, moveFlag);
+        
         try
         {
             
@@ -122,14 +128,15 @@ public class PlayerMove
                 ray2 = new Ray(tmpPlayer.transform.position, rayAspect[4]);
                 
                 // 移動方向前方にBoxがあったら
-                if(Physics.Raycast(ray, 5f))
+                if(Physics.Raycast(ray, out hit,5f))
                 {
+                    
                     // 移動フラグを確認して回転軸と回転中心を設定
                     rotateAxis = setRotateAxis(moveFlag);
                     rotatePoint = setRotatePoint(tmpPlayer, goUpRotatePointArr, moveFlag);
                     // 回転
                     await rotateMove(tmpPlayer, cts);
-                    
+            
                 }
                 
                 // 自身の下にBoxがなかったら
@@ -314,12 +321,33 @@ public class PlayerMove
     }
     
     /// <summary>
+    /// プレイヤーの移動タイル数を数える関数
+    /// </summary>
+    /// <param name="myPos">プレイヤーの座標</param>
+    /// <param name="destination">目的地の座標</param>
+    /// <param name="flag">プレイヤーの移動フラグ</param>
+    /// <returns>移動タイル数</returns>
+    private int rotateCounter(Vector3 myPos, Vector3 destination, int flag)
+    {
+        // X軸方向の移動なら
+        if(flag == Const.RIGHT || flag == Const.LEFT)
+           return (int)(Mathf.Abs(myPos.x - destination.x) / (Const.CUBE_SIZE_HALF * 2));
+        
+        // Y軸方向の移動なら
+        else if(flag == Const.FORWARD || flag == Const.BACK)
+            return (int)(Mathf.Abs(myPos.z - destination.z) / (Const.CUBE_SIZE_HALF * 2));
+
+        // それ以外なら0返しとく
+        return 0;
+    }
+    /// <summary>
     /// 移動につかった値を初期化する関数(moveFlagとOnMoveをここで初期化)
     /// </summary>
     /// <param name="tmpPlayer"></param>
     private void resetMoveValue(BasePlayer tmpPlayer)
     {
         moveFlag = -1;
+        moveCount = 0;
         tmpPlayer.OnMove = false;
     }
 }
