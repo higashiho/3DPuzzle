@@ -18,8 +18,7 @@ public class PlayerMove
     private float cubeAngle = 0;    // プレイヤーの回転角
     private bool isRotate = false;  // 回転中のフラグ
     private int moveFlag = -1;      // プレイヤーの移動フラグ
-    private int moveCount = 0;      // プレイヤーの移動回数
-    public int MoveCount{get{return moveCount;}}
+
 
     /// <summary>
     /// 回転軸の座標配列
@@ -112,7 +111,7 @@ public class PlayerMove
         moveFlag = setDirection(myPos, (Vector3)destination);
         
         // moveCount計算して取得
-        moveCount = rotateCounter(myPos, (Vector3)destination, moveFlag);
+        tmpPlayer.MoveCount = rotateCounter(myPos, (Vector3)destination, moveFlag);
         
         try
         {
@@ -347,7 +346,7 @@ public class PlayerMove
     private void resetMoveValue(BasePlayer tmpPlayer)
     {
         moveFlag = -1;
-        moveCount = 0;
+        tmpPlayer.MoveCount = 0;
         tmpPlayer.OnMove = false;
     }
 }
