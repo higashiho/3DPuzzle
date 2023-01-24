@@ -122,7 +122,7 @@ public class Const
     /// </summary>
     public const uint STATE_FALL = 0x0002;
     // =========================================================
-    // ステージのステート定数
+    // ステージのステート定数=====================================
     /// <summary>
     /// 針出現ステージ
     /// </summary>
@@ -184,13 +184,6 @@ public class Const
     /// </summary>
     public const int ONE_ROUND = 360;
     // 以上回転用定数
-
-    //以下アウトゲーム関係
-    /// <summary>
-    /// ズーム速度
-    /// </summary>
-    public const float ZOME_POWER = 20.0f;
-    // 以上アウトゲーム関係
 
     // 以下タスク用定数
     /// <summary>

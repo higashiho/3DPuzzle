@@ -25,6 +25,9 @@ public class InGameSceneController : MonoBehaviour
     {
         Stages = GameObject.FindWithTag("Stage").GetComponent<BaseStage>();
         Player = GameObject.FindWithTag("Player").GetComponent<BasePlayer>();
+
+        // Tweenの最大メモリ初期化
+        DG.Tweening.DOTween.SetTweensCapacity(tweenersCapacity:500, sequencesCapacity:50);
     }
 
 }
