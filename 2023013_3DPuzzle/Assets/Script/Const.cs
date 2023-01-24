@@ -108,6 +108,10 @@ public class Const
     /// 落下タイルが落下するまでのカウント最大値
     /// </summary>
     public const float FALL_COUNT_MAX = 2.0f;
+    /// <summary>
+    /// 落下ステージ制限時間
+    /// </summary>
+    public const int FALL_COUNTDOWN_TIME = 30;
     // 動かせるステージのステート定数==============================
     /// <summary>
     /// 立っている状態
@@ -179,4 +183,11 @@ public class Const
     /// </summary>
     public const float ZOME_POWER = 20.0f;
     // 以上アウトゲーム関係
+
+    // 以下タスク用定数
+    /// <summary>
+    /// ミリ秒を秒に変換用定数
+    /// </summary>
+    public const int CHANGE_SECOND = 1000;
+    // 以上タスク用定数
 }

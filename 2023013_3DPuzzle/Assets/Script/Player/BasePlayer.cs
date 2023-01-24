@@ -19,8 +19,8 @@ public class BasePlayer : MonoBehaviour
     // 初期座標
     protected Vector3 startPos;
     public Vector3 StartPos{get{return startPos;}protected set{startPos = value;}}
-    public Vector3 StartPos{get{return startPos;}set{startPos = value;}}
     // プレイヤーの移動回数
+    [SerializeField, Header("プレイヤー行動回数カウント")]
     protected int moveCount = 0;     
     public int MoveCount{get{return moveCount;}set{moveCount = value;}}
     

@@ -42,7 +42,7 @@ namespace Stage
                 tilesUpdate(tmpNeedle);
                
                 // カウント格納変数を更新
-                tmpMoveCount = tmpNeedle.PlyaerMoveCount;
+                tmpMoveCount = InGameSceneController.Player.MoveCount;
                 return;
             }
 
@@ -84,7 +84,7 @@ namespace Stage
         private void tilesUpdate(BaseNeedle tmpNeedle)
         {
             // プレイヤーの手数が２の時次出現するニードルタイルの色変更
-            if((tmpNeedle.PlyaerMoveCount % Const.CHANGE_NEEDLE_NUM) == Const.CHANGE_NEEDLE_TILE_COLOR_NUM)
+            if((InGameSceneController.Player.MoveCount % Const.CHANGE_NEEDLE_NUM) == Const.CHANGE_NEEDLE_TILE_COLOR_NUM)
             {
                 // プレイヤーが失敗していないときのみ更新
                 if(InGameSceneController.Player.PlayerFailureTween == null && InGameSceneController.Player.PlayerClearTween == null)
@@ -100,7 +100,9 @@ namespace Stage
                 }
             }
             // 3手動いたら出現するニードルタイルを変更
-            if((tmpNeedle.PlyaerMoveCount % Const.CHANGE_NEEDLE_NUM) == 0 && tmpMoveCount != tmpNeedle.PlyaerMoveCount)
+            if((InGameSceneController.Player.MoveCount % Const.CHANGE_NEEDLE_NUM) == 0 &&
+             tmpMoveCount != InGameSceneController.Player.MoveCount
+             )
                 tmpNeedle.NeedleChangeCount++;
         }
         

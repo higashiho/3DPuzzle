@@ -9,6 +9,10 @@ namespace Stage
     public class StageMove
     {
         /// <summary>
+        /// ステージのステート保管用変数
+        /// </summary>
+        private uint tmpStageState;
+        /// <summary>
         /// ステージのステート更新関数
         /// </summary>
         /// <param name="tmpStage">ステージの実体</param>
@@ -91,6 +95,7 @@ namespace Stage
         /// </summary>
         public void StageClear()
         {
+            tmpStageState = InGameSceneController.Stages.StageState;
             // 当たり判定が消えていなかったら消す
             if(InGameSceneController.Player.GetComponent<BoxCollider>().enabled)
                 InGameSceneController.Player.GetComponent<BoxCollider>().enabled = false;
@@ -162,6 +167,9 @@ namespace Stage
         /// </summary>
         public void StageFailure()
         {
+            // ステート保管
+            tmpStageState = InGameSceneController.Stages.StageState;
+
             // 中間地点取得用
             var tmpHalfPos = 
                 InGameSceneController.Player.transform.position - InGameSceneController.Player.StartPos;
@@ -177,8 +185,23 @@ namespace Stage
             InGameSceneController.Player.transform.DORotate(Vector3.zero, Const.START_BACK_TIME).SetEase(Ease.Linear);
             InGameSceneController.Player.PlayerFailureTween =  InGameSceneController.Player.transform.DOPath(
                 tmpMovePos, Const.START_BACK_TIME, PathType.CatmullRom, PathMode.Full3D).
-            SetEase(Ease.Linear).OnComplete(() => InGameSceneController.Player.PlayerFailureTween = null);
+            SetEase(Ease.Linear).OnComplete(() => failureReset());
 
+        }
+
+        /// <summary>
+        /// スタート地点に戻った時の初期化処理
+        /// </summary>
+        private void failureReset()
+        {
+            InGameSceneController.Player.PlayerFailureTween = null;
+
+            // STATE_FALLING_STAGEからの失敗の場合の初期化
+            if(tmpStageState == Const.STATE_FALLING_STAGE)
+                InGameSceneController.Stages.FallTiles.TimeCountTask = null;
+
+            // ステート保管初期化
+            tmpStageState = default;
         }
     }
 }
