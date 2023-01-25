@@ -26,7 +26,7 @@ namespace Stage
                 // 落下するカウントを初期化して消えている場合は出現し直し
                 if(tmpTile.FallCount != Const.FALL_COUNT_MAX)
                 {
-                    tmpObj.GetComponent<Renderer>().material.color = tmpTile.StartColor;
+                    tmpObj.GetComponent<Renderer>().material = tmpTile.StartMaterial;
                     tmpTile.FallCount = Const.FALL_COUNT_MAX;
                 }
 

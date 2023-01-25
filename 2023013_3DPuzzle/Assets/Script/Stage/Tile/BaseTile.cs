@@ -13,10 +13,13 @@ namespace Tile
         [SerializeField, Header("初期色")]
         protected Color startColor;
         public Color StartColor{get{return startColor;}}
+        protected Material startMaterial;
+        public Material StartMaterial{get{return startMaterial;}}
 
         // Fallタイル用
         protected float fallCount = 2;
         public float FallCount{get{return fallCount;}set{fallCount = value;}}
+
 
         
         // マウスカーソルがSphereに乗った時の処理
@@ -39,11 +42,7 @@ namespace Tile
         //マウスカーソルがSphereの上から離れた時の処理
         private void OnMouseExit()
         {
-            //Sphereの色が元の色に戻す
-            if(FallCount != Const.FALL_COUNT_MAX)
-                this.GetComponent<Renderer>().material.color = Color.blue;
-            else
-                this.GetComponent<Renderer>().material.color = startColor;
+            this.GetComponent<Renderer>().material.color = StartColor;
             InGameSceneController.Player.ChooseObj = null;
 
         }

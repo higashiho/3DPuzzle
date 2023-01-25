@@ -18,7 +18,16 @@ namespace Stage
         [SerializeField, Header("警告パネル")]
         protected Image warningPanel;
         public Image WarningPanel{get{return warningPanel;}}
+        
+    
 
+        [SerializeField, Header("黒ひび割れタイル")]
+        protected Material brokenBlackTileMaterial; 
+        public Material BrokenBlackTileMaterial{get{return brokenBlackTileMaterial;}} 
+
+        [SerializeField, Header("黒ひび割れタイル")]
+        protected Material brokenWhiteTileMaterial; 
+        public Material BrokenWhiteTileMaterial{get{return brokenWhiteTileMaterial;}} 
         // 実行しているタスク
         public UniTask? TimeCountTask = null;
         // Taskキャンセル処理用
