@@ -12,7 +12,9 @@ namespace Tile
         // Start is called before the first frame update
         void Start()
         {  
+            startMaterial = this.GetComponent<Renderer>().material;
             startColor = this.GetComponent<Renderer>().material.color;
+
         }
 
         // Update is called once per frame

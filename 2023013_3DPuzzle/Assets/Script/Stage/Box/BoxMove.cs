@@ -123,10 +123,11 @@ namespace Box
                     // ボックスの位置が動いていなかったらプレイヤーを動作前の位置に戻す
                     if(tmpBox.Tile == tmpTileObj)
                     {
-                        var tmpPosX = Mathf.RoundToInt(tmpPlayerPos.x);
-                        var tmpPosY = Mathf.RoundToInt(tmpPlayerPos.y);
-                        var tmpPosZ = Mathf.RoundToInt(tmpPlayerPos.z);
-                        var tmpPlayerNewPos = new Vector3(tmpPosX, tmpPosY, tmpPosZ);
+                        var tmpPlayerNewPos = new Vector3(
+                                Mathf.RoundToInt(tmpPlayerPos.x), 
+                                Mathf.RoundToInt(tmpPlayerPos.y), 
+                                Mathf.RoundToInt(tmpPlayerPos.z)
+                            );
                         InGameSceneController.Player.transform.position = tmpPlayerNewPos;
                     }
                     Debug.Log("MoveComp");

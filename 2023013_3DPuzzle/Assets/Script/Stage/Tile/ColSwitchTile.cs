@@ -44,7 +44,7 @@ namespace Tile
                     break;
                 default:
                     break;
-                }
+            }
         }
         // 当たり判定
         private void OnCollisionStay(Collision col)

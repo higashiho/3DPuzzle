@@ -14,7 +14,6 @@ namespace Stage
         /// <summary>
         /// 接地判定取得関数使用用インスタンス化
         /// </summary>
-        /// <returns></returns>
         private BoxMove boxMove = new BoxMove();
 
         /// <summary>
