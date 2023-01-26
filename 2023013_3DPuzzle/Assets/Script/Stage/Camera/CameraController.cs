@@ -9,22 +9,13 @@ namespace Cam
         // Start is called before the first frame update
         void Start()
         {
-            cameraRotate.CameraInsetance(this);
+            cameraMove.CameraInsetance(this);
         }
 
         // Update is called once per frame
         void LateUpdate()
         {
-            if(CameraMoveFlag)
-                cameraMove.Move(this);
-
-            cameraRotate.rotateCamera(this);
-
-            cameraRotate.ZomeIO(this);
-
-            cameraRotate.CameraReset(this);
-
-            cameraMove.SetCamera(this);
+            cameraMove.Move(this);
         }
     }
 }

@@ -9,24 +9,23 @@ namespace Cam
         //各ステージのカメラの座標
         public Vector3[] StandCameraPos{get; private set;} =   //各ステージの定点カメラ
         {
-            new Vector3(0, 50, 120),         //左上
-            new Vector3(150, 50, 120),         //右上
-            new Vector3(150, 50, -90),         //右下
-            new Vector3(25, 50, -10),         //左下
-            new Vector3(55, 55, 30),         //中央
+            new Vector3(0, 80, 130),         //左上
+            new Vector3(150, 80, 130),       //右上
+            new Vector3(150, 80, -110),      //右下
+            new Vector3(25, 80, -40),          //左下
+            new Vector3(55, 55, 40),         //中央
         };
-
-        // 右クリックしたときのマウスの座標
-        public Vector3 originMousePos;
-        // カメラの角度
-        public Vector3 cameraAngle;
+        // // 右クリックしたときのマウスの座標
+        // public Vector3 originMousePos;
+        // // カメラの角度
+        // public Vector3 cameraAngle;
         // 初期回転位置
         public Quaternion DefoultRotation;
         public new Camera camera;
-        //カメラがプレイヤーに追従するかのフラグ
-        public bool CameraMoveFlag = true;
+        //カメラの回転軸
+        public Vector3 CAMERA_AXIS = Vector3.up;
+
         // インスタンス化
         protected CameraMove cameraMove = new CameraMove();
-        protected CameraRotate cameraRotate = new CameraRotate();
     }
 }
