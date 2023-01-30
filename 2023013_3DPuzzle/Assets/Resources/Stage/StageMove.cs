@@ -9,6 +9,10 @@ namespace Stage
     public class StageMove
     {
         /// <summary>
+        /// ステージのステート保管用変数
+        /// </summary>
+        private uint tmpStageState;
+        /// <summary>
         /// ステージのステート更新関数
         /// </summary>
         /// <param name="tmpStage">ステージの実体</param>
@@ -22,8 +26,6 @@ namespace Stage
                     if(tmpStage.StageState != Const.STATE_NEEDLE_STAGE)
                         bitUpdate(tmpStage,Const.STATE_NEEDLE_STAGE);
 
-                    if(InGameSceneController.Player.OnMove)
-                        Debug.Log("Area1");
                     return;
                 }
 
@@ -35,8 +37,6 @@ namespace Stage
                     if(tmpStage.StageState != Const.STATE_MOVE_STAGE)
                         bitUpdate(tmpStage,Const.STATE_MOVE_STAGE);
 
-                    if(InGameSceneController.Player.OnMove)
-                        Debug.Log("Area2");
                     return;
                 }
 
@@ -48,8 +48,6 @@ namespace Stage
                     if(tmpStage.StageState != Const.STATE_FALLING_STAGE)
                         bitUpdate(tmpStage,Const.STATE_FALLING_STAGE);
 
-                    if(InGameSceneController.Player.OnMove)
-                        Debug.Log("Area3");
                     return;
                 }
 
@@ -61,8 +59,6 @@ namespace Stage
                     if(tmpStage.StageState != Const.STATE_SWITCH_STAGE)
                         bitUpdate(tmpStage,Const.STATE_SWITCH_STAGE);
 
-                    if(InGameSceneController.Player.OnMove)
-                        Debug.Log("Area4");
                     return;
                 }
             
@@ -70,9 +66,6 @@ namespace Stage
             if(tmpStage.StageState != Const.STATE_START)
                 bitUpdate(tmpStage, Const.STATE_START);
 
-            if(InGameSceneController.Player.OnMove)
-                Debug.Log("None");
-            
         }
 
         /// <summary>
@@ -91,6 +84,7 @@ namespace Stage
         /// </summary>
         public void StageClear()
         {
+            tmpStageState = InGameSceneController.Stages.StageState;
             // 当たり判定が消えていなかったら消す
             if(InGameSceneController.Player.GetComponent<BoxCollider>().enabled)
                 InGameSceneController.Player.GetComponent<BoxCollider>().enabled = false;
@@ -122,7 +116,7 @@ namespace Stage
                 tmpPath[i].y += Const.CLEAR_MAX_POS_Y;
             }
             // ２秒後に５秒かけて移動
-            InGameSceneController.Player.transform.DOLocalPath(tmpPath, Const.CLEAR_MOVE_TIME).SetDelay(Const.CLEAR_STOP_TIME).
+            InGameSceneController.Player.transform.DOLocalPath(tmpPath, Const.CLEAR_MOVE_TIME, PathType.Linear, PathMode.Full3D).SetDelay(Const.CLEAR_STOP_TIME).
             SetEase(Ease.OutQuad).OnComplete(compReset);
         }
 
@@ -153,7 +147,8 @@ namespace Stage
             var tmpAngle = Const.ONE_ROUND / 2;
             InGameSceneController.Player.PlayerClearTween = 
             InGameSceneController.Player.transform.DORotate(Vector3.up * tmpAngle, Const.CLEAR_ROTATE_TIME).
-            SetEase(Ease.Linear).OnComplete(clearPlayerRotate);
+            SetEase(Ease.Linear).SetLoops(-1, LoopType.Restart);
+            // ループの引数に-1を渡すことで無限ループされる
         }
 
         /// <summary>
@@ -161,11 +156,41 @@ namespace Stage
         /// </summary>
         public void StageFailure()
         {
+            // ステート保管
+            tmpStageState = InGameSceneController.Stages.StageState;
+
+            // 中間地点取得用
+            var tmpHalfPos = 
+                InGameSceneController.Player.transform.position - InGameSceneController.Player.StartPos;
+            // 通過目標座標
+            Vector3[] tmpMovePos = new Vector3[2]
+            {
+                InGameSceneController.Player.StartPos + tmpHalfPos,
+                InGameSceneController.Player.StartPos
+            };
+            // 少し上を通過したいので足す
+            tmpMovePos[0].y += Const.PLAYER_POSY;
             // ４秒後にスタート地点に戻る
             InGameSceneController.Player.transform.DORotate(Vector3.zero, Const.START_BACK_TIME).SetEase(Ease.Linear);
-            InGameSceneController.Player.PlayerFailureTween =  InGameSceneController.Player.transform.DOMove(InGameSceneController.Player.StartPos, Const.START_BACK_TIME).
-            SetEase(Ease.Linear).OnComplete(() => InGameSceneController.Player.PlayerFailureTween = null);
+            InGameSceneController.Player.PlayerFailureTween =  InGameSceneController.Player.transform.DOPath(
+                tmpMovePos, Const.START_BACK_TIME, PathType.CatmullRom, PathMode.Full3D).
+            SetEase(Ease.Linear).OnComplete(() => failureReset());
 
+        }
+
+        /// <summary>
+        /// スタート地点に戻った時の初期化処理
+        /// </summary>
+        private void failureReset()
+        {
+            InGameSceneController.Player.PlayerFailureTween = null;
+
+            // STATE_FALLING_STAGEからの失敗の場合の初期化
+            if(tmpStageState == Const.STATE_FALLING_STAGE)
+                InGameSceneController.Stages.FallTiles.TimeCountTask = null;
+
+            // ステート保管初期化
+            tmpStageState = default;
         }
     }
 }

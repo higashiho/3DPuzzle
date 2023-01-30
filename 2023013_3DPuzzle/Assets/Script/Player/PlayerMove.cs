@@ -112,7 +112,7 @@ public class PlayerMove
         moveFlag = setDirection(myPos, (Vector3)destination);
         
         // moveCount計算して取得
-        tmpPlayer.MoveCount = rotateCounter(myPos, (Vector3)destination, moveFlag);
+        tmpPlayer.MoveCount += rotateCounter(myPos, (Vector3)destination, moveFlag);
         
         try
         {
@@ -347,7 +347,7 @@ public class PlayerMove
     private void resetMoveValue(BasePlayer tmpPlayer)
     {
         moveFlag = -1;
-        tmpPlayer.MoveCount = 0;
+        // tmpPlayer.MoveCount = 0;
         tmpPlayer.OnMove = false;
     }
 }

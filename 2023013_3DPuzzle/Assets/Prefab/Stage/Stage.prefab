@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1388192265}
   m_Layer: 0
   m_Name: Falls
-  m_TagString: Untagged
+  m_TagString: FallTiles
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -45,6 +45,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fallTiles: []
+  warningPanel: {fileID: 0}
+  brokenBlackTileMaterial: {fileID: 2100000, guid: 25e9b706968a8274c8ecb40543f3ae7d, type: 2}
+  brokenWhiteTileMaterial: {fileID: 2100000, guid: 0f53c61c87082824791822d508c581bc, type: 2}
 --- !u!1 &1780259322
 GameObject:
   m_ObjectHideFlags: 0
@@ -90,7 +93,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   needleTiles: []
-  playerMoveCount: 0
   needleChangeCount: 0
 --- !u!1 &302579731704811697
 GameObject:
@@ -152,6 +154,7 @@ MonoBehaviour:
   tileParent: {fileID: 8946109332750586246}
   prefabBox: {fileID: 3226213973817768160, guid: b0cbd0c35b395cd4faa33b07501de767, type: 3}
   stageState: 0
+  fallTiles: {fileID: 1388192265}
 --- !u!1 &8946109332750586246
 GameObject:
   m_ObjectHideFlags: 0

@@ -108,6 +108,10 @@ public class Const
     /// 落下タイルが落下するまでのカウント最大値
     /// </summary>
     public const float FALL_COUNT_MAX = 2.0f;
+    /// <summary>
+    /// 落下ステージ制限時間
+    /// </summary>
+    public const int FALL_COUNTDOWN_TIME = 30;
     // 動かせるステージのステート定数==============================
     /// <summary>
     /// 立っている状態
@@ -118,7 +122,7 @@ public class Const
     /// </summary>
     public const uint STATE_FALL = 0x0002;
     // =========================================================
-    // ステージのステート定数
+    // ステージのステート定数=====================================
     /// <summary>
     /// 針出現ステージ
     /// </summary>
@@ -140,10 +144,10 @@ public class Const
     // 以上ステージ用定数
 
 
-    // 以下タイトル定数
+    // 以下タイトル定数--------------------------
     public const float FADE_END_VALUE = 1.0f;   //透明度の最大値
     public const float FADE_TIMER = 2.0f;       //フェードアウト終わるまでの時間
-    // 以上タイトル定数
+    // 以上タイトル定数--------------------------
 
 
     // 以下カメラ用定数--------------------------
@@ -156,13 +160,26 @@ public class Const
     /// </summary>
     public const float LIMIT_CAMERA_ANGLE_X = 20.0f;
     /// <summary>
-    /// カメラ回転速度減補正係数
-    /// </summary>
-    public const float ROTATE_CAMERA_SPEED = 0.1f;
-    /// <summary>
     /// ズームカメラのデフォルト視野狭窄
     /// </summary>
     public const int FIELD_OF_VIEW_DEFAULT = 50;
+    /// <summary>
+    /// カメラのズームスピード
+    /// </summary>
+    public const int ZOME_POWER = 10;
+    /// <summary>
+    /// カメラが各エリアに移るときのスピード
+    /// </summary>
+    public const float CAMERA_MOVE_SPEED = 0.4f;
+    /// <summary>
+    /// 円運動の回転速度
+    /// </summary>
+    public const float MOVE_AROUND_SPEED = 200.0f;
+    /// <summary>
+    /// 回転上限
+    /// </summary>
+    public const int UNDER_ROTATE_LIMIT = 20;
+    public const int OVER_ROTATE_LIMIT = 70;
     // 以上カメラ用定数--------------------------
 
 
@@ -173,10 +190,10 @@ public class Const
     public const int ONE_ROUND = 360;
     // 以上回転用定数
 
-    //以下アウトゲーム関係
+    // 以下タスク用定数
     /// <summary>
-    /// ズーム速度
+    /// ミリ秒を秒に変換用定数
     /// </summary>
-    public const float ZOME_POWER = 20.0f;
-    // 以上アウトゲーム関係
+    public const int CHANGE_SECOND = 1000;
+    // 以上タスク用定数
 }

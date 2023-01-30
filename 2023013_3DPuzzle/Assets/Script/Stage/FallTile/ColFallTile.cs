@@ -25,7 +25,13 @@ namespace Tile
 
                 // カウントが残っている場合は描画変更
                 else
-                    this.GetComponent<Renderer>().material.color = Color.blue;
+                {
+                    if(this.transform.parent.tag == "WhiteTile")
+                        this.GetComponent<Renderer>().material = InGameSceneController.FallTile.BrokenWhiteTileMaterial; 
+                    else
+                        this.GetComponent<Renderer>().material = InGameSceneController.FallTile.BrokenBlackTileMaterial; 
+
+                }
 
             }
         }
