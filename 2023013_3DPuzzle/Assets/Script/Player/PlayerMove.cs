@@ -18,6 +18,7 @@ public class PlayerMove
     private float cubeAngle = 0;    // プレイヤーの回転角
     private bool isRotate = false;  // 回転中のフラグ
     private int moveFlag = -1;      // プレイヤーの移動フラグ
+    private Queue<int> moveNum = new Queue<int>(2);     // 移動回数保存キュー  
 
 
     /// <summary>
