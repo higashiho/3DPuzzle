@@ -112,6 +112,14 @@ public class Const
     /// 落下ステージ制限時間
     /// </summary>
     public const int FALL_COUNTDOWN_TIME = 30;
+    /// <summary>
+    /// スイッチタイル変換ゴール回数
+    /// </summary>
+    public const int GOAL_TILE_NUM = 1;
+    /// <summary>
+    /// ゴール回数が複数あるステージのマックス値
+    /// </summary>
+    public const int MAX_GOAL_NUM = 2;
     // 動かせるステージのステート定数==============================
     /// <summary>
     /// 立っている状態

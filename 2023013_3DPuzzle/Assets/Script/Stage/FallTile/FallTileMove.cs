@@ -14,14 +14,20 @@ namespace Stage
     /// </summary>
     public class FallTileMove
     {
+
+        private BaseFallTile tmpFallTile;
+        public FallTileMove(BaseFallTile tmp)
+        {
+            tmpFallTile = tmp;
+        }
         /// <summary>
         /// タイルステージから離れるときの初期化関数
         /// </summary>
-        /// <param name="tmpFallTile"></param>
-        public void FallTileReset(BaseFallTile tmpFallTile)
+        public void FallTileReset()
         {
             foreach(var tmpObj in tmpFallTile.FallTiles)
             {
+                
                 var tmpTile = tmpObj.GetComponent<BaseTile>();
                 // 落下するカウントを初期化して消えている場合は出現し直し
                 if(tmpTile.FallCount != Const.FALL_COUNT_MAX)
@@ -32,20 +38,28 @@ namespace Stage
 
                 if(!tmpObj.transform.parent.gameObject.activeSelf)
                     tmpObj.transform.parent.gameObject.SetActive(true);
+
+                if(tmpObj.tag == "SwitchTile")
+                {
+                    tmpObj.GetComponent<Renderer>().material = tmpTile.StartMaterial;
+                    tmpObj.tag = "Fall";
+                }
             }
+            InGameSceneController.Stages.TileChangeFlag = false;
+            InGameSceneController.Stages.ClearCount = Const.MAX_GOAL_NUM;
+
         }
 
         /// <summary>
         /// エリアに入った時のカウントダウン処理
         /// </summary>
-        /// <param name="tmpFallTile">落下タイルの実体</param>
-        public async void TimeMove(BaseFallTile tmpFallTile)
+        public async void TimeMoveAsync()
         {
             if(InGameSceneController.Stages.StageState == Const.STATE_FALLING_STAGE && 
                 tmpFallTile.TimeCountTask == null)
             {
                 // TimeCountTaskにtimeCountを代入
-                tmpFallTile.TimeCountTask = timeCount(tmpFallTile);
+                tmpFallTile.TimeCountTask = timeCountAsyck();
 
                 Debug.Log("in");
                 // timeCountを実行
@@ -56,10 +70,8 @@ namespace Stage
         /// <summary>
         /// エリアに入った時のカウントダウン処理のタスク
         /// </summary>
-        /// <param name="tmpFallTile">落下タイルの実体</param>
-        /// <param name="cts">キャンセル処理用Token</param>
         /// <returns>無し</returns>
-        private async UniTask timeCount(BaseFallTile tmpFallTile)
+        private async UniTask timeCountAsyck()
         {
             // 制限時間半分になったら警告Panel出現
             var tmpTime = Const.FALL_COUNTDOWN_TIME / 2;
@@ -100,7 +112,7 @@ namespace Stage
             tmpColor.a = 0;
             tmpFallTile.WarningPanel.color = tmpColor;
             tmpFallTile.WarningPanel.enabled = false;            
-            FallTileReset(tmpFallTile);
+            FallTileReset();
             tmpTweem.Kill();
         }
     }

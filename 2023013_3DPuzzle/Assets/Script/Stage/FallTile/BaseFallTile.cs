@@ -34,6 +34,6 @@ namespace Stage
         public static CancellationTokenSource Cts{get;private set;} = new CancellationTokenSource();
 
         // インスタンス化
-        public FallTileMove FallTileMoves{get; private set;} = new FallTileMove();
+        public FallTileMove FallTileMoves{get; protected set;}
     }
 }

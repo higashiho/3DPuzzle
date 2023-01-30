@@ -8,12 +8,14 @@ namespace Tile
     /// <summary>
     /// スイッチタイルの当たり判定管理クラス
     /// </summary>
-    public class ColSwitchTile : MonoBehaviour
+    public class ColTile : MonoBehaviour
     {
         // インスタンス化
         private NeedleMove needleMove = new NeedleMove();
         private StageMove stageMove = new StageMove();
-        private FallTileMove fallTileMove = new FallTileMove();
+        private TileMove tileMove = null;
+        private FallTileMove fallTileMove = null;
+
         [SerializeField]
         private BaseTile tile;
 
@@ -22,6 +24,13 @@ namespace Tile
         /// </summary>
         private void stageClearMove()
         {
+            // タイルムーブのインスタンス化がされていない場合はインスタンス化をする
+            if(tileMove == null)
+                tileMove = new TileMove(tile);
+            
+            if(fallTileMove == null)
+                fallTileMove = new FallTileMove(InGameSceneController.FallTile);
+            
             switch(InGameSceneController.Stages.StageState)
             {
                 // 左上ステージ
@@ -35,8 +44,17 @@ namespace Tile
                     break;
                 // 右上ステージ
                 case Const.STATE_FALLING_STAGE:
-                    stageMove.StageClear();
-                    fallTileMove.FallTileReset(InGameSceneController.Stages.transform.GetChild(2).GetComponent<BaseFallTile>());
+                    // カウントが1以下になったらクリア処理
+                    if(InGameSceneController.Stages.ClearCount <= Const.GOAL_TILE_NUM)
+                    {
+                        stageMove.StageClear();
+                        fallTileMove.FallTileReset();
+                    }
+                    // プレイヤーから一番遠いタイルをスイッチタイルに変更
+                    else if(InGameSceneController.Stages.TileChangeFlag)
+                    {
+                        tileMove.ChangeSwitchTile();
+                    }
                     break;
                 // 右下ステージ
                 case Const.STATE_SWITCH_STAGE:
@@ -46,14 +64,13 @@ namespace Tile
                     break;
             }
         }
+
         // 当たり判定
         private void OnCollisionStay(Collision col)
         {
             // Playerと当たった時に自分がスイッチの場合
             if(col.gameObject.tag == "Player" && this.gameObject.tag == "SwitchTile")
             {
-                Debug.Log(InGameSceneController.Player.PlayerClearTween);
-
                 Debug.Log("Stay");
                 if(!InGameSceneController.Player.OnMove && InGameSceneController.Player.PlayerClearTween == null)
                     stageClearMove();

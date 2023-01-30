@@ -46,11 +46,15 @@ namespace Stage
                 return;
             }
 
-            // ステートが針ステージではない場合は針を表示しない
-            foreach(var tmpObj in tmpNeedle.NeedleTiles)
-            {
-                tmpObj.transform.GetChild(0).gameObject.SetActive(false);
-            }           
+            // ステートが針ステージではない場合で針が出現している場合は針を表示しない
+            if(tmpNeedle.NeedleTiles[0].activeSelf || tmpNeedle.NeedleTiles[1].activeSelf)
+            {    
+                ResetTile();
+                foreach(var tmpObj in tmpNeedle.NeedleTiles)
+                {
+                    tmpObj.transform.GetChild(0).gameObject.SetActive(false);
+                }     
+            }     
         }
 
         /// <summary>
@@ -68,11 +72,13 @@ namespace Stage
                 {
                     // タイルの色を初期化して表示
                     tmpObj.transform.GetComponent<Renderer>().material.color = tmpColor;
-                    tmpObj.transform.GetChild(0).gameObject.SetActive(true);
+                    if(!tmpObj.activeSelf)
+                        tmpObj.transform.GetChild(0).gameObject.SetActive(true);
                 }
                 else
                 {
-                    tmpObj.transform.GetChild(0).gameObject.SetActive(false);
+                    if(tmpObj.activeSelf)
+                        tmpObj.transform.GetChild(0).gameObject.SetActive(false);
                 }
             }
         }

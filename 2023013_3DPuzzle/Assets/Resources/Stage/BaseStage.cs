@@ -38,7 +38,13 @@ namespace Stage
         protected BaseFallTile fallTiles;
         public BaseFallTile FallTiles{get{return fallTiles;}}
 
-
+        // FallStageクリア回数
+        [SerializeField]
+        protected int clearCount = Const.MAX_GOAL_NUM;
+        public int ClearCount{get{return clearCount;} set{clearCount = value;}}
+        // FallStage用クリアタイルが変更されたかフラグ
+        protected bool tileChangeFlag = true;
+        public bool TileChangeFlag{get{return tileChangeFlag;}set{tileChangeFlag = value;}}
         // インスタンス化
         protected InstanceStage instance = new InstanceStage();
         protected StageMove stageMove = new StageMove();
