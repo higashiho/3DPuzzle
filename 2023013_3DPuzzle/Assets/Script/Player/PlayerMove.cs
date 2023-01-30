@@ -18,14 +18,12 @@ public class PlayerMove
     private Vector3 rotateAxis;  //回転軸(ワールド座標)
     private float cubeAngle = 0;    // プレイヤーの回転角
     private bool isRotate = false;  // 回転中のフラグ
-    private int moveFlag = -1;      // プレイヤーの移動フラグ
-    private Stack<int> moveNum = new Stack<int>(2);     // 移動回数保存キュー  
+    private int moveFlag = -1;      // プレイヤーの移動フラグ 
 
 
     /// <summary>
     /// 回転軸の座標配列
     /// </summary>
-    /// <value></value>
     private Vector3[] rotateAxisArr = 
     {
         new Vector3(0f, 0f, -1f),   // X(正)
@@ -39,7 +37,6 @@ public class PlayerMove
     /// <summary>
     /// 平面を転がるときの回転中心の座標配列
     /// </summary>
-    /// <value></value>
     private Vector3[] rotatePointArr = 
     {
         new Vector3(1f, -1f, 0f),
@@ -51,7 +48,6 @@ public class PlayerMove
     /// <summary>
     /// Rayを飛ばす方向の配列
     /// </summary>
-    /// <value></value>
     private Vector3[] rayAspect = 
     {
         new Vector3(1f, 0f, 0f),    // X(正)
@@ -64,7 +60,6 @@ public class PlayerMove
     /// <summary>
     /// 上段のタイルに上るときの回転中心座標の配列
     /// </summary>
-    /// <value></value>
     private Vector3[] goUpRotatePointArr = 
     {
         new Vector3(1f, 1f, 0f),
@@ -76,7 +71,7 @@ public class PlayerMove
     /// <summary>
     /// 下段のタイルに降りるときの回転中心座標配列
     /// </summary>
-    /// <value></value>
+   
     private Vector3[]goDownRotatePointArr = 
     {
         new Vector3(-1f, -1f, 0f),
@@ -134,7 +129,7 @@ public class PlayerMove
                     
                     // 移動フラグを確認して回転軸と回転中心を設定
                     rotateAxis = setRotateAxis(moveFlag);
-                    rotatePoint = setRotatePoint(tmpPlayer, goUpRotatePointArr, moveFlag);
+                    rotatePoint = tmpPlayer.transform.position + setRotatePoint(goUpRotatePointArr, moveFlag);
                     // 回転
                     await rotateMove(tmpPlayer, cts);
             
@@ -145,7 +140,7 @@ public class PlayerMove
                 {
                     // 移動フラグを確認して回転軸と回転中心を設定
                     rotateAxis = setRotateAxis(moveFlag);
-                    rotatePoint = setRotatePoint(tmpPlayer, goDownRotatePointArr, moveFlag);
+                    rotatePoint = tmpPlayer.transform.position + (-1)*setRotatePoint(goUpRotatePointArr, moveFlag);
                     // 回転
                     await rotateMove(tmpPlayer, cts);
                     
@@ -157,7 +152,7 @@ public class PlayerMove
 
                 // 移動フラグを確認して回転軸と回転中心を設定
                 rotateAxis = setRotateAxis(moveFlag);
-                rotatePoint = setRotatePoint(tmpPlayer, rotatePointArr, moveFlag);
+                rotatePoint = tmpPlayer.transform.position + setRotatePoint(rotatePointArr, moveFlag);
                 // 回転
                 await rotateMove(tmpPlayer, cts);
                 // プレイヤーのX,Z方向の座標が変わっていたら
@@ -166,9 +161,6 @@ public class PlayerMove
                     // moveCountインクリメント
                     tmpPlayer.MoveCount++;
                 }
-                Debug.Log(tmpPlayer.MoveCount);
-
-                // 
 
             }
         }
@@ -250,22 +242,22 @@ public class PlayerMove
     /// <param name="pos">回転させるオブジェクトの座標</param>
     /// <param name="flag">移動方向フラグ</param>
     /// <returns>回転中心</returns>
-    private Vector3 setRotatePoint(BasePlayer tmpPlayer, Vector3[] Arr, int flag)
+    private Vector3 setRotatePoint(Vector3[] Arr, int flag)
     {
         if(flag == Const.RIGHT)
-            return tmpPlayer.transform.position + Arr[0] * Const.CUBE_SIZE_HALF;
+            return Arr[0] * Const.CUBE_SIZE_HALF;
         if(flag == Const.LEFT)
-            return tmpPlayer.transform.position + Arr[1] * Const.CUBE_SIZE_HALF;
+            return Arr[1] * Const.CUBE_SIZE_HALF;
         if(flag == Const.FORWARD)
-            return tmpPlayer.transform.position + Arr[2] * Const.CUBE_SIZE_HALF;
+            return Arr[2] * Const.CUBE_SIZE_HALF;
         if(flag == Const.BACK)
-            return tmpPlayer.transform.position + Arr[3] * Const.CUBE_SIZE_HALF;
+            return Arr[3] * Const.CUBE_SIZE_HALF;
         if(flag == Const.UP)
-            return tmpPlayer.transform.position + Arr[4] * Const.CUBE_SIZE_HALF;
+            return Arr[4] * Const.CUBE_SIZE_HALF;
         if(flag == Const.DOWN)
-            return tmpPlayer.transform.position + Arr[5] * Const.CUBE_SIZE_HALF;
+            return Arr[5] * Const.CUBE_SIZE_HALF;
 
-        return tmpPlayer.transform.position + Vector3.zero;
+        return Vector3.zero;
     }
     /// <summary>
     /// 回転軸を設定する関数
@@ -352,4 +344,5 @@ public class PlayerMove
         // tmpPlayer.MoveCount = 0;
         tmpPlayer.OnMove = false;
     }
+
 }
