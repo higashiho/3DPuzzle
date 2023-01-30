@@ -160,10 +160,6 @@ public class Const
     /// </summary>
     public const float LIMIT_CAMERA_ANGLE_X = 20.0f;
     /// <summary>
-    /// カメラ回転速度減補正係数
-    /// </summary>
-    public const float ROTATE_CAMERA_SPEED = 0.1f;
-    /// <summary>
     /// ズームカメラのデフォルト視野狭窄
     /// </summary>
     public const int FIELD_OF_VIEW_DEFAULT = 50;
@@ -174,17 +170,16 @@ public class Const
     /// <summary>
     /// カメラが各エリアに移るときのスピード
     /// </summary>
-    public const float CAMERA_MOVE_SPEED = 1.0f;
+    public const float CAMERA_MOVE_SPEED = 0.4f;
     /// <summary>
     /// 円運動の回転速度
     /// </summary>
-    public const float MOVE_AROUND_SPEED = 0.1f;
+    public const float MOVE_AROUND_SPEED = 200.0f;
     /// <summary>
     /// 回転上限
     /// </summary>
     public const int UNDER_ROTATE_LIMIT = 20;
     public const int OVER_ROTATE_LIMIT = 70;
-
     // 以上カメラ用定数--------------------------
 
 
