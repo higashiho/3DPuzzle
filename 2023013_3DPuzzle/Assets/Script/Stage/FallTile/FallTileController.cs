@@ -18,7 +18,7 @@ namespace Stage
         // Update is called once per frame
         void Update()
         {
-            fallTileMove.TimeMove(this, cts.Token);
+            FallTileMoves.TimeMove(this);
         }
     }
 }

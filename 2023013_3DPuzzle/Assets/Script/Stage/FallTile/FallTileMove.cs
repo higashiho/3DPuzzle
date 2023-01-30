@@ -39,13 +39,13 @@ namespace Stage
         /// エリアに入った時のカウントダウン処理
         /// </summary>
         /// <param name="tmpFallTile">落下タイルの実体</param>
-        public async void TimeMove(BaseFallTile tmpFallTile, CancellationToken token)
+        public async void TimeMove(BaseFallTile tmpFallTile)
         {
             if(InGameSceneController.Stages.StageState == Const.STATE_FALLING_STAGE && 
                 tmpFallTile.TimeCountTask == null)
             {
                 // TimeCountTaskにtimeCountを代入
-                tmpFallTile.TimeCountTask = timeCount(tmpFallTile, token);
+                tmpFallTile.TimeCountTask = timeCount(tmpFallTile);
 
                 Debug.Log("in");
                 // timeCountを実行
@@ -59,43 +59,49 @@ namespace Stage
         /// <param name="tmpFallTile">落下タイルの実体</param>
         /// <param name="cts">キャンセル処理用Token</param>
         /// <returns>無し</returns>
-        private async UniTask timeCount(BaseFallTile tmpFallTile, CancellationToken token)
+        private async UniTask timeCount(BaseFallTile tmpFallTile)
         {
             // 制限時間半分になったら警告Panel出現
             var tmpTime = Const.FALL_COUNTDOWN_TIME / 2;
             await UniTask.Delay(tmpTime * Const.CHANGE_SECOND);
 
-            // キャンセルが要求されている場合
-            if ( token.IsCancellationRequested )
+            // Cancel処理
+            if(BaseFallTile.Cts.Token.IsCancellationRequested)
             {
+                Debug.Log("Cancel");
                 return;
             }
-            // キャンセルが要求されていない場合
-            else
+
+            // 半分になったら画面を赤くするパネル表示
+            tmpFallTile.WarningPanel.enabled = true;
+            // 1/4の明るさまで表示
+            var tmpValue = Const.FADE_END_VALUE / 4;
+            var tmpTweem = tmpFallTile.WarningPanel.DOFade(tmpValue,tmpTime).
+            SetEase(Ease.Linear).OnKill(() => tmpFallTile.WarningPanel.enabled = false);
+
+            await UniTask.Delay(tmpTime * Const.CHANGE_SECOND);
+            var tmpColor = tmpFallTile.WarningPanel.color;
+
+            // Cancel処理
+            if(BaseFallTile.Cts.Token.IsCancellationRequested)
             {
-                // 半分になったら
-                tmpFallTile.WarningPanel.enabled = true;
-                // 1/4の明るさまで表示
-                var tmpValue = Const.FADE_END_VALUE / 4;
-                var tmpTweem = tmpFallTile.WarningPanel.DOFade(tmpValue,Const.FADE_TIMER).
-                SetEase(Ease.Linear).SetLoops(-1, LoopType.Yoyo);
-
-                await UniTask.Delay(tmpTime * Const.CHANGE_SECOND);
-
-                // キャンセルが要求されている場合
-                if ( token.IsCancellationRequested )
-                {
-                    return;
-                }
-
-                // スタート位置帰還
-                InGameSceneController.Stages.MoveStage.StageFailure();
-
-                // 初期化
-                tmpFallTile.WarningPanel.enabled = false;
-                FallTileReset(tmpFallTile);
+                Debug.Log("Cancel");
                 tmpTweem.Kill();
+                // 初期化
+                tmpColor.a = 0;
+                tmpFallTile.WarningPanel.color = tmpColor;
+
+                return;
             }
+            // スタート位置帰還
+            InGameSceneController.Stages.MoveStage.StageFailure();
+
+            // 初期化
+            tmpColor.a = 0;
+            tmpFallTile.WarningPanel.color = tmpColor;
+            tmpFallTile.WarningPanel.enabled = false;            
+            FallTileReset(tmpFallTile);
+            tmpTweem.Kill();
         }
     }
 }
