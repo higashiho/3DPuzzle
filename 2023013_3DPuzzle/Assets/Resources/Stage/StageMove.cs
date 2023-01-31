@@ -84,6 +84,7 @@ namespace Stage
         /// </summary>
         public void StageClear()
         {
+            
             tmpStageState = InGameSceneController.Stages.StageState;
             // 当たり判定が消えていなかったら消す
             if(InGameSceneController.Player.GetComponent<BoxCollider>().enabled)
@@ -133,7 +134,11 @@ namespace Stage
             if(!InGameSceneController.Player.GetComponent<BoxCollider>().enabled)
                 InGameSceneController.Player.GetComponent<BoxCollider>().enabled = true;
 
+            // checkArea();
 
+            
+            // ステート保管初期化
+            tmpStageState = default;
         }
         /// <summary>
         /// 0.5秒に一回転する挙動関数
@@ -185,12 +190,24 @@ namespace Stage
         {
             InGameSceneController.Player.PlayerFailureTween = null;
 
-            // STATE_FALLING_STAGEからの失敗の場合の初期化
-            if(tmpStageState == Const.STATE_FALLING_STAGE)
-                InGameSceneController.Stages.FallTiles.TimeCountTask = null;
+            // checkArea();
 
             // ステート保管初期化
             tmpStageState = default;
         }
+
+        /// <summary>
+        /// ステージごとの初期化用関数
+        /// </summary>
+        // private void checkArea()
+        // {
+        //     // STATE_FALLING_STAGEからの場合のの初期化
+        //     if(tmpStageState == Const.STATE_FALLING_STAGE)
+        //     {
+        //         InGameSceneController.Stages.FallTiles.TimeCountTask = null;
+        //         return;
+        //     }
+
+        // }
     }
 }

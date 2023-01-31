@@ -14,7 +14,7 @@ namespace Tile
 
         private void  OnCollisionExit(Collision col) 
         {
-            if(col.gameObject.tag == "Player")
+            if(col.gameObject.tag == "Player" && this.gameObject.tag == "Fall")
             {
                 // カウントを減らす
                 tile.FallCount--;

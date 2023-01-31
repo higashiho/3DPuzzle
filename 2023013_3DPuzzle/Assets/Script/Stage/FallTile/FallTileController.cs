@@ -13,12 +13,13 @@ namespace Stage
         void Start()
         {
             FallTiles = GameObject.FindGameObjectsWithTag("Fall");
+            FallTileMoves = new FallTileMove(this);
         }
 
         // Update is called once per frame
         void Update()
         {
-            fallTileMove.TimeMove(this, cts.Token);
+            FallTileMoves.TimeMoveAsync();
         }
     }
 }

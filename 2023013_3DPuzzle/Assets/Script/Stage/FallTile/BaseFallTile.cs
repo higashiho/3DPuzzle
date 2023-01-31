@@ -31,9 +31,9 @@ namespace Stage
         // 実行しているタスク
         public UniTask? TimeCountTask = null;
         // Taskキャンセル処理用
-        public CancellationTokenSource cts{get;private set;} = new CancellationTokenSource();
+        public static CancellationTokenSource Cts{get;private set;} = new CancellationTokenSource();
 
         // インスタンス化
-        protected FallTileMove fallTileMove = new FallTileMove();
+        public FallTileMove FallTileMoves{get; protected set;}
     }
 }
