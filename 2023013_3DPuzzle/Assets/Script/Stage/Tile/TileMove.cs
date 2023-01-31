@@ -49,9 +49,15 @@ namespace Tile
 
             // オブジェクト変更
             tmpTile.gameObject.tag = "Tiles";
-            tmpTile.gameObject.GetComponent<Renderer>().material.color = Color.white;
+            var tmpMaterialRenderer = tmpTile.gameObject.GetComponent<Renderer>().material;
+            tmpMaterialRenderer = InGameSceneController.Stages.TileMaterial;
+            tmpMaterialRenderer.color = Color.white;
+            tmpTile.gameObject.GetComponent<Renderer>().material = tmpMaterialRenderer;
             tmpObj.tag = "SwitchTile";
-            tmpObj.GetComponent<Renderer>().material.color = Color.magenta;
+            tmpMaterialRenderer = tmpObj.GetComponent<Renderer>().material;
+            tmpMaterialRenderer = InGameSceneController.Stages.SwitchTileMaterial;
+            tmpMaterialRenderer.color = Color.magenta;
+            tmpObj.GetComponent<Renderer>().material = tmpMaterialRenderer;
             InGameSceneController.Stages.TileChangeFlag = false;
 
         }

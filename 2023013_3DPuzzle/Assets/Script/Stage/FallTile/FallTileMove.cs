@@ -42,9 +42,11 @@ namespace Stage
 
                 if(tmpObj.tag == "SwitchTile")
                 {
-                    tmpObj.GetComponent<Renderer>().material.color = tmpObj.GetComponent<BaseTile>().StartColor;
-                    tmpObj.GetComponent<Renderer>().material = tmpTile.StartMaterial;
                     tmpObj.tag = "Fall";
+                    var tmpMaterialRenderer = tmpObj.GetComponent<Renderer>().material;
+                    tmpMaterialRenderer.color = tmpObj.GetComponent<BaseTile>().StartColor;
+                    tmpMaterialRenderer = tmpTile.StartMaterial;
+                    tmpObj.GetComponent<Renderer>().material = tmpMaterialRenderer;
                 }
             }
 
@@ -54,10 +56,14 @@ namespace Stage
                 if(tmpObj == null)
                     break;
 
+                // スイッチタイルではなくなってたら初期化
                 if(tmpObj.tag != "SwitchTile")
                 {
                     tmpObj.tag = "SwitchTile";
-                    tmpObj.GetComponent<Renderer>().material.color = tmpObj.GetComponent<BaseTile>().StartColor;
+                    var tmpMaterialRenderer = tmpObj.GetComponent<Renderer>().material;
+                    tmpMaterialRenderer = InGameSceneController.Stages.SwitchTileMaterial;
+                    tmpMaterialRenderer.color = tmpObj.GetComponent<BaseTile>().StartColor;
+                    tmpObj.GetComponent<Renderer>().material = tmpMaterialRenderer;
                 }
             }
 

@@ -40,6 +40,12 @@ namespace Stage
         [SerializeField, Header("落下ステージのコントローラークラス")]
         protected BaseFallTile fallTiles;
         public BaseFallTile FallTiles{get{return fallTiles;}}
+        [SerializeField, Header("スイッチタイルのmaterial")]
+        protected Material switchTileMaterial;
+        public Material SwitchTileMaterial{get{return switchTileMaterial;}}
+        [SerializeField, Header("初期タイルのmaterial")]
+        protected Material tileMaterial;
+        public Material TileMaterial{get{return tileMaterial;}}
 
         // FallStageクリア回数
         [SerializeField]
