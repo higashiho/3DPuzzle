@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Stage;
+using DG.Tweening;
 
 namespace Tile
 {
@@ -47,12 +48,15 @@ namespace Tile
                     // カウントが1以下になったらクリア処理
                     if(InGameSceneController.Stages.ClearCount <= Const.GOAL_TILE_NUM)
                     {
+                        BaseFallTile.Cts.Cancel();
+                        DOTween.Kill(InGameSceneController.FallTile.WarningPanel);
                         stageMove.StageClear();
                         fallTileMove.FallTileReset();
                     }
                     // プレイヤーから一番遠いタイルをスイッチタイルに変更
                     else if(InGameSceneController.Stages.TileChangeFlag)
                     {
+                        Debug.Log("In");
                         tileMove.ChangeSwitchTile();
                     }
                     break;

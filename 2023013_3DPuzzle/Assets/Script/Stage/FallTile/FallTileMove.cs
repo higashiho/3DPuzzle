@@ -25,6 +25,7 @@ namespace Stage
         /// </summary>
         public void FallTileReset()
         {
+            // 落下タイルリセット
             foreach(var tmpObj in tmpFallTile.FallTiles)
             {
                 
@@ -41,11 +42,28 @@ namespace Stage
 
                 if(tmpObj.tag == "SwitchTile")
                 {
+                    tmpObj.GetComponent<Renderer>().material.color = tmpObj.GetComponent<BaseTile>().StartColor;
                     tmpObj.GetComponent<Renderer>().material = tmpTile.StartMaterial;
                     tmpObj.tag = "Fall";
                 }
             }
-            InGameSceneController.Stages.TileChangeFlag = false;
+
+            // スイッチタイルリセット
+            foreach(var tmpObj in InGameSceneController.Stages.SwitchTiles)
+            {
+                if(tmpObj == null)
+                    break;
+
+                if(tmpObj.tag != "SwitchTile")
+                {
+                    tmpObj.tag = "SwitchTile";
+                    tmpObj.GetComponent<Renderer>().material.color = tmpObj.GetComponent<BaseTile>().StartColor;
+                }
+            }
+
+            // 初期化
+            tmpFallTile.TimeCountTask = null;
+            InGameSceneController.Stages.TileChangeFlag = true;
             InGameSceneController.Stages.ClearCount = Const.MAX_GOAL_NUM;
 
         }
@@ -55,16 +73,26 @@ namespace Stage
         /// </summary>
         public async void TimeMoveAsync()
         {
-            if(InGameSceneController.Stages.StageState == Const.STATE_FALLING_STAGE && 
-                tmpFallTile.TimeCountTask == null)
+            if(InGameSceneController.Stages.StageState == Const.STATE_FALLING_STAGE)
             {
-                // TimeCountTaskにtimeCountを代入
-                tmpFallTile.TimeCountTask = timeCountAsyck();
+                if(tmpFallTile.TimeCountTask == null)
+                {
+                    // TimeCountTaskにtimeCountを代入
+                    tmpFallTile.TimeCountTask = timeCountAsyck();
 
-                Debug.Log("in");
-                // timeCountを実行
-                await (UniTask)tmpFallTile.TimeCountTask;
+                    Debug.Log("in");
+                    // timeCountを実行
+                    await (UniTask)tmpFallTile.TimeCountTask;
+                }
+                return;
             }
+
+            // ステートが落下ステージではないとき
+            FallTileReset();
+            BaseFallTile.Cts.Cancel();
+            DOTween.Kill(tmpFallTile.WarningPanel);
+
+
         }
 
         /// <summary>

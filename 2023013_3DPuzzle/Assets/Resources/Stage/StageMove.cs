@@ -134,7 +134,7 @@ namespace Stage
             if(!InGameSceneController.Player.GetComponent<BoxCollider>().enabled)
                 InGameSceneController.Player.GetComponent<BoxCollider>().enabled = true;
 
-            checkArea();
+            // checkArea();
 
             
             // ステート保管初期化
@@ -190,7 +190,7 @@ namespace Stage
         {
             InGameSceneController.Player.PlayerFailureTween = null;
 
-            checkArea();
+            // checkArea();
 
             // ステート保管初期化
             tmpStageState = default;
@@ -199,17 +199,15 @@ namespace Stage
         /// <summary>
         /// ステージごとの初期化用関数
         /// </summary>
-        private void checkArea()
-        {
-            // STATE_FALLING_STAGEからの場合のの初期化
-            if(tmpStageState == Const.STATE_FALLING_STAGE)
-            {
-                InGameSceneController.Stages.FallTiles.TimeCountTask = null;
-                BaseFallTile.Cts.Cancel();
-                DOTween.Kill(InGameSceneController.Stages.FallTiles.WarningPanel);
-                return;
-            }
+        // private void checkArea()
+        // {
+        //     // STATE_FALLING_STAGEからの場合のの初期化
+        //     if(tmpStageState == Const.STATE_FALLING_STAGE)
+        //     {
+        //         InGameSceneController.Stages.FallTiles.TimeCountTask = null;
+        //         return;
+        //     }
 
-        }
+        // }
     }
 }

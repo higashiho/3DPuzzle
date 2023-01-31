@@ -72,12 +72,12 @@ namespace Stage
                 {
                     // タイルの色を初期化して表示
                     tmpObj.transform.GetComponent<Renderer>().material.color = tmpColor;
-                    if(!tmpObj.activeSelf)
+                    if(!tmpObj.transform.GetChild(0).gameObject.activeSelf)
                         tmpObj.transform.GetChild(0).gameObject.SetActive(true);
                 }
                 else
                 {
-                    if(tmpObj.activeSelf)
+                    if(tmpObj.transform.GetChild(0).gameObject.activeSelf)
                         tmpObj.transform.GetChild(0).gameObject.SetActive(false);
                 }
             }

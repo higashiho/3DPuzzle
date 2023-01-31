@@ -14,7 +14,7 @@ namespace Stage
         {
             // ステージ生成
             instance.StageMaking(this, filePath);
-
+            SwitchTiles = GameObject.FindGameObjectsWithTag("SwitchTile");
         }
 
         // Update is called once per frame
