@@ -39,7 +39,7 @@ namespace Cam
         /// <value></value>
         public Vector3[,] CameraMovePos{get; private set;} =
         {
-            {new Vector3(50, 5, 75), new Vector3(45, 5, 70)},         //左上
+            {new Vector3(50, 5, 75), new Vector3(45, 5, 70)},         //左上(上,下)
             {new Vector3(70, 5, 75), new Vector3(75, 5, 70)},         //右上
             {new Vector3(75, 5, 50), new Vector3(70, 5, 45)},         //右下
             {new Vector3(45, 5, 50), new Vector3(50, 5, 45)},         //左下
@@ -55,6 +55,18 @@ namespace Cam
             new Vector3(70, 5, 70),         // 右上
             new Vector3(70, 5, 50),         // 右下
             new Vector3(50, 5, 50),         // 左下
+        };
+
+        /// <summary>
+        /// カメラが移動できるようになる範囲の境界線
+        /// </summary>
+        /// <value></value>
+        public Vector3[] CameraRotateBorderLine{get; private set;} =
+        {
+            new Vector3(52.5f, 5, 67.5f),   //左上
+            new Vector3(67.5f, 5, 67.5f),   //右上
+            new Vector3(67.5f, 5, 52.5f),   //右下
+            new Vector3(52.5f, 5, 52.5f),   //左下
         };
         // // 右クリックしたときのマウスの座標
         // public Vector3 originMousePos;
@@ -72,8 +84,11 @@ namespace Cam
         protected bool moveCameraFlag;
         public bool MoveCameraFlag{get{return moveCameraFlag;}set{moveCameraFlag = value;}}
 
-        protected Tween cameraTween;
-        public Tween CameraTween{get{return cameraTween;}set{cameraTween = value;}}
+        protected Tween[] cameraTween = new Tween[5]
+        {
+            null, null, null, null, null,
+        };
+        public Tween[] CameraTween{get{return cameraTween;}set{cameraTween = value;}}
         
         /// <summary>
         /// カメラの回転軸

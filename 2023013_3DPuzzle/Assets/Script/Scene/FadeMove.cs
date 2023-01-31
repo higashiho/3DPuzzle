@@ -15,8 +15,8 @@ namespace Scene
                 {
                     tmpScene.fadePanel.DOFade(endValue: Const.FADE_END_VALUE,duration: Const.FADE_TIMER).SetEase(Ease.Linear).OnComplete(() =>
                     {
-                        SceneManager.LoadScene(tmpSceneName);
                         fadeOut(tmpScene);
+                        SceneManager.LoadScene(tmpSceneName);
                     });
                 }
         }
@@ -24,7 +24,7 @@ namespace Scene
             //フェードアウト
         private void fadeOut(BaseScene tmpScene)
         {
-            tmpScene.fadePanel.DOFade(endValue: 0,duration: Const.FADE_TIMER).SetEase(Ease.Linear);
+            tmpScene.fadePanel.DOFade(endValue: 1,duration: Const.FADE_TIMER).SetEase(Ease.Linear);
         }
     }
 }
