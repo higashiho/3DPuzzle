@@ -130,6 +130,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerData: {fileID: 11400000, guid: a6bdc4f6c5c55944393d32e15f549cf7, type: 2}
+  moveCount: 0
   needle: {fileID: 0}
 --- !u!114 &455404915
 MonoBehaviour:
