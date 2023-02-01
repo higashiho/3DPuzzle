@@ -85,16 +85,15 @@ namespace Tile
         /// </summary>
         private void stageClearMove()
         {
-            // タイルムーブのインスタンス化がされていない場合はインスタンス化をする
+            // インスタンス化がされていない場合はインスタンス化をする
             if(tileMove == null)
                 tileMove = new TileMove(tmpTile);
-            
             if(fallTileMove == null)
                 fallTileMove = new FallTileMove(InGameSceneController.FallTile);
-
             if(switchTileMove == null)
                 switchTileMove = new SwitchTileMove(InGameSceneController.SwitchTile);
             
+            // どのステージからの帰還か判断
             switch(InGameSceneController.Stages.StageState)
             {
                 // 左上ステージ

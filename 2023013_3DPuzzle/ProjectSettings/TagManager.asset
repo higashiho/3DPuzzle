@@ -16,6 +16,7 @@ TagManager:
   - FallTiles
   - KeyTile
   - WallTile
+  - SwitchTiles
   layers:
   - Default
   - TransparentFX

@@ -19,13 +19,16 @@ namespace Tile
                 if(tmpTile.OnSwitch)
                 {
                     tmpTile.OnSwitch = false;
-                    tmpTile.GetComponent<Renderer>().material.color = tmpTile.StartColor;
+                    tmpTile.GetComponent<Renderer>().material.color = Color.green;
+                    tmpTile.StartColor = tmpTile.GetComponent<Renderer>().material.color;
                 }
                 // スイッチがオフの場合はオンにして色変更
                 else
                 {
                     tmpTile.OnSwitch = true;
                     tmpTile.GetComponent<Renderer>().material.color = Color.blue;
+                    tmpTile.StartColor = tmpTile.GetComponent<Renderer>().material.color;
+
                 }
 
                 // スイッチがすべて押されたか判断

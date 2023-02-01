@@ -12,7 +12,7 @@ namespace Tile
         // 初期マテリアルカラー取得
         [SerializeField, Header("初期色")]
         protected Color startColor;
-        public Color StartColor{get{return startColor;}}
+        public Color StartColor{get{return startColor;} set{startColor = value;}}
         protected Material startMaterial;
         public Material StartMaterial{get{return startMaterial;}}
 

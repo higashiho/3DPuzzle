@@ -25,6 +25,7 @@ namespace Tile
         {
             // ステートがスイッチステージの場合
             if(InGameSceneController.Stages.StageState == StageConst.STATE_SWITCH_STAGE)
+            {
                 // 全てのスイッチが踏まれたら
                 if(checkSwitchTile())
                 {
@@ -54,11 +55,14 @@ namespace Tile
                         }
                     }
                 }
-                else
-                {
-                    // 初期化
-                    SwitchTileReset();
-                }
+            }
+                
+            else
+            {
+                Debug.Log("初期化");
+                // 初期化
+                SwitchTileReset();
+            }
                 
         }
 
@@ -95,6 +99,9 @@ namespace Tile
                 var tmpTile = tmpObj.GetComponent<BaseTile>();
                 if(tmpTile.OnSwitch)
                     tmpTile.OnSwitch = false;
+                
+                tmpObj.GetComponent<Renderer>().material.color = Color.green;
+                tmpTile.StartColor = tmpObj.GetComponent<Renderer>().material.color;
             }  
 
             // 壁初期化
