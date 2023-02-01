@@ -7,6 +7,7 @@ namespace Scene
 {
     public class EndSceneMove
     {
+        // シーン遷移
         public void Move(BaseScene tmpScene)
         {
             //エンドシーンからタイトルシーンへ

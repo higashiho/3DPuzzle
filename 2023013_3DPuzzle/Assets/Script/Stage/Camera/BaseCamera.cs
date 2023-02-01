@@ -13,11 +13,11 @@ namespace Cam
         /// <value></value>
         public Vector3[] StandCameraPos{get; private set;} =
         {
-            new Vector3(25, 80, 65),         //左上
-            new Vector3(95, 80, 65),         //右上
-            new Vector3(95, 80, -15),        //右下
-            new Vector3(25, 80, -15),        //左下
-            new Vector3(55, 55, 40),         //中央
+            new Vector3(30, 80, 65),         //左上
+            new Vector3(100, 80, 70),         //右上
+            new Vector3(100, 80, -10),        //右下
+            new Vector3(30, 80, -10),        //左下
+            new Vector3(65, 55, 40),         //中央
         };
 
         /// <summary>
@@ -26,10 +26,10 @@ namespace Cam
         /// <value></value>
         public Vector3[] AxisCamera{get; private set;} =
         {
-            new Vector3(25, 0, 95),         //左上
-            new Vector3(95, 0, 95),         //右上
-            new Vector3(95, 0, 25),         //右下
-            new Vector3(25, 0, 25),         //左下
+            new Vector3(30, 0, 100),         //左上
+            new Vector3(100, 0, 100),         //右上
+            new Vector3(100, 0, 25),         //右下
+            new Vector3(30, 0, 25),         //左下
             new Vector3(60, 0, 60),         //中央
         };
 
@@ -39,10 +39,10 @@ namespace Cam
         /// <value></value>
         public Vector3[,] CameraMovePos{get; private set;} =
         {
-            {new Vector3(50, 5, 75), new Vector3(45, 5, 70)},         //左上
-            {new Vector3(70, 5, 75), new Vector3(75, 5, 70)},         //右上
-            {new Vector3(75, 5, 50), new Vector3(70, 5, 45)},         //右下
-            {new Vector3(45, 5, 50), new Vector3(50, 5, 45)},         //左下
+            {new Vector3(55, 5, 80), new Vector3(50, 5, 75)},         //左上(上,下)
+            {new Vector3(75, 5, 80), new Vector3(80, 5, 75)},         //右上
+            {new Vector3(80, 5, 55), new Vector3(75, 5, 50)},         //右下
+            {new Vector3(50, 5, 55), new Vector3(55, 5, 50)},         //左下
         };
 
         /// <summary>
@@ -51,10 +51,22 @@ namespace Cam
         /// <value></value>
         public Vector3[] CameraCenterMovePos{get; private set;} =
         {
-            new Vector3(50, 5, 70),         // 左上
-            new Vector3(70, 5, 70),         // 右上
-            new Vector3(70, 5, 50),         // 右下
-            new Vector3(50, 5, 50),         // 左下
+            new Vector3(55, 5, 75),         // 左上
+            new Vector3(75, 5, 75),         // 右上
+            new Vector3(75, 5, 55),         // 右下
+            new Vector3(55, 5, 55),         // 左下
+        };
+
+        /// <summary>
+        /// カメラが移動できるようになる範囲の境界線
+        /// </summary>
+        /// <value></value>
+        public Vector3[] CameraRotateBorderLine{get; private set;} =
+        {
+            new Vector3(52.5f, 5, 67.5f),   //左上
+            new Vector3(67.5f, 5, 67.5f),   //右上
+            new Vector3(67.5f, 5, 57.5f),   //右下
+            new Vector3(52.5f, 5, 57.5f),   //左下
         };
         // // 右クリックしたときのマウスの座標
         // public Vector3 originMousePos;
@@ -72,8 +84,11 @@ namespace Cam
         protected bool moveCameraFlag;
         public bool MoveCameraFlag{get{return moveCameraFlag;}set{moveCameraFlag = value;}}
 
-        protected Tween cameraTween;
-        public Tween CameraTween{get{return cameraTween;}set{cameraTween = value;}}
+        protected Tween[] cameraTween = new Tween[5]
+        {
+            null, null, null, null, null,
+        };
+        public Tween[] CameraTween{get{return cameraTween;}set{cameraTween = value;}}
         
         /// <summary>
         /// カメラの回転軸

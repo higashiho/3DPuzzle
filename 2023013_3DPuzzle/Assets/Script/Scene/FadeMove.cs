@@ -8,23 +8,33 @@ namespace Scene
 {
     public class FadeMove
     {
-        //フェードイン・ロードシーン・フェードアウト
+        /// <summary>
+        /// フェードイン・ロードシーン・フェードアウト
+        /// </summary>
+        /// <param name="tmpScene"></param>
+        /// <param name="tmpSceneName"></param>
         public void FadeIn(BaseScene tmpScene, string tmpSceneName)
         {
-                if(Input.GetKeyDown(KeyCode.Return))
+                if(tmpScene.OnToButtonFlag && Input.GetMouseButtonDown(0))
                 {
-                    tmpScene.fadePanel.DOFade(endValue: Const.FADE_END_VALUE,duration: Const.FADE_TIMER).SetEase(Ease.Linear).OnComplete(() =>
+                    tmpScene.fadePanel.DOFade(endValue: Const.FADE_END_VALUE, duration: Const.FADE_TIMER)
+                    .SetEase(Ease.Linear).OnComplete(() =>
                     {
-                        SceneManager.LoadScene(tmpSceneName);
+                        // 非同期処理とする??
+                        tmpScene.Async = SceneManager.LoadSceneAsync(tmpSceneName);
                         fadeOut(tmpScene);
+                        SceneManager.LoadScene(tmpSceneName);
                     });
                 }
         }
 
-            //フェードアウト
+        /// <summary>
+        /// フェードアウト
+        /// </summary>
+        /// <param name="tmpScene"></param>
         private void fadeOut(BaseScene tmpScene)
         {
-            tmpScene.fadePanel.DOFade(endValue: 0,duration: Const.FADE_TIMER).SetEase(Ease.Linear);
+            tmpScene.fadePanel.DOFade(endValue: 1, duration: Const.FADE_TIMER).SetEase(Ease.Linear);
         }
     }
 }
