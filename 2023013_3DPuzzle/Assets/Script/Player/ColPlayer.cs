@@ -12,10 +12,14 @@ namespace Player
     {
         // インスタンス化
         private StageMove stageMove = new StageMove();
-        private NeedleMove needleMove = new NeedleMove();
+        private NeedleMove needleMove;
         
         void OnCollisionStay(Collision col)
         {   
+            // インスタンス化がnullの場合インスタンス化する
+            if(needleMove == null)
+                needleMove = new NeedleMove(InGameSceneController.Player.Needle);
+
             // ニードルが表示されているニードルタイルを踏んだ時初期座標に移動
             if(col.gameObject.tag == "Needle" && col.transform.GetChild(0).gameObject.activeSelf)
             {

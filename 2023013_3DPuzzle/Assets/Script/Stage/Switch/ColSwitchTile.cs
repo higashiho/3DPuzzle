@@ -13,7 +13,8 @@ namespace Tile
         // 当たり判定
         private void  OnCollisionExit(Collision col) 
         {
-            if(col.gameObject.tag == "Player")
+            // プレイヤーとの当たり判定/スイッチステージをクリアしてない時のみ実施
+            if(col.gameObject.tag == "Player" && !InGameSceneController.Stages.ClearSwitchStage)
             {
                 // スイッチがオンの場合オフにして色を初期化
                 if(tmpTile.OnSwitch)

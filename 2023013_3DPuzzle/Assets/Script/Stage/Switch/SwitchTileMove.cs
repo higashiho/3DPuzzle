@@ -26,6 +26,8 @@ namespace Tile
             // ステートがスイッチステージの場合
             if(InGameSceneController.Stages.StageState == StageConst.STATE_SWITCH_STAGE)
             {
+                tmpSwitchTile.ResetFlag = true;
+
                 // 全てのスイッチが踏まれたら
                 if(checkSwitchTile())
                 {
@@ -54,14 +56,8 @@ namespace Tile
                             }
                         }
                     }
+                    InGameSceneController.Stages.ClearSwitchStage = true;
                 }
-            }
-                
-            else
-            {
-                Debug.Log("初期化");
-                // 初期化
-                SwitchTileReset();
             }
                 
         }
@@ -93,6 +89,8 @@ namespace Tile
         /// </summary>
         public void SwitchTileReset()
         {
+            // リセットフラグ初期化
+            tmpSwitchTile.ResetFlag = false;
             // タイル初期化
             foreach(var tmpObj in tmpSwitchTile.SwutchTiles)
             {
@@ -118,6 +116,10 @@ namespace Tile
             // ゴールにつながるタイルが表示されていたら削除
             if(InGameSceneController.Stages.ChangeTile.Count != 0 && InGameSceneController.Stages.ChangeTile[0].activeSelf)
                 InGameSceneController.Stages.ChangeTile[0].SetActive(false);
+
+            // フラグ初期化
+            InGameSceneController.Stages.ClearSwitchStage = false;
+
 
         }
     }

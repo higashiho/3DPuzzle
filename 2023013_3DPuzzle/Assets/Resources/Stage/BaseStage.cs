@@ -24,6 +24,10 @@ namespace Stage
         protected GameObject[] keyTiles;
         public GameObject[] KeyTiles{get{return keyTiles;} protected set{keyTiles = value;}}
         
+        // スイッチステージをクリアしたか
+        protected bool clearSwitchStage;
+        public bool ClearSwitchStage{get{return clearSwitchStage;} set{clearSwitchStage = value;}}
+        
         // ボックスが移動中かフラグ
         private bool moving = false;
         public bool Moving{get{return moving;}set{moving = value;}}

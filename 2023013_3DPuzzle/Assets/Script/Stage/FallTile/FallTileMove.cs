@@ -69,6 +69,9 @@ namespace Stage
                     tmpObj.GetComponent<Renderer>().material = tmpMaterialRenderer;
                 }
             }
+
+            // 初期化フラグ初期化
+            tmpFallTile.ResetFlag = false;
         }
 
         /// <summary>
@@ -98,6 +101,7 @@ namespace Stage
         {
             if(InGameSceneController.Stages.StageState == StageConst.STATE_FALLING_STAGE)
             {
+                tmpFallTile.ResetFlag = true;
                 if(tmpFallTile.TimeCountTask == null)
                 {
                     // TimeCountTaskにtimeCountを代入
@@ -110,10 +114,15 @@ namespace Stage
                 return;
             }
 
-            // ステートが落下ステージではないとき
-            FallTileReset();
-            BaseFallTile.Cts.Cancel();
-            DOTween.Kill(tmpFallTile.WarningPanel);
+            // 初期化フラグがたっていたら初期化
+            if(tmpFallTile.ResetFlag)
+            {
+                // ステートが落下ステージではないとき
+                FallTileReset();
+                BaseFallTile.Cts.Cancel();
+                DOTween.Kill(tmpFallTile.WarningPanel);
+            }
+            
 
 
         }
