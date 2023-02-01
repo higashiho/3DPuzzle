@@ -48,18 +48,26 @@ namespace Tile
             }
 
             // オブジェクト変更
+            changeTile(tmpObj);
+
+        }
+
+        /// <summary>
+        /// オブジェクト変更関数
+        /// </summary>
+        /// <param name="tmpObj">変更対象オブジェクト</param>
+        private void changeTile(GameObject tmpObj)
+        {
             tmpTile.gameObject.tag = "Tiles";
-            var tmpMaterialRenderer = tmpTile.gameObject.GetComponent<Renderer>().material;
-            tmpMaterialRenderer = InGameSceneController.Stages.TileMaterial;
+            var tmpMaterialRenderer = InGameSceneController.Stages.TileMaterial;
             tmpMaterialRenderer.color = Color.white;
             tmpTile.gameObject.GetComponent<Renderer>().material = tmpMaterialRenderer;
-            tmpObj.tag = "SwitchTile";
-            tmpMaterialRenderer = tmpObj.GetComponent<Renderer>().material;
-            tmpMaterialRenderer = InGameSceneController.Stages.SwitchTileMaterial;
+
+            tmpObj.tag = "KeyTile";
+            tmpMaterialRenderer = InGameSceneController.Stages.KeyTileMaterial;
             tmpMaterialRenderer.color = Color.magenta;
             tmpObj.GetComponent<Renderer>().material = tmpMaterialRenderer;
             InGameSceneController.Stages.TileChangeFlag = false;
-
         }
     }
 }

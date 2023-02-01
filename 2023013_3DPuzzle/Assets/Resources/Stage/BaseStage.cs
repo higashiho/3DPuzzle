@@ -21,8 +21,8 @@ namespace Stage
         protected GameObject tileParent;
         public GameObject TileParemt{get{return tileParent;}}
         [SerializeField, Header("スイッチタイル")]
-        protected GameObject[] switchTiles;
-        public GameObject[] SwitchTiles{get{return switchTiles;} protected set{switchTiles = value;}}
+        protected GameObject[] keyTiles;
+        public GameObject[] KeyTiles{get{return keyTiles;} protected set{keyTiles = value;}}
         
         // ボックスが移動中かフラグ
         private bool moving = false;
@@ -41,8 +41,8 @@ namespace Stage
         protected BaseFallTile fallTiles;
         public BaseFallTile FallTiles{get{return fallTiles;}}
         [SerializeField, Header("スイッチタイルのmaterial")]
-        protected Material switchTileMaterial;
-        public Material SwitchTileMaterial{get{return switchTileMaterial;}}
+        protected Material keyTileMaterial;
+        public Material KeyTileMaterial{get{return keyTileMaterial;}}
         [SerializeField, Header("初期タイルのmaterial")]
         protected Material tileMaterial;
         public Material TileMaterial{get{return tileMaterial;}}
