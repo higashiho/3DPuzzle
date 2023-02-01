@@ -35,18 +35,18 @@ namespace Tile
             switch(InGameSceneController.Stages.StageState)
             {
                 // 左上ステージ
-                case Const.STATE_NEEDLE_STAGE:
+                case StageConst.STATE_NEEDLE_STAGE:
                     stageMove.StageClear();
                     needleMove.ResetTile();
                     break;
                 // 左下ステージ
-                case Const.STATE_MOVE_STAGE:
+                case StageConst.STATE_MOVE_STAGE:
                     stageMove.StageClear();
                     break;
                 // 右上ステージ
-                case Const.STATE_FALLING_STAGE:
+                case StageConst.STATE_FALLING_STAGE:
                     // カウントが1以下になったらクリア処理
-                    if(InGameSceneController.Stages.ClearCount <= Const.GOAL_TILE_NUM)
+                    if(InGameSceneController.Stages.ClearCount <= StageConst.GOAL_TILE_NUM)
                     {
                         BaseFallTile.Cts.Cancel();
                         DOTween.Kill(InGameSceneController.FallTile.WarningPanel);
@@ -61,7 +61,7 @@ namespace Tile
                     }
                     break;
                 // 右下ステージ
-                case Const.STATE_SWITCH_STAGE:
+                case StageConst.STATE_SWITCH_STAGE:
                     stageMove.StageClear();
                     break;
                 default:

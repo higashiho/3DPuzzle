@@ -209,6 +209,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startColor: {r: 0, g: 0, b: 0, a: 0}
+  keyTileFlag: 0
 --- !u!114 &6179138129026287312
 MonoBehaviour:
   m_ObjectHideFlags: 0

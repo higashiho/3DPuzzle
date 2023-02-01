@@ -16,8 +16,8 @@ GameObject:
   - component: {fileID: 7787363976290278455}
   - component: {fileID: 4451247167313537294}
   m_Layer: 0
-  m_Name: FallTile
-  m_TagString: Fall
+  m_Name: SwitchTile
+  m_TagString: SwitchTile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -65,7 +65,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 5fce7d8e8c777d24abf99671f2e65c98, type: 2}
+  - {fileID: 2100000, guid: 7b8f4c5ed9937834790a36abaffb73ea, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -153,7 +153,7 @@ GameObject:
   - component: {fileID: 6857076053342521841}
   - component: {fileID: 3368274335922663073}
   m_Layer: 0
-  m_Name: BlackFallTile
+  m_Name: SwitchTile
   m_TagString: BlackTile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

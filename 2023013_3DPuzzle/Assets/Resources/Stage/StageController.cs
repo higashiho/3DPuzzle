@@ -14,7 +14,10 @@ namespace Stage
         {
             // ステージ生成
             instance.StageMaking(this, filePath);
+
+            // オブジェクト配列取得
             KeyTiles = GameObject.FindGameObjectsWithTag("KeyTile");
+            WallTiles = GameObject.FindGameObjectsWithTag("WallTile");
         }
 
         // Update is called once per frame

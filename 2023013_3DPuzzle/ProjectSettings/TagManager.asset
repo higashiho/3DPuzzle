@@ -8,7 +8,6 @@ TagManager:
   - Tiles
   - StartTile
   - GoalTile
-  - Box
   - Needle
   - WhiteTile
   - BlackTile
@@ -16,6 +15,7 @@ TagManager:
   - Fall
   - FallTiles
   - KeyTile
+  - WallTile
   layers:
   - Default
   - TransparentFX

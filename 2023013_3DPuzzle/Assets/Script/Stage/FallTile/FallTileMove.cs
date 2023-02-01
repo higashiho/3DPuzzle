@@ -34,7 +34,7 @@ namespace Stage
             // 初期化
             tmpFallTile.TimeCountTask = null;
             InGameSceneController.Stages.TileChangeFlag = true;
-            InGameSceneController.Stages.ClearCount = Const.MAX_GOAL_NUM;
+            InGameSceneController.Stages.ClearCount = StageConst.MAX_GOAL_NUM;
 
         }
 
@@ -50,10 +50,10 @@ namespace Stage
                     
                 var tmpTile = tmpObj.GetComponent<BaseTile>();
                 // 落下するカウントを初期化して消えている場合は出現し直し
-                if(tmpTile.FallCount != Const.FALL_COUNT_MAX)
+                if(tmpTile.FallCount != StageConst.FALL_COUNT_MAX)
                 {
                     tmpObj.GetComponent<Renderer>().material = tmpTile.StartMaterial;
-                    tmpTile.FallCount = Const.FALL_COUNT_MAX;
+                    tmpTile.FallCount = StageConst.FALL_COUNT_MAX;
 
                     // 消えている場合は生成
                     if(!tmpObj.transform.parent.gameObject.activeSelf)
@@ -96,7 +96,7 @@ namespace Stage
         /// </summary>
         public async void TimeMoveAsync()
         {
-            if(InGameSceneController.Stages.StageState == Const.STATE_FALLING_STAGE)
+            if(InGameSceneController.Stages.StageState == StageConst.STATE_FALLING_STAGE)
             {
                 if(tmpFallTile.TimeCountTask == null)
                 {
@@ -125,7 +125,7 @@ namespace Stage
         private async UniTask timeCountAsyck()
         {
             // 制限時間半分になったら警告Panel出現
-            var tmpTime = Const.FALL_COUNTDOWN_TIME / 2;
+            var tmpTime = StageConst.FALL_COUNTDOWN_TIME / 2;
             await UniTask.Delay(tmpTime * Const.CHANGE_SECOND);
 
             // Cancel処理

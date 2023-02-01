@@ -26,7 +26,7 @@ namespace Stage
         public void Move(BaseNeedle tmpNeedle)
         {
             // ステートが針ステージの場合はプレイヤーへのムーブカウントで表示するニードルを変更
-            if(InGameSceneController.Stages.StageState == Const.STATE_NEEDLE_STAGE)
+            if(InGameSceneController.Stages.StageState == StageConst.STATE_NEEDLE_STAGE)
             {
                 // 1/2で表示するニードルタイルを変更
                 if((tmpNeedle.NeedleChangeCount & 1) == 0)
@@ -90,7 +90,7 @@ namespace Stage
         private void tilesUpdate(BaseNeedle tmpNeedle)
         {
             // プレイヤーの手数が２の時次出現するニードルタイルの色変更
-            if((InGameSceneController.Player.MoveCount % Const.CHANGE_NEEDLE_NUM) == Const.CHANGE_NEEDLE_TILE_COLOR_NUM)
+            if((InGameSceneController.Player.MoveCount % StageConst.CHANGE_NEEDLE_NUM) == StageConst.CHANGE_NEEDLE_TILE_COLOR_NUM)
             {
                 // プレイヤーが失敗していないときのみ更新
                 if(InGameSceneController.Player.PlayerFailureTween == null && InGameSceneController.Player.PlayerClearTween == null)
@@ -106,7 +106,7 @@ namespace Stage
                 }
             }
             // 3手動いたら出現するニードルタイルを変更
-            if((InGameSceneController.Player.MoveCount % Const.CHANGE_NEEDLE_NUM) == 0 &&
+            if((InGameSceneController.Player.MoveCount % StageConst.CHANGE_NEEDLE_NUM) == 0 &&
              tmpMoveCount != InGameSceneController.Player.MoveCount
              )
                 tmpNeedle.NeedleChangeCount++;

@@ -26,7 +26,7 @@ namespace Stage
         /// <summary>
         /// 挙動ステージ管理ステート
         /// </summary>
-        protected uint moveStageState = Const.STATE_STAND_UP;
+        protected uint moveStageState = StageConst.STATE_STAND_UP;
         /// <summary>
         /// 挙動ステージ管理ステートプロパティ
         /// </summary>

@@ -20,7 +20,7 @@ namespace Stage
             {
                 // 回転挙動を止めて元の座標に戻す
                 DOTween.Kill(stairs);
-                stairs.NowTween = stairs.transform.parent.transform.DORotate(stairs.LastAngle, Const.ROTATE_TIME).
+                stairs.NowTween = stairs.transform.parent.transform.DORotate(stairs.LastAngle, StageConst.ROTATE_TIME).
                 SetEase(Ease.InQuad).OnComplete(() =>
                 {
                     stairs.NowTween = null;

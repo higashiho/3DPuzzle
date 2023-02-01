@@ -71,14 +71,14 @@ namespace Stage
                 switch(tmpMoveStage.MoveStageState)
                 {
                     // 立っている場合倒す
-                    case Const.STATE_STAND_UP:
+                    case StageConst.STATE_STAND_UP:
                         // 回転挙動
-                        rotateStage(tmpMoveStage, Const.STATE_FALL, tmpAngle);
+                        rotateStage(tmpMoveStage, StageConst.STATE_FALL, tmpAngle);
                         break;
                     // 倒れている場合立てる
-                    case Const.STATE_FALL:
+                    case StageConst.STATE_FALL:
                         // 回転挙動
-                        rotateStage(tmpMoveStage, Const.STATE_STAND_UP, -tmpAngle);
+                        rotateStage(tmpMoveStage, StageConst.STATE_STAND_UP, -tmpAngle);
                         break;
                     default:
                         break;
@@ -98,7 +98,7 @@ namespace Stage
             tmpNewAngl.x += tmpSetAngl;
 
             // 店頭挙動
-            tmpMoveStage.NowTween = tmpMoveStage.transform.transform.parent.transform.DORotate(tmpNewAngl, Const.ROTATE_TIME).
+            tmpMoveStage.NowTween = tmpMoveStage.transform.transform.parent.transform.DORotate(tmpNewAngl, StageConst.ROTATE_TIME).
             SetEase(Ease.InQuad).OnComplete(() =>
             {
                 compReset(tmpMoveStage);
