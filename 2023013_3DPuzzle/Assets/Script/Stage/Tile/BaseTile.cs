@@ -20,6 +20,9 @@ namespace Tile
         protected float fallCount = 2;
         public float FallCount{get{return fallCount;}set{fallCount = value;}}
 
+        // 自身がスイッチかどうかフラグ
+        [SerializeField, Header("スイッチタイルかどうか")]
+        protected bool keyTileFlag = false;
 
         
         // マウスカーソルがSphereに乗った時の処理
@@ -42,6 +45,18 @@ namespace Tile
         //マウスカーソルがSphereの上から離れた時の処理
         private void OnMouseExit()
         {
+            // スイッチタイルかどうか
+            if(keyTileFlag)
+            {
+                // スイッチタイルから変更されていないときは初期色を入れる
+                if(this.tag == "KeyTile")
+                    this.GetComponent<Renderer>().material.color = StartColor;
+                else
+                    this.GetComponent<Renderer>().material.color = Color.white;
+
+                InGameSceneController.Player.ChooseObj = null;
+                return;
+            }
             this.GetComponent<Renderer>().material.color = StartColor;
             InGameSceneController.Player.ChooseObj = null;
 

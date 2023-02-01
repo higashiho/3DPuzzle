@@ -14,88 +14,157 @@ namespace Stage
     /// </summary>
     public class FallTileMove
     {
+
+        private BaseFallTile tmpFallTile;
+        public FallTileMove(BaseFallTile tmp)
+        {
+            tmpFallTile = tmp;
+        }
         /// <summary>
         /// タイルステージから離れるときの初期化関数
         /// </summary>
-        /// <param name="tmpFallTile"></param>
-        public void FallTileReset(BaseFallTile tmpFallTile)
+        public void FallTileReset()
+        {
+            // 落下タイルリセット
+            resetTile();
+
+            // スイッチタイルリセット
+            switchTileReset();
+
+            // 初期化
+            tmpFallTile.TimeCountTask = null;
+            InGameSceneController.Stages.TileChangeFlag = true;
+            InGameSceneController.Stages.ClearCount = Const.MAX_GOAL_NUM;
+
+        }
+
+        /// <summary>
+        /// 落下タイルリセット関数
+        /// </summary>
+        private void resetTile()
         {
             foreach(var tmpObj in tmpFallTile.FallTiles)
             {
+                if(tmpObj == null)
+                    break;
+                    
                 var tmpTile = tmpObj.GetComponent<BaseTile>();
                 // 落下するカウントを初期化して消えている場合は出現し直し
                 if(tmpTile.FallCount != Const.FALL_COUNT_MAX)
                 {
                     tmpObj.GetComponent<Renderer>().material = tmpTile.StartMaterial;
                     tmpTile.FallCount = Const.FALL_COUNT_MAX;
+
+                    // 消えている場合は生成
+                    if(!tmpObj.transform.parent.gameObject.activeSelf)
+                        tmpObj.transform.parent.gameObject.SetActive(true);
                 }
 
-                if(!tmpObj.transform.parent.gameObject.activeSelf)
-                    tmpObj.transform.parent.gameObject.SetActive(true);
+                // タイルが変更されていたら初期化
+                if(tmpObj.tag == "KeyTile")
+                {
+                    tmpObj.tag = "Fall";
+                    var tmpMaterialRenderer = tmpTile.StartMaterial;
+                    tmpMaterialRenderer.color = tmpObj.GetComponent<BaseTile>().StartColor;
+                    tmpObj.GetComponent<Renderer>().material = tmpMaterialRenderer;
+                }
             }
         }
 
         /// <summary>
+        /// スイッチタイルリセット関数
+        /// </summary>
+        private void switchTileReset()
+        {
+            foreach(var tmpObj in InGameSceneController.Stages.KeyTiles)
+            {
+                if(tmpObj == null)
+                    break;
+
+                // スイッチタイルではなくなってたら初期化
+                if(tmpObj.tag != "KeyTile")
+                {
+                    tmpObj.tag = "KeyTile";
+                    var tmpMaterialRenderer = InGameSceneController.Stages.KeyTileMaterial;
+                    tmpMaterialRenderer.color = tmpObj.GetComponent<BaseTile>().StartColor;
+                    tmpObj.GetComponent<Renderer>().material = tmpMaterialRenderer;
+                }
+            }
+        }
+        /// <summary>
         /// エリアに入った時のカウントダウン処理
         /// </summary>
-        /// <param name="tmpFallTile">落下タイルの実体</param>
-        public async void TimeMove(BaseFallTile tmpFallTile, CancellationToken token)
+        public async void TimeMoveAsync()
         {
-            if(InGameSceneController.Stages.StageState == Const.STATE_FALLING_STAGE && 
-                tmpFallTile.TimeCountTask == null)
+            if(InGameSceneController.Stages.StageState == Const.STATE_FALLING_STAGE)
             {
-                // TimeCountTaskにtimeCountを代入
-                tmpFallTile.TimeCountTask = timeCount(tmpFallTile, token);
+                if(tmpFallTile.TimeCountTask == null)
+                {
+                    // TimeCountTaskにtimeCountを代入
+                    tmpFallTile.TimeCountTask = timeCountAsyck();
 
-                Debug.Log("in");
-                // timeCountを実行
-                await (UniTask)tmpFallTile.TimeCountTask;
+                    Debug.Log("in");
+                    // timeCountを実行
+                    await (UniTask)tmpFallTile.TimeCountTask;
+                }
+                return;
             }
+
+            // ステートが落下ステージではないとき
+            FallTileReset();
+            BaseFallTile.Cts.Cancel();
+            DOTween.Kill(tmpFallTile.WarningPanel);
+
+
         }
 
         /// <summary>
         /// エリアに入った時のカウントダウン処理のタスク
         /// </summary>
-        /// <param name="tmpFallTile">落下タイルの実体</param>
-        /// <param name="cts">キャンセル処理用Token</param>
         /// <returns>無し</returns>
-        private async UniTask timeCount(BaseFallTile tmpFallTile, CancellationToken token)
+        private async UniTask timeCountAsyck()
         {
             // 制限時間半分になったら警告Panel出現
             var tmpTime = Const.FALL_COUNTDOWN_TIME / 2;
             await UniTask.Delay(tmpTime * Const.CHANGE_SECOND);
 
-            // キャンセルが要求されている場合
-            if ( token.IsCancellationRequested )
+            // Cancel処理
+            if(BaseFallTile.Cts.Token.IsCancellationRequested)
             {
+                Debug.Log("Cancel");
                 return;
             }
-            // キャンセルが要求されていない場合
-            else
+
+            // 半分になったら画面を赤くするパネル表示
+            tmpFallTile.WarningPanel.enabled = true;
+            // 1/4の明るさまで表示
+            var tmpValue = Const.FADE_END_VALUE / 4;
+            var tmpTweem = tmpFallTile.WarningPanel.DOFade(tmpValue,tmpTime).
+            SetEase(Ease.Linear).OnKill(() => tmpFallTile.WarningPanel.enabled = false);
+
+            await UniTask.Delay(tmpTime * Const.CHANGE_SECOND);
+            var tmpColor = tmpFallTile.WarningPanel.color;
+
+            // Cancel処理
+            if(BaseFallTile.Cts.Token.IsCancellationRequested)
             {
-                // 半分になったら
-                tmpFallTile.WarningPanel.enabled = true;
-                // 1/4の明るさまで表示
-                var tmpValue = Const.FADE_END_VALUE / 4;
-                var tmpTweem = tmpFallTile.WarningPanel.DOFade(tmpValue,Const.FADE_TIMER).
-                SetEase(Ease.Linear).SetLoops(-1, LoopType.Yoyo);
-
-                await UniTask.Delay(tmpTime * Const.CHANGE_SECOND);
-
-                // キャンセルが要求されている場合
-                if ( token.IsCancellationRequested )
-                {
-                    return;
-                }
-
-                // スタート位置帰還
-                InGameSceneController.Stages.MoveStage.StageFailure();
-
-                // 初期化
-                tmpFallTile.WarningPanel.enabled = false;
-                FallTileReset(tmpFallTile);
+                Debug.Log("Cancel");
                 tmpTweem.Kill();
+                // 初期化
+                tmpColor.a = 0;
+                tmpFallTile.WarningPanel.color = tmpColor;
+
+                return;
             }
+            // スタート位置帰還
+            InGameSceneController.Stages.MoveStage.StageFailure();
+
+            // 初期化
+            tmpColor.a = 0;
+            tmpFallTile.WarningPanel.color = tmpColor;
+            tmpFallTile.WarningPanel.enabled = false;            
+            FallTileReset();
+            tmpTweem.Kill();
         }
     }
 }

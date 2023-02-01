@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 7470225249941627279}
   - component: {fileID: 8862320959927448979}
   m_Layer: 0
-  m_Name: SwitchTile
-  m_TagString: SwitchTile
+  m_Name: KeyTile
+  m_TagString: BlackTile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -114,7 +114,7 @@ GameObject:
   - component: {fileID: 6379361716011116616}
   m_Layer: 0
   m_Name: Tile
-  m_TagString: SwitchTile
+  m_TagString: KeyTile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -210,6 +210,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startColor: {r: 0, g: 0, b: 0, a: 0}
+  keyTileFlag: 1
 --- !u!114 &6379361716011116616
 MonoBehaviour:
   m_ObjectHideFlags: 0
