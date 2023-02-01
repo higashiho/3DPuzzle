@@ -35,5 +35,10 @@ namespace Tile
 
             }
         }
+
+        private void OnCollisionStay(Collision col)
+        {
+            tile.MoveTile.KeyTileCollsionMove(col, this.gameObject);
+        }
     }
 }

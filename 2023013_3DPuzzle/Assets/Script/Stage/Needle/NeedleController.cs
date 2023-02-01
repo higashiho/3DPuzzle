@@ -14,12 +14,14 @@ namespace Stage
         {
             // ニードル取得
             NeedleTiles = GameObject.FindGameObjectsWithTag("Needle");
+
+            needleMove = new NeedleMove(this);
         }
 
         // Update is called once per frame
         void Update()
         {
-            needleMove.Move(this);
+            needleMove.Move();
         }
     }
 }

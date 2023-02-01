@@ -24,6 +24,10 @@ namespace Stage
         protected GameObject[] keyTiles;
         public GameObject[] KeyTiles{get{return keyTiles;} protected set{keyTiles = value;}}
         
+        // スイッチステージをクリアしたか
+        protected bool clearSwitchStage;
+        public bool ClearSwitchStage{get{return clearSwitchStage;} set{clearSwitchStage = value;}}
+        
         // ボックスが移動中かフラグ
         private bool moving = false;
         public bool Moving{get{return moving;}set{moving = value;}}
@@ -49,12 +53,20 @@ namespace Stage
 
         // FallStageクリア回数
         [SerializeField]
-        protected int clearCount = Const.MAX_GOAL_NUM;
+        protected int clearCount = StageConst.MAX_GOAL_NUM;
         public int ClearCount{get{return clearCount;} set{clearCount = value;}}
         // FallStage用クリアタイルが変更されたかフラグ
         [SerializeField]
         protected bool tileChangeFlag = true;
         public bool TileChangeFlag{get{return tileChangeFlag;}set{tileChangeFlag = value;}}
+
+        [SerializeField, Header("壁オブジェクト")]
+        protected GameObject[] wallTiles;
+        public GameObject[] WallTiles{get{return wallTiles;} protected set{wallTiles = value;}}
+        [SerializeField, Header("差し替えタイル")]
+        protected List<GameObject> changeTile = new List<GameObject>(1);
+        public List<GameObject> ChangeTile{get{return changeTile;} set{changeTile = value;}}
+
         // インスタンス化
         protected InstanceStage instance = new InstanceStage();
         protected StageMove stageMove = new StageMove();

@@ -13,10 +13,10 @@ GameObject:
   - component: {fileID: 1969615209615963470}
   - component: {fileID: 1550036247861104603}
   - component: {fileID: 5485696714355526760}
-  - component: {fileID: 7787363976290278455}
+  - component: {fileID: 1765392323362845396}
   m_Layer: 0
-  m_Name: FallTile
-  m_TagString: Fall
+  m_Name: MoveTileSwitch
+  m_TagString: MoveTileSwitch
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -64,7 +64,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 5fce7d8e8c777d24abf99671f2e65c98, type: 2}
+  - {fileID: 2100000, guid: e07db34c6733d80419cb4b6f8fc098cf, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -114,7 +114,7 @@ MonoBehaviour:
   startColor: {r: 0, g: 0, b: 0, a: 0}
   keyTileFlag: 0
   onSwitch: 0
---- !u!114 &7787363976290278455
+--- !u!114 &1765392323362845396
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -123,10 +123,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 3769868181457750617}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a7b94e647786b6b48935548c11a4c948, type: 3}
+  m_Script: {fileID: 11500000, guid: 65a77a8b65761814c93fd7324cb7d2d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tile: {fileID: 5485696714355526760}
 --- !u!1 &4100615882988292552
 GameObject:
   m_ObjectHideFlags: 0
@@ -140,7 +139,7 @@ GameObject:
   - component: {fileID: 6857076053342521841}
   - component: {fileID: 3368274335922663073}
   m_Layer: 0
-  m_Name: BlackFallTile
+  m_Name: MoveTileSwitch
   m_TagString: BlackTile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -190,7 +189,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 1c4ea9309f9b7714fbb7776a849bafd1, type: 2}
+  - {fileID: 2100000, guid: 5fce7d8e8c777d24abf99671f2e65c98, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
