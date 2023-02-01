@@ -60,6 +60,91 @@ namespace Cam
         }
 
         /// <summary>
+        /// 初期化・カメラ初期地点設定
+        /// </summary>
+        /// <param name="tmpCamera">BaseCamera</param>
+        public void CameraInsetance(BaseCamera tmpCamera)
+        {
+            // 初期回転位置を設定
+            tmpCamera.DefoultRotation = tmpCamera.camera.transform.rotation;
+            // カメラ初期座標
+            tmpCamera.camera.transform.position = tmpCamera.StandCameraPos[4];
+        }
+
+        /// <summary>
+        /// ズームイン・ズームアウト関数
+        /// </summary>
+        /// <param name="tmpCamera">BaseCamera</param>
+        private void ZomeIO(BaseCamera tmpCamera)
+        {
+            // マウスホイール回転量に係数をかけて数値に変換
+            float zomeIn = Input.GetAxis("Mouse ScrollWheel") * Const.ZOME_POWER;
+            // カメラの視野を狭くする　＝　ズームイン
+                tmpCamera.camera.fieldOfView -= zomeIn;
+            if(tmpCamera.camera.fieldOfView <= Const.UNDER_ROTATE_LIMIT)
+                tmpCamera.camera.fieldOfView = Const.UNDER_ROTATE_LIMIT;
+            if(tmpCamera.camera.fieldOfView >= Const.OVER_ROTATE_LIMIT)
+                tmpCamera.camera.fieldOfView = Const.OVER_ROTATE_LIMIT;
+        }
+
+        /// <summary>
+        /// カメラリセット関数
+        /// </summary>
+        /// <param name="tmpCamera">BaseCamera</param>
+        /// <param name="num">各ステージの中央を指定する数字
+        private void CameraReset(BaseCamera tmpCamera, int num)
+        {
+            // カメラリセット(マウスホイールクリック)
+            if(Input.GetMouseButtonDown(2) && tmpCamera.MoveCameraFlag)
+            {
+                //回転を初期化
+                tmpCamera.camera.transform.rotation = tmpCamera.DefoultRotation;
+                //視野リセット
+                tmpCamera.camera.fieldOfView = Const.FIELD_OF_VIEW_DEFAULT;
+                //位置を戻す
+                tmpCamera.camera.transform.position = tmpCamera.StandCameraPos[num];
+            }
+        }
+
+        /// <summary>
+        /// カメラの回転
+        /// </summary>
+        /// <param name="tmpCamera"></param>
+        /// <param name="num">各ステージの回転軸を指定する数字</param>
+        private void RotateCamera(BaseCamera tmpCamera, int num)
+        {
+            // 右クリックしながら移動したマウスの大きさによって
+            // カメラを各ステージの中心を軸に回転
+            if(Input.GetMouseButton(1) && tmpCamera.MoveCameraFlag)
+            {
+                // マウスの移動量
+                float InputMouseX = Input.GetAxis("Mouse X");
+                tmpCamera.transform.RotateAround(tmpCamera.AxisCamera[num], tmpCamera.CAMERA_AXIS, 
+                InputMouseX * Time.deltaTime * Const.MOVE_AROUND_SPEED);
+            }
+        }
+
+        /// <summary>
+        /// カメラ移動<=カメラリセット・配列の初期化・移動準備
+        /// </summary>
+        /// <param name="tmpCamera">BaseCamera</param>
+        /// <param name="num">Tweenを指定する数字</param>
+        /// <param name="point">各ステージの中央を指定する数字</param>
+        private void MoveCamera(BaseCamera tmpCamera, int num, int point)
+        {
+            if(tmpCamera.CameraTween[num] == null)
+            {
+                Debug.Log(tmpCamera.StandCameraPos[point]);
+                var tmpTween = tmpCamera.camera.transform.DOMove(tmpCamera.StandCameraPos[point], Const.CAMERA_MOVE_SPEED)
+                .SetEase(Ease.OutSine).OnStart(() => readyMoveCamera(tmpCamera)).OnComplete(() =>
+                {
+                    compReset(tmpCamera);
+                } );
+                startReset(tmpCamera, num, tmpTween);
+            }
+        }
+
+        /// <summary>
         /// カメラ移動
         /// </summary>
         /// <param name="tmpCamera">BaseCamera</param>
@@ -151,89 +236,6 @@ namespace Cam
             {
                 RotateCamera(tmpCamera, 4);
                 CameraReset(tmpCamera, 4);
-            }
-        }
-
-        /// <summary>
-        /// 初期化・カメラ初期地点設定
-        /// </summary>
-        /// <param name="tmpCamera">BaseCamera</param>
-        public void CameraInsetance(BaseCamera tmpCamera)
-        {
-            tmpCamera.DefoultRotation = tmpCamera.camera.transform.rotation;// 初期回転位置を設定
-            tmpCamera.camera.transform.position = tmpCamera.StandCameraPos[4];
-        }
-
-        /// <summary>
-        /// ズームイン・ズームアウト関数
-        /// </summary>
-        /// <param name="tmpCamera">BaseCamera</param>
-        private void ZomeIO(BaseCamera tmpCamera)
-        {
-            // マウスホイール回転量に係数をかけて数値に変換
-            float zomeIn = Input.GetAxis("Mouse ScrollWheel") * Const.ZOME_POWER;
-            // カメラの視野を狭くする　＝　ズームイン
-                tmpCamera.camera.fieldOfView -= zomeIn;
-            if(tmpCamera.camera.fieldOfView <= Const.UNDER_ROTATE_LIMIT)
-                tmpCamera.camera.fieldOfView = Const.UNDER_ROTATE_LIMIT;
-            if(tmpCamera.camera.fieldOfView >= Const.OVER_ROTATE_LIMIT)
-                tmpCamera.camera.fieldOfView = Const.OVER_ROTATE_LIMIT;
-        }
-
-        /// <summary>
-        /// カメラリセット関数
-        /// </summary>
-        /// <param name="tmpCamera">BaseCamera</param>
-        /// <param name="num">各ステージの中央を指定する数字
-        private void CameraReset(BaseCamera tmpCamera, int num)
-        {
-            // カメラリセット(マウスホイールクリック)
-            if(Input.GetMouseButtonDown(2) && tmpCamera.MoveCameraFlag)
-            {
-                //回転を初期化
-                tmpCamera.camera.transform.rotation = tmpCamera.DefoultRotation;
-                //視野リセット
-                tmpCamera.camera.fieldOfView = Const.FIELD_OF_VIEW_DEFAULT;
-                //位置を戻す
-                tmpCamera.camera.transform.position = tmpCamera.StandCameraPos[num];
-            }
-        }
-
-        /// <summary>
-        /// カメラの回転
-        /// </summary>
-        /// <param name="tmpCamera"></param>
-        /// <param name="num">各ステージの回転軸を指定する数字</param>
-        private void RotateCamera(BaseCamera tmpCamera, int num)
-        {
-            // 右クリックしながら移動したマウスの大きさによって
-            // カメラを各ステージの中心を軸に回転
-            if(Input.GetMouseButton(1) && tmpCamera.MoveCameraFlag)
-            {
-                // マウスの移動量
-                float InputMouseX = Input.GetAxis("Mouse X");
-                tmpCamera.transform.RotateAround(tmpCamera.AxisCamera[num], tmpCamera.CAMERA_AXIS, 
-                InputMouseX * Time.deltaTime * Const.MOVE_AROUND_SPEED);
-            }
-        }
-
-        /// <summary>
-        /// カメラ移動<=カメラリセット・配列の初期化・移動準備
-        /// </summary>
-        /// <param name="tmpCamera">BaseCamera</param>
-        /// <param name="num">Tweenを指定する数字</param>
-        /// <param name="point">各ステージの中央を指定する数字</param>
-        private void MoveCamera(BaseCamera tmpCamera, int num, int point)
-        {
-            if(tmpCamera.CameraTween[num] == null)
-            {
-                Debug.Log(tmpCamera.StandCameraPos[point]);
-                var tmpTween = tmpCamera.camera.transform.DOMove(tmpCamera.StandCameraPos[point], Const.CAMERA_MOVE_SPEED)
-                .SetEase(Ease.OutSine).OnStart(() => readyMoveCamera(tmpCamera)).OnComplete(() =>
-                {
-                    compReset(tmpCamera);
-                } );
-                startReset(tmpCamera, num, tmpTween);
             }
         }
     }
