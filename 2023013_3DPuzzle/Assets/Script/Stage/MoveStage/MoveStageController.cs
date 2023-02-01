@@ -12,13 +12,16 @@ namespace Stage
         // Start is called before the first frame update
         void Start()
         {
-            
+            moveStage = new MoveStageMove(this);
+            OnMoveSwitchs = GameObject.FindGameObjectsWithTag("MoveTileSwitch");
+            MoveStageTiles = GameObject.FindGameObjectsWithTag("MoveTile");
         }
 
         // Update is called once per frame
         void Update()
         {
-            
+            moveStage.Move();
+
         }
     }
 }

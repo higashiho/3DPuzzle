@@ -12,11 +12,12 @@ namespace Tile
     public class TileMove
     {
         // インスタンス化
-        private NeedleMove needleMove;
+        private NeedleMove needleMove = null;
         private StageMove stageMove = new StageMove();
         private TileMove tileMove = null;
         private FallTileMove fallTileMove = null;
         private SwitchTileMove switchTileMove = null;
+        private MoveStageMove moveStage = null;
 
         private BaseTile tmpTile;
         public TileMove(BaseTile tmp)
@@ -94,6 +95,8 @@ namespace Tile
                 switchTileMove = new SwitchTileMove(InGameSceneController.SwitchTile);
             if(needleMove == null)
                 needleMove = new NeedleMove(InGameSceneController.Player.Needle);
+            if(moveStage == null)
+                moveStage = new MoveStageMove(InGameSceneController.MoveStage);
             
             // どのステージからの帰還か判断
             switch(InGameSceneController.Stages.StageState)
@@ -106,6 +109,7 @@ namespace Tile
                 // 左下ステージ
                 case StageConst.STATE_MOVE_STAGE:
                     stageMove.StageClear();
+                    moveStage.ResetMoveStage();
                     break;
                 // 右上ステージ
                 case StageConst.STATE_FALLING_STAGE:

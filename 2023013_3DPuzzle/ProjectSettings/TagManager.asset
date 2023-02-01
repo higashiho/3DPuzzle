@@ -17,6 +17,9 @@ TagManager:
   - KeyTile
   - WallTile
   - SwitchTiles
+  - MoveTileSwitch
+  - MoveStage
+  - MoveTile
   layers:
   - Default
   - TransparentFX
