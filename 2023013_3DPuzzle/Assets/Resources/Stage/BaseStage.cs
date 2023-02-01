@@ -59,6 +59,10 @@ namespace Stage
         [SerializeField, Header("壁オブジェクト")]
         protected GameObject[] wallTiles;
         public GameObject[] WallTiles{get{return wallTiles;} protected set{wallTiles = value;}}
+        [SerializeField, Header("差し替えタイル")]
+        protected List<GameObject> changeTile = new List<GameObject>(1);
+        public List<GameObject> ChangeTile{get{return changeTile;} set{changeTile = value;}}
+
         // インスタンス化
         protected InstanceStage instance = new InstanceStage();
         protected StageMove stageMove = new StageMove();

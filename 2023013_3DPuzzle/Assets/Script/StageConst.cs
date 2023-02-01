@@ -61,13 +61,17 @@ public class StageConst
     /// </summary>
     public const int FALL_COUNTDOWN_TIME = 30;
     /// <summary>
-    /// スイッチタイル変換ゴール回数
+    /// キータイル変換ゴール回数
     /// </summary>
     public const int GOAL_TILE_NUM = 1;
     /// <summary>
     /// ゴール回数が複数あるステージのマックス値
     /// </summary>
     public const int MAX_GOAL_NUM = 2;
+    /// <summary>
+    /// 壁オブジェクトをタイルに変更する対象オブジェクトの位置
+    /// </summary>
+    public static readonly Vector3 CHANGE_WALL_POS = new Vector3(130, 0, 20);
     // 動かせるステージのステート定数==============================
     /// <summary>
     /// 立っている状態

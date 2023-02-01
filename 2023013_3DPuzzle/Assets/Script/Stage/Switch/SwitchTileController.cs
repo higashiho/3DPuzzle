@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Tile
+namespace Stage
 {
     /// <summary>
     /// スイッチタイルの挙動管理クラス

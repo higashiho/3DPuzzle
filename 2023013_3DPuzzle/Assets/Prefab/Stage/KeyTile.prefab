@@ -111,7 +111,7 @@ GameObject:
   - component: {fileID: 1371350466101947219}
   - component: {fileID: 5388583835587032614}
   - component: {fileID: 8174423842820463550}
-  - component: {fileID: 6379361716011116616}
+  - component: {fileID: 9568661383243029}
   m_Layer: 0
   m_Name: Tile
   m_TagString: KeyTile
@@ -211,7 +211,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startColor: {r: 0, g: 0, b: 0, a: 0}
   keyTileFlag: 1
---- !u!114 &6379361716011116616
+  onSwitch: 0
+--- !u!114 &9568661383243029
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -220,7 +221,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7420698255447599158}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: daa6adda1fac6c04ea8d70eb0053536b, type: 3}
+  m_Script: {fileID: 11500000, guid: 412bd4c484d7d2048bca91f316db499b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tile: {fileID: 8174423842820463550}
+  tmpTile: {fileID: 8174423842820463550}

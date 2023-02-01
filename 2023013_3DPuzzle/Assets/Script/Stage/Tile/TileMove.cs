@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Stage;
+using DG.Tweening;
 
 namespace Tile
 {
@@ -9,12 +11,18 @@ namespace Tile
     /// </summary>
     public class TileMove
     {
+        // インスタンス化
+        private NeedleMove needleMove = new NeedleMove();
+        private StageMove stageMove = new StageMove();
+        private TileMove tileMove = null;
+        private FallTileMove fallTileMove = null;
+        private SwitchTileMove switchTileMove = null;
+
         private BaseTile tmpTile;
         public TileMove(BaseTile tmp)
         {
             tmpTile = tmp;
         }
-
         /// <summary>
         /// クリア回数が１回じゃないステージ用関数
         /// </summary>
@@ -68,6 +76,77 @@ namespace Tile
             tmpMaterialRenderer.color = Color.magenta;
             tmpObj.GetComponent<Renderer>().material = tmpMaterialRenderer;
             InGameSceneController.Stages.TileChangeFlag = false;
+        }
+
+        
+
+        /// <summary>
+        /// ステージClear挙動
+        /// </summary>
+        private void stageClearMove()
+        {
+            // タイルムーブのインスタンス化がされていない場合はインスタンス化をする
+            if(tileMove == null)
+                tileMove = new TileMove(tmpTile);
+            
+            if(fallTileMove == null)
+                fallTileMove = new FallTileMove(InGameSceneController.FallTile);
+
+            if(switchTileMove == null)
+                switchTileMove = new SwitchTileMove(InGameSceneController.SwitchTile);
+            
+            switch(InGameSceneController.Stages.StageState)
+            {
+                // 左上ステージ
+                case StageConst.STATE_NEEDLE_STAGE:
+                    stageMove.StageClear();
+                    needleMove.ResetTile();
+                    break;
+                // 左下ステージ
+                case StageConst.STATE_MOVE_STAGE:
+                    stageMove.StageClear();
+                    break;
+                // 右上ステージ
+                case StageConst.STATE_FALLING_STAGE:
+                    // カウントが1以下になったらクリア処理
+                    if(InGameSceneController.Stages.ClearCount <= StageConst.GOAL_TILE_NUM)
+                    {
+                        BaseFallTile.Cts.Cancel();
+                        DOTween.Kill(InGameSceneController.FallTile.WarningPanel);
+                        stageMove.StageClear();
+                        fallTileMove.FallTileReset();
+                    }
+                    // プレイヤーから一番遠いタイルをスイッチタイルに変更
+                    else if(InGameSceneController.Stages.TileChangeFlag)
+                    {
+                        Debug.Log("In");
+                        tileMove.ChangeSwitchTile();
+                    }
+                    break;
+                // 右下ステージ
+                case StageConst.STATE_SWITCH_STAGE:
+                    stageMove.StageClear();
+                    switchTileMove.SwitchTileReset();
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// キータイルか判断用関数
+        /// </summary>
+        /// <param name="col">当たった対象</param>
+        /// <param name="tmpObj">自身のオブジェクト</param>
+        public void KeyTileCollsionMove(Collision col, GameObject tmpObj)
+        {
+            // Playerと当たった時に自分がスイッチの場合
+            if(col.gameObject.tag == "Player" && tmpObj.gameObject.tag == "KeyTile")
+            {
+                Debug.Log("Stay");
+                if(!InGameSceneController.Player.OnMove && InGameSceneController.Player.PlayerClearTween == null)
+                    stageClearMove();
+            }
         }
     }
 }

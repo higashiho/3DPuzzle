@@ -20,10 +20,17 @@ namespace Tile
         protected float fallCount = 2;
         public float FallCount{get{return fallCount;}set{fallCount = value;}}
 
-        // 自身がスイッチかどうかフラグ
-        [SerializeField, Header("スイッチタイルかどうか")]
+        // 自身がキーかどうかフラグ
+        [SerializeField, Header("キータイルかどうか")]
         protected bool keyTileFlag = false;
 
+        [SerializeField, Header("自身がスイッチタイルの場合スイッチが押されたかどうかフラグ")]
+        protected bool onSwitch = false;
+        public bool OnSwitch{get{return onSwitch;} set{onSwitch = value;}}
+
+        // インスタンス化
+        public TileMove MoveTile{get; protected set;}
+        public SwitchTileMove SwitchTilesMove{get; protected set;}
         
         // マウスカーソルがSphereに乗った時の処理
         private void OnMouseOver()
