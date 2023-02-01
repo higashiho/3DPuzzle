@@ -73,7 +73,7 @@ namespace Tile
         private void OnCollisionStay(Collision col)
         {
             // Playerと当たった時に自分がスイッチの場合
-            if(col.gameObject.tag == "Player" && this.gameObject.tag == "SwitchTile")
+            if(col.gameObject.tag == "Player" && this.gameObject.tag == "KeyTile")
             {
                 Debug.Log("Stay");
                 if(!InGameSceneController.Player.OnMove && InGameSceneController.Player.PlayerClearTween == null)

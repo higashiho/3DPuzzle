@@ -87,19 +87,19 @@ public class Const
     /// <summary>
     /// ステージの左上エリア
     /// </summary>
-    public static readonly Vector3 Area1Pos = new Vector3(49.0f, 5.0f, 72.0f);
+    public static readonly Vector3 Area1Pos = new Vector3(54.0f, 5.0f, 77.0f);
     /// <summary>
     /// ステージの左下エリア
     /// </summary>
-    public static readonly Vector3 Area2Pos = new Vector3(49.0f, 5.0f, 49.0f);
+    public static readonly Vector3 Area2Pos = new Vector3(54.0f, 5.0f, 54.0f);
     /// <summary>
     /// ステージの右上エリア
     /// </summary>
-    public static readonly Vector3 Area3Pos = new Vector3(72.0f, 5.0f, 72.0f);
+    public static readonly Vector3 Area3Pos = new Vector3(77.0f, 5.0f, 77.0f);
     /// <summary>
     /// ステージの右下エリア
     /// </summary>
-    public static readonly Vector3 Area4Pos = new Vector3(72.0f, 5.0f, 49.0f);
+    public static readonly Vector3 Area4Pos = new Vector3(77.0f, 5.0f, 54.0f);
     /// <summary>
     /// 倒れるスピード
     /// </summary>

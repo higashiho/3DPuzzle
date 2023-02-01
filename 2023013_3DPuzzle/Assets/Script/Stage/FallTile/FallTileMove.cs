@@ -26,46 +26,10 @@ namespace Stage
         public void FallTileReset()
         {
             // 落下タイルリセット
-            foreach(var tmpObj in tmpFallTile.FallTiles)
-            {
-                
-                var tmpTile = tmpObj.GetComponent<BaseTile>();
-                // 落下するカウントを初期化して消えている場合は出現し直し
-                if(tmpTile.FallCount != Const.FALL_COUNT_MAX)
-                {
-                    tmpObj.GetComponent<Renderer>().material = tmpTile.StartMaterial;
-                    tmpTile.FallCount = Const.FALL_COUNT_MAX;
-                }
-
-                if(!tmpObj.transform.parent.gameObject.activeSelf)
-                    tmpObj.transform.parent.gameObject.SetActive(true);
-
-                if(tmpObj.tag == "SwitchTile")
-                {
-                    tmpObj.tag = "Fall";
-                    var tmpMaterialRenderer = tmpObj.GetComponent<Renderer>().material;
-                    tmpMaterialRenderer.color = tmpObj.GetComponent<BaseTile>().StartColor;
-                    tmpMaterialRenderer = tmpTile.StartMaterial;
-                    tmpObj.GetComponent<Renderer>().material = tmpMaterialRenderer;
-                }
-            }
+            resetTile();
 
             // スイッチタイルリセット
-            foreach(var tmpObj in InGameSceneController.Stages.SwitchTiles)
-            {
-                if(tmpObj == null)
-                    break;
-
-                // スイッチタイルではなくなってたら初期化
-                if(tmpObj.tag != "SwitchTile")
-                {
-                    tmpObj.tag = "SwitchTile";
-                    var tmpMaterialRenderer = tmpObj.GetComponent<Renderer>().material;
-                    tmpMaterialRenderer = InGameSceneController.Stages.SwitchTileMaterial;
-                    tmpMaterialRenderer.color = tmpObj.GetComponent<BaseTile>().StartColor;
-                    tmpObj.GetComponent<Renderer>().material = tmpMaterialRenderer;
-                }
-            }
+            switchTileReset();
 
             // 初期化
             tmpFallTile.TimeCountTask = null;
@@ -74,6 +38,59 @@ namespace Stage
 
         }
 
+        /// <summary>
+        /// 落下タイルリセット関数
+        /// </summary>
+        private void resetTile()
+        {
+            foreach(var tmpObj in tmpFallTile.FallTiles)
+            {
+                if(tmpObj == null)
+                    break;
+                    
+                var tmpTile = tmpObj.GetComponent<BaseTile>();
+                // 落下するカウントを初期化して消えている場合は出現し直し
+                if(tmpTile.FallCount != Const.FALL_COUNT_MAX)
+                {
+                    tmpObj.GetComponent<Renderer>().material = tmpTile.StartMaterial;
+                    tmpTile.FallCount = Const.FALL_COUNT_MAX;
+
+                    // 消えている場合は生成
+                    if(!tmpObj.transform.parent.gameObject.activeSelf)
+                        tmpObj.transform.parent.gameObject.SetActive(true);
+                }
+
+                // タイルが変更されていたら初期化
+                if(tmpObj.tag == "KeyTile")
+                {
+                    tmpObj.tag = "Fall";
+                    var tmpMaterialRenderer = tmpTile.StartMaterial;
+                    tmpMaterialRenderer.color = tmpObj.GetComponent<BaseTile>().StartColor;
+                    tmpObj.GetComponent<Renderer>().material = tmpMaterialRenderer;
+                }
+            }
+        }
+
+        /// <summary>
+        /// スイッチタイルリセット関数
+        /// </summary>
+        private void switchTileReset()
+        {
+            foreach(var tmpObj in InGameSceneController.Stages.KeyTiles)
+            {
+                if(tmpObj == null)
+                    break;
+
+                // スイッチタイルではなくなってたら初期化
+                if(tmpObj.tag != "KeyTile")
+                {
+                    tmpObj.tag = "KeyTile";
+                    var tmpMaterialRenderer = InGameSceneController.Stages.KeyTileMaterial;
+                    tmpMaterialRenderer.color = tmpObj.GetComponent<BaseTile>().StartColor;
+                    tmpObj.GetComponent<Renderer>().material = tmpMaterialRenderer;
+                }
+            }
+        }
         /// <summary>
         /// エリアに入った時のカウントダウン処理
         /// </summary>

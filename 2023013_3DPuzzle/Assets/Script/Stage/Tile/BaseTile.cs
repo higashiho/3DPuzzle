@@ -22,7 +22,7 @@ namespace Tile
 
         // 自身がスイッチかどうかフラグ
         [SerializeField, Header("スイッチタイルかどうか")]
-        protected bool switchTileFlag = false;
+        protected bool keyTileFlag = false;
 
         
         // マウスカーソルがSphereに乗った時の処理
@@ -46,10 +46,10 @@ namespace Tile
         private void OnMouseExit()
         {
             // スイッチタイルかどうか
-            if(switchTileFlag)
+            if(keyTileFlag)
             {
                 // スイッチタイルから変更されていないときは初期色を入れる
-                if(this.tag == "SwitchTile")
+                if(this.tag == "KeyTile")
                     this.GetComponent<Renderer>().material.color = StartColor;
                 else
                     this.GetComponent<Renderer>().material.color = Color.white;
