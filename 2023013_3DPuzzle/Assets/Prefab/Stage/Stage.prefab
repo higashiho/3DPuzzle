@@ -151,10 +151,17 @@ MonoBehaviour:
   - {fileID: 5168073205655824273, guid: 4f54f39bc515a8941a38f43b584b905f, type: 3}
   - {fileID: 4100615882988292552, guid: 7209018dd352d1948b4b5eaf77cf6419, type: 3}
   - {fileID: 5168073205655824273, guid: ea60f75ec5cf542449001529de2d2da9, type: 3}
+  - {fileID: 3226213973817768160, guid: b0cbd0c35b395cd4faa33b07501de767, type: 3}
+  - {fileID: 3226213973817768160, guid: 4effa268f39f2c94bae8b746a894b563, type: 3}
   tileParent: {fileID: 8946109332750586246}
+  keyTiles: []
   prefabBox: {fileID: 3226213973817768160, guid: b0cbd0c35b395cd4faa33b07501de767, type: 3}
   stageState: 0
   fallTiles: {fileID: 1388192265}
+  keyTileMaterial: {fileID: 2100000, guid: ef606a9639fccad44a5d00b867fe279d, type: 2}
+  tileMaterial: {fileID: 2100000, guid: 1c4ea9309f9b7714fbb7776a849bafd1, type: 2}
+  clearCount: 2
+  tileChangeFlag: 1
 --- !u!1 &8946109332750586246
 GameObject:
   m_ObjectHideFlags: 0
