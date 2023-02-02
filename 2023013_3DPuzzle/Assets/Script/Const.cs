@@ -58,7 +58,20 @@ public class Const
     public const int BOX_DONT_MOVE_NUM = 3;
     // 以上Box用定数
 
-
+    // 以下ビデオ用定数
+    /// <summary>
+    /// ビデオのアルファ値が変化する量
+    /// </summary>
+    public const float FADE_VIDEO_NUM = 0.1f;  
+    /// <summary>
+    /// ビデオのアルファ値が変化する時間（ミリ秒）
+    /// </summary>
+    public const int FADE_VIDEO_TIME = 100;  
+    /// <summary>
+    /// 透明度最大値
+    /// </summary>
+    public const float FADE_MAX_ALPHA = 1.0f;   
+    // 以上ビデオ用定数
 
     // 以下タイトル定数--------------------------
     public const float FADE_END_VALUE = 1.0f;   //透明度の最大値
