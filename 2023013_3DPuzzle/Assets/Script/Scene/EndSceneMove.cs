@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using UI;
 
 namespace Scene
 {
@@ -12,7 +13,7 @@ namespace Scene
         {
             //エンドシーンからタイトルシーンへ
             tmpScene.MoveFade.FadeIn(tmpScene, "TitleScene");
-            tmpScene.StateScene = BaseScene.SceneState.Title;
+            //tmpScene.StateScene = BaseScene.SceneState.Title;
         }
     }
 }

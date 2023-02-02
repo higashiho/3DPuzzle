@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using Scene;
 
 namespace Scene
 {
@@ -51,8 +50,6 @@ namespace Scene
                 default:
                 break;
             }
-
-            LoadingUI.loadingUI.LoadData(this);
         }
     }
 }
