@@ -10,7 +10,6 @@ namespace Tile
         void Start()
         {
             StartAngle = this.transform.localEulerAngles;
-            ResetState();
         }
 
         // Update is called once per frame

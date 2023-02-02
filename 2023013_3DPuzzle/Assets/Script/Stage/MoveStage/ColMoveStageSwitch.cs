@@ -13,7 +13,8 @@ namespace Tile
         {
             if(col.gameObject.tag == "Player" && this.tag == "MoveTileSwitch")
             {
-                InGameSceneController.MoveStage.MoveFlag = true;
+                if(InGameSceneController.MoveStage.NowTween == null)
+                    InGameSceneController.MoveStage.MoveFlag = true;
             }
         }
     }  
