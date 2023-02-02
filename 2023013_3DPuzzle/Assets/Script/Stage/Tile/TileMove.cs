@@ -116,7 +116,7 @@ namespace Tile
                     // カウントが1以下になったらクリア処理
                     if(InGameSceneController.Stages.ClearCount <= StageConst.GOAL_TILE_NUM)
                     {
-                        BaseFallTile.Cts.Cancel();
+                        InGameSceneController.FallTile.TaskChancelFlag = true; 
                         DOTween.Kill(InGameSceneController.FallTile.WarningPanel);
                         stageMove.StageClear();
                         fallTileMove.FallTileReset();
