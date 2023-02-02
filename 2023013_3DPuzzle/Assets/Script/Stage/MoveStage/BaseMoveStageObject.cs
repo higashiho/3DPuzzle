@@ -19,6 +19,11 @@ namespace Tile
             // ムーブステージオブジェクトに自分を格納
             if(InGameSceneController.MoveStage.MoveFlag)
                 InGameSceneController.MoveStage.MoveStageObj = this.gameObject;
+        }
+
+        private void OnMouseExit() 
+        {
+            InGameSceneController.MoveStage.MoveStageObj = null;
             
         }
     }

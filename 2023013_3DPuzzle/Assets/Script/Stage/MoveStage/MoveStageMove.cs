@@ -67,8 +67,8 @@ namespace Stage
                 DOTween.Kill(tmpObj.transform);
                 // 移動していたら初期化
                 var tmpMoveTile = tmpObj.GetComponent<BaseMoveStageObject>();
-                if(tmpObj.transform.localEulerAngles != tmpMoveTile.StartAngle)
-                    tmpObj.transform.localEulerAngles = tmpMoveTile.StartAngle;
+                if(tmpObj.transform.parent.localEulerAngles != tmpMoveTile.StartAngle)
+                    tmpObj.transform.parent.localEulerAngles = tmpMoveTile.StartAngle;
             }
 
             // フラグ初期化
@@ -154,7 +154,7 @@ namespace Stage
             var tmpNewAngl = tmpMoveStage.LastAngle;
             tmpNewAngl.y += tmpSetAngl;
 
-            // 転倒挙動
+            // 回転挙動
             tmpMoveStage.NowTween = null;
             tmpMoveStage.NowTween = tmpObj.transform.parent.DORotate(tmpNewAngl, StageConst.ROTATE_TIME).
             SetEase(Ease.InQuad).OnStart(() => 
