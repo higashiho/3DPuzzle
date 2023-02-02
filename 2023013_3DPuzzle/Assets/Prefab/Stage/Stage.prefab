@@ -48,6 +48,55 @@ MonoBehaviour:
   warningPanel: {fileID: 0}
   brokenBlackTileMaterial: {fileID: 2100000, guid: 25e9b706968a8274c8ecb40543f3ae7d, type: 2}
   brokenWhiteTileMaterial: {fileID: 2100000, guid: 0f53c61c87082824791822d508c581bc, type: 2}
+--- !u!1 &1514817135
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1514817136}
+  - component: {fileID: 1514817137}
+  m_Layer: 0
+  m_Name: MoveStage
+  m_TagString: MoveStage
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1514817136
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1514817135}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 32.999523, y: 21.292961, z: 31.04456}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 302579731704811699}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1514817137
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1514817135}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72b424c01095eaf4c819b7dc5682affd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveFlag: 0
+  moveStageTiles: []
+  moveStageObj: {fileID: 0}
+  onMoveSwitchs: []
+  changeSwitchFlag: 1
 --- !u!1 &1780259322
 GameObject:
   m_ObjectHideFlags: 0
@@ -94,6 +143,51 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   needleTiles: []
   needleChangeCount: 0
+--- !u!1 &2119396716
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2119396717}
+  - component: {fileID: 2119396718}
+  m_Layer: 0
+  m_Name: Switchs
+  m_TagString: SwitchTiles
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2119396717
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2119396716}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 78.994545, y: -12.229147, z: 27.659204}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 302579731704811699}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2119396718
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2119396716}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4638780f2c68f904b84e310312424d07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  switchTiles: []
 --- !u!1 &302579731704811697
 GameObject:
   m_ObjectHideFlags: 0
@@ -126,6 +220,8 @@ Transform:
   - {fileID: 83021382366656132}
   - {fileID: 1780259323}
   - {fileID: 1388192264}
+  - {fileID: 2119396717}
+  - {fileID: 1514817136}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -150,6 +246,8 @@ MonoBehaviour:
   - {fileID: 4100615882988292552, guid: b4211e8d5ddfe864596354a201eeed29, type: 3}
   - {fileID: 5168073205655824273, guid: 4f54f39bc515a8941a38f43b584b905f, type: 3}
   - {fileID: 4100615882988292552, guid: 7209018dd352d1948b4b5eaf77cf6419, type: 3}
+  - {fileID: 4100615882988292552, guid: 056912abf230c1b45bfc0b706fbeaf9c, type: 3}
+  - {fileID: 4100615882988292552, guid: 51f7188a305000149b900b7130a7ea77, type: 3}
   - {fileID: 5168073205655824273, guid: ea60f75ec5cf542449001529de2d2da9, type: 3}
   - {fileID: 3226213973817768160, guid: b0cbd0c35b395cd4faa33b07501de767, type: 3}
   - {fileID: 3226213973817768160, guid: 4effa268f39f2c94bae8b746a894b563, type: 3}
@@ -162,6 +260,8 @@ MonoBehaviour:
   tileMaterial: {fileID: 2100000, guid: 1c4ea9309f9b7714fbb7776a849bafd1, type: 2}
   clearCount: 2
   tileChangeFlag: 1
+  wallTiles: []
+  changeTile: []
 --- !u!1 &8946109332750586246
 GameObject:
   m_ObjectHideFlags: 0

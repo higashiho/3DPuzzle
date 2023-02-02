@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 1550036247861104603}
   - component: {fileID: 5485696714355526760}
   - component: {fileID: 7787363976290278455}
-  - component: {fileID: 4451247167313537294}
   m_Layer: 0
   m_Name: FallTile
   m_TagString: Fall
@@ -113,6 +112,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startColor: {r: 0, g: 0, b: 0, a: 0}
+  keyTileFlag: 0
+  onSwitch: 0
 --- !u!114 &7787363976290278455
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -123,19 +124,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a7b94e647786b6b48935548c11a4c948, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tile: {fileID: 5485696714355526760}
---- !u!114 &4451247167313537294
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3769868181457750617}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: daa6adda1fac6c04ea8d70eb0053536b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   tile: {fileID: 5485696714355526760}

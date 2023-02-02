@@ -12,6 +12,8 @@ namespace Tile
         // Start is called before the first frame update
         void Start()
         {  
+            MoveTile = new TileMove(this);
+            SwitchTilesMove = new SwitchTileMove(InGameSceneController.SwitchTile);
             startMaterial = this.GetComponent<Renderer>().material;
             startColor = this.GetComponent<Renderer>().material.color;
 
