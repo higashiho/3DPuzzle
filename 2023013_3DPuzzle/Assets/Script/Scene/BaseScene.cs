@@ -2,19 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+using LoadingImage;
 
 namespace Scene
 {
     public class BaseScene : MonoBehaviour
     {   
         /// <summary>
-        /// ボタンを押したかのフラグをオンにする
+        /// フラグをオンにする
         /// </summary>
         public void SceneMoveFlagOn()
         {
             SceneMoveOnFlag = true;
         }
         
+        [SerializeField]
+        protected BaseLoadingImage loadingImage;
+        
+
         //今のシーンがどこか
         public enum SceneState
         {
@@ -45,7 +51,6 @@ namespace Scene
         protected  EndSceneMove endSceneMove = new EndSceneMove();
         protected  MainSceneMove mainSceneMove = new MainSceneMove();
         public FadeMove MoveFade{get; private set;} = new FadeMove();
-        public static LoadingUI loadingUI{get;private set;} = new LoadingUI();
 
     }
 }

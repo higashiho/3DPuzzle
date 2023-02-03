@@ -147,7 +147,7 @@ namespace Stage
             // 半分になったら画面を赤くするパネル表示
             tmpFallTile.WarningPanel.enabled = true;
             // 1/4の明るさまで表示
-            var tmpValue = Const.FADE_END_VALUE / 4;
+            var tmpValue = Const.FADE_OUT_ALPHA / 4;
             var tmpTweem = tmpFallTile.WarningPanel.DOFade(tmpValue,tmpTime).
             SetEase(Ease.Linear).OnKill(() => tmpFallTile.WarningPanel.enabled = false);
 

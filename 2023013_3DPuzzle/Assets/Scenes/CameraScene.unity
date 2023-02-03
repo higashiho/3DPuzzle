@@ -1126,7 +1126,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4940a1586e1e65241be9b7a5a09ef4c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stairs: {fileID: 1239412771}
 --- !u!114 &1239412771
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1139,7 +1138,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72b424c01095eaf4c819b7dc5682affd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startColor: {r: 0, g: 0, b: 0, a: 0}
+  moveFlag: 0
+  moveStageTiles: []
+  moveStageObj: {fileID: 0}
+  onMoveSwitchs: []
+  changeSwitchFlag: 1
 --- !u!65 &1239412772
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2496,6 +2499,7 @@ GameObject:
   - component: {fileID: 2125332125}
   - component: {fileID: 2125332124}
   - component: {fileID: 2125332123}
+  - component: {fileID: 2125332127}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -2585,3 +2589,16 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &2125332127
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2125332122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 281d39b77da50b1409894b37950c181f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  loadingImage: {fileID: 0}

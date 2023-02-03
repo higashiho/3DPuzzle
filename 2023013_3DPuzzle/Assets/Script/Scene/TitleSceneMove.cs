@@ -1,17 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UI;
+using LoadingImage;
 
 namespace Scene
 {
     public class TitleSceneMove
     {
         // シーン遷移
-        public void Move(BaseScene tmpScene)
+        public void Move(BaseScene tmpScene, BaseLoadingImage tmpimage)
         {
             //タイトルシーンからメインシーンへ
-            tmpScene.MoveFade.FadeIn(tmpScene, "MainScene");
+            tmpScene.MoveFade.SceneMove(tmpScene, "MainScene", tmpimage);
             //tmpScene.StateScene = BaseScene.SceneState.Main;
         }
     }

@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using LoadingImage;
+using UnityEngine.UI;
 
 namespace Scene
 {
@@ -9,7 +11,6 @@ namespace Scene
     {
         //自分を入れる用
         public static BaseScene  tmpScene{get; set;}
-
 
         void Awake()
         {
@@ -26,7 +27,7 @@ namespace Scene
         // Start is called before the first frame update
         void Start()
         {
-            
+            fadePanel = GetComponentInChildren<Image>();
         }
 
         // Update is called once per frame
@@ -36,19 +37,25 @@ namespace Scene
             switch(StateScene)
             {
                 case BaseScene.SceneState.Title:
-                    titleSceneMove.Move(this);
+                    titleSceneMove.Move(this, loadingImage);
                 break;
 
+                case BaseScene.SceneState.Main:
+                    if(fadePanel.color.a == Const.FADE_OUT_ALPHA)
+                    {
+                        MoveFade.FadeIn(this);
+                    }
+                    break;
                 case BaseScene.SceneState.MainFinish:
-                    mainSceneMove.Move(this);
+                    mainSceneMove.Move(this, loadingImage);
                 break;
 
                 case BaseScene.SceneState.End:
-                    endSceneMove.Move(this);
+                    endSceneMove.Move(this, loadingImage);
                 break;
 
                 default:
-                break;
+                    break;
             }
         }
     }

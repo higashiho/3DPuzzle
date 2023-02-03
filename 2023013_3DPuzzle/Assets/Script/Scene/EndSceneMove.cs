@@ -2,17 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
-using UI;
+using LoadingImage;
 
 namespace Scene
 {
     public class EndSceneMove
     {
         // シーン遷移
-        public void Move(BaseScene tmpScene)
+        public void Move(BaseScene tmpScene, BaseLoadingImage tmpImage)
         {
             //エンドシーンからタイトルシーンへ
-            tmpScene.MoveFade.FadeIn(tmpScene, "TitleScene");
+            tmpScene.MoveFade.SceneMove(tmpScene, "TitleScene", tmpImage);
             //tmpScene.StateScene = BaseScene.SceneState.Title;
         }
     }
