@@ -139,5 +139,21 @@ public class Const
     /// ループ回数
     /// </summary>
     public const int LOOP_NUM = 2;
+    /// <summary>
+    /// ポップアップ目標X座標
+    /// </summary>
+    public const float POPUP_TARGET_POS_X = 710f;
+    /// <summary>
+    /// Popupの目標ｘ座標まで行く時間
+    /// </summary>
+    public const float POPUP_MOVE_TIMER_X = 2.0f;
+    /// <summary>
+    /// ポップアップ目標Y座標
+    /// </summary>
+    public const float POPUP_TARGET_POS_Y = 20f;
+    /// <summary>
+    /// Popupの待ち時間
+    /// </summary>
+    public const float POPUP_DELAY_TIME = 3.0f; 
     // 以上UI用定数
 }

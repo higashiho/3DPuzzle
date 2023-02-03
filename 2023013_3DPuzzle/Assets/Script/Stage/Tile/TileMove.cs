@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Stage;
 using DG.Tweening;
 
@@ -148,20 +149,69 @@ namespace Tile
         /// <param name="tmpflag">立てるフラグ</param>
         private void getNum(ref bool tmpflag)
         {
-            tmpflag = true;
-            // ０の値を探索して０の位置に数値格納
-            for(int i = 0; i < InGameSceneController.Player.HaveNum.Count; i++)
+            // フラグがたっていなければ値を取得
+            if(!tmpflag)
             {
-                if(InGameSceneController.Player.HaveNum[i] == 0)
+                tmpflag = true;
+                var tmpNum = 0;
+                // ０の値を探索して０の位置に数値格納
+                for(int i = 0; i < InGameSceneController.Player.HaveNum.Count; i++)
                 {
-                    InGameSceneController.Player.HaveNum[i] = 
-                        (uint)UnityEngine.Random.Range(StageConst.MIN_NUM, StageConst.MAX_NUM);
-
-                    break;
+                    if(InGameSceneController.Player.HaveNum[i] == 0)
+                    {
+                        InGameSceneController.Player.HaveNum[i] = 
+                            (uint)UnityEngine.Random.Range(StageConst.MIN_NUM, StageConst.MAX_NUM);
+                        tmpNum = (int)InGameSceneController.Player.HaveNum[i];
+                        break;
+                    }
                 }
-            }
-        }
 
+               popupMove(tmpNum);
+            }
+            
+        }
+        
+        /// <summary>
+        /// Popup挙動関数
+        /// </summary>
+        /// <param name="tmpNum">取得した数値</param>
+        private void popupMove(int tmpNum)
+        {
+            // 取った値のポップアップ表示
+            InGameSceneController.Stages.GetNumPopupText.text = tmpNum + "\nを取得";
+            // 座標とアルファ値を初期化
+            // BGの初期化
+            var tmpImage = InGameSceneController.Stages.GetNumPopupText.transform.parent.GetComponent<Image>();
+            var tmpColor = tmpImage.color;
+            tmpColor.a = Const.FADE_MAX_ALPHA;
+            tmpImage.color = tmpColor;
+            // テキストの初期化
+            tmpColor = InGameSceneController.Stages.GetNumPopupText.color;
+            tmpColor.a = Const.FADE_MAX_ALPHA;
+            InGameSceneController.Stages.GetNumPopupText.color = tmpColor;
+            // 座標初期化
+            InGameSceneController.Stages.GetNumPopupText.transform.parent.localPosition = InGameSceneController.Stages.PopupStartPos;
+            // 1秒
+            var tmpTimer = Const.FADE_TIMER * 0.5f;
+            // Sequenceのインスタンスを作成
+            var tmpSequence = DOTween.Sequence();
+
+            // Appendで動作を追加していく
+            tmpSequence.Append(
+                InGameSceneController.Stages.GetNumPopupText.transform.parent.DOLocalMoveX
+                (Const.POPUP_TARGET_POS_X, Const.POPUP_MOVE_TIMER_X).SetEase(Ease.Linear));
+            // 待機
+            tmpSequence.AppendInterval(Const.POPUP_DELAY_TIME);
+            // 消えながら上に向かう
+            tmpSequence.Append
+            (InGameSceneController.Stages.GetNumPopupText.transform.parent.DOLocalMoveY
+            (Const.POPUP_TARGET_POS_Y, tmpTimer).SetEase(Ease.Linear));
+            tmpSequence.Join(tmpImage.DOFade(0, tmpTimer).SetEase(Ease.Linear));
+            tmpSequence.Join(InGameSceneController.Stages.GetNumPopupText.DOFade(0, tmpTimer).SetEase(Ease.Linear));
+
+            // 実行
+            tmpSequence.Play();
+        }
         /// <summary>
         /// キータイルか判断用関数
         /// </summary>

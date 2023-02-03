@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using DG.Tweening;
+using UI;
 
 namespace Box
 {
@@ -69,11 +69,41 @@ namespace Box
         /// </summary>
         private void startBoxUI()
         {
+            // 表示されていなければ表示を初期化
             if(!tmpBox.OpenBoxUI.gameObject.activeSelf)
             {
                 tmpBox.OpenBoxUI.gameObject.SetActive(true);
                 tmpBox.OpenFlag = true;
                 tmpBox.TipButton.gameObject.SetActive(false);
+
+                // 持っている数字をランダムに表示
+                bool[] tmpHaveNums = new bool[4];
+                var tmpTreasureBox = tmpBox.OpenBoxUI.transform.parent.GetComponent<BaseTreasureBoxUI>();
+                int tmpCount = 0;
+                while(tmpCount < tmpTreasureBox.PlayerHaveNumText.Length)
+                {
+                    var tmpNum = UnityEngine.Random.Range(0, tmpTreasureBox.PlayerHaveNumText.Length);
+
+                    // １回格納されていなければ格納
+                    if(!tmpHaveNums[tmpNum])
+                    {
+                        tmpHaveNums[tmpNum] = true;
+                        // プレイヤーの所持数値が０出なければ代入
+                        if(InGameSceneController.Player.HaveNum[tmpNum] != 0)
+                        {
+                            tmpTreasureBox.PlayerHaveNumText[tmpCount].text = "" + InGameSceneController.Player.HaveNum[tmpNum];
+                            // 表示を消されていたら再表示
+                            if(!tmpTreasureBox.PlayerHaveNumText[tmpCount].transform.parent.gameObject.activeSelf)
+                                tmpTreasureBox.PlayerHaveNumText[tmpCount].transform.parent.gameObject.SetActive(true);
+                        }
+                        // ０であれば表示削除
+                        else if(tmpTreasureBox.PlayerHaveNumText[tmpCount].transform.parent.gameObject.activeSelf)
+                            tmpTreasureBox.PlayerHaveNumText[tmpCount].transform.parent.gameObject.SetActive(false);
+
+                        // カウント増加
+                        tmpCount++;
+                    }
+                }
             }
         }
 

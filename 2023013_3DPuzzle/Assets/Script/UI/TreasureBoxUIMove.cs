@@ -40,6 +40,9 @@ namespace UI
             
         }
 
+        /// <summary>
+        /// 入力値があっているか確認関数
+        /// </summary>
         public void CheckNum()
         {
             
@@ -66,6 +69,7 @@ namespace UI
             else
             {
                 Debug.Log("NoClear" + tmpList.Count);
+                tmpTreasureBoxUI.ErrorText.text = tmpList.Count + "個の値が間違えています";
                 // Tweenが再生していたら削除して再生し直し
                 if(tmpTreasureBoxUI.ErrorTextTween != null)
                 {
@@ -80,7 +84,29 @@ namespace UI
                 SetEase(Ease.Linear).SetLoops(Const.LOOP_NUM, LoopType.Yoyo);
             }
 
+            
+        }
 
+        /// <summary>
+        /// プレイヤー所持値リセット
+        /// </summary>
+        public void PlayerHaveNumReset()
+        {
+            if(!tmpTreasureBoxUI.ClearFlag)
+            {
+                // 値をすべてリセット
+                for(int i = 0; i < InGameSceneController.Player.HaveNum.Count; i++)
+                {
+                    InGameSceneController.Player.HaveNum[i] = 0;
+
+                    // フラグリセット
+                    InGameSceneController.Stages.StageClearFlags[i] = false;
+                }
+
+                // UIが開いていたら閉じる
+                if(InGameSceneController.TreasureBox.OpenBoxUI.gameObject.activeSelf)
+                    InGameSceneController.TreasureBox.OpenBoxUI.gameObject.SetActive(false);
+            }
         }
     }
 }

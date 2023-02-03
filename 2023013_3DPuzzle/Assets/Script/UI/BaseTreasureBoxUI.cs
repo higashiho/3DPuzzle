@@ -52,6 +52,10 @@ namespace UI
         {
             treasureBoxUIMove.CheckNum();
         }
+        public void ResetNum()
+        {
+            treasureBoxUIMove.PlayerHaveNumReset();
+        }
         // ====================================================================
         // インスタンス化
         protected TreasureBoxUIMove treasureBoxUIMove;
