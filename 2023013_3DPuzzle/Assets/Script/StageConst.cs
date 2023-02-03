@@ -72,6 +72,14 @@ public class StageConst
     /// 壁オブジェクトをタイルに変更する対象オブジェクトの位置
     /// </summary>
     public static readonly Vector3 CHANGE_WALL_POS = new Vector3(130, 0, 20);
+    /// <summary>
+    /// ステージクリアの時に得られる数値最小値
+    /// </summary>
+    public const int MIN_NUM = 1;
+    /// <summary>
+    /// ステージクリアの時に得られる数値最大値
+    /// </summary>
+    public const int MAX_NUM = 9;
     // 動かせるステージのステート定数==============================
     /// <summary>
     /// 立っている状態

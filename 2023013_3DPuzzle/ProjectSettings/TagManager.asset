@@ -20,6 +20,8 @@ TagManager:
   - MoveTileSwitch
   - MoveStage
   - MoveTile
+  - TipButton
+  - TreasureBoxPanel
   layers:
   - Default
   - TransparentFX
