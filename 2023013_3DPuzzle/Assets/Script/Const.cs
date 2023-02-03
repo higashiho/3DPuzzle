@@ -46,108 +46,25 @@ public class Const
     /// </summary>
     public const int CHECK_POS_Z = 5;
     /// <summary>
-    /// プレイヤーに押された際に移動するまでの時間
-    /// </summary>
-    public const float BOX_MOVE_SPEED = 3f;
-    /// <summary>
-    /// BoxのY座標
-    /// </summary>
-    public const float BOX_POS_Y = 4.5f;
-    /// <summary>
     /// Boxな半分のサイズ
     /// </summary>
     public const float CUBE_SIZE_HALF = 2.5f;
-    /// <summary>
-    /// 動かせないボックスの比率最大数（1/3で出現）
-    /// </summary>
-    public const int BOX_DONT_MOVE_NUM = 3;
     // 以上Box用定数
 
-
-    // 以下ステージ用定数
+    // 以下ビデオ用定数
     /// <summary>
-    /// ニードルタイルの出ている針が変わる間隔
+    /// ビデオのアルファ値が変化する量
     /// </summary>
-    public const int CHANGE_NEEDLE_NUM = 3;
+    public const float FADE_VIDEO_NUM = 0.1f;  
     /// <summary>
-    /// ニードルタイルの色が変わる値
+    /// ビデオのアルファ値が変化する時間（ミリ秒）
     /// </summary>
-    public const int CHANGE_NEEDLE_TILE_COLOR_NUM = 2;
+    public const int FADE_VIDEO_TIME = 100;  
     /// <summary>
-    /// Clear挙動の移動時間
+    /// 透明度最大値
     /// </summary>
-    public const float CLEAR_MOVE_TIME = 5.0f;
-    /// <summary>
-    /// Clear挙動の一周の回転時間
-    /// </summary>
-    public const float CLEAR_ROTATE_TIME = 0.5f;
-    /// <summary>
-    ///  Clear挙動のy座標更新用
-    /// </summary>
-    public const float CLEAR_MAX_POS_Y = 100.0f;
-    /// <summary>
-    /// Clear挙動の移動開始待ち時間
-    /// </summary>
-    public const float CLEAR_STOP_TIME = 2.0f;
-    /// <summary>
-    /// ステージの左上エリア
-    /// </summary>
-    public static readonly Vector3 Area1Pos = new Vector3(49.0f, 5.0f, 72.0f);
-    /// <summary>
-    /// ステージの左下エリア
-    /// </summary>
-    public static readonly Vector3 Area2Pos = new Vector3(49.0f, 5.0f, 49.0f);
-    /// <summary>
-    /// ステージの右上エリア
-    /// </summary>
-    public static readonly Vector3 Area3Pos = new Vector3(72.0f, 5.0f, 72.0f);
-    /// <summary>
-    /// ステージの右下エリア
-    /// </summary>
-    public static readonly Vector3 Area4Pos = new Vector3(72.0f, 5.0f, 49.0f);
-    /// <summary>
-    /// 倒れるスピード
-    /// </summary>
-    public const float ROTATE_TIME = 3.0f;
-    /// <summary>
-    /// 落下タイルが落下するまでのカウント最大値
-    /// </summary>
-    public const float FALL_COUNT_MAX = 2.0f;
-    /// <summary>
-    /// 落下ステージ制限時間
-    /// </summary>
-    public const int FALL_COUNTDOWN_TIME = 30;
-    // 動かせるステージのステート定数==============================
-    /// <summary>
-    /// 立っている状態
-    /// </summary>
-    public const uint STATE_STAND_UP = 0x0001;
-    /// <summary>
-    /// 倒れている状態
-    /// </summary>
-    public const uint STATE_FALL = 0x0002;
-    // =========================================================
-    // ステージのステート定数=====================================
-    /// <summary>
-    /// 針出現ステージ
-    /// </summary>
-    public const uint STATE_NEEDLE_STAGE = 0x0001;
-    /// <summary>
-    /// 動かせるステージブロック出現ステージ
-    /// </summary>
-    public const uint STATE_MOVE_STAGE = 0x0002;
-    /// <summary>
-    /// 落ちる床出現ステージ
-    /// </summary>
-    public const uint STATE_FALLING_STAGE = 0x0004;
-    /// <summary>
-    ///  スイッチ出現ステージ
-    /// </summary>
-    public const uint STATE_SWITCH_STAGE = 0x0008;
-    // =========================================================
-
-    // 以上ステージ用定数
-
+    public const float FADE_MAX_ALPHA = 1.0f;   
+    // 以上ビデオ用定数
 
     // 以下タイトル定数--------------------------
     public const float FADE_END_VALUE = 1.0f;   //透明度の最大値
@@ -201,4 +118,47 @@ public class Const
     /// </summary>
     public const int CHANGE_SECOND = 1000;
     // 以上タスク用定数
+
+    // 以下UI用定数
+    /// <summary>
+    /// 左のボタン
+    /// </summary>
+    public const int BUTOON_LEFT = 0;
+    /// <summary>
+    /// 真ん中左のボタン
+    /// </summary>
+    public const int BUTOON_CENTER_LEFT = 1;
+    /// <summary>
+    /// 真ん中右のボタン
+    /// </summary>
+    public const int BUTOON_CENTER_RIGHIT = 2;
+    /// <summary>
+    /// 右のボタン
+    /// </summary>
+    public const int BUTOON_RIGHIT = 3;
+    /// <summary>
+    /// 南京錠の値最大値
+    /// </summary>
+    public const int NUM_MAX = 10;
+    /// <summary>
+    /// ループ回数
+    /// </summary>
+    public const int LOOP_NUM = 2;
+    /// <summary>
+    /// ポップアップ目標X座標
+    /// </summary>
+    public const float POPUP_TARGET_POS_X = 710f;
+    /// <summary>
+    /// Popupの目標ｘ座標まで行く時間
+    /// </summary>
+    public const float POPUP_MOVE_TIMER_X = 2.0f;
+    /// <summary>
+    /// ポップアップ目標Y座標
+    /// </summary>
+    public const float POPUP_TARGET_POS_Y = 20f;
+    /// <summary>
+    /// Popupの待ち時間
+    /// </summary>
+    public const float POPUP_DELAY_TIME = 3.0f; 
+    // 以上UI用定数
 }

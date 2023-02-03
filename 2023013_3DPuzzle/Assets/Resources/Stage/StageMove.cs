@@ -19,45 +19,45 @@ namespace Stage
         public void StateUpdate(BaseStage tmpStage)
         {
             // playerのposが一定以内の場合
-            if(InGameSceneController.Player.transform.position.x <= Const.Area1Pos.x &&
-                InGameSceneController.Player.transform.position.z >= Const.Area1Pos.z)
+            if(InGameSceneController.Player.transform.position.x <= StageConst.Area1Pos.x &&
+                InGameSceneController.Player.transform.position.z >= StageConst.Area1Pos.z)
                 {
                     // ステート更新されていないと更新してvoid処理終了
-                    if(tmpStage.StageState != Const.STATE_NEEDLE_STAGE)
-                        bitUpdate(tmpStage,Const.STATE_NEEDLE_STAGE);
+                    if(tmpStage.StageState != StageConst.STATE_NEEDLE_STAGE)
+                        bitUpdate(tmpStage,StageConst.STATE_NEEDLE_STAGE);
 
                     return;
                 }
 
             // playerのposが一定以内の場合
-            if(InGameSceneController.Player.transform.position.x <= Const.Area2Pos.x &&
-                InGameSceneController.Player.transform.position.z <= Const.Area2Pos.z)
+            if(InGameSceneController.Player.transform.position.x <= StageConst.Area2Pos.x &&
+                InGameSceneController.Player.transform.position.z <= StageConst.Area2Pos.z)
                 {
                     // ステート更新されていないと更新してvoid処理終了
-                    if(tmpStage.StageState != Const.STATE_MOVE_STAGE)
-                        bitUpdate(tmpStage,Const.STATE_MOVE_STAGE);
+                    if(tmpStage.StageState != StageConst.STATE_MOVE_STAGE)
+                        bitUpdate(tmpStage,StageConst.STATE_MOVE_STAGE);
 
                     return;
                 }
 
             // playerのposが一定以内の場合
-            if(InGameSceneController.Player.transform.position.x >= Const.Area3Pos.x &&
-                InGameSceneController.Player.transform.position.z >= Const.Area3Pos.z)
+            if(InGameSceneController.Player.transform.position.x >= StageConst.Area3Pos.x &&
+                InGameSceneController.Player.transform.position.z >= StageConst.Area3Pos.z)
                 {
                     // ステート更新されていないと更新してvoid処理終了
-                    if(tmpStage.StageState != Const.STATE_FALLING_STAGE)
-                        bitUpdate(tmpStage,Const.STATE_FALLING_STAGE);
+                    if(tmpStage.StageState != StageConst.STATE_FALLING_STAGE)
+                        bitUpdate(tmpStage,StageConst.STATE_FALLING_STAGE);
 
                     return;
                 }
 
             // playerのposが一定以内の場合
-            if(InGameSceneController.Player.transform.position.x >= Const.Area4Pos.x &&
-                InGameSceneController.Player.transform.position.z <= Const.Area4Pos.z)
+            if(InGameSceneController.Player.transform.position.x >= StageConst.Area4Pos.x &&
+                InGameSceneController.Player.transform.position.z <= StageConst.Area4Pos.z)
                 {
                     // ステート更新されていないと更新してvoid処理終了
-                    if(tmpStage.StageState != Const.STATE_SWITCH_STAGE)
-                        bitUpdate(tmpStage,Const.STATE_SWITCH_STAGE);
+                    if(tmpStage.StageState != StageConst.STATE_SWITCH_STAGE)
+                        bitUpdate(tmpStage,StageConst.STATE_SWITCH_STAGE);
 
                     return;
                 }
@@ -84,6 +84,7 @@ namespace Stage
         /// </summary>
         public void StageClear()
         {
+            
             tmpStageState = InGameSceneController.Stages.StageState;
             // 当たり判定が消えていなかったら消す
             if(InGameSceneController.Player.GetComponent<BoxCollider>().enabled)
@@ -113,10 +114,10 @@ namespace Stage
                 if(i == tmpNum)
                     break;
                 // y座標に１００足す
-                tmpPath[i].y += Const.CLEAR_MAX_POS_Y;
+                tmpPath[i].y += StageConst.CLEAR_MAX_POS_Y;
             }
             // ２秒後に５秒かけて移動
-            InGameSceneController.Player.transform.DOLocalPath(tmpPath, Const.CLEAR_MOVE_TIME, PathType.Linear, PathMode.Full3D).SetDelay(Const.CLEAR_STOP_TIME).
+            InGameSceneController.Player.transform.DOLocalPath(tmpPath, StageConst.CLEAR_MOVE_TIME, PathType.Linear, PathMode.Full3D).SetDelay(StageConst.CLEAR_STOP_TIME).
             SetEase(Ease.OutQuad).OnComplete(compReset);
         }
 
@@ -133,7 +134,11 @@ namespace Stage
             if(!InGameSceneController.Player.GetComponent<BoxCollider>().enabled)
                 InGameSceneController.Player.GetComponent<BoxCollider>().enabled = true;
 
+            // checkArea();
 
+            
+            // ステート保管初期化
+            tmpStageState = default;
         }
         /// <summary>
         /// 0.5秒に一回転する挙動関数
@@ -146,7 +151,7 @@ namespace Stage
             // 0.5秒で一周回ってそれを続ける
             var tmpAngle = Const.ONE_ROUND / 2;
             InGameSceneController.Player.PlayerClearTween = 
-            InGameSceneController.Player.transform.DORotate(Vector3.up * tmpAngle, Const.CLEAR_ROTATE_TIME).
+            InGameSceneController.Player.transform.DORotate(Vector3.up * tmpAngle, StageConst.CLEAR_ROTATE_TIME).
             SetEase(Ease.Linear).SetLoops(-1, LoopType.Restart);
             // ループの引数に-1を渡すことで無限ループされる
         }
@@ -185,9 +190,7 @@ namespace Stage
         {
             InGameSceneController.Player.PlayerFailureTween = null;
 
-            // STATE_FALLING_STAGEからの失敗の場合の初期化
-            if(tmpStageState == Const.STATE_FALLING_STAGE)
-                InGameSceneController.Stages.FallTiles.TimeCountTask = null;
+            // checkArea();
 
             // ステート保管初期化
             tmpStageState = default;
@@ -197,5 +200,19 @@ namespace Stage
             InGameSceneController.Player.PlayerMoveCancel = false;
 
         }
+
+        /// <summary>
+        /// ステージごとの初期化用関数
+        /// </summary>
+        // private void checkArea()
+        // {
+        //     // STATE_FALLING_STAGEからの場合のの初期化
+        //     if(tmpStageState == Const.STATE_FALLING_STAGE)
+        //     {
+        //         InGameSceneController.Stages.FallTiles.TimeCountTask = null;
+        //         return;
+        //     }
+
+        // }
     }
 }

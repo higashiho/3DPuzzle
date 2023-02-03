@@ -18,7 +18,13 @@ namespace Stage
         [SerializeField, Header("警告パネル")]
         protected Image warningPanel;
         public Image WarningPanel{get{return warningPanel;}}
+        // 初期化フラグ
+        protected bool resetFlag = false;
+        public bool ResetFlag{get{return resetFlag;} set{resetFlag = value;}}
         
+        // 失敗じタスクキャンセル用フラグ
+        protected bool taskCancelFlag = false;
+        public bool TaskChancelFlag{get{return taskCancelFlag;}set{taskCancelFlag = value;}}
     
 
         [SerializeField, Header("黒ひび割れタイル")]
@@ -31,9 +37,14 @@ namespace Stage
         // 実行しているタスク
         public UniTask? TimeCountTask = null;
         // Taskキャンセル処理用
-        public CancellationTokenSource cts{get;private set;} = new CancellationTokenSource();
+        public static CancellationTokenSource Cts{get;private set;} = new CancellationTokenSource();
 
         // インスタンス化
-        protected FallTileMove fallTileMove = new FallTileMove();
+        public FallTileMove FallTileMoves{get; protected set;}
+
+        protected void OnDestroy()
+        {
+            Cts.Cancel();
+        }
     }
 }

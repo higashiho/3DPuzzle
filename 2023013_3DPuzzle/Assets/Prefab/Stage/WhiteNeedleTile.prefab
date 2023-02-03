@@ -530,6 +530,7 @@ GameObject:
   - component: {fileID: 1371350466101947219}
   - component: {fileID: 5388583835587032614}
   - component: {fileID: 8174423842820463550}
+  - component: {fileID: 6282568300550562694}
   m_Layer: 0
   m_Name: NeedleTile
   m_TagString: Needle
@@ -629,3 +630,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startColor: {r: 0, g: 0, b: 0, a: 0}
+  keyTileFlag: 0
+  onSwitch: 0
+--- !u!114 &6282568300550562694
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7420698255447599158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da6f645013889604cb1bde1d781994a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tmpTile: {fileID: 8174423842820463550}

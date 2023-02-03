@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
-using Box;
+using Tile;
 
 namespace Stage
 {
@@ -11,78 +11,132 @@ namespace Stage
     /// </summary>
     public class MoveStageMove
     {
-        /// <summary>
-        /// 接地判定取得関数使用用インスタンス化
-        /// </summary>
-        private BoxMove boxMove = new BoxMove();
+        private BaseMoveStage tmpMoveStage;
 
+        public MoveStageMove(BaseMoveStage tmp)
+        {
+            tmpMoveStage = tmp;
+        }
         /// <summary>
         /// 挙動関数
         /// </summary>
         /// <param name="tmpBox"></param>
-        public void Move(BaseMoveStage tmpStairs)
+        public void Move()
         {
-            if(boxMove.Chack(tmpStairs.gameObject))  
+            if(InGameSceneController.Stages.StageState == StageConst.STATE_MOVE_STAGE)
             {
-                // Tweenに何も入っていないとき
-                if(tmpStairs.NowTween == null)
+                if(tmpMoveStage.MoveFlag)
                 {
-                    tmpStairs.GetComponent<Renderer>().material.color = Color.green;
+                    tmpMoveStage.ResetFlag = true;
+                    // Tweenに何も入っていないとき
+                    if(tmpMoveStage.NowTween == null)
+                    {
+                        fall();
+                    }
+                }
+                if(tmpMoveStage.ChangeSwitchFlag)
+                        changeSwitch();
+            }
+            else if(tmpMoveStage.ResetFlag)
+                ResetMoveStage();
+        }
 
-                    fall(tmpStairs);
+        /// <summary>
+        /// ステージリセット関数
+        /// </summary>
+        public void ResetMoveStage()
+        {
+            // 全てのムーブスイッチをタイルに変更
+            foreach(var tmpSwitch in tmpMoveStage.OnMoveSwitchs)
+            {
+                if(tmpSwitch == null)
+                    break;
+                
+                if(tmpSwitch.tag == "MoveTileSwitch")
+                {
+                    tmpSwitch.tag = "WhiteTile";
+                    tmpSwitch.GetComponent<Renderer>().material.color = Color.white;
+                    tmpSwitch.GetComponent<BaseTile>().StartColor = tmpSwitch.GetComponent<Renderer>().material.color;
                 }
             }
-            else   
-                tmpStairs.GetComponent<Renderer>().material.color = tmpStairs.StartColor;
-                
 
+            // 挙動タイル初期化
+            foreach(var tmpObj in tmpMoveStage.MoveStageTiles)
+            {
+                // tweenのCancel
+                DOTween.Kill(tmpObj.transform);
+                // 移動していたら初期化
+                var tmpMoveTile = tmpObj.GetComponent<BaseMoveStageObject>();
+                if(tmpObj.transform.parent.localEulerAngles != tmpMoveTile.StartAngle)
+                    tmpObj.transform.parent.localEulerAngles = tmpMoveTile.StartAngle;
+            }
+
+            // フラグ初期化
+            tmpMoveStage.ChangeSwitchFlag = true;
+            tmpMoveStage.ResetFlag = false;
+            tmpMoveStage.MoveFlag = false;
+            tmpMoveStage.NowTween = null;
+            tmpMoveStage.MoveStageObj = null;
+
+        }
+
+        /// <summary>
+        /// Switch変更挙動
+        /// </summary>
+        private void changeSwitch()
+        {
+            // 全てのムーブスイッチをタイルに変更
+            foreach(var tmpSwitch in tmpMoveStage.OnMoveSwitchs)
+            {
+                if(tmpSwitch == null)
+                    break;
+                
+                if(tmpSwitch.tag == "MoveTileSwitch")
+                {
+                    tmpSwitch.tag = "WhiteTile";
+                    tmpSwitch.GetComponent<Renderer>().material.color = Color.white;
+                    tmpSwitch.GetComponent<BaseTile>().StartColor = tmpSwitch.GetComponent<Renderer>().material.color;
+                }
+            }
+
+            // ランダムなSwitchを1つだけSwitchにする
+            var tmpNum = UnityEngine.Random.Range(0, tmpMoveStage.OnMoveSwitchs.Length);
+            tmpMoveStage.OnMoveSwitchs[tmpNum].GetComponent<Renderer>().material.color = Color.magenta;
+            tmpMoveStage.OnMoveSwitchs[tmpNum].GetComponent<BaseTile>().StartColor = tmpMoveStage.OnMoveSwitchs[tmpNum].GetComponent<Renderer>().material.color;
+            tmpMoveStage.OnMoveSwitchs[tmpNum].tag = "MoveTileSwitch";
+            tmpMoveStage.ChangeSwitchFlag = false;
         }
 
         /// <summary>
         /// 回転挙動関数
         /// </summary>
-        /// <param name="tmpStairs">階段の実体</param>
-        private void fall(BaseMoveStage tmpMoveStage)
+        private void fall()
         {
-            // 挙動前の向きが自身の座標と違う時自身の今の向きを取得
-            if(tmpMoveStage.LastAngle != tmpMoveStage.transform.parent.transform.localEulerAngles)
-                tmpMoveStage.LastAngle = tmpMoveStage.transform.parent.transform.localEulerAngles;
-            
-            // 左クリックのみの挙動にするため一旦コメント
-                // // 右クリックで右回転
-                // if(Input.GetMouseButtonDown(1))
-                // {
-                //     // 何度回すか
-                //     var tmpSetAngl = Const.ONE_ROUND / 4;
-                //     var tmpNewAngl = tmpStairs.LastAngle;
-                //     tmpNewAngl.x -= tmpSetAngl;
-                //     tmpStairs.NowTween = tmpStairs.transform.transform.parent.transform.DORotate(tmpNewAngl, Const.ROTATE_TIME).
-                //     SetEase(Ease.InQuad).OnComplete(() =>
-                //     {
-                //         compReset(tmpStairs);
-                //     });
-                // }
-
-
             // 左クリックで左回転
-            else if(Input.GetMouseButtonDown(0))
+            if(Input.GetMouseButtonDown(0) && tmpMoveStage.MoveStageObj != null)
             {
                 var tmpAngle = Const.ONE_ROUND / 4;
-                switch(tmpMoveStage.MoveStageState)
+                // 左回りにして自分の上の段と下の段を逆回転させる
+                rotateStage(tmpAngle, tmpMoveStage.MoveStageObj);
+                var tmpNum = 0;
+                // 自身のオブジェクトの要素数を取得
+                for(int i = 0; i < tmpMoveStage.MoveStageTiles.Length; i++)
                 {
-                    // 立っている場合倒す
-                    case Const.STATE_STAND_UP:
-                        // 回転挙動
-                        rotateStage(tmpMoveStage, Const.STATE_FALL, tmpAngle);
+                    if(tmpMoveStage.MoveStageTiles[i] == tmpMoveStage.MoveStageObj)
+                    {
+                        tmpNum = i;
                         break;
-                    // 倒れている場合立てる
-                    case Const.STATE_FALL:
-                        // 回転挙動
-                        rotateStage(tmpMoveStage, Const.STATE_STAND_UP, -tmpAngle);
-                        break;
-                    default:
-                        break;
+                    }
                 }
+                // 取った要素数の上下を取得用変数
+                var tmpUpNum = tmpNum;
+                var tmpDownNum = tmpNum;
+                // 要素数の範囲内であれば右回り
+                if(++tmpUpNum < tmpMoveStage.MoveStageTiles.Length)
+                    rotateStage(-tmpAngle, tmpMoveStage.MoveStageTiles[tmpUpNum]);
+                if(--tmpDownNum >= 0)
+                    rotateStage(-tmpAngle, tmpMoveStage.MoveStageTiles[tmpDownNum]);
+
                  
             }
         }
@@ -90,32 +144,37 @@ namespace Stage
         /// <summary>
         /// ステージが倒れる動作関数
         /// </summary>
-        /// <param name="tmpMoveStage">動かせるステージの実体</param>
-        private void rotateStage(BaseMoveStage tmpMoveStage, uint tmpState, float tmpSetAngl)
+        /// <param name="tmpSetAngl">回す角度</param>
+        /// <param name="tmpObj">回すオブジェクト</param>
+        private void rotateStage(float tmpSetAngl, GameObject tmpObj)
         {
+            // 現在の座標取得
+            tmpMoveStage.LastAngle = tmpObj.transform.parent.localEulerAngles;
             // 何度回すか
             var tmpNewAngl = tmpMoveStage.LastAngle;
-            tmpNewAngl.x += tmpSetAngl;
+            tmpNewAngl.y += tmpSetAngl;
 
-            // 店頭挙動
-            tmpMoveStage.NowTween = tmpMoveStage.transform.transform.parent.transform.DORotate(tmpNewAngl, Const.ROTATE_TIME).
-            SetEase(Ease.InQuad).OnComplete(() =>
+            // 回転挙動
+            tmpMoveStage.NowTween = null;
+            tmpMoveStage.NowTween = tmpObj.transform.parent.DORotate(tmpNewAngl, StageConst.ROTATE_TIME).
+            SetEase(Ease.InQuad).OnStart(() => 
             {
-                compReset(tmpMoveStage);
+                tmpMoveStage.MoveFlag = false;
+            }).OnComplete(() =>
+            {
+                compReset();
             });
-            // ステート初期化
-            tmpMoveStage.MoveStageState &= ~tmpMoveStage.MoveStageState;
-            tmpMoveStage.MoveStageState |= tmpState;
         }
 
 
         /// <summary>
         /// 初期化関数
         /// </summary>
-        /// <param name="tmpStairs">階段の実体</param>
-        private void compReset(BaseMoveStage tmpStairs)
+        private void compReset()
         {
-            tmpStairs.NowTween = null;
+            tmpMoveStage.ChangeSwitchFlag = true;
+            tmpMoveStage.NowTween = null;
+            tmpMoveStage.MoveStageObj = null;
         }
     }
 }

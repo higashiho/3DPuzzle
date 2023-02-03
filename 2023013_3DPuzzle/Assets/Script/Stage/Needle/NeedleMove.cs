@@ -13,33 +13,38 @@ namespace Stage
         // ムーブカウントが増えたか確認用変数
         private int tmpMoveCount;
 
+        // インスタンス化
+        private BaseNeedle tmpNeedle;
+
         // コンストラクタ
-        public NeedleMove()
+        public NeedleMove(BaseNeedle tmp)
         {
             tmpMoveCount = 0;
+            tmpNeedle = tmp;
         }
 
         /// <summary>
         /// 挙動関数
         /// </summary>
-        /// <param name="tmpNeedle">ニードルの実体</param>
-        public void Move(BaseNeedle tmpNeedle)
+        public void Move()
         {
             // ステートが針ステージの場合はプレイヤーへのムーブカウントで表示するニードルを変更
-            if(InGameSceneController.Stages.StageState == Const.STATE_NEEDLE_STAGE)
+            if(InGameSceneController.Stages.StageState == StageConst.STATE_NEEDLE_STAGE)
             {
+                // 初期化フラグを立てる
+                tmpNeedle.ResetFlag = true;
                 // 1/2で表示するニードルタイルを変更
                 if((tmpNeedle.NeedleChangeCount & 1) == 0)
                 {
-                    changeNeedle(tmpNeedle, "WhiteTile", Color.white);
+                    changeNeedle("WhiteTile", Color.white);
                 }
                 else
                 {
-                    changeNeedle(tmpNeedle, "BlackTile", Color.black);
+                    changeNeedle("BlackTile", Color.black);
                 }
 
                 // タイル更新
-                tilesUpdate(tmpNeedle);
+                tilesUpdate();
                
                 // カウント格納変数を更新
                 tmpMoveCount = InGameSceneController.Player.MoveCount;
@@ -49,20 +54,28 @@ namespace Stage
                 return;
             }
 
-            // ステートが針ステージではない場合は針を表示しない
-            foreach(var tmpObj in tmpNeedle.NeedleTiles)
+            // リセットフラグがたっていたら初期化
+            if(tmpNeedle.ResetFlag)
             {
-                tmpObj.transform.GetChild(0).gameObject.SetActive(false);
-            }           
+                // ステートが針ステージではない場合で針が出現している場合は針を表示しない
+                if(tmpNeedle.NeedleTiles[0].activeSelf || tmpNeedle.NeedleTiles[1].activeSelf)
+                {    
+                    ResetTile();
+                    foreach(var tmpObj in tmpNeedle.NeedleTiles)
+                    {
+                        tmpObj.transform.GetChild(0).gameObject.SetActive(false);
+                    }     
+                } 
+            }
+                
         }
 
         /// <summary>
         /// ニードルタイルの表示挙動関数
         /// </summary>
-        /// <param name="tmpNeedle">ニードルの実体</param>
         /// <param name="tmpName">表示する種類</param>
         /// <param name="tmpColor">変換する色</param>
-        private void changeNeedle(BaseNeedle tmpNeedle, string tmpName, Color tmpColor)
+        private void changeNeedle(string tmpName, Color tmpColor)
         {
             foreach(var tmpObj in tmpNeedle.NeedleTiles)
             {
@@ -71,11 +84,13 @@ namespace Stage
                 {
                     // タイルの色を初期化して表示
                     tmpObj.transform.GetComponent<Renderer>().material.color = tmpColor;
-                    tmpObj.transform.GetChild(0).gameObject.SetActive(true);
+                    if(!tmpObj.transform.GetChild(0).gameObject.activeSelf)
+                        tmpObj.transform.GetChild(0).gameObject.SetActive(true);
                 }
                 else
                 {
-                    tmpObj.transform.GetChild(0).gameObject.SetActive(false);
+                    if(tmpObj.transform.GetChild(0).gameObject.activeSelf)
+                        tmpObj.transform.GetChild(0).gameObject.SetActive(false);
                 }
             }
         }
@@ -83,11 +98,10 @@ namespace Stage
         /// <summary>
         /// タイルの状態を更新する関数
         /// </summary>
-        /// <param name="tmpNeedle">ニードルの実体</param>
-        private void tilesUpdate(BaseNeedle tmpNeedle)
+        private void tilesUpdate()
         {
             // プレイヤーの手数が２の時次出現するニードルタイルの色変更
-            if((InGameSceneController.Player.MoveCount % Const.CHANGE_NEEDLE_NUM) == Const.CHANGE_NEEDLE_TILE_COLOR_NUM)
+            if((InGameSceneController.Player.MoveCount % StageConst.CHANGE_NEEDLE_NUM) == StageConst.CHANGE_NEEDLE_TILE_COLOR_NUM)
             {
                 // プレイヤーが失敗していないときのみ更新
                 if(InGameSceneController.Player.PlayerFailureTween == null && InGameSceneController.Player.PlayerClearTween == null)
@@ -103,7 +117,7 @@ namespace Stage
                 }
             }
             // 3手動いたら出現するニードルタイルを変更
-            if((InGameSceneController.Player.MoveCount % Const.CHANGE_NEEDLE_NUM) == 0 &&
+            if((InGameSceneController.Player.MoveCount % StageConst.CHANGE_NEEDLE_NUM) == 0 &&
              tmpMoveCount != InGameSceneController.Player.MoveCount
              )
                 tmpNeedle.NeedleChangeCount++;
@@ -132,6 +146,8 @@ namespace Stage
                     }
                 }
             }
+            // 初期化フラグ初期化
+            tmpNeedle.ResetFlag = false;
         }
 
     }

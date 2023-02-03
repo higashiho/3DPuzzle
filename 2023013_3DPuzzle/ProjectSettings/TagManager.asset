@@ -8,13 +8,20 @@ TagManager:
   - Tiles
   - StartTile
   - GoalTile
-  - Box
   - Needle
   - WhiteTile
   - BlackTile
   - SwitchTile
   - Fall
   - FallTiles
+  - KeyTile
+  - WallTile
+  - SwitchTiles
+  - MoveTileSwitch
+  - MoveStage
+  - MoveTile
+  - TipButton
+  - TreasureBoxPanel
   layers:
   - Default
   - TransparentFX
