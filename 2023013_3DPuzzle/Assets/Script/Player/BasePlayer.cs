@@ -15,7 +15,9 @@ public class BasePlayer : MonoBehaviour
     // 選択しているタイル
     protected GameObject chooseObj;
     public GameObject ChooseObj{get{return chooseObj;}set{chooseObj = value;}}
-
+    [SerializeField, Header("取得した値")]
+    protected List<uint> haveNum = new List<uint>(4){0, 0, 0, 0};
+    public List<uint> HaveNum{get{return haveNum;}set{haveNum = value;}}
     // 初期座標
     protected Vector3 startPos;
     public Vector3 StartPos{get{return startPos;}protected set{startPos = value;}}

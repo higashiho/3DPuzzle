@@ -41,21 +41,9 @@ public class Const
     /// </summary>
     public const int CHECK_POS_Z = 5;
     /// <summary>
-    /// プレイヤーに押された際に移動するまでの時間
-    /// </summary>
-    public const float BOX_MOVE_SPEED = 3f;
-    /// <summary>
-    /// BoxのY座標
-    /// </summary>
-    public const float BOX_POS_Y = 4.5f;
-    /// <summary>
     /// Boxな半分のサイズ
     /// </summary>
     public const float CUBE_SIZE_HALF = 2.5f;
-    /// <summary>
-    /// 動かせないボックスの比率最大数（1/3で出現）
-    /// </summary>
-    public const int BOX_DONT_MOVE_NUM = 3;
     // 以上Box用定数
 
     // 以下ビデオ用定数
@@ -125,4 +113,31 @@ public class Const
     /// </summary>
     public const int CHANGE_SECOND = 1000;
     // 以上タスク用定数
+
+    // 以下UI用定数
+    /// <summary>
+    /// 左のボタン
+    /// </summary>
+    public const int BUTOON_LEFT = 0;
+    /// <summary>
+    /// 真ん中左のボタン
+    /// </summary>
+    public const int BUTOON_CENTER_LEFT = 1;
+    /// <summary>
+    /// 真ん中右のボタン
+    /// </summary>
+    public const int BUTOON_CENTER_RIGHIT = 2;
+    /// <summary>
+    /// 右のボタン
+    /// </summary>
+    public const int BUTOON_RIGHIT = 3;
+    /// <summary>
+    /// 南京錠の値最大値
+    /// </summary>
+    public const int NUM_MAX = 10;
+    /// <summary>
+    /// ループ回数
+    /// </summary>
+    public const int LOOP_NUM = 2;
+    // 以上UI用定数
 }

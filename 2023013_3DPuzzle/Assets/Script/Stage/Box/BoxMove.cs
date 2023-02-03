@@ -11,37 +11,43 @@ namespace Box
     public class BoxMove
     {
        
+        // インスタンス化
+        private BaseBox tmpBox;
+        public BoxMove(BaseBox tmp)
+        {
+            tmpBox = tmp;
+        }
         
         /// <summary>
         /// 挙動関数
         /// </summary>
-        /// <param name="tmpBox"></param> ボックスの実体
-        public void Move(BaseBox tmpBox)
+        public void Move()
         {
-            if(Chack(tmpBox.gameObject))  
+            // 接地しているか
+            if(Chack())  
             {
-                // 移動不可オブジェクトじゃなくて挙動中じゃない場合
-                if(tmpBox.GetComponent<Renderer>().material.color != Color.yellow && !InGameSceneController.Stages.Moving)
+                // UIが開いているときに左クリックでUI表示
+                if(Input.GetMouseButtonDown(0) && tmpBox.OverMouse)
                 {
-                    tmpBox.GetComponent<Renderer>().material.color = Color.green;
-                    if(Input.GetMouseButtonDown(1))
-                        behavior(tmpBox);
+                    startBoxUI();
                 }
+
+                // 右クリックでUI削除
+                if(Input.GetMouseButtonDown(1))
+                    resetBoxUI();
             }
-            else   
-                tmpBox.GetComponent<Renderer>().material.color = tmpBox.StartColor;
-                
+            else
+                resetBoxUI();
 
         }
 
         /// <summary>
         /// プレイヤーとの接地判定関数
         /// </summary>
-        /// <param name="tmpBox"></param> ボックスの実体
-        /// <returns></returns> 接地しているかどうか
-        public bool Chack(GameObject tmpBox)
+        /// <returns>接地しているかどうか</returns> 
+        public bool Chack()
         {
-            // 自分の座標とプレイヤーの座標を比較
+            // 宝箱付きタイルとプレイヤーの座標を比較
             Vector3 tmpPos = tmpBox.transform.position - InGameSceneController.Player.transform.position;
 
             // 誤差で計算が出来ないためイントにキャスト
@@ -59,113 +65,30 @@ namespace Box
         }
 
         /// <summary>
-        /// Boxの挙動関数
+        /// 宝箱のUIを開いた時の処理
         /// </summary>
-        /// <param name="tmpBox">ボックスの実体</param> 
-        private void behavior(BaseBox tmpBox)
+        private void startBoxUI()
         {
-            // 動いているフラグを立てる
-            InGameSceneController.Stages.Moving = true;
-
-            // プレイヤーの座標一時保管
-            var tmpPlayerPos = InGameSceneController.Player.transform.position;
-            // ボックスの座標保管
-            var tmpTileObj = tmpBox.Tile;
-
-
-            // プレイヤーを自身の方向に向けて移動させる
-            InGameSceneController.Player.transform.LookAt(tmpBox.transform);
-            // x座標を固定
-            var tmpAngle = InGameSceneController.Player.transform.localEulerAngles;
-            tmpAngle.x = 0;
-            InGameSceneController.Player.transform.localEulerAngles = tmpAngle;
-            
-            // 移動
-            var tmpPos = tmpBox.transform.position;
-            tmpPos.y = InGameSceneController.Player.transform.position.y;
-            InGameSceneController.Player.transform.DOMove(
-                tmpPos, 
-                InGameSceneController.Player.PlayersData.PlayerMoveTime
-            ).SetEase(Ease.OutSine).OnComplete(() => 
+            if(!tmpBox.OpenBoxUI.gameObject.activeSelf)
             {
-                // 座標をそろえる
-                InGameSceneController.Player.transform.position = tmpPos;
-                compMove(tmpBox, tmpPlayerPos, tmpTileObj);
-            });
-            
-        }
-
-        /// <summary>
-        /// プレイヤーがBoxを押す動作が終わった時の関数
-        /// </summary>
-        /// <param name="tmpBox">ボックスの実体</param>
-        /// <param name="tmpPlayerPos">押す前のプレイヤーの座標</param>
-        /// <param name="tmpTileObj">押す前のボックスの位置にあるタイル</param>
-        private void compMove(BaseBox tmpBox, Vector3 tmpPlayerPos, GameObject tmpTileObj)
-        {
-            
-            // Boxの座標移動
-            var tmpNewBoxPos = tmpBox.Tile.transform.position;
-            tmpNewBoxPos.y = tmpBox.transform.position.y;
-
-            // 移動開始
-            tmpBox.transform.DOMove(
-                tmpNewBoxPos,
-                Const.BOX_MOVE_SPEED
-                ).SetEase(Ease.Linear).OnComplete(() =>
-                {
-                    // 初期化
-                    compReset(tmpBox);
-
-                    // 座標をそろえる
-                    tmpBox.transform.position = tmpNewBoxPos;
-
-                    // ボックスの位置が動いていなかったらプレイヤーを動作前の位置に戻す
-                    if(tmpBox.Tile == tmpTileObj)
-                    {
-                        var tmpPlayerNewPos = new Vector3(
-                                Mathf.RoundToInt(tmpPlayerPos.x), 
-                                Mathf.RoundToInt(tmpPlayerPos.y), 
-                                Mathf.RoundToInt(tmpPlayerPos.z)
-                            );
-                        InGameSceneController.Player.transform.position = tmpPlayerNewPos;
-                    }
-                    Debug.Log("MoveComp");
-                });
-        }
-
-        /// <summary>
-        /// 挙動終了時の初期化関数
-        /// </summary>
-        /// <param name="tmpBox">ボックスの実体</param>
-        private void compReset(BaseBox tmpBox)
-        {
-
-            // 初期化
-            tmpBox.transform.SetParent(tmpBox.Parent.transform);
-            tmpBox.PosY = null;
-            InGameSceneController.Stages.Moving = false;
-            InGameSceneController.Player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
-            tmpBox.GetComponent<Renderer>().material.color = tmpBox.StartColor;
-
-
-            // ヴェロシティに値が入っている場合がある為初期化
-            var tmpRb = tmpBox.GetComponent<Rigidbody>();
-            tmpRb.velocity = Vector3.zero;
-
-            // ボックスアクティブフラグが経っている場合全てのGoneTileのActiveをtrueにする
-            if(tmpBox.TileActiveFlag)
-            {    
-                           
-                // foreach(GameObject tmpObj in InGameSceneController.Stages.GoneTile)
-                // {
-                //     // 消えているオブジェクトを表示させて配列に格納
-                //     if(!tmpObj.activeSelf)
-                //     {
-                //         tmpObj.SetActive(true);
-                //     }
-                // }
+                tmpBox.OpenBoxUI.gameObject.SetActive(true);
+                tmpBox.OpenFlag = true;
+                tmpBox.TipButton.gameObject.SetActive(false);
             }
+        }
+
+        /// <summary>
+        /// 宝箱のUI初期化
+        /// </summary>
+        private void resetBoxUI()
+        {
+            if(tmpBox.OpenBoxUI.gameObject.activeSelf)
+            {
+                tmpBox.OpenBoxUI.gameObject.SetActive(false);
+                tmpBox.OpenFlag = false;
+                tmpBox.TipButton.gameObject.SetActive(true);
+            }
+
         }
     }
 }

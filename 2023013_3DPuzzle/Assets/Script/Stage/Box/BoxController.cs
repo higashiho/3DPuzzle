@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Box
 {
@@ -12,24 +13,16 @@ namespace Box
         // Start is called before the first frame update
         void Start()
         {
-            // 初期代入
-            var tmpNum = UnityEngine.Random.Range(0, Const.BOX_DONT_MOVE_NUM);
-            if(tmpNum != 0)
-                StartColor = this.GetComponent<Renderer>().material.color;
-            else
-            {
-                StartColor = Color.yellow;
-                this.GetComponent<Renderer>().material.color = startColor;
-            }
-
-
-            Parent = this.transform.parent.gameObject;
+            TipButton = GameObject.FindWithTag("TipButton").GetComponent<Button>();
+            OpenBoxUI = GameObject.FindWithTag("TreasureBoxPanel").GetComponent<Image>();
+            OpenBoxUI.gameObject.SetActive(false);
+            boxMove = new BoxMove(this);
         }
 
         // Update is called once per frame
         void Update()
         {
-            
+            boxMove.Move();
         }
     }
 }

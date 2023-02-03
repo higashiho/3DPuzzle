@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Box
 {
@@ -8,47 +9,33 @@ namespace Box
     /// ボックスのベースクラス
     /// </summary>
     public class BaseBox : MonoBehaviour
-    {
+    {       
+        // UI
+        public Image OpenBoxUI{get; protected set;}
 
-        // 初期マテリアルカラー取得
-        [SerializeField, Header("初期色")]
-        protected Color startColor;
-        public Color StartColor{get{return startColor;}set{startColor = value;}}
+        // TipButton
+        public Button TipButton{get; protected set;}
 
-        [SerializeField, Header("プレイヤーに押された時の移動先タイル")]
-        private GameObject tile;
-        public GameObject Tile{get{return tile;}set{tile = value;}}
+        // UIが開いているか
+        protected bool openFlag = false;
+        public bool OpenFlag{get{return openFlag;}set{openFlag = value;}}
 
-        [SerializeField, Header("親オブジェクト")]
-        protected GameObject parent;
-        public GameObject Parent{get{return parent;}set{parent = value;}}
+        // マウスが乗っているかフラグ
+        public bool OverMouse{get; private set;} = false;
 
-        // y座標固定用
-        protected float? posY = null;
-        public float? PosY{get{return posY;}set{posY = value;}}
 
-        // 消えているタイルを表示できるかフラグ
-        protected bool tileActiveFlag = false;
-        public bool TileActiveFlag{get{return tileActiveFlag;}set{tileActiveFlag = value;}}
-
-        
-        //マウスカーソルがSphereに乗った時の処理
-        //マウスカーソルがBoxに乗った時の処理
+        //　マウスカーソルがBoxに乗った時の処理
         private void OnMouseOver()
         {
-            boxMove.Move(this);
+            OverMouse = true;
         }
-        //マウスカーソルがSphereの上から離れた時の処理
-        //マウスカーソルがBoxの上から離れた時の処理
+
+        //　マウスカーソルがBoxから離れた時の処理
         private void OnMouseExit()
         {
-            //Sphereの色が元の色に戻す
-            this.GetComponent<Renderer>().material.color = startColor;
-
+            OverMouse = false;
         }
-
-
         // インスタンス化
-        protected BoxMove boxMove = new BoxMove();
+        protected BoxMove boxMove;
     }
 }

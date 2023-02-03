@@ -103,11 +103,13 @@ namespace Tile
             {
                 // 左上ステージ
                 case StageConst.STATE_NEEDLE_STAGE:
+                    getNum(ref InGameSceneController.Stages.StageClearFlags[0]);
                     stageMove.StageClear();
                     needleMove.ResetTile();
                     break;
                 // 左下ステージ
                 case StageConst.STATE_MOVE_STAGE:
+                    getNum(ref InGameSceneController.Stages.StageClearFlags[1]);
                     stageMove.StageClear();
                     moveStage.ResetMoveStage();
                     break;
@@ -116,6 +118,7 @@ namespace Tile
                     // カウントが1以下になったらクリア処理
                     if(InGameSceneController.Stages.ClearCount <= StageConst.GOAL_TILE_NUM)
                     {
+                        getNum(ref InGameSceneController.Stages.StageClearFlags[2]);
                         InGameSceneController.FallTile.TaskChancelFlag = true; 
                         DOTween.Kill(InGameSceneController.FallTile.WarningPanel);
                         stageMove.StageClear();
@@ -130,11 +133,32 @@ namespace Tile
                     break;
                 // 右下ステージ
                 case StageConst.STATE_SWITCH_STAGE:
+                    getNum(ref InGameSceneController.Stages.StageClearFlags[3]);
                     stageMove.StageClear();
                     switchTileMove.SwitchTileReset();
                     break;
                 default:
                     break;
+            }
+        }
+
+        /// <summary>
+        /// プレイヤーの所持数値に値を入れてクリアしたかフラグを立てる
+        /// </summary>
+        /// <param name="tmpflag">立てるフラグ</param>
+        private void getNum(ref bool tmpflag)
+        {
+            tmpflag = true;
+            // ０の値を探索して０の位置に数値格納
+            for(int i = 0; i < InGameSceneController.Player.HaveNum.Count; i++)
+            {
+                if(InGameSceneController.Player.HaveNum[i] == 0)
+                {
+                    InGameSceneController.Player.HaveNum[i] = 
+                        (uint)UnityEngine.Random.Range(StageConst.MIN_NUM, StageConst.MAX_NUM);
+
+                    break;
+                }
             }
         }
 
