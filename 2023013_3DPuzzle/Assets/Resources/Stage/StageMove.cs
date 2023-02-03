@@ -191,6 +191,11 @@ namespace Stage
 
             // ステート保管初期化
             tmpStageState = default;
+            // プレイヤーMoveCount初期化
+            InGameSceneController.Player.MoveCount = default;
+            // プレイヤーMoveタスクのキャンセルフラグON
+            InGameSceneController.Player.PlayerMoveCancel = false;
+
         }
     }
 }

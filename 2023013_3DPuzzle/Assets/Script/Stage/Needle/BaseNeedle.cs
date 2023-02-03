@@ -17,6 +17,10 @@ namespace Stage
         [SerializeField, Header("表示する針判断用")]
         protected int needleChangeCount;
         public int NeedleChangeCount{get{return needleChangeCount;}set{needleChangeCount = value;}}
+        
+        // 針変換フラグ(変換中か)
+        protected bool onNeedleTrans = false;
+        public bool OnNeedleTrans{get{return onNeedleTrans;}set{onNeedleTrans = value;}}
 
         // インスタンス化
         protected NeedleMove needleMove = new NeedleMove();

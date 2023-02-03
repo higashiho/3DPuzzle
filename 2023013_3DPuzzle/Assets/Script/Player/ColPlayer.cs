@@ -22,6 +22,8 @@ namespace Player
                 // 挙動終わりに判定
                 if(!InGameSceneController.Player.OnMove)
                 {
+                    InGameSceneController.Player.PlayerMoveCancel = true;
+                    //InGameSceneController.Player.cts.Cancel();
                     stageMove.StageFailure();   
                     needleMove.ResetTile();
                 }
