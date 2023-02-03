@@ -119,7 +119,7 @@ namespace Stage
             {
                 // ステートが落下ステージではないとき
                 FallTileReset();
-                BaseFallTile.Cts.Cancel();
+                tmpFallTile.TaskChancelFlag = true; 
                 DOTween.Kill(tmpFallTile.WarningPanel);
             }
             
@@ -138,8 +138,9 @@ namespace Stage
             await UniTask.Delay(tmpTime * Const.CHANGE_SECOND);
 
             // Cancel処理
-            if(BaseFallTile.Cts.Token.IsCancellationRequested)
+            if(BaseFallTile.Cts.Token.IsCancellationRequested || tmpFallTile.TaskChancelFlag)
             {
+                tmpFallTile.TaskChancelFlag = false; 
                 Debug.Log("Cancel");
                 return;
             }
@@ -155,8 +156,9 @@ namespace Stage
             var tmpColor = tmpFallTile.WarningPanel.color;
 
             // Cancel処理
-            if(BaseFallTile.Cts.Token.IsCancellationRequested)
+            if(BaseFallTile.Cts.Token.IsCancellationRequested || tmpFallTile.TaskChancelFlag)
             {
+                tmpFallTile.TaskChancelFlag = false; 
                 Debug.Log("Cancel");
                 tmpTweem.Kill();
                 // 初期化

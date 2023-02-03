@@ -22,6 +22,9 @@ namespace Stage
         protected bool resetFlag = false;
         public bool ResetFlag{get{return resetFlag;} set{resetFlag = value;}}
         
+        // 失敗じタスクキャンセル用フラグ
+        protected bool taskCancelFlag = false;
+        public bool TaskChancelFlag{get{return taskCancelFlag;}set{taskCancelFlag = value;}}
     
 
         [SerializeField, Header("黒ひび割れタイル")]
@@ -38,5 +41,10 @@ namespace Stage
 
         // インスタンス化
         public FallTileMove FallTileMoves{get; protected set;}
+
+        protected void OnDestroy()
+        {
+            Cts.Cancel();
+        }
     }
 }

@@ -33,10 +33,9 @@ namespace Stage
                     {
                         fall();
                     }
-
-                    if(tmpMoveStage.ChangeSwitchFlag)
-                        changeSwitch();
                 }
+                if(tmpMoveStage.ChangeSwitchFlag)
+                        changeSwitch();
             }
             else if(tmpMoveStage.ResetFlag)
                 ResetMoveStage();
@@ -68,16 +67,16 @@ namespace Stage
                 DOTween.Kill(tmpObj.transform);
                 // 移動していたら初期化
                 var tmpMoveTile = tmpObj.GetComponent<BaseMoveStageObject>();
-                if(tmpObj.transform.localEulerAngles != tmpMoveTile.StartAngle)
-                    tmpObj.transform.localEulerAngles = tmpMoveTile.StartAngle;
-                // ステート初期化
-                tmpMoveTile.ResetState();
+                if(tmpObj.transform.parent.localEulerAngles != tmpMoveTile.StartAngle)
+                    tmpObj.transform.parent.localEulerAngles = tmpMoveTile.StartAngle;
             }
 
             // フラグ初期化
             tmpMoveStage.ChangeSwitchFlag = true;
             tmpMoveStage.ResetFlag = false;
+            tmpMoveStage.MoveFlag = false;
             tmpMoveStage.NowTween = null;
+            tmpMoveStage.MoveStageObj = null;
 
         }
 
@@ -111,28 +110,33 @@ namespace Stage
         /// <summary>
         /// 回転挙動関数
         /// </summary>
-        /// <param name="tmpStairs">階段の実体</param>
         private void fall()
         {
             // 左クリックで左回転
             if(Input.GetMouseButtonDown(0) && tmpMoveStage.MoveStageObj != null)
             {
                 var tmpAngle = Const.ONE_ROUND / 4;
-                switch(tmpMoveStage.MoveStageObj.GetComponent<BaseMoveStageObject>().MoveStageState)
+                // 左回りにして自分の上の段と下の段を逆回転させる
+                rotateStage(tmpAngle, tmpMoveStage.MoveStageObj);
+                var tmpNum = 0;
+                // 自身のオブジェクトの要素数を取得
+                for(int i = 0; i < tmpMoveStage.MoveStageTiles.Length; i++)
                 {
-                    // 立っている場合倒す
-                    case StageConst.STATE_STAND_UP:
-                        // 回転挙動
-                        rotateStage(StageConst.STATE_FALL, tmpAngle);
+                    if(tmpMoveStage.MoveStageTiles[i] == tmpMoveStage.MoveStageObj)
+                    {
+                        tmpNum = i;
                         break;
-                    // 倒れている場合立てる
-                    case StageConst.STATE_FALL:
-                        // 回転挙動
-                        rotateStage(StageConst.STATE_STAND_UP, -tmpAngle);
-                        break;
-                    default:
-                        break;
+                    }
                 }
+                // 取った要素数の上下を取得用変数
+                var tmpUpNum = tmpNum;
+                var tmpDownNum = tmpNum;
+                // 要素数の範囲内であれば右回り
+                if(++tmpUpNum < tmpMoveStage.MoveStageTiles.Length)
+                    rotateStage(-tmpAngle, tmpMoveStage.MoveStageTiles[tmpUpNum]);
+                if(--tmpDownNum >= 0)
+                    rotateStage(-tmpAngle, tmpMoveStage.MoveStageTiles[tmpDownNum]);
+
                  
             }
         }
@@ -140,23 +144,26 @@ namespace Stage
         /// <summary>
         /// ステージが倒れる動作関数
         /// </summary>
-        private void rotateStage(uint tmpState, float tmpSetAngl)
+        /// <param name="tmpSetAngl">回す角度</param>
+        /// <param name="tmpObj">回すオブジェクト</param>
+        private void rotateStage(float tmpSetAngl, GameObject tmpObj)
         {
             // 現在の座標取得
-            tmpMoveStage.LastAngle = tmpMoveStage.MoveStageObj.transform.transform.localEulerAngles;
+            tmpMoveStage.LastAngle = tmpObj.transform.parent.localEulerAngles;
             // 何度回すか
             var tmpNewAngl = tmpMoveStage.LastAngle;
-            tmpNewAngl.x += tmpSetAngl;
+            tmpNewAngl.y += tmpSetAngl;
 
-            // 転倒挙動
-            tmpMoveStage.NowTween = tmpMoveStage.MoveStageObj.transform.transform.DORotate(tmpNewAngl, StageConst.ROTATE_TIME).
-            SetEase(Ease.InQuad).OnStart(() => tmpMoveStage.MoveFlag = false).OnComplete(() =>
+            // 回転挙動
+            tmpMoveStage.NowTween = null;
+            tmpMoveStage.NowTween = tmpObj.transform.parent.DORotate(tmpNewAngl, StageConst.ROTATE_TIME).
+            SetEase(Ease.InQuad).OnStart(() => 
+            {
+                tmpMoveStage.MoveFlag = false;
+            }).OnComplete(() =>
             {
                 compReset();
             });
-            // ステート初期化
-            tmpMoveStage.MoveStageObj.GetComponent<BaseMoveStageObject>().MoveStageState &= ~tmpMoveStage.MoveStageObj.GetComponent<BaseMoveStageObject>().MoveStageState;
-            tmpMoveStage.MoveStageObj.GetComponent<BaseMoveStageObject>().MoveStageState |= tmpState;
         }
 
 
@@ -167,6 +174,7 @@ namespace Stage
         {
             tmpMoveStage.ChangeSwitchFlag = true;
             tmpMoveStage.NowTween = null;
+            tmpMoveStage.MoveStageObj = null;
         }
     }
 }

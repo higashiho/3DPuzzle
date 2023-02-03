@@ -9,8 +9,7 @@ namespace Tile
         // Start is called before the first frame update
         void Start()
         {
-            StartAngle = this.transform.localEulerAngles;
-            ResetState();
+            StartAngle = this.transform.parent.localEulerAngles;
         }
 
         // Update is called once per frame
