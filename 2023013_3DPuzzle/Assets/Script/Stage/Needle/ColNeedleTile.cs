@@ -14,9 +14,17 @@ namespace Tile
         [SerializeField]
         private BaseTile tmpTile;
         
-        private void OnCollisionStay(Collision col)
+        void OnCollisionStay(Collision col)
         {
-            tmpTile.MoveTile.KeyTileCollsionMove(col, this.gameObject);
+             if(col.gameObject.tag == "Player")
+            {    
+                var tmpAngleX = Mathf.RoundToInt(col.transform.localEulerAngles.x);
+                var tmpAngleZ = Mathf.RoundToInt(col.transform.localEulerAngles.z);
+                if(tmpAngleX == 0 && tmpAngleZ == 0)
+                {
+                    tmpTile.MoveTile.KeyTileCollsionMove(col, this.gameObject);
+                }
+            }
         }
     }
 }
