@@ -21,8 +21,8 @@ namespace UI
         public Tween ErrorTextTween{get{return errorTextTween;}set{errorTextTween = value;}}
 
         [SerializeField, Header("入力されている値UI")]
-        protected Text[] inputNumText = new Text[4];
-        public Text[] InputNumText{get{return inputNumText;}}
+        protected TextMeshProUGUI[] inputNumText = new TextMeshProUGUI[4];
+        public TextMeshProUGUI[] InputNumText{get{return inputNumText;}}
         // 入力終了フラグ
         protected bool clearFlag = false;
         public bool ClearFlag{get{return clearFlag;}set{clearFlag = value;}}
