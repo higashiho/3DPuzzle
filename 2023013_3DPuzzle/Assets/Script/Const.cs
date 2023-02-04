@@ -25,6 +25,11 @@ public class Const
     public const int UP = 4;
     public const int DOWN = 5;
 
+    public const int UPPER_ROTATE = 0;
+    public const int NORMAL_ROTATE = 1;
+    public const int DOWN_ROTATE = 2;
+
+
     /// <summary>
     /// 初期座標に戻る時間
     /// </summary>
