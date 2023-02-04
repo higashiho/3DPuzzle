@@ -65,6 +65,7 @@ namespace Stage
                 {
                     tmpObj.tag = "Fall";
                     var tmpMaterialRenderer = tmpTile.StartMaterial;
+                    tmpObj.GetComponent<BaseTile>().StartColor = tmpObj.GetComponent<BaseTile>().TmpStartColor;
                     tmpMaterialRenderer.color = tmpObj.GetComponent<BaseTile>().StartColor;
                     tmpObj.GetComponent<Renderer>().material = tmpMaterialRenderer;
                 }

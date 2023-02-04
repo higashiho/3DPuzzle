@@ -13,6 +13,9 @@ namespace Tile
         [SerializeField, Header("初期色")]
         protected Color startColor;
         public Color StartColor{get{return startColor;} set{startColor = value;}}
+        // 初期色保管用
+        protected Color tmpStartColor;
+        public Color TmpStartColor{get{return tmpStartColor;} set{tmpStartColor = value;}}
         protected Material startMaterial;
         public Material StartMaterial{get{return startMaterial;}}
 

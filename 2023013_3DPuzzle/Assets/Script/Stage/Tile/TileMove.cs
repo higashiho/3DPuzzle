@@ -76,6 +76,10 @@ namespace Tile
             tmpObj.tag = "KeyTile";
             tmpMaterialRenderer = InGameSceneController.Stages.KeyTileMaterial;
             tmpMaterialRenderer.color = Color.magenta;
+            // 初期色を保管して初期色変更
+            var tmpChangeTile = tmpObj.GetComponent<BaseTile>();
+            tmpChangeTile.TmpStartColor = tmpChangeTile.StartColor;
+            tmpChangeTile.StartColor = tmpMaterialRenderer.color;
             tmpObj.GetComponent<Renderer>().material = tmpMaterialRenderer;
             InGameSceneController.Stages.TileChangeFlag = false;
         }
@@ -220,7 +224,7 @@ namespace Tile
         public void KeyTileCollsionMove(Collision col, GameObject tmpObj)
         {
             // Playerと当たった時に自分がスイッチの場合
-            if(col.gameObject.tag == "Player" && tmpObj.gameObject.tag == "KeyTile")
+            if(tmpObj.gameObject.tag == "KeyTile")
             {
                 Debug.Log("Stay");
                 if(!InGameSceneController.Player.OnMove && InGameSceneController.Player.PlayerClearTween == null)
