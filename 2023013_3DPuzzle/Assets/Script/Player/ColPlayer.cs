@@ -24,7 +24,7 @@ namespace Player
             if(col.gameObject.tag == "Needle" && col.transform.GetChild(0).gameObject.activeSelf)
             {
                 // 挙動終わりに判定
-                if(!InGameSceneController.Player.OnMove)
+                if(!InGameSceneController.Player.IsRotate)
                 {
                     InGameSceneController.Player.PlayerMoveCancel = true;
                     //InGameSceneController.Player.cts.Cancel();

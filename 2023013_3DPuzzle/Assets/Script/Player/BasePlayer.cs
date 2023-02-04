@@ -87,20 +87,6 @@ public class BasePlayer : MonoBehaviour
     public Vector3[] RotatePointArr{get{return rotatePointArr;}}
 
     /// <summary>
-    /// Rayを飛ばす方向の配列
-    /// </summary>
-    protected Vector3[] rayAspect = 
-    {
-        new Vector3(1f, 0f, 0f),    // X(正)
-        new Vector3(-1f, 0f, 0f),   // X(負)
-        new Vector3(0f, 0f, 1f),    // Z(正)
-        new Vector3(0f, 0f, -1f),   // Z(負)
-        new Vector3(0f, -1f, 0f)    // Y(負)
-        // Yの正方向には今のところ飛ばすことがないので要素なし
-    };
-    public Vector3[] RayAspect{get{return rayAspect;}}
-
-    /// <summary>
     /// 上段のタイルに上るときの回転中心座標の配列
     /// </summary>
     protected Vector3[] goUpRotatePointArr = 

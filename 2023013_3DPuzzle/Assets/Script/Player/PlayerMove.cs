@@ -79,9 +79,9 @@ public class PlayerMove
         
         // 移動方向フラグを立てる
         player.MoveFlag = setDirection(player.transform.position, (Vector3)destination);
-
         // 移動中フラグON
-        player.OnMove = true;
+        
+        
 
         // 移動先のY座標とプレイヤーのY座標を比較 => 同じ座標だった場合
         if(checkHeight((Vector3)destination, player.transform.position) == Const.UPPER_ROTATE)
@@ -103,13 +103,12 @@ public class PlayerMove
         }
         
         // ニードル変換フラグオン
-        needle.OnNeedleTrans = true;
-            
+        needle.OnNeedleTrans = true;    
         // moveCountインクリメント
         player.MoveCount++;
         
         // 針タイル更新待ち処理
-        if(InGameSceneController.Stages.StageState == Const.STATE_NEEDLE_STAGE)
+        if(InGameSceneController.Stages.StageState == StageConst.STATE_NEEDLE_STAGE)
         {
             await UniTask.WaitWhile(() => needle.OnNeedleTrans);
         }
@@ -128,6 +127,7 @@ public class PlayerMove
     {
         if(Input.GetMouseButtonDown(0))
         {
+            player.OnMove = true;
             return player.ChooseObj?.transform.position/* + new Vector3(0f, 5f, 0f)*/;
         }
         return null;   
