@@ -1,7 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Cysharp.Threading.Tasks;
+using DG.Tweening;
+using TMPro;
 
 namespace Video
 {
@@ -48,8 +51,106 @@ namespace Video
             }
         }
 
+        private Tween buttonMove(float alpha, float resetAlpha)
+        {
+            // フェイド時間調整
+            var tmpNum = Const.FADE_TIMER * 0.5f;
+            // 取得
+            var tmpImage = InGameSceneController.TreasureBox.TipButton.GetComponent<Image>();
+            var tmpText = InGameSceneController.TreasureBox.TipButton.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+
+            // Tweenを削除して初期化
+            DOTween.Kill(tmpImage);
+            DOTween.Kill(tmpText);
+            var tmpColor = tmpImage.color;
+            tmpColor.a = resetAlpha;
+            tmpImage.color = tmpColor;
+            tmpColor = tmpText.color;
+            tmpColor.a = resetAlpha;
+            tmpText.color = tmpColor;
+
+            // Tween挙動開始
+            var tmpTween = tmpImage.DOFade(alpha, tmpNum).SetEase(Ease.Linear);
+            tmpText.DOFade(alpha,tmpNum).SetEase(Ease.Linear);
+
+            return tmpTween;
+        }
+
+        
         /// <summary>
-        /// 動が終了挙動
+        /// 再生するビデオ判断用
+        /// </summary>
+        public void changeClip()
+        {
+            // プレイヤーが安置にいるときのみ処理
+            if(InGameSceneController.Stages.StageState == Const.STATE_START)
+            {
+                // TipButtonを表示
+                if(tmpVideo.ButtonFadeoutTween == null)
+                {   
+                    tmpVideo.ButtonFadeinTween = null;
+                    InGameSceneController.TreasureBox.TipButton.gameObject.SetActive(true);
+                    tmpVideo.ButtonFadeoutTween = buttonMove(Const.FADE_MAX_ALPHA, 0);
+                }
+
+                // playerのposが一定以内の場合
+                if(InGameSceneController.Player.transform.position.x <= StageConst.TipMoviePos[0].x &&
+                    InGameSceneController.Player.transform.position.z >= StageConst.TipMoviePos[0].z)
+                    {
+                        if(tmpVideo.TipVideo.clip != tmpVideo.TipVideoClip[1])
+                            tmpVideo.TipVideo.clip = tmpVideo.TipVideoClip[1];
+                        return;
+                    }
+
+                // playerのposが一定以内の場合
+                if(InGameSceneController.Player.transform.position.x <= StageConst.TipMoviePos[1].x &&
+                    InGameSceneController.Player.transform.position.z <= StageConst.TipMoviePos[1].z)
+                    {
+                        // クリップが変更されていないとクリップ変更
+                        if(tmpVideo.TipVideo.clip != tmpVideo.TipVideoClip[2])
+                            tmpVideo.TipVideo.clip = tmpVideo.TipVideoClip[2];
+                        return;
+                    }
+
+                // playerのposが一定以内の場合
+                if(InGameSceneController.Player.transform.position.x >= StageConst.TipMoviePos[2].x &&
+                    InGameSceneController.Player.transform.position.z >= StageConst.TipMoviePos[2].z)
+                    {
+                        // クリップが変更されていないとクリップ変更
+                        if(tmpVideo.TipVideo.clip != tmpVideo.TipVideoClip[3])
+                            tmpVideo.TipVideo.clip = tmpVideo.TipVideoClip[3];
+                        return;
+                    }
+
+                // playerのposが一定以内の場合
+                if(InGameSceneController.Player.transform.position.x >= StageConst.TipMoviePos[3].x &&
+                    InGameSceneController.Player.transform.position.z <= StageConst.TipMoviePos[3].z)
+                    {
+                        // クリップが変更されていないとクリップ変更
+                        if(tmpVideo.TipVideo.clip != tmpVideo.TipVideoClip[4])
+                            tmpVideo.TipVideo.clip = tmpVideo.TipVideoClip[4];
+                        return;
+                    }
+                
+                
+                // クリップが変更されていないとクリップ変更
+                if(tmpVideo.TipVideo.clip != tmpVideo.TipVideoClip[0])
+                    tmpVideo.TipVideo.clip = tmpVideo.TipVideoClip[0];
+            
+                }
+            // 安置の中にいなかったら
+            else
+                // TipButtonを非表示
+                if(tmpVideo.ButtonFadeinTween == null)
+                {
+                    tmpVideo.ButtonFadeoutTween = null;
+                    tmpVideo.ButtonFadeinTween = buttonMove(0, Const.FADE_MAX_ALPHA);
+                }
+                
+        }
+
+        /// <summary>
+        /// 動画終了挙動
         /// </summary>
         /// <returns></returns>
         public async void EndVideo()

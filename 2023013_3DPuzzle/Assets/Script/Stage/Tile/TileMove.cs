@@ -226,9 +226,14 @@ namespace Tile
             // Playerと当たった時に自分がスイッチの場合
             if(tmpObj.gameObject.tag == "KeyTile")
             {
-                Debug.Log("Stay");
-                if(!InGameSceneController.Player.OnMove && InGameSceneController.Player.PlayerClearTween == null)
-                    stageClearMove();
+                var tmpAngleX = Mathf.RoundToInt(col.transform.localEulerAngles.x);
+                var tmpAngleZ = Mathf.RoundToInt(col.transform.localEulerAngles.z);
+                if(tmpAngleX == 0 && tmpAngleZ == 0)
+                {
+                    Debug.Log("Stay");
+                    if(!InGameSceneController.Player.OnMove && InGameSceneController.Player.PlayerClearTween == null)
+                        stageClearMove();
+                }
             }
         }
     }
