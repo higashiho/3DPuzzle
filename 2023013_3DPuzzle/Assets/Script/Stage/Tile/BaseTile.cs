@@ -40,7 +40,7 @@ namespace Tile
         {
             if(!InGameSceneController.Player.OnMove)
             {   
-                // プレイヤーが２マス以内にいる && BOXが上に乗っていないとき
+                // プレイヤーが１マス以内にいる && BOXが上に乗っていないとき
                 if(checkTheDistanceFromPlayer())
                 {
                     //Sphereの色を赤色に変化
@@ -73,9 +73,9 @@ namespace Tile
         }
 
         /// <summary>
-        /// プレイヤーとタイルの距離がタイル２枚分の距離以内か確認する関数
+        /// プレイヤーとタイルの距離がタイル１枚分の距離以内か確認する関数
         /// </summary>
-        /// <returns>距離が２枚分以内:true, 以上:false</returns>
+        /// <returns>距離が１枚分以内:true, 以上:false</returns>
         private bool checkTheDistanceFromPlayer()
         {
             var playerPos = InGameSceneController.Player.transform.position;    // プレイヤーの座標取得
@@ -84,9 +84,9 @@ namespace Tile
             var diffX = Mathf.RoundToInt(Mathf.Abs(playerPos.x - tilePos.x));     // playerとtileのx座標の差を求める(int)
             var diffZ = Mathf.RoundToInt(Mathf.Abs(playerPos.z - tilePos.z));     // playerとtileのz座標の差を求める(int)
 
-            if(diffX <= (Const.CUBE_SIZE_HALF * 4) && diffZ < 1)   // diffXが2マス分以内の距離だったら
+            if(diffX <= (Const.CUBE_SIZE_HALF * 2) && diffZ < 1)   // diffXが2マス分以内の距離だったら
                 return true;
-            if(diffX < 1 && diffZ <= (Const.CUBE_SIZE_HALF * 4))   // diffYが2マス分以内の距離だったら
+            if(diffX < 1 && diffZ <= (Const.CUBE_SIZE_HALF * 2))   // diffYが2マス分以内の距離だったら
                 return true;
 
             return false;

@@ -48,6 +48,9 @@ namespace Stage
                
                 // カウント格納変数を更新
                 tmpMoveCount = InGameSceneController.Player.MoveCount;
+                // ニードル変換中フラグOFF
+                tmpNeedle.OnNeedleTrans = false;
+
                 return;
             }
 
