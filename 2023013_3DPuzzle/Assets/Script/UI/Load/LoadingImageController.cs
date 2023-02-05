@@ -2,12 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Scene;
 
 namespace LoadingImage
 {
     public class LoadingImageController : BaseLoadingImage
     {
-        public static BaseLoadingImage tmpImage{get; set;}
+        
         
         void Awake()
         {
@@ -24,7 +25,6 @@ namespace LoadingImage
         void Start()
         {
             Caircles = GetComponentsInChildren<Image>();
-            LoadingImages.enabled = false;
         }
 
         // Update is called once per frame

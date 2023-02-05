@@ -120,6 +120,16 @@ public class Const
     /// </summary>
     public const int UNDER_ROTATE_LIMIT = 20;
     public const int OVER_ROTATE_LIMIT = 70;
+    /// <summary>
+    /// 各ステージのカメラの座標の配列
+    /// </summary>
+    public const int LEFT_UP = 0;
+    public const int RIGHT_UP = 1;
+    public const int RIGHT_UNDER = 2;
+    public const int LEFT_UNDER = 3;
+    public const int CENTER = 4;
+    public const int TO_CENTER_UP_POS = 0;
+    public const int TO_CENTER_UNDER_POS = 1;
     // 以上カメラ用定数--------------------------
 
 

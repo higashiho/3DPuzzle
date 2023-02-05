@@ -8,11 +8,15 @@ namespace Scene
 {
     public class MainSceneMove
     {
+        /// <summary>
+        /// MainシーンからEndシーンへ
+        /// </summary>
+        /// <param name="tmpScene">BaseScene</param>
+        /// <param name="tmpImage">BaseLoadingImage</param>
         public void Move(BaseScene tmpScene, BaseLoadingImage tmpImage)
         {
             //メインシーンからエンドシーンへ
-            tmpScene.MoveFade.SceneMove(tmpScene, "EndScene", tmpImage);
-            //tmpScene.StateScene = BaseScene.SceneState.End;
+            tmpScene.MoveFade.SceneMove(tmpScene, "EndScene", tmpImage, BaseScene.SceneState.End);
         }
     }
 }

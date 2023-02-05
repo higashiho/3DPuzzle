@@ -14,18 +14,24 @@ namespace Scene
         /// </summary>
         /// <param name="tmpScene">BaseScene</param>
         /// <param name="tmpSceneName">次のシーンの名前</param>
-        public void SceneMove(BaseScene tmpScene, string tmpSceneName, BaseLoadingImage tmpImage)
+        public void SceneMove(BaseScene tmpScene, string tmpSceneName, BaseLoadingImage tmpImage, BaseScene.SceneState sceneState)
         {
-                if(tmpScene.SceneMoveOnFlag)
+                if(tmpScene.SceneMoveOnFlag && tmpScene.SceneTween == null)
                 {   // フェードアウトする
-                    tmpScene.fadePanel.DOFade(endValue: Const.FADE_OUT_ALPHA, duration: Const.FADE_TIMER)
+                    tmpScene.SceneTween = tmpScene.fadePanel.DOFade(endValue: Const.FADE_OUT_ALPHA, duration: Const.FADE_TIMER)
                     .SetEase(Ease.Linear)
                     .OnStart(() => 
                     {   // フェードアウト開始時に暗転フラグオフ
                         SceneMoveFlagOff(tmpScene);
                     }   // フェードが終わったらシーンの状態をメインにする
                     ).OnComplete(() =>
-                    {
+                    {    
+                        // ステートを変える
+                        tmpScene.StateScene = sceneState;
+                        // シーン読み込み
+                        SceneManager.LoadScene(tmpSceneName);
+                        tmpImage.OnLoadingImages();
+                        BaseLoadingImage.tmpImage.TitleButton.OffTitleButton(tmpScene);
                         // 4秒待ってシーン遷移、フェードイン
                         DOVirtual.DelayedCall(Const.WAIT_TIME, () => 
                         {
@@ -33,12 +39,12 @@ namespace Scene
                             var tmpColor = tmpScene.fadePanel.color;
                             tmpColor.a = Const.FADE_OUT_ALPHA;
                             tmpScene.fadePanel.color = tmpColor;
-
-                            // シーン読み込み
-                            SceneManager.LoadScene(tmpSceneName);
-
-                            // ステートをメインに変える
-                            tmpScene.StateScene = BaseScene.SceneState.Main;
+                            // シーン明け、フェードイン
+                            FadeIn(tmpScene);
+                            // 読み込み中画像を非表示にする
+                            tmpImage.ImageFill.OffLoadingImages(tmpImage, tmpScene);
+                            // Tweenを空ける
+                            tmpScene.SceneTween = null;
                         });
                         
                     });

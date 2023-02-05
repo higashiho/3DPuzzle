@@ -7,12 +7,15 @@ namespace Scene
 {
     public class TitleSceneMove
     {
-        // シーン遷移
+        /// <summary>
+        /// TitleからMainへ
+        /// </summary>
+        /// <param name="tmpScene">BaseScene</param>
+        /// <param name="tmpimage">BaseLoadingImage</param>
         public void Move(BaseScene tmpScene, BaseLoadingImage tmpimage)
         {
             //タイトルシーンからメインシーンへ
-            tmpScene.MoveFade.SceneMove(tmpScene, "MainScene", tmpimage);
-            //tmpScene.StateScene = BaseScene.SceneState.Main;
+            tmpScene.MoveFade.SceneMove(tmpScene, "MainScene", tmpimage, BaseScene.SceneState.Main);
         }
     }
 

@@ -12,8 +12,7 @@ namespace Scene
         public void Move(BaseScene tmpScene, BaseLoadingImage tmpImage)
         {
             //エンドシーンからタイトルシーンへ
-            tmpScene.MoveFade.SceneMove(tmpScene, "TitleScene", tmpImage);
-            //tmpScene.StateScene = BaseScene.SceneState.Title;
+            tmpScene.MoveFade.SceneMove(tmpScene, "TitleScene", tmpImage, BaseScene.SceneState.Title);
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using UI;
 
 namespace LoadingImage
 {
@@ -13,12 +14,14 @@ namespace LoadingImage
         public Canvas LoadingImages{get{return loadingImages;}private set{loadingImages = value;}}
         protected Image[] caircles;
         public Image[] Caircles{get{return caircles;}set{caircles = value;}}
-
         //インスタンス化
         public LoadingImageFill ImageFill{get;private set;} = new LoadingImageFill();
+        public static BaseLoadingImage tmpImage{get; set;}
+        protected EndButton titleButton = new EndButton();
+        public EndButton TitleButton{get{return titleButton;}private set{titleButton = value;}}
 
         /// <summary>
-        /// ロード画面読み込み画像処理
+        /// ロード画面読み込み画像--
         /// 円形に等間隔に並べて点滅
         /// </summary>
         public void LoadingImageAnimation(BaseLoadingImage tmpImage)
@@ -40,17 +43,15 @@ namespace LoadingImage
             }); 
         }
 
+        /// <summary>
+        /// 読み込み中画像表示
+        /// </summary>
         public void OnLoadingImages()
         {
-            DOVirtual.DelayedCall(Const.FADE_TIMER, () =>
-            {
-                LoadingImages.enabled = true;
-            });
-        }
-
-        protected void OnDestroy()
-        {
-            DOTween.KillAll();
+                DOVirtual.DelayedCall(Const.FADE_TIMER, () =>
+                {
+                    LoadingImages.enabled = true;
+                });
         }
     }
 }

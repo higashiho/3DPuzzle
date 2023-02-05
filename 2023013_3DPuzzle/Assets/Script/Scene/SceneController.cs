@@ -9,8 +9,6 @@ namespace Scene
 {
     public class SceneController : BaseScene
     {
-        //自分を入れる用
-        public static BaseScene  tmpScene{get; set;}
 
         void Awake()
         {
@@ -37,21 +35,24 @@ namespace Scene
             switch(StateScene)
             {
                 case BaseScene.SceneState.Title:
+                    BaseLoadingImage.tmpImage.TitleButton.OffTitleButton(this);
                     titleSceneMove.Move(this, loadingImage);
                 break;
 
                 case BaseScene.SceneState.Main:
-                    if(fadePanel.color.a == Const.FADE_OUT_ALPHA)
+                    if(Input.GetKeyDown("space"))//デバッグ用
                     {
-                        MoveFade.FadeIn(this);
+                        SceneMoveOnFlag = true;
+                        BaseLoadingImage.tmpImage.OnLoadingImages();
+                        BaseLoadingImage.tmpImage.LoadingImageAnimation(BaseLoadingImage.tmpImage);
+                        mainSceneMove.Move(this, loadingImage);
                     }
                     break;
-                case BaseScene.SceneState.MainFinish:
-                    mainSceneMove.Move(this, loadingImage);
-                break;
 
                 case BaseScene.SceneState.End:
-                    endSceneMove.Move(this, loadingImage);
+                    BaseLoadingImage.tmpImage.TitleButton.OnTitleButton(this);
+                    BaseLoadingImage.tmpImage.ImageFill.OffLoadingImages(BaseLoadingImage.tmpImage, this);
+                    BaseLoadingImage.tmpImage.TitleButton.OnClickButton(BaseLoadingImage.tmpImage, tmpScene);
                 break;
 
                 default:
