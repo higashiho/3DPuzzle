@@ -1163,7 +1163,7 @@ GameObject:
   - component: {fileID: 554840447}
   - component: {fileID: 554840446}
   m_Layer: 5
-  m_Name: ErrorText
+  m_Name: TreasureText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1367,11 +1367,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tipVideoClip:
+  - {fileID: 32900000, guid: 5b916428ba411f946a78484c71541ff0, type: 3}
+  - {fileID: 32900000, guid: 8d2af6661e80dd741b8d0314edf88905, type: 3}
   - {fileID: 32900000, guid: 828c59377e482bf43a63cd03faa45655, type: 3}
-  - {fileID: 32900000, guid: 828c59377e482bf43a63cd03faa45655, type: 3}
-  - {fileID: 32900000, guid: 828c59377e482bf43a63cd03faa45655, type: 3}
-  - {fileID: 32900000, guid: 828c59377e482bf43a63cd03faa45655, type: 3}
-  - {fileID: 32900000, guid: 828c59377e482bf43a63cd03faa45655, type: 3}
+  - {fileID: 32900000, guid: 91f395aacf1920b4c8ef1640245b52ae, type: 3}
+  - {fileID: 32900000, guid: 4329ed802aabbd44d9e920c0b83b1310, type: 3}
 --- !u!1 &581265682
 GameObject:
   m_ObjectHideFlags: 0
@@ -2568,7 +2568,7 @@ MonoBehaviour:
   - {fileID: 1396696340}
   - {fileID: 1930823522}
   - {fileID: 102442399}
-  errorText: {fileID: 554840446}
+  treasureText: {fileID: 554840446}
   inputNumText:
   - {fileID: 671184963}
   - {fileID: 1272392142}
@@ -2873,7 +2873,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_SendPointerHoverToParent: 1
   m_HorizontalAxis: Horizontal
   m_VerticalAxis: Vertical
   m_SubmitButton: Submit
@@ -4074,7 +4073,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -460.96}
+  m_AnchoredPosition: {x: -649.89, y: 460.96}
   m_SizeDelta: {x: 620.2175, y: 158.0779}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1694967770

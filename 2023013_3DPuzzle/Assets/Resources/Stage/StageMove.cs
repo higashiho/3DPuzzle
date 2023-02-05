@@ -92,6 +92,7 @@ namespace Stage
             
             clearPlayerRotate();
             clearPlayerMove();
+            
         }
         
         /// <summary>
@@ -134,6 +135,8 @@ namespace Stage
             if(!InGameSceneController.Player.GetComponent<BoxCollider>().enabled)
                 InGameSceneController.Player.GetComponent<BoxCollider>().enabled = true;
             
+            resetFlag();
+
             // ステート保管初期化
             tmpStageState = default;
         }
@@ -194,6 +197,20 @@ namespace Stage
             // プレイヤーMoveタスクのキャンセルフラグON
             InGameSceneController.Player.PlayerMoveCancel = false;
 
+            resetFlag();
+        }
+
+        /// <summary>
+        /// 各ステージの初期化
+        /// </summary>
+        private void resetFlag()
+        {
+            // 落下ステージでの初期化
+            if(tmpStageState == StageConst.STATE_FALLING_STAGE)
+            {
+                InGameSceneController.FallTile.TimeCountTask = null;
+                InGameSceneController.FallTile.TaskChancelFlag = false;
+            }
         }
     }
 }

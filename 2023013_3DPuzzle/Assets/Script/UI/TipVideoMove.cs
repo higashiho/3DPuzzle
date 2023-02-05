@@ -51,6 +51,12 @@ namespace Video
             }
         }
 
+        /// <summary>
+        /// ボタンTween挙動関数
+        /// </summary>
+        /// <param name="alpha">目標アルファ値</param>
+        /// <param name="resetAlpha">初期化アルファ値</param>
+        /// <returns>動作Tween</returns>
         private Tween buttonMove(float alpha, float resetAlpha)
         {
             // フェイド時間調整
@@ -62,6 +68,7 @@ namespace Video
             // Tweenを削除して初期化
             DOTween.Kill(tmpImage);
             DOTween.Kill(tmpText);
+            // 色初期化
             var tmpColor = tmpImage.color;
             tmpColor.a = resetAlpha;
             tmpImage.color = tmpColor;
@@ -71,7 +78,7 @@ namespace Video
 
             // Tween挙動開始
             var tmpTween = tmpImage.DOFade(alpha, tmpNum).SetEase(Ease.Linear);
-            tmpText.DOFade(alpha,tmpNum).SetEase(Ease.Linear);
+            tmpText.DOFade(alpha, tmpNum).SetEase(Ease.Linear);
 
             return tmpTween;
         }
@@ -140,12 +147,21 @@ namespace Video
                 }
             // 安置の中にいなかったら
             else
+            {
                 // TipButtonを非表示
                 if(tmpVideo.ButtonFadeinTween == null)
                 {
                     tmpVideo.ButtonFadeoutTween = null;
                     tmpVideo.ButtonFadeinTween = buttonMove(0, Const.FADE_MAX_ALPHA);
                 }
+                // ボタンが表示されていてアルファ値が0の場合
+                if(InGameSceneController.TreasureBox.TipButton.gameObject.activeSelf 
+                && InGameSceneController.TreasureBox.TipButton.GetComponent<Image>().color.a == 0)
+                {
+                    InGameSceneController.TreasureBox.TipButton.gameObject.SetActive(false);
+                }
+            }
+                
                 
         }
 

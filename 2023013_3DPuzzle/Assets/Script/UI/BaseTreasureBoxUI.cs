@@ -13,9 +13,9 @@ namespace UI
         protected Text[] playerHaveNumText = new Text[4];
         public Text[] PlayerHaveNumText{get{return playerHaveNumText;}}
 
-        [SerializeField, Header("Errorテキスト")]
-        protected TextMeshProUGUI   errorText;
-        public TextMeshProUGUI  ErrorText{get{return errorText;}}
+        [SerializeField, Header("宝箱テキスト")]
+        protected TextMeshProUGUI treasureText;
+        public TextMeshProUGUI TreasureText{get{return treasureText;}}
         // ErrorテキストのTween
         protected Tween errorTextTween = null;
         public Tween ErrorTextTween{get{return errorTextTween;}set{errorTextTween = value;}}
@@ -50,7 +50,8 @@ namespace UI
         }
         public void GoEnter()
         {
-            treasureBoxUIMove.CheckNum();
+            if(!ClearFlag)
+                treasureBoxUIMove.CheckNum();
         }
         public void ResetNum()
         {
