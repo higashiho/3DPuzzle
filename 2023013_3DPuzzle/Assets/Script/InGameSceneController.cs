@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Stage;
-using Tile;
+using Box;
 
 /// <summary>
 /// インゲームでのオブジェクト管理クラス
@@ -17,6 +17,7 @@ public class InGameSceneController : MonoBehaviour
     public static BaseFallTile FallTile{get; private set;}
     public static BaseSwitchTile SwitchTile{get; private set;}
     public static BaseMoveStage MoveStage{get; private set;}
+    public static BaseBox TreasureBox{get; private set;}
 
     /// <summary>
     /// Player
@@ -31,6 +32,7 @@ public class InGameSceneController : MonoBehaviour
         FallTile = GameObject.FindWithTag("FallTiles").GetComponent<BaseFallTile>();
         SwitchTile = GameObject.FindWithTag("SwitchTiles").GetComponent<BaseSwitchTile>();
         MoveStage = GameObject.FindWithTag("MoveStage").GetComponent<BaseMoveStage>();
+        TreasureBox = GameObject.FindWithTag("GoalTile").transform.GetChild(0).GetComponent<BaseBox>();
 
         // Tweenの最大メモリ初期化
         DG.Tweening.DOTween.SetTweensCapacity(tweenersCapacity:1000, sequencesCapacity:100);

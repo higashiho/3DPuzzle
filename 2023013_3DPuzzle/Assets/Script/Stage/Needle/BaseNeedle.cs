@@ -20,7 +20,9 @@ namespace Stage
         // 初期化フラグ
         protected bool resetFlag = false;
         public bool ResetFlag{get{return resetFlag;} set{resetFlag = value;}}
-
+        // 針ステージ更新完了フラグ
+        private bool onNeedleTrans = false;
+        public bool OnNeedleTrans{get{return onNeedleTrans;} set{onNeedleTrans = value;}}
         // インスタンス化
         protected NeedleMove needleMove;
     }

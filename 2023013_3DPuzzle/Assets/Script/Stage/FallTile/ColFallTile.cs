@@ -38,7 +38,15 @@ namespace Tile
 
         private void OnCollisionStay(Collision col)
         {
-            tile.MoveTile.KeyTileCollsionMove(col, this.gameObject);
+             if(col.gameObject.tag == "Player")
+            {    
+                var tmpAngleX = Mathf.RoundToInt(col.transform.localEulerAngles.x);
+                var tmpAngleZ = Mathf.RoundToInt(col.transform.localEulerAngles.z);
+                if(tmpAngleX == 0 && tmpAngleZ == 0)
+                {
+                    tile.MoveTile.KeyTileCollsionMove(col, this.gameObject);
+                }
+            }
         }
     }
 }

@@ -46,8 +46,6 @@ namespace Stage
             // ロードが出来ていたら列数を取得
             if(tmpLine != null)
                 maxX = countChar(tmpLine, ',');
-            Debug.Log("maxX = " + maxX);
-            Debug.Log("maxZ = " + maxZ);
             // 生成
             instance(tmpStage, maxX, maxZ, tmpStageDatas);
         }
@@ -82,8 +80,6 @@ namespace Stage
         /// <param name="objName">生成するオブジェクト名</param>
         private void createStageObject(BaseStage tmpStage, int x, int z, string objName)
         {
-
-            Debug.Log(objName);
             // 読み込んだオブジェクトをゲームオブジェクト型に変更
             var tmpNum = int.Parse(objName);
             var obj = MonoBehaviour.Instantiate(

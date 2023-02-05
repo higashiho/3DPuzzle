@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Stage;
+using Cysharp.Threading.Tasks;
+using System.Threading;
 
 public class PlayerController : BasePlayer
 {
@@ -17,7 +19,11 @@ public class PlayerController : BasePlayer
     // Update is called once per frame
     void Update()
     {
-        playerMove.Move(this, this.cts);
+        
+        playerMove.Move(cts, Needle, this);
+
+        
+        
     }
     
 }

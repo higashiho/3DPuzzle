@@ -18,6 +18,8 @@ namespace Stage
             // オブジェクト配列取得
             KeyTiles = GameObject.FindGameObjectsWithTag("KeyTile");
             WallTiles = GameObject.FindGameObjectsWithTag("WallTile");
+
+            PopupStartPos = GetNumPopupText.transform.parent.localPosition;
         }
 
         // Update is called once per frame

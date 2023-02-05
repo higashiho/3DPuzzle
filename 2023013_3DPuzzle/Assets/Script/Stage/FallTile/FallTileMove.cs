@@ -30,8 +30,8 @@ namespace Stage
 
             // スイッチタイルリセット
             switchTileReset();
-
             // 初期化
+            tmpFallTile.TaskChancelFlag = false;
             tmpFallTile.TimeCountTask = null;
             InGameSceneController.Stages.TileChangeFlag = true;
             InGameSceneController.Stages.ClearCount = StageConst.MAX_GOAL_NUM;
@@ -65,6 +65,7 @@ namespace Stage
                 {
                     tmpObj.tag = "Fall";
                     var tmpMaterialRenderer = tmpTile.StartMaterial;
+                    tmpObj.GetComponent<BaseTile>().StartColor = tmpObj.GetComponent<BaseTile>().TmpStartColor;
                     tmpMaterialRenderer.color = tmpObj.GetComponent<BaseTile>().StartColor;
                     tmpObj.GetComponent<Renderer>().material = tmpMaterialRenderer;
                 }
@@ -102,7 +103,7 @@ namespace Stage
             if(InGameSceneController.Stages.StageState == StageConst.STATE_FALLING_STAGE)
             {
                 tmpFallTile.ResetFlag = true;
-                if(tmpFallTile.TimeCountTask == null)
+                if(tmpFallTile.TimeCountTask == null && !tmpFallTile.TaskChancelFlag)
                 {
                     // TimeCountTaskにtimeCountを代入
                     tmpFallTile.TimeCountTask = timeCountAsyck();
@@ -140,7 +141,6 @@ namespace Stage
             // Cancel処理
             if(BaseFallTile.Cts.Token.IsCancellationRequested || tmpFallTile.TaskChancelFlag)
             {
-                tmpFallTile.TaskChancelFlag = false; 
                 Debug.Log("Cancel");
                 return;
             }
@@ -158,7 +158,6 @@ namespace Stage
             // Cancel処理
             if(BaseFallTile.Cts.Token.IsCancellationRequested || tmpFallTile.TaskChancelFlag)
             {
-                tmpFallTile.TaskChancelFlag = false; 
                 Debug.Log("Cancel");
                 tmpTweem.Kill();
                 // 初期化
