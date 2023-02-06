@@ -23,6 +23,8 @@ namespace Stage
         [SerializeField, Header("スイッチタイル")]
         protected GameObject[] keyTiles;
         public GameObject[] KeyTiles{get{return keyTiles;} protected set{keyTiles = value;}}
+        [SerializeField, Header("パズルステージの壁")]
+        protected GameObject puzzleStageWall;
         
         // スイッチステージをクリアしたか
         protected bool clearSwitchStage;

@@ -14,6 +14,7 @@ namespace Stage
         {
             // ステージ生成
             instance.StageMaking(this, filePath);
+            Instantiate(puzzleStageWall, parent:TileParemt.transform);
 
             // オブジェクト配列取得
             KeyTiles = GameObject.FindGameObjectsWithTag("KeyTile");
