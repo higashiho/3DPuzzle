@@ -16,6 +16,9 @@ namespace UI
         [SerializeField, Header("宝箱テキスト")]
         protected TextMeshProUGUI treasureText;
         public TextMeshProUGUI TreasureText{get{return treasureText;}}
+        [SerializeField, Header("クリア時のエフェクト")]
+        protected ParticleSystem[] clearEfect = new ParticleSystem[2];
+        public ParticleSystem[] ClearEfect{get{return clearEfect;}}
         // ErrorテキストのTween
         protected Tween errorTextTween = null;
         public Tween ErrorTextTween{get{return errorTextTween;}set{errorTextTween = value;}}
