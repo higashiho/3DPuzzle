@@ -1369,9 +1369,9 @@ MonoBehaviour:
   tipVideoClip:
   - {fileID: 32900000, guid: 5b916428ba411f946a78484c71541ff0, type: 3}
   - {fileID: 32900000, guid: 8d2af6661e80dd741b8d0314edf88905, type: 3}
-  - {fileID: 32900000, guid: 828c59377e482bf43a63cd03faa45655, type: 3}
-  - {fileID: 32900000, guid: 91f395aacf1920b4c8ef1640245b52ae, type: 3}
   - {fileID: 32900000, guid: 4329ed802aabbd44d9e920c0b83b1310, type: 3}
+  - {fileID: 32900000, guid: 91f395aacf1920b4c8ef1640245b52ae, type: 3}
+  - {fileID: 32900000, guid: ec1998c27cd7d0f429c770be4928fdc7, type: 3}
 --- !u!1 &581265682
 GameObject:
   m_ObjectHideFlags: 0
