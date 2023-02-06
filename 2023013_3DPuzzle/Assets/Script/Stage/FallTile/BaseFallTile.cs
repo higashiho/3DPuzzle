@@ -22,7 +22,8 @@ namespace Stage
         protected bool resetFlag = false;
         public bool ResetFlag{get{return resetFlag;} set{resetFlag = value;}}
         
-        // 失敗じタスクキャンセル用フラグ
+        // 失敗時タスクキャンセル用フラグ
+        [SerializeField]
         protected bool taskCancelFlag = false;
         public bool TaskChancelFlag{get{return taskCancelFlag;}set{taskCancelFlag = value;}}
     
