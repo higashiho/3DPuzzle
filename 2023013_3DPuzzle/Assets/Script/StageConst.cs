@@ -66,6 +66,10 @@ public class StageConst
     /// </summary>
     public const int FALL_COUNTDOWN_TIME = 30;
     /// <summary>
+    /// マグマが昇るY座標
+    /// </summary>
+    public const float MAGMA_MOVE_POS_Y = 2.3f;
+    /// <summary>
     /// キータイル変換ゴール回数
     /// </summary>
     public const int GOAL_TILE_NUM = 1;
