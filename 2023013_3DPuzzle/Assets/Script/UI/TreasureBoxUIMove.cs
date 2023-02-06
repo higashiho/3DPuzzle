@@ -1,4 +1,5 @@
 using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
@@ -31,6 +32,7 @@ namespace UI
                     tmpTreasureBoxUI.InputNum[num]++;
                 }
                 // テキストの値が変更されていなければ値変更
+                // テキストをイントにキャスト
                 var tmpTextNum = int.Parse(tmpTreasureBoxUI.InputNumText[num].text);
                 if(tmpTextNum != tmpTreasureBoxUI.InputNum[num])
                 {
@@ -58,29 +60,33 @@ namespace UI
             if(tmpList.Count == 0)
             {
                 tmpTreasureBoxUI.ClearFlag = true;
+                // 全ての数値があっていたらフォントカラーを赤色に変更
                 foreach(var tmpText in tmpTreasureBoxUI.InputNumText)
                 {
                     tmpText.color = Color.red;
                 }
-                // UIが開いていたら閉じる
-                if(InGameSceneController.TreasureBox.OpenBoxUI.gameObject.activeSelf)
-                    InGameSceneController.TreasureBox.OpenBoxUI.gameObject.SetActive(false);
+                // clearテキストを表示
+                tmpTreasureBoxUI.TreasureText.text = "宝箱が空きました！！！";
+                var tmpTimer = Const.FADE_TIMER * 0.5f;
+                tmpTreasureBoxUI.TreasureText.DOFade(Const.FADE_MAX_ALPHA, tmpTimer).
+                SetEase(Ease.Linear);
             }
             else
             {
                 Debug.Log("NoClear" + tmpList.Count);
-                tmpTreasureBoxUI.ErrorText.text = tmpList.Count + "個の値が間違えています";
+                // テキスト表示
+                tmpTreasureBoxUI.TreasureText.text = tmpList.Count + "個の値が間違えています";
                 // Tweenが再生していたら削除して再生し直し
                 if(tmpTreasureBoxUI.ErrorTextTween != null)
                 {
                     tmpTreasureBoxUI.ErrorTextTween.Kill();
-                    var tmpColor = tmpTreasureBoxUI.ErrorText.color;
+                    var tmpColor = tmpTreasureBoxUI.TreasureText.color;
                     tmpColor.a = 0;
-                    tmpTreasureBoxUI.ErrorText.color = tmpColor;
+                    tmpTreasureBoxUI.TreasureText.color = tmpColor;
                 }
                 // 通常フェイドでは遅いため早める
                 var tmpTimer = Const.FADE_TIMER * 0.5f;
-                tmpTreasureBoxUI.ErrorTextTween = tmpTreasureBoxUI.ErrorText.DOFade(Const.FADE_MAX_ALPHA, tmpTimer).
+                tmpTreasureBoxUI.ErrorTextTween = tmpTreasureBoxUI.TreasureText.DOFade(Const.FADE_MAX_ALPHA, tmpTimer).
                 SetEase(Ease.Linear).SetLoops(Const.LOOP_NUM, LoopType.Yoyo);
             }
 
@@ -94,14 +100,13 @@ namespace UI
         {
             if(!tmpTreasureBoxUI.ClearFlag)
             {
-                // 値をすべてリセット
+                // 値をすべて０でリセット
                 for(int i = 0; i < InGameSceneController.Player.HaveNum.Count; i++)
                 {
                     InGameSceneController.Player.HaveNum[i] = 0;
-
-                    // フラグリセット
-                    InGameSceneController.Stages.StageClearFlags[i] = false;
                 }
+                // クリア配列初期化
+                Array.Clear(InGameSceneController.Stages.StageClearFlags, 0, InGameSceneController.Stages.StageClearFlags.Length);
 
                 // UIが開いていたら閉じる
                 if(InGameSceneController.TreasureBox.OpenBoxUI.gameObject.activeSelf)

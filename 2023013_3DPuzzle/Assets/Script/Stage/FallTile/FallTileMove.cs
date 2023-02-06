@@ -31,8 +31,6 @@ namespace Stage
             // スイッチタイルリセット
             switchTileReset();
             // 初期化
-            tmpFallTile.TaskChancelFlag = false;
-            tmpFallTile.TimeCountTask = null;
             InGameSceneController.Stages.TileChangeFlag = true;
             InGameSceneController.Stages.ClearCount = StageConst.MAX_GOAL_NUM;
 
@@ -102,6 +100,7 @@ namespace Stage
         {
             if(InGameSceneController.Stages.StageState == StageConst.STATE_FALLING_STAGE)
             {
+                tmpFallTile.TaskChancelFlag = false; 
                 tmpFallTile.ResetFlag = true;
                 if(tmpFallTile.TimeCountTask == null && !tmpFallTile.TaskChancelFlag)
                 {
