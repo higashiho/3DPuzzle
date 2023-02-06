@@ -25,6 +25,8 @@ namespace LoadingImage
         void Start()
         {
             Caircles = GetComponentsInChildren<Image>();
+            BaseLoadingImage.tmpImage.ImageFill.OffLoadingImages(BaseLoadingImage.tmpImage, BaseScene.TmpScene);
+            BaseLoadingImage.tmpImage.SceneButton.OffEndButton(BaseScene.TmpScene);
         }
 
         // Update is called once per frame

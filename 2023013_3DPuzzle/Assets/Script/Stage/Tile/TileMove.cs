@@ -111,6 +111,7 @@ namespace Tile
                     getNum(ref InGameSceneController.Stages.StageClearFlags[0]);
                     stageMove.StageClear();
                     needleMove.ResetTile();
+                    
                     break;
                 // 左下ステージ
                 case StageConst.STATE_MOVE_STAGE:

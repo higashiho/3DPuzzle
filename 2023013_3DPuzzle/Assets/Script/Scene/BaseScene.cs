@@ -36,37 +36,43 @@ namespace Scene
         [SerializeField]
         public Image fadePanel;
 
-        [SerializeField,Header("エンドシーンのボタン")]
-        protected Button endButton;
-        public Button EndButton{get{return endButton;} set{endButton = value;}}
-        [SerializeField, Header("エンドシーンのボタンのテクスチャ")]
-        protected Image endButtonImage;
-        public Image EndButtonImage{get{return endButtonImage;} set{endButtonImage = value;}}
+        [SerializeField,Header("エンドシーンのボタンのボタンインスペクター")]
+        protected Button retryButton;
+        public Button RetryButton{get{return retryButton;} set{retryButton = value;}}
+        [SerializeField, Header("エンドシーンのボタンのImage")]
+        protected Image retryButtonImage;
+        public Image RetryButtonImage{get{return retryButtonImage;} set{retryButtonImage = value;}}
+        [SerializeField,Header("スタートボタンのImage")]
+        protected Image startButton;
+        public Image StartButton{get{return startButton;} set{startButton = value;}}
+        [SerializeField,Header("ゲーム終了Image")]
+        protected Image finishButton;
+        public Image FinishButton{get{return finishButton;} set{finishButton = value;}}
         
         // ボタンをクリックしたかのフラグ
         [SerializeField]
         protected bool sceneMoveOnFlag;
-        public bool SceneMoveOnFlag{get{return sceneMoveOnFlag;}set{sceneMoveOnFlag = value;}}
+        public bool SceneMoveOnFlag{get{return sceneMoveOnFlag;} set{sceneMoveOnFlag = value;}}
 
         protected Tween sceneTween;
         public Tween SceneTween{get{return sceneTween;}set{sceneTween = value;}}
 
         //インスタンス化
         protected  TitleSceneMove titleSceneMove = new TitleSceneMove();
-        public  EndSceneMove endSceneMove{get; private set;} = new EndSceneMove();
         protected  MainSceneMove mainSceneMove = new MainSceneMove();
+        protected EndSceneMove endSceneMove = new EndSceneMove();
         public FadeMove MoveFade{get; private set;} = new FadeMove();
 
-        [SerializeField]
         protected BaseLoadingImage loadingImage;
         
         //自分を入れる用
         protected static BaseScene  tmpScene;
+        [SerializeField]
         public static BaseScene TmpScene{get;private set;}
 
-        // protected void OnDestroy()
-        // {
-        //     DOTween.KillAll();
-        // }
+        protected void OnDestroy()
+        {
+            DOTween.KillAll();
+        }
     }
 }

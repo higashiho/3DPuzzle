@@ -11,8 +11,14 @@ namespace Scene
         // シーン遷移
         public void Move(BaseScene tmpScene, BaseLoadingImage tmpImage)
         {
-            //エンドシーンからタイトルシーンへ
+            BaseLoadingImage.tmpImage.SceneButton.OnEndButton(tmpScene);
+            // エンドシーンからタイトルシーンへ
             tmpScene.MoveFade.SceneMove(tmpScene, "TitleScene", tmpImage, BaseScene.SceneState.Title);
+            if(BaseScene.TmpScene.RetryButton.enabled)
+            {
+                // エンドシーンのボタン非表示
+                tmpImage.SceneButton.OffEndButton(tmpScene);
+            }
         }
     }
 }

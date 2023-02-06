@@ -13,9 +13,11 @@ namespace Cam
         /// <param name="tmpCamera">BaseCamera</param> 
         public void Move(BaseCamera tmpCamera)
         {       
-            SetCamera(tmpCamera);
+            setCamera(tmpCamera);
 
             ZomeIO(tmpCamera);
+
+            followToPlayer(tmpCamera);
         }
 
         /// <summary>
@@ -145,10 +147,24 @@ namespace Cam
         }
 
         /// <summary>
+        /// カメラがプレイヤーを追いかける関数
+        /// </summary>
+        public void followToPlayer(BaseCamera tmpCamera)
+        {
+            if(InGameSceneController.Player.PlayerFailureTween != null || InGameSceneController.Player.PlayerClearTween != null)
+            {
+                // カメラとプレイヤーの距離の差
+                var tmpDifference = tmpCamera.camera.transform.position - InGameSceneController.Player.transform.position;
+                // 位置を更新
+                tmpCamera.camera.transform.position = InGameSceneController.Player.transform.position + tmpDifference;
+            }
+        }
+
+        /// <summary>
         /// カメラ移動
         /// </summary>
         /// <param name="tmpCamera">BaseCamera</param>
-        private void SetCamera(BaseCamera tmpCamera)
+        private void setCamera(BaseCamera tmpCamera)
         {   
             // プレイヤーの位置を偶数丸めで正確にする
             var tmpPlayerPos = InGameSceneController.Player.transform.position;
@@ -162,6 +178,8 @@ namespace Cam
             tmpPos.x = Mathf.RoundToInt(tmpPos.x);
             tmpPos.y = Mathf.RoundToInt(tmpPos.y);
             tmpPos.z = Mathf.RoundToInt(tmpPos.z);
+
+
 
             // プレイヤーが左上の無敵エリアに着いたら、カメラが左上のステージの中心に動く-------------------------
              if(tmpPlayerPos == tmpCamera.CameraMovePos[Const.LEFT_UP, Const.TO_CENTER_UP_POS]

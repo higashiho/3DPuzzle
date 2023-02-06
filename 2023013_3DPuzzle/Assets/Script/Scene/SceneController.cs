@@ -13,7 +13,7 @@ namespace Scene
         void Awake()
         {
             //複数生成を避ける
-            if(tmpScene != null)
+            if(TmpScene != null)
             {
                 Destroy(this.gameObject);
                 return;
@@ -31,32 +31,36 @@ namespace Scene
         // Update is called once per frame
         void Update()
         {
-            //各シーンごとの処理(フェードとシーン切り替え)
-            switch(StateScene)
+            if(!TmpScene.SceneMoveOnFlag)
             {
-                case BaseScene.SceneState.Title:
-                    BaseLoadingImage.tmpImage.TitleButton.OffTitleButton(this);
-                    titleSceneMove.Move(this, loadingImage);
-                break;
-
-                case BaseScene.SceneState.Main:
-                    if(Input.GetKeyDown("space"))//デバッグ用
-                    {
-                        SceneMoveOnFlag = true;
-                        BaseLoadingImage.tmpImage.OnLoadingImages();
-                        BaseLoadingImage.tmpImage.LoadingImageAnimation(BaseLoadingImage.tmpImage);
-                        mainSceneMove.Move(this, loadingImage);
-                    }
+                //各シーンごとの処理(フェードとシーン切り替え)
+                switch(StateScene)
+                {
+                    case BaseScene.SceneState.Title:
+                        if(!TmpScene.StartButton.enabled && !TmpScene.FinishButton.enabled)
+                        {
+                            // タイトルボタン表示
+                            BaseLoadingImage.tmpImage.SceneButton.OnTitleButton(TmpScene);
+                        }
+                        titleSceneMove.Move(this, loadingImage);
                     break;
 
-                case BaseScene.SceneState.End:
-                    BaseLoadingImage.tmpImage.TitleButton.OnTitleButton(this);
-                    BaseLoadingImage.tmpImage.ImageFill.OffLoadingImages(BaseLoadingImage.tmpImage, this);
-                    BaseLoadingImage.tmpImage.TitleButton.OnClickButton(BaseLoadingImage.tmpImage, tmpScene);
-                break;
+                    case BaseScene.SceneState.Main:
+                        if(Input.GetKeyDown("space"))//デバッグ用
+                        {
+                            SceneMoveFlagOn();
+                            BaseLoadingImage.tmpImage.OnLoadingImages();
+                            mainSceneMove.Move(this, loadingImage);
+                        }
+                        break;
 
-                default:
+                    case BaseScene.SceneState.End:
+                        endSceneMove.Move(this, loadingImage);
                     break;
+
+                    default:
+                        break;
+                }
             }
         }
     }
