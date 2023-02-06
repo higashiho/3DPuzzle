@@ -67,7 +67,6 @@ namespace Scene
         
         //自分を入れる用
         protected static BaseScene  tmpScene;
-        [SerializeField]
         public static BaseScene TmpScene{get;private set;}
 
         protected void OnDestroy()

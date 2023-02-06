@@ -12,12 +12,16 @@ namespace Cam
         /// </summary>
         /// <param name="tmpCamera">BaseCamera</param> 
         public void Move(BaseCamera tmpCamera)
-        {       
-            setCamera(tmpCamera);
+        {  
+             if(InGameSceneController.Player.PlayerFailureTween == null && InGameSceneController.Player.PlayerClearTween == null)
+            {     
+                
+                setCamera(tmpCamera);
 
-            ZomeIO(tmpCamera);
-
-            followToPlayer(tmpCamera);
+                ZomeIO(tmpCamera);
+            }
+            else
+                followToPlayer(tmpCamera);
         }
 
         /// <summary>
@@ -147,17 +151,15 @@ namespace Cam
         }
 
         /// <summary>
-        /// カメラがプレイヤーを追いかける関数
+        /// プレイヤーが中央に帰ってきたら中央に戻る
         /// </summary>
         public void followToPlayer(BaseCamera tmpCamera)
         {
-            if(InGameSceneController.Player.PlayerFailureTween != null || InGameSceneController.Player.PlayerClearTween != null)
+            DOVirtual.DelayedCall(Const.START_BACK_TIME, () =>
             {
-                // カメラとプレイヤーの距離の差
-                var tmpDifference = tmpCamera.camera.transform.position - InGameSceneController.Player.transform.position;
-                // 位置を更新
-                tmpCamera.camera.transform.position = InGameSceneController.Player.transform.position + tmpDifference;
-            }
+                tmpCamera.camera.transform.DOMove(tmpCamera.StandCameraPos[Const.CENTER], Const.CAMERA_MOVE_SPEED)
+                .SetEase(Ease.OutSine);
+            });
         }
 
         /// <summary>
