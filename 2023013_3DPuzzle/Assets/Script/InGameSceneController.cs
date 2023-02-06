@@ -18,6 +18,7 @@ public class InGameSceneController : MonoBehaviour
     public static BaseSwitchTile SwitchTile{get; private set;}
     public static BaseMoveStage MoveStage{get; private set;}
     public static BaseBox TreasureBox{get; private set;}
+    public static BaseEnemy Enemy{get; private set;}
 
     /// <summary>
     /// Player
@@ -33,6 +34,7 @@ public class InGameSceneController : MonoBehaviour
         SwitchTile = GameObject.FindWithTag("SwitchTiles").GetComponent<BaseSwitchTile>();
         MoveStage = GameObject.FindWithTag("MoveStage").GetComponent<BaseMoveStage>();
         TreasureBox = GameObject.FindWithTag("GoalTile").transform.GetChild(0).GetComponent<BaseBox>();
+        Enemy = GameObject.FindWithTag("Enemy").GetComponent<BaseEnemy>();
 
         // Tweenの最大メモリ初期化
         DG.Tweening.DOTween.SetTweensCapacity(tweenersCapacity:1000, sequencesCapacity:100);
