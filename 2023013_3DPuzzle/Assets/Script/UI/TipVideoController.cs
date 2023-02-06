@@ -20,7 +20,7 @@ namespace Video
         // Update is called once per frame
         void Update()
         {
-            changeClip();
+            tipVideoMove.changeClip();
         }
     }
 }

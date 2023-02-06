@@ -19,8 +19,8 @@ namespace Stage
         public void StateUpdate(BaseStage tmpStage)
         {
             // playerのposが一定以内の場合
-            if(InGameSceneController.Player.transform.position.x <= StageConst.Area1Pos.x &&
-                InGameSceneController.Player.transform.position.z >= StageConst.Area1Pos.z)
+            if(InGameSceneController.Player.transform.position.x <= StageConst.AreaPos[0].x &&
+                InGameSceneController.Player.transform.position.z >= StageConst.AreaPos[0].z)
                 {
                     // ステート更新されていないと更新してvoid処理終了
                     if(tmpStage.StageState != StageConst.STATE_NEEDLE_STAGE)
@@ -30,8 +30,8 @@ namespace Stage
                 }
 
             // playerのposが一定以内の場合
-            if(InGameSceneController.Player.transform.position.x <= StageConst.Area2Pos.x &&
-                InGameSceneController.Player.transform.position.z <= StageConst.Area2Pos.z)
+            if(InGameSceneController.Player.transform.position.x <= StageConst.AreaPos[1].x &&
+                InGameSceneController.Player.transform.position.z <= StageConst.AreaPos[1].z)
                 {
                     // ステート更新されていないと更新してvoid処理終了
                     if(tmpStage.StageState != StageConst.STATE_MOVE_STAGE)
@@ -41,8 +41,8 @@ namespace Stage
                 }
 
             // playerのposが一定以内の場合
-            if(InGameSceneController.Player.transform.position.x >= StageConst.Area3Pos.x &&
-                InGameSceneController.Player.transform.position.z >= StageConst.Area3Pos.z)
+            if(InGameSceneController.Player.transform.position.x >= StageConst.AreaPos[2].x &&
+                InGameSceneController.Player.transform.position.z >= StageConst.AreaPos[2].z)
                 {
                     // ステート更新されていないと更新してvoid処理終了
                     if(tmpStage.StageState != StageConst.STATE_FALLING_STAGE)
@@ -52,8 +52,8 @@ namespace Stage
                 }
 
             // playerのposが一定以内の場合
-            if(InGameSceneController.Player.transform.position.x >= StageConst.Area4Pos.x &&
-                InGameSceneController.Player.transform.position.z <= StageConst.Area4Pos.z)
+            if(InGameSceneController.Player.transform.position.x >= StageConst.AreaPos[3].x &&
+                InGameSceneController.Player.transform.position.z <= StageConst.AreaPos[3].z)
                 {
                     // ステート更新されていないと更新してvoid処理終了
                     if(tmpStage.StageState != StageConst.STATE_SWITCH_STAGE)
@@ -92,6 +92,7 @@ namespace Stage
             
             clearPlayerRotate();
             clearPlayerMove();
+            
         }
         
         /// <summary>
@@ -134,6 +135,8 @@ namespace Stage
             if(!InGameSceneController.Player.GetComponent<BoxCollider>().enabled)
                 InGameSceneController.Player.GetComponent<BoxCollider>().enabled = true;
             
+            resetFlag();
+
             // ステート保管初期化
             tmpStageState = default;
         }
@@ -194,6 +197,20 @@ namespace Stage
             // プレイヤーMoveタスクのキャンセルフラグON
             InGameSceneController.Player.PlayerMoveCancel = false;
 
+            resetFlag();
+        }
+
+        /// <summary>
+        /// 各ステージの初期化
+        /// </summary>
+        private void resetFlag()
+        {
+            // 落下ステージでの初期化
+            if(tmpStageState == StageConst.STATE_FALLING_STAGE)
+            {
+                InGameSceneController.FallTile.TimeCountTask = null;
+                InGameSceneController.FallTile.TaskChancelFlag = false;
+            }
         }
     }
 }

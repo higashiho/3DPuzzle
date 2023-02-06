@@ -31,8 +31,6 @@ namespace Stage
             // スイッチタイルリセット
             switchTileReset();
             // 初期化
-            tmpFallTile.TaskChancelFlag = false;
-            tmpFallTile.TimeCountTask = null;
             InGameSceneController.Stages.TileChangeFlag = true;
             InGameSceneController.Stages.ClearCount = StageConst.MAX_GOAL_NUM;
 
@@ -102,6 +100,7 @@ namespace Stage
         {
             if(InGameSceneController.Stages.StageState == StageConst.STATE_FALLING_STAGE)
             {
+                tmpFallTile.TaskChancelFlag = false; 
                 tmpFallTile.ResetFlag = true;
                 if(tmpFallTile.TimeCountTask == null && !tmpFallTile.TaskChancelFlag)
                 {
@@ -129,6 +128,16 @@ namespace Stage
         }
 
         /// <summary>
+        /// マグマリセット関数
+        /// </summary>
+        private void magmaResetMove()
+        {
+            var tmpPos = tmpFallTile.MagmaObj.transform.position;
+            tmpPos.y = -StageConst.MAGMA_MOVE_POS_Y;
+            tmpFallTile.MagmaObj.transform.position = tmpPos;
+        }
+
+        /// <summary>
         /// エリアに入った時のカウントダウン処理のタスク
         /// </summary>
         /// <returns>無し</returns>
@@ -151,7 +160,10 @@ namespace Stage
             var tmpValue = Const.FADE_END_VALUE / 4;
             var tmpTweem = tmpFallTile.WarningPanel.DOFade(tmpValue,tmpTime).
             SetEase(Ease.Linear).OnKill(() => tmpFallTile.WarningPanel.enabled = false);
+            tmpFallTile.MagmaObj.transform.DOMoveY(StageConst.MAGMA_MOVE_POS_Y, tmpTime).
+            SetEase(Ease.Linear).OnKill(magmaResetMove).OnComplete(magmaResetMove);
 
+            // 一定時間待つ
             await UniTask.Delay(tmpTime * Const.CHANGE_SECOND);
             var tmpColor = tmpFallTile.WarningPanel.color;
 
@@ -160,6 +172,7 @@ namespace Stage
             {
                 Debug.Log("Cancel");
                 tmpTweem.Kill();
+                DOTween.Kill(tmpFallTile.MagmaObj.transform);
                 // 初期化
                 tmpColor.a = 0;
                 tmpFallTile.WarningPanel.color = tmpColor;

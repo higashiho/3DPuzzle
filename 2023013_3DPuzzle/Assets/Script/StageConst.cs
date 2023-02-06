@@ -33,21 +33,26 @@ public class StageConst
     /// </summary>
     public const float CLEAR_STOP_TIME = 2.0f;
     /// <summary>
-    /// ステージの左上エリア
+    /// ステージのエリア
     /// </summary>
-    public static readonly Vector3 Area1Pos = new Vector3(54.0f, 5.0f, 77.0f);
+    public static readonly Vector3[] AreaPos = new Vector3[4]
+    {
+        new Vector3(54.0f, 5.0f, 77.0f),        // 左上
+        new Vector3(54.0f, 5.0f, 54.0f),        // 左下
+        new Vector3(77.0f, 5.0f, 77.0f),        // 右上
+        new Vector3(77.0f, 5.0f, 54.0f),        // 右下
+    };
     /// <summary>
-    /// ステージの左下エリア
+    /// 動画が流れる種類変換座標
     /// </summary>
-    public static readonly Vector3 Area2Pos = new Vector3(54.0f, 5.0f, 54.0f);
-    /// <summary>
-    /// ステージの右上エリア
-    /// </summary>
-    public static readonly Vector3 Area3Pos = new Vector3(77.0f, 5.0f, 77.0f);
-    /// <summary>
-    /// ステージの右下エリア
-    /// </summary>
-    public static readonly Vector3 Area4Pos = new Vector3(77.0f, 5.0f, 54.0f);
+    /// <value></value>
+    public static readonly Vector3[] TipMoviePos = new Vector3[4]
+    {
+        new Vector3(59.0f, 5.0f, 72.0f),        // 左上
+        new Vector3(59.0f, 5.0f, 59.0f),        // 左下
+        new Vector3(72.0f, 5.0f, 72.0f),        // 右上
+        new Vector3(72.0f, 5.0f, 59.0f),        // 右下
+    };
     /// <summary>
     /// 倒れるスピード
     /// </summary>
@@ -60,6 +65,10 @@ public class StageConst
     /// 落下ステージ制限時間
     /// </summary>
     public const int FALL_COUNTDOWN_TIME = 30;
+    /// <summary>
+    /// マグマが昇るY座標
+    /// </summary>
+    public const float MAGMA_MOVE_POS_Y = 2.3f;
     /// <summary>
     /// キータイル変換ゴール回数
     /// </summary>

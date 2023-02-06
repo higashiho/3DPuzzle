@@ -26,10 +26,15 @@ namespace Box
             // 接地しているか
             if(Chack())  
             {
-                // UIが開いているときに左クリックでUI表示
                 if(Input.GetMouseButtonDown(0) && tmpBox.OverMouse)
                 {
-                    startBoxUI();
+                    // クリアフラグがたっていないときはUI表示
+                    if(!InGameSceneController.TreasureBoxUI.ClearFlag)
+                        startBoxUI();
+                    
+                    // クリアフラグがたっていたらClear挙動
+                    else
+                        clearMove();
                 }
 
                 // 右クリックでUI削除
@@ -119,6 +124,16 @@ namespace Box
                 tmpBox.TipButton.gameObject.SetActive(true);
             }
 
+        }
+
+        /// <summary>
+        /// Clear挙動
+        /// </summary>
+        private void clearMove()
+        {
+            // エフェクトを両方再生
+            InGameSceneController.TreasureBoxUI.ClearEfect[0].Play();
+            InGameSceneController.TreasureBoxUI.ClearEfect[1].Play();
         }
     }
 }

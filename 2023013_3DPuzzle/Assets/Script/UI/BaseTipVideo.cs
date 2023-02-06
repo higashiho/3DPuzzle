@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Video;
 using System.Threading;
+using DG.Tweening;
 
 namespace Video
 {
@@ -29,45 +30,15 @@ namespace Video
         
         [SerializeField, Header("再生する動画")]
         protected VideoClip[] tipVideoClip = new VideoClip[5];
-        protected VideoClip[] TipVideoClip{get{return tipVideoClip;}}
+        public VideoClip[] TipVideoClip{get{return tipVideoClip;}}
 
-        /// <summary>
-        /// 再生するビデオ判断用
-        /// </summary>
-        protected void changeClip()
-        {
+        // フェイドイン用Tween
+        protected Tween buttonFadeinTween = null;
+        public Tween ButtonFadeinTween{get{return buttonFadeinTween;}set{buttonFadeinTween = value;}}
+        // フェイドアウト用Tween
+        protected Tween buttonFadeoutTween = null;
+        public Tween ButtonFadeoutTween{get{return buttonFadeoutTween;}set{buttonFadeoutTween = value;}}
 
-            switch(InGameSceneController.Stages.StageState)
-            {
-                case Const.STATE_START:
-                    // クリップが変更されていないとクリップ変更
-                    if(TipVideo.clip != tipVideoClip[0])
-                        TipVideo.clip = tipVideoClip[0];
-                    break;
-                case StageConst.STATE_NEEDLE_STAGE:
-                    // クリップが変更されていないとクリップ変更
-                    if(TipVideo.clip != tipVideoClip[1])
-                        TipVideo.clip = tipVideoClip[1];
-                        break;
-                case StageConst.STATE_FALLING_STAGE:
-                    // クリップが変更されていないとクリップ変更
-                    if(TipVideo.clip != tipVideoClip[2])
-                        TipVideo.clip = tipVideoClip[2];
-                    break;
-                case StageConst.STATE_MOVE_STAGE:
-                    // クリップが変更されていないとクリップ変更
-                    if(TipVideo.clip != tipVideoClip[3])
-                        TipVideo.clip = tipVideoClip[3];
-                    break;
-                case StageConst.STATE_SWITCH_STAGE:
-                    // クリップが変更されていないとクリップ変更
-                    if(TipVideo.clip != tipVideoClip[4])
-                        TipVideo.clip = tipVideoClip[4];
-                    break;
-                default:   
-                    break;
-            }
-        }
         /// <summary>
         /// ビデオ再生ボタン用関数
         /// </summary>
@@ -79,7 +50,7 @@ namespace Video
         /// <summary>
         /// ビデオ停止処理
         /// </summary>
-        /// <param name="vp">ビデオplayer</param>
+        /// <param name="vp">再生中のビデオプレイヤー</param>
         public void FinishPlayingVideo(VideoPlayer vp)
         {
             // 再生中フラグを折って停止

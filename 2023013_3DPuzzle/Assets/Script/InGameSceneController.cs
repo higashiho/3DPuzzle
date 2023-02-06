@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Stage;
 using Box;
+using UI;
 
 /// <summary>
 /// インゲームでのオブジェクト管理クラス
@@ -21,6 +22,11 @@ public class InGameSceneController : MonoBehaviour
     public static BaseEnemy Enemy{get; private set;}
 
     /// <summary>
+    /// 宝箱UI
+    /// </summary>
+    public static BaseTreasureBoxUI TreasureBoxUI{get;private set;}
+
+    /// <summary>
     /// Player
     /// </summary>
     public static BasePlayer Player{get; private set;}
@@ -34,10 +40,14 @@ public class InGameSceneController : MonoBehaviour
         SwitchTile = GameObject.FindWithTag("SwitchTiles").GetComponent<BaseSwitchTile>();
         MoveStage = GameObject.FindWithTag("MoveStage").GetComponent<BaseMoveStage>();
         TreasureBox = GameObject.FindWithTag("GoalTile").transform.GetChild(0).GetComponent<BaseBox>();
+
         Enemy = GameObject.FindWithTag("Enemy").GetComponent<BaseEnemy>();
 
+        TreasureBoxUI = GameObject.FindWithTag("UI").GetComponent<BaseTreasureBoxUI>();
+
+
         // Tweenの最大メモリ初期化
-        DG.Tweening.DOTween.SetTweensCapacity(tweenersCapacity:1000, sequencesCapacity:100);
+        DG.Tweening.DOTween.SetTweensCapacity(tweenersCapacity:1000, sequencesCapacity:250);
     }
 
 }

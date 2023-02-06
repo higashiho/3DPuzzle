@@ -18,11 +18,15 @@ namespace Stage
         [SerializeField, Header("警告パネル")]
         protected Image warningPanel;
         public Image WarningPanel{get{return warningPanel;}}
+        [SerializeField, Header("溶岩")]
+        protected GameObject magmaObj;
+        public GameObject MagmaObj{get{return magmaObj;}}
         // 初期化フラグ
         protected bool resetFlag = false;
         public bool ResetFlag{get{return resetFlag;} set{resetFlag = value;}}
         
-        // 失敗じタスクキャンセル用フラグ
+        // 失敗時タスクキャンセル用フラグ
+        [SerializeField]
         protected bool taskCancelFlag = false;
         public bool TaskChancelFlag{get{return taskCancelFlag;}set{taskCancelFlag = value;}}
     

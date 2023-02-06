@@ -38,16 +38,21 @@ namespace Tile
             // プレイヤーから遠いオブジェクトを探索
             foreach(var tmp in InGameSceneController.FallTile.FallTiles)
             {
+                // tmpがnullの場合抜ける
                 if(!tmp)
                     break;
                 
-                if(tmp.activeSelf)
+                // tmpが表示されている場合判断
+                if(tmp.transform.parent.gameObject.activeSelf)
                 {
+                    // tmpObjに何も入っていないときに初期代入
                     if(!tmpObj)
                         tmpObj = tmp;
                     else
                     {
+                        // 距離を計算
                         var tmpDis = Vector3.Distance(tmp.transform.position, InGameSceneController.Player.transform.position);
+                        // 代入していた距離が新しい距離より近かったら代入
                         if(tmpDis > nearDis)
                         {
                             nearDis = tmpDis;
@@ -68,11 +73,13 @@ namespace Tile
         /// <param name="tmpObj">変更対象オブジェクト</param>
         private void changeTile(GameObject tmpObj)
         {
+            // オブジェクトをタイルに変更
             tmpTile.gameObject.tag = "Tiles";
             var tmpMaterialRenderer = InGameSceneController.Stages.TileMaterial;
             tmpMaterialRenderer.color = Color.white;
             tmpTile.gameObject.GetComponent<Renderer>().material = tmpMaterialRenderer;
 
+            // オブジェクトをキータイルに変更
             tmpObj.tag = "KeyTile";
             tmpMaterialRenderer = InGameSceneController.Stages.KeyTileMaterial;
             tmpMaterialRenderer.color = Color.magenta;
@@ -81,6 +88,8 @@ namespace Tile
             tmpChangeTile.TmpStartColor = tmpChangeTile.StartColor;
             tmpChangeTile.StartColor = tmpMaterialRenderer.color;
             tmpObj.GetComponent<Renderer>().material = tmpMaterialRenderer;
+
+            // タイルchangeフラグ初期化
             InGameSceneController.Stages.TileChangeFlag = false;
         }
 
@@ -169,8 +178,8 @@ namespace Tile
                         break;
                     }
                 }
-
-               popupMove(tmpNum);
+                // Popup挙動開始
+                popupMove(tmpNum);
             }
             
         }
@@ -226,9 +235,16 @@ namespace Tile
             // Playerと当たった時に自分がスイッチの場合
             if(tmpObj.gameObject.tag == "KeyTile")
             {
-                Debug.Log("Stay");
-                if(!InGameSceneController.Player.OnMove && InGameSceneController.Player.PlayerClearTween == null)
-                    stageClearMove();
+                // 偶数丸めで修正
+                var tmpAngleX = Mathf.RoundToInt(col.transform.localEulerAngles.x);
+                var tmpAngleZ = Mathf.RoundToInt(col.transform.localEulerAngles.z);
+                // 向きが正しければclear関数実行
+                if(tmpAngleX == 0 && tmpAngleZ == 0)
+                {
+                    Debug.Log("Stay");
+                    if(!InGameSceneController.Player.OnMove && InGameSceneController.Player.PlayerClearTween == null)
+                        stageClearMove();
+                }
             }
         }
     }
