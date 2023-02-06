@@ -90,7 +90,7 @@ public class Const
     /// <summary>
     /// 読み込み画像の間隔
     /// </summary>
-    public const float LOADING_IMAGE_INTERVAL = 50.0f;
+    public const float LOADING_IMAGE_INTERVAL = 150.0f;
 
     public const int LOADING_ANIMATION_INFINITY = -1;
     // 以上フェード定数--------------------------

@@ -26,19 +26,19 @@ namespace LoadingImage
         /// ロード画面読み込み画像--
         /// 円形に等間隔に並べて点滅
         /// </summary>
-        public void LoadingImageAnimation(BaseLoadingImage tmpImage)
+        public void LoadingImageAnimation()
         {
             for (var i = 0; i < tmpImage.Caircles.Length; i++)
-                {
-                    // 画像を円状に並べる
-                    var angle = -2 * Mathf.PI * i / tmpImage.Caircles.Length;
-                    // 一つ一つの画像の間隔
-                    tmpImage.Caircles[i].rectTransform.anchoredPosition = 
-                    new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0) * Const.LOADING_IMAGE_INTERVAL;
-                    // 画像を遅らせながらループして点滅
-                    tmpImage.Caircles[i].DOFade(0f, Const.DURATION_SPEED).SetLoops(Const.LOADING_ANIMATION_INFINITY, LoopType.Yoyo)
-                    .SetDelay(Const.DURATION_SPEED * i / tmpImage.Caircles.Length);
-                } 
+            {
+                // 画像を円状に並べる
+                var angle = -2 * Mathf.PI * i / tmpImage.Caircles.Length;
+                // 一つ一つの画像の間隔
+                tmpImage.Caircles[i].rectTransform.anchoredPosition = 
+                new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0) * Const.LOADING_IMAGE_INTERVAL;
+                // 画像を遅らせながらループして点滅
+                tmpImage.Caircles[i].DOFade(Const.FADE_IN_ALPHA, Const.DURATION_SPEED).SetLoops(Const.LOADING_ANIMATION_INFINITY, LoopType.Yoyo)
+                .SetDelay(Const.DURATION_SPEED * i / tmpImage.Caircles.Length);
+            } 
         }
 
         /// <summary>

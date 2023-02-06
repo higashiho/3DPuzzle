@@ -17,16 +17,22 @@ namespace Scene
         public void SceneMove(BaseScene tmpScene, string tmpSceneName, BaseLoadingImage tmpImage, BaseScene.SceneState sceneState)
         {
             if(tmpScene.SceneMoveOnFlag && tmpScene.SceneTween == null)
-            {   // フェードアウトする
-                tmpScene.SceneTween = tmpScene.fadePanel.DOFade(endValue: Const.FADE_OUT_ALPHA, duration: Const.FADE_TIMER).SetEase(Ease.Linear)
+            {   
+                Debug.Log("1");
+                // フェードアウトする
+                tmpScene.SceneTween = tmpScene.fadePanel.DOFade(endValue: Const.FADE_OUT_ALPHA, duration: Const.FADE_TIMER)
+                .SetEase(Ease.Linear)
                 .OnStart(() => 
-                {   // フェードアウト開始時に暗転フラグオフ
+                {   
+                    Debug.Log("2");
+                    // フェードアウト開始時に暗転フラグオフ
                     SceneMoveFlagOff(tmpScene);
                     // タイトルボタンを非表示
                     BaseLoadingImage.tmpImage.SceneButton.OffTitleButton(tmpScene);
                 }   // フェードが終わったらシーンの状態をメインにする
                 ).OnComplete(() =>
-                {    
+                {   
+                    Debug.Log("3"); 
                     // シーン読み込み
                     SceneManager.LoadScene(tmpSceneName);
                     // ステートを変える
@@ -34,10 +40,11 @@ namespace Scene
                     // 読み込み中の画像を表示する
                     tmpImage.OnLoadingImages();
                     // ロード中の挙動
-                    tmpImage.LoadingImageAnimation(tmpImage);
+                    tmpImage.LoadingImageAnimation();
                     // 4秒待ってフェードイン
                     DOVirtual.DelayedCall(Const.WAIT_TIME, () => 
                     {
+                        Debug.Log("4");
                         // 微ずれ修正
                         var tmpColor = tmpScene.fadePanel.color;
                         tmpColor.a = Const.FADE_OUT_ALPHA;
@@ -45,7 +52,8 @@ namespace Scene
                         // シーン明け、フェードイン
                         FadeIn(tmpScene);
                         // 読み込み中画像を非表示にする
-                        tmpImage.ImageFill.OffLoadingImages(tmpImage, tmpScene);
+                        tmpImage.ImageFill.OffLoadingImages(tmpImage);
+                        tmpScene.SceneTween = null;
                     });                
                 });
             }

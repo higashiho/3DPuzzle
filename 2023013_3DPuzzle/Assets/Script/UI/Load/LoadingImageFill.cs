@@ -10,9 +10,9 @@ namespace LoadingImage
         /// <summary>
         /// 読み込み中の画像を非表示にする
         /// </summary>
-        public void OffLoadingImages(BaseLoadingImage tmpImage, BaseScene tmpScene)
+        public void OffLoadingImages(BaseLoadingImage tmpImage)
         {
-            if(!tmpScene.SceneMoveOnFlag)
+            if(!BaseScene.TmpScene.SceneMoveOnFlag)
             {
                 tmpImage.LoadingImages.enabled = false;
             }

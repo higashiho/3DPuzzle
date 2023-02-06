@@ -24,9 +24,9 @@ namespace LoadingImage
         // Start is called before the first frame update
         void Start()
         {
-            Caircles = GetComponentsInChildren<Image>();
-            BaseLoadingImage.tmpImage.ImageFill.OffLoadingImages(BaseLoadingImage.tmpImage, BaseScene.TmpScene);
-            BaseLoadingImage.tmpImage.SceneButton.OffEndButton(BaseScene.TmpScene);
+            // 不要なUIを非表示
+            ImageFill.OffLoadingImages(tmpImage);
+            SceneButton.OffEndButton(BaseScene.TmpScene);
         }
 
         // Update is called once per frame

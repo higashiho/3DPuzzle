@@ -54,7 +54,7 @@ namespace Scene
         protected bool sceneMoveOnFlag;
         public bool SceneMoveOnFlag{get{return sceneMoveOnFlag;} set{sceneMoveOnFlag = value;}}
 
-        protected Tween sceneTween;
+        protected Tween sceneTween = null;
         public Tween SceneTween{get{return sceneTween;}set{sceneTween = value;}}
 
         //インスタンス化
@@ -63,11 +63,12 @@ namespace Scene
         protected EndSceneMove endSceneMove = new EndSceneMove();
         public FadeMove MoveFade{get; private set;} = new FadeMove();
 
+        // BaseはnewできないのでSerializeField
+        [SerializeField]
         protected BaseLoadingImage loadingImage;
         
         //自分を入れる用
-        protected static BaseScene  tmpScene;
-        public static BaseScene TmpScene{get;private set;}
+        public static BaseScene TmpScene{get;protected set;}
 
         protected void OnDestroy()
         {

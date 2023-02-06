@@ -23,11 +23,7 @@ namespace UI
         /// <param name="tmpScene">BaseScene</param>
         public void OffEndButton(BaseScene tmpScene)
         {
-            tmpScene.RetryButtonImage.DOFade(endValue: Const.FADE_OUT_ALPHA, duration: Const.FADE_TIMER).SetEase(Ease.Linear)
-            .OnComplete(() =>
-            {
-                tmpScene.RetryButtonImage.enabled = false;
-            });
+            tmpScene.RetryButtonImage.enabled = false;
         }
 
         /// <summary>
@@ -46,12 +42,12 @@ namespace UI
         /// <param name="tmpScene"></param>
         public void OffTitleButton(BaseScene tmpScene)
         {
-            tmpScene.StartButton.DOFade(endValue: Const.FADE_OUT_ALPHA, duration: Const.FADE_TIMER).SetEase(Ease.Linear)
+            tmpScene.StartButton.DOFade(endValue: Const.FADE_IN_ALPHA, duration: Const.FADE_TIMER).SetEase(Ease.Linear)
             .OnComplete(() =>
             {
                 tmpScene.StartButton.enabled = false;
             });
-            tmpScene.FinishButton.DOFade(endValue: Const.FADE_OUT_ALPHA, duration: Const.FADE_TIMER).SetEase(Ease.Linear)
+            tmpScene.FinishButton.DOFade(endValue: Const.FADE_IN_ALPHA, duration: Const.FADE_TIMER).SetEase(Ease.Linear)
             .OnComplete(() =>
             {
                 tmpScene.FinishButton.enabled = false;

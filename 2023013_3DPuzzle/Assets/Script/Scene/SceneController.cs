@@ -18,7 +18,7 @@ namespace Scene
                 Destroy(this.gameObject);
                 return;
             }
-            tmpScene = this;
+            TmpScene = this;
             DontDestroyOnLoad(this);
         }
 
@@ -31,8 +31,6 @@ namespace Scene
         // Update is called once per frame
         void Update()
         {
-            if(!TmpScene.SceneMoveOnFlag)
-            {
                 //各シーンごとの処理(フェードとシーン切り替え)
                 switch(StateScene)
                 {
@@ -49,7 +47,6 @@ namespace Scene
                         if(Input.GetKeyDown("space"))//デバッグ用
                         {
                             SceneMoveFlagOn();
-                            BaseLoadingImage.tmpImage.OnLoadingImages();
                             mainSceneMove.Move(this, loadingImage);
                         }
                         break;
@@ -61,7 +58,6 @@ namespace Scene
                     default:
                         break;
                 }
-            }
         }
     }
 }
