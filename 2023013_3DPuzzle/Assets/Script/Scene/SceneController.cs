@@ -35,7 +35,7 @@ namespace Scene
                 switch(StateScene)
                 {
                     case BaseScene.SceneState.Title:
-                        if(!TmpScene.StartButton.enabled && !TmpScene.FinishButton.enabled)
+                        if(!TmpScene.StartButton.enabled && !TmpScene.FinishButton.enabled && !TmpScene.RestartButton.enabled)
                         {
                             // タイトルボタン表示
                             BaseLoadingImage.tmpImage.SceneButton.OnTitleButton(TmpScene);

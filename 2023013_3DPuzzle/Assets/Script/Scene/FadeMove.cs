@@ -18,21 +18,21 @@ namespace Scene
         {
             if(tmpScene.SceneMoveOnFlag && tmpScene.SceneTween == null)
             {   
-                Debug.Log("1");
                 // フェードアウトする
                 tmpScene.SceneTween = tmpScene.fadePanel.DOFade(endValue: Const.FADE_OUT_ALPHA, duration: Const.FADE_TIMER)
                 .SetEase(Ease.Linear)
                 .OnStart(() => 
                 {   
-                    Debug.Log("2");
                     // フェードアウト開始時に暗転フラグオフ
                     SceneMoveFlagOff(tmpScene);
                     // タイトルボタンを非表示
-                    BaseLoadingImage.tmpImage.SceneButton.OffTitleButton(tmpScene);
+                    if(tmpScene.StartButton.gameObject.activeSelf 
+                    && tmpScene.FinishButton.gameObject.activeSelf 
+                    && tmpScene.RestartButton.gameObject.activeSelf)
+                        BaseLoadingImage.tmpImage.SceneButton.OffTitleButton(tmpScene);
                 }   // フェードが終わったらシーンの状態をメインにする
                 ).OnComplete(() =>
                 {   
-                    Debug.Log("3"); 
                     // シーン読み込み
                     SceneManager.LoadScene(tmpSceneName);
                     // ステートを変える
@@ -44,7 +44,6 @@ namespace Scene
                     // 4秒待ってフェードイン
                     DOVirtual.DelayedCall(Const.WAIT_TIME, () => 
                     {
-                        Debug.Log("4");
                         // 微ずれ修正
                         var tmpColor = tmpScene.fadePanel.color;
                         tmpColor.a = Const.FADE_OUT_ALPHA;

@@ -48,6 +48,9 @@ namespace Scene
         [SerializeField,Header("ゲーム終了Image")]
         protected Image finishButton;
         public Image FinishButton{get{return finishButton;} set{finishButton = value;}}
+        [SerializeField,Header("続きからボタンのImage")]
+        protected Image restartButton;
+        public Image RestartButton{get{return restartButton;} set{restartButton = value;}}
         
         // ボタンをクリックしたかのフラグ
         [SerializeField]

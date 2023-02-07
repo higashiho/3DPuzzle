@@ -30,7 +30,7 @@ namespace Cam
             new Vector3(100, 0, 100),         //右上
             new Vector3(100, 0, 25),         //右下
             new Vector3(30, 0, 25),         //左下
-            new Vector3(60, 0, 60),         //中央
+            new Vector3(65, 0, 65),         //中央
         };
 
         /// <summary>
