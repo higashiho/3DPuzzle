@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Scene;
+using button;
 
 namespace LoadingImage
 {
@@ -19,14 +20,12 @@ namespace LoadingImage
                 return;
             }
             tmpImage = this;
-            DontDestroyOnLoad(this);
         }
         // Start is called before the first frame update
         void Start()
         {
             // 不要なUIを非表示
             ImageFill.OffLoadingImages(tmpImage);
-            SceneButton.OffEndButton(BaseScene.TmpScene);
         }
 
         // Update is called once per frame

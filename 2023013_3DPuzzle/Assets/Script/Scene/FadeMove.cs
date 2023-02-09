@@ -25,12 +25,7 @@ namespace Scene
                 {   
                     // フェードアウト開始時に暗転フラグオフ
                     SceneMoveFlagOff(tmpScene);
-                    // タイトルボタンを非表示
-                    if(tmpScene.StartButton.gameObject.activeSelf 
-                    && tmpScene.FinishButton.gameObject.activeSelf 
-                    && tmpScene.RestartButton.gameObject.activeSelf)
-                        BaseLoadingImage.tmpImage.SceneButton.OffTitleButton(tmpScene);
-                }   // フェードが終わったらシーンの状態をメインにする
+                }   // フェードが終わったら
                 ).OnComplete(() =>
                 {   
                     // シーン読み込み
@@ -64,7 +59,11 @@ namespace Scene
         /// <param name="tmpScene"></param>
         public void FadeIn(BaseScene tmpScene)
         {
-            tmpScene.fadePanel.DOFade(endValue: Const.FADE_IN_ALPHA, duration: Const.FADE_TIMER).SetEase(Ease.Linear);
+            tmpScene.fadePanel.DOFade(endValue: Const.FADE_IN_ALPHA, duration: Const.FADE_TIMER).SetEase(Ease.Linear)
+            .OnComplete(() =>
+            {
+                tmpScene.fadePanel.enabled = false;
+            });
         }
 
         /// <summary>

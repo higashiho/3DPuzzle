@@ -10,11 +10,13 @@ namespace Scene
     public class BaseScene : MonoBehaviour
     {   
         /// <summary>
-        /// フラグをオンにする
+        /// フラグをオンにする・暗転パネル出現
         /// </summary>
         public void SceneMoveFlagOn()
         {
             SceneMoveOnFlag = true;
+            // パネル出現
+            fadePanel.enabled = true;
         }
 
         //今のシーンがどこか
@@ -35,22 +37,6 @@ namespace Scene
         [Header("タイトル暗転パネル")]
         [SerializeField]
         public Image fadePanel;
-
-        [SerializeField,Header("エンドシーンのボタンのボタンインスペクター")]
-        protected Button retryButton;
-        public Button RetryButton{get{return retryButton;} set{retryButton = value;}}
-        [SerializeField, Header("エンドシーンのボタンのImage")]
-        protected Image retryButtonImage;
-        public Image RetryButtonImage{get{return retryButtonImage;} set{retryButtonImage = value;}}
-        [SerializeField,Header("スタートボタンのImage")]
-        protected Image startButton;
-        public Image StartButton{get{return startButton;} set{startButton = value;}}
-        [SerializeField,Header("ゲーム終了Image")]
-        protected Image finishButton;
-        public Image FinishButton{get{return finishButton;} set{finishButton = value;}}
-        [SerializeField,Header("続きからボタンのImage")]
-        protected Image restartButton;
-        public Image RestartButton{get{return restartButton;} set{restartButton = value;}}
         
         // ボタンをクリックしたかのフラグ
         [SerializeField]
@@ -63,7 +49,7 @@ namespace Scene
         //インスタンス化
         protected  TitleSceneMove titleSceneMove = new TitleSceneMove();
         protected  MainSceneMove mainSceneMove = new MainSceneMove();
-        protected EndSceneMove endSceneMove = new EndSceneMove();
+        public EndSceneMove EndMove{get;private set;} = new EndSceneMove();
         public FadeMove MoveFade{get; private set;} = new FadeMove();
 
         // BaseはnewできないのでSerializeField
@@ -71,8 +57,8 @@ namespace Scene
         protected BaseLoadingImage loadingImage;
         
         //自分を入れる用
-        public static BaseScene TmpScene{get;protected set;}
-
+        public static BaseScene TmpScene;
+        
         protected void OnDestroy()
         {
             DOTween.KillAll();

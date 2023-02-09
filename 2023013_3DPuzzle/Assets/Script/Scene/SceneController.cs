@@ -35,11 +35,6 @@ namespace Scene
                 switch(StateScene)
                 {
                     case BaseScene.SceneState.Title:
-                        if(!TmpScene.StartButton.enabled && !TmpScene.FinishButton.enabled && !TmpScene.RestartButton.enabled)
-                        {
-                            // タイトルボタン表示
-                            BaseLoadingImage.tmpImage.SceneButton.OnTitleButton(TmpScene);
-                        }
                         titleSceneMove.Move(this, loadingImage);
                     break;
 
@@ -52,7 +47,7 @@ namespace Scene
                         break;
 
                     case BaseScene.SceneState.End:
-                        endSceneMove.Move(this, loadingImage);
+                        EndMove.Move(this, loadingImage);
                     break;
 
                     default:
