@@ -4,7 +4,6 @@ using UnityEngine;
 using DG.Tweening;
 using Cysharp.Threading.Tasks;
 using System.Threading;
-using System;
 using Stage;
 
 
@@ -13,15 +12,21 @@ using Stage;
 /// </summary>
 public class PlayerMove 
 {
-    // 移動先のタイルの座標取得用(キャスト用)
-    private Vector3? destination = null;
-    
+    private BasePlayer player;
+
+    // コンストラクタ
+    public PlayerMove(BasePlayer tmpPlayer)
+    {
+        player = tmpPlayer;
+    }
+
+
     /// <summary>
     /// 移動先Y座標とプレイヤーY座標比較
     /// </summary>
     /// <param name="target">移動先座標</param>
     /// <param name="myPos">自身の座標</param>
-    /// <returns></returns>
+    /// <returns>移動先のタイルと自身のY座標の差がキューブ何個分か</returns>
     private int checkHeight(Vector3 target, Vector3 myPos)
     {
         if(target.y == myPos.y)
@@ -42,30 +47,30 @@ public class PlayerMove
     /// <param name="needle">針タイルの実体</param>
     /// <param name="player">プレイヤーの実体</param>
     /// <returns></returns>
-    public async void Move(CancellationTokenSource cts, BaseNeedle needle, BasePlayer player)
+    public async void Move(CancellationTokenSource cts, BaseNeedle needle)
     {
         
-        // プレイヤーが回転中, 移動中またはステージが移動中はinputを受け付けない
+        // プレイヤーが回転中, 移動中またはステージが移動中はreturn
         if(player.IsRotate || player.OnMove || InGameSceneController.Stages.Moving)
         {
-            resetMoveValue(player);
+            resetMoveValue();
             return;
         }    
 
-        // 座標調整 => 自身の座標取得(キャスト(int) & 四捨五入(整数))
-        Vector3 myPos = (Vector3)calcRoundingHalfUp(player.transform.position);
-        player.transform.position = myPos;
+        // 座標調整 => 自身の座標取得(キャスト(int) & 偶数まるめ(整数))
+        player.transform.position = Functions.CalcRoundingHalfUp(player.transform.position);
+        
 
         // 移動先座標決定
-        // 目標座標取得(キャスト(int) & 四捨五入(整数))
-        destination = calcRoundingHalfUp(input(player));
+        // 目標座標取得(キャスト(int) & 偶数まるめ(整数))
+        player.Destination = Functions.CalcRoundingHalfUp((Vector3)input());
         
         
         // input関数でnullが返ってきたらキャンセル(移動先が選択されていないため)
-        if(destination == null)
+        if(player.Destination == null)
         {
             // 移動に使った値初期化
-            resetMoveValue(player);
+            resetMoveValue();
             return;
         }
             
@@ -73,35 +78,45 @@ public class PlayerMove
         if(player.PlayerMoveCancel)
         {
             // 移動に使った値初期化
-            resetMoveValue(player);
+            resetMoveValue();
             return;
         }
-        
+
+        // プレイヤーがスタートタイルまたはムーブステージ以外のステージにいる場合
+        if(InGameSceneController.Stages.StageState != Const.STATE_START
+         && InGameSceneController.Stages.StageState != StageConst.STATE_MOVE_STAGE)
+        {
+            
+            // プレイヤーの今の座標をエネミーの追跡Queueに入れる
+            InGameSceneController.EnemyManager.PlayerTrace.Enqueue(player.transform.position);
+        }
+
         // 移動方向フラグを立てる
-        player.MoveFlag = setDirection(player.transform.position, (Vector3)destination);
+        player.MoveFlag = Functions.SetDirection(player.transform.position, (Vector3)player.Destination);
         // 移動中フラグON
-        
         
 
         // 移動先のY座標とプレイヤーのY座標を比較 => 同じ座標だった場合
-        if(checkHeight((Vector3)destination, player.transform.position) == Const.UPPER_ROTATE)
+        if(checkHeight((Vector3)player.Destination, player.transform.position) == Const.UPPER_ROTATE)
         {
             // 上移動
-            ascendingMove(player, player.MoveFlag, player.RotatePointArr, player.GoUpRotatePointArr, cts);
+            ascendingMove(player.MoveFlag, Const.RotatePointArr, Const.GoUpRotatePointArr, cts);
         }
         // 移動先のY座標とプレイヤーのY座標を比較 => 移動先の座標がキューブ１マス分低い座標だった場合
-        else if(checkHeight((Vector3)destination, player.transform.position) == Const.NORMAL_ROTATE)
+        else if(checkHeight((Vector3)player.Destination, player.transform.position) == Const.NORMAL_ROTATE)
         {
             // 平面移動
-            shiftMove(player, player.MoveFlag, player.RotatePointArr, cts);
+            shiftMove(player.MoveFlag, Const.RotatePointArr, cts);
         }
         // 移動先のY座標とプレイヤーのY座標を比較 => 移動先の座標がキューブ１マス分低い座標だった場合
-        else if(checkHeight((Vector3)destination, player.transform.position) == Const.DOWN_ROTATE)
+        else if(checkHeight((Vector3)player.Destination, player.transform.position) == Const.DOWN_ROTATE)
         {
             // 下移動
-            descendingMove(player, player.MoveFlag, player.RotatePointArr, player.GoUpRotatePointArr, cts);
+            descendingMove(player.MoveFlag, Const.RotatePointArr, Const.GoUpRotatePointArr, cts);
         }
         
+        
+
         // ニードル変換フラグオン
         needle.OnNeedleTrans = true;    
         // moveCountインクリメント
@@ -112,9 +127,9 @@ public class PlayerMove
         {
             await UniTask.WaitWhile(() => needle.OnNeedleTrans);
         }
-                
-        // 移動に使った値を初期化
-        resetMoveValue(player);
+
+         // 移動に使った値を初期化
+        resetMoveValue();
        
     }
 
@@ -123,7 +138,7 @@ public class PlayerMove
     /// </summary>
     /// <param name="player">Playerの実体</param>
     /// <returns>移動先のタイルの座標, Vector3.zero(クリックされなかったとき)</returns>
-    private Vector3? input(BasePlayer player)
+    private Vector3? input()
     {
         if(Input.GetMouseButtonDown(0))
         {
@@ -133,107 +148,17 @@ public class PlayerMove
         return null;   
     }
 
-    /// <summary>
-    /// 座標を四捨五入してintにキャストする関数
-    /// </summary>
-    /// <param name="pos">対象座標</param>
-    /// <returns>四捨五入&intにキャストされた座標</returns>
-    private Vector3? calcRoundingHalfUp(Vector3? pos)
-    {
-        if(pos == null)
-            return null;
-
-        Vector3 newPos  = (Vector3)pos;
-
-        newPos.x = Mathf.RoundToInt(newPos.x);
-        newPos.y = Mathf.RoundToInt(newPos.y);
-        newPos.z = Mathf.RoundToInt(newPos.z);
-
-        return newPos;
-    }
-
 
     /// <summary>
-    /// 移動方向フラグを立てる関数
+    /// プレイヤー回転移動処理
     /// </summary>
-    /// <param name="mySelf">自身の座標</param>
-    /// <param name="other">目的地の座標</param>
-    private int setDirection(Vector3 mySelf, Vector3 other)
-    {
-        if((mySelf.x < other.x) && (mySelf.z == other.z))
-        {   
-            return Const.RIGHT;
-        }
-        else if((mySelf.x > other.x) && (mySelf.z == other.z))
-        {
-            return Const.LEFT;
-        }
-        if((mySelf.x == other.x) && (mySelf.z < other.z))
-        {
-            return Const.FORWARD;
-        }
-        else if((mySelf.x == other.x) && (mySelf.z > other.z))
-        {
-            return Const.BACK;
-        }
-        return 0;
-    }
-
-    /// <summary>
-    /// 回転中心を設定する関数
-    /// </summary>
-    /// <param name="pos">回転させるオブジェクトの座標</param>
-    /// <param name="flag">移動方向フラグ</param>
-    /// <returns>回転中心</returns>
-    private Vector3 setRotatePoint(Vector3[] Arr, int flag)
-    {
-        if(flag == Const.RIGHT)
-            return Arr[0] * Const.CUBE_SIZE_HALF;
-        if(flag == Const.LEFT)
-            return Arr[1] * Const.CUBE_SIZE_HALF;
-        if(flag == Const.FORWARD)
-            return Arr[2] * Const.CUBE_SIZE_HALF;
-        if(flag == Const.BACK)
-            return Arr[3] * Const.CUBE_SIZE_HALF;
-        if(flag == Const.UP)
-            return Arr[4] * Const.CUBE_SIZE_HALF;
-        if(flag == Const.DOWN)
-            return Arr[5] * Const.CUBE_SIZE_HALF;
-
-        return Vector3.zero;
-    }
-    /// <summary>
-    /// 回転軸を設定する関数
-    /// </summary>
-    /// <param name="flag">移動方向フラグ</param>
-    /// <returns>回転軸</returns>
-    private Vector3 setRotateAxis(int flag, BasePlayer player)
-    {
-        if(flag == Const.RIGHT)
-            return player.RotateAxisArr[0] * Const.CUBE_SIZE_HALF;
-        if(flag == Const.LEFT)
-            return player.RotateAxisArr[1] * Const.CUBE_SIZE_HALF;
-        if(flag == Const.FORWARD)
-            return player.RotateAxisArr[2] * Const.CUBE_SIZE_HALF;
-        if(flag == Const.BACK)
-            return player.RotateAxisArr[3] * Const.CUBE_SIZE_HALF;
-        if(flag == Const.UP)
-            return player.RotateAxisArr[4] * Const.CUBE_SIZE_HALF;
-        if(flag == Const.DOWN)
-            return player.RotateAxisArr[5] * Const.CUBE_SIZE_HALF;
-
-        return Vector3.zero;
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="player"></param>
+    /// <param name="player">プレイヤーの実体</param>
     /// <returns></returns>
-    private async UniTask rotateMove(BasePlayer player)
+    public async UniTask RotateMove()
     {
         // 回転中のフラグを立てる
         player.IsRotate = true;
+
         // 回転角を設定
         if(player.CubeAngle == default)
             player.CubeAngle = InGameSceneController.Player.PlayersData.PlayerMoveTime;
@@ -241,6 +166,7 @@ public class PlayerMove
         float sumAngle = 0f;    // 回転角の合計値保存用
         while(sumAngle < 90f)
         {
+            // タスクキャンセル処理
             if(player.PlayerMoveCancel)
                 break;
             
@@ -267,11 +193,12 @@ public class PlayerMove
     /// 移動につかった値を初期化する関数(moveFlagとOnMoveをここで初期化)
     /// </summary>
     /// <param name="tmpPlayer">プレイヤーの実体</param>
-    public void resetMoveValue(BasePlayer player)
-    {
+    public void resetMoveValue()
+    {   
+        // 移動方向フラグ初期化
         player.MoveFlag = -1;
+        // プレイヤー移動中フラグOFF
         player.OnMove = false;
-        player.WaitMove = null;
     }
 
     /// <summary>
@@ -283,26 +210,32 @@ public class PlayerMove
     /// <param name="axisArr">プレイヤーの回転軸配列</param>
     /// <param name="goUpRotatePointArr">プレイヤー上昇回転時の回転中心配列</param>
     /// <returns></returns>
-    private async void ascendingMove(BasePlayer player, int flag, Vector3[] point, Vector3[] goUpRotatePointArr, CancellationTokenSource cts)
+    private async void ascendingMove(int flag, Vector3[] point, Vector3[] goUpRotatePointArr, CancellationTokenSource cts)
     {
         if(player.PlayerMoveCancel)
             return;
         // Y軸(正)に回転移動
         // 移動フラグを確認して回転軸と回転中心を設定
-        player.RotateAxis = setRotateAxis(flag, player);
-        player.RotatePoint = player.transform.position + setRotatePoint(goUpRotatePointArr, flag);
+        player.RotateAxis = Functions.SetRotateAxis(flag) * Const.CUBE_SIZE_HALF;
+        player.RotatePoint = player.transform.position + Functions.SetRotatePoint(goUpRotatePointArr, flag) * Const.CUBE_SIZE_HALF;
+        
+        // プレイヤーが回転中でなければ
         if(!player.IsRotate)
         {
-            await UniTask.WhenAny(rotateMove(player));
+            // 回転移動のタスクが終わるまで待つ
+            await UniTask.WhenAny(RotateMove());
         }
 
-        player.RotateAxis = setRotateAxis(flag, player);
-        player.RotatePoint = player.transform.position + setRotatePoint(point, flag);
+        // 平行移動(X軸またはY軸)に回転移動
+        // 移動フラグを確認して回転軸と回転中心を決定
+        player.RotateAxis = Functions.SetRotateAxis(flag) * Const.CUBE_SIZE_HALF;
+        player.RotatePoint = player.transform.position + Functions.SetRotatePoint(point, flag) * Const.CUBE_SIZE_HALF;
         
-        
+        // プレイヤーが回転中でなければ
         if(!player.IsRotate)
         {
-            await UniTask.WhenAny(rotateMove(player));
+            // 回転移動のタスクが終わるまで待つ
+            await UniTask.WhenAny(RotateMove());
         }
 
     }
@@ -315,28 +248,32 @@ public class PlayerMove
     /// <param name="axisArr">プレイヤーの回転軸配列</param>
     /// <param name="goUpRotatePointArr">プレイヤー上昇回転時の回転中心配列</param>
     /// <returns></returns>
-    private async void descendingMove(BasePlayer player, int flag, Vector3[] point, Vector3[] goUpRotatePointArr, CancellationTokenSource cts)
+    private async void descendingMove(int flag, Vector3[] point, Vector3[] goUpRotatePointArr, CancellationTokenSource cts)
     {
-        player.RotateAxis = setRotateAxis(flag, player);
-        player.RotatePoint = player.transform.position + setRotatePoint(point, flag);
-        
-        
-        if(!player.IsRotate)
-        {
-            await UniTask.WhenAny(rotateMove(player));
-        }
-
         if(player.PlayerMoveCancel)
             return;
+        // 平行移動(X軸またはY軸)に回転移動
+        // 移動フラグを確認して回転軸と回転中心を決定
+        player.RotateAxis = Functions.SetRotateAxis(flag) * Const.CUBE_SIZE_HALF;
+        player.RotatePoint = player.transform.position + Functions.SetRotatePoint(point, flag) * Const.CUBE_SIZE_HALF;
+        
+        // プレイヤーが回転中でなければ
+        if(!player.IsRotate)
+        {
+            // 回転移動のタスクが終わるまで待つ
+            await UniTask.WhenAny(RotateMove());
+        }
 
         // Y軸(負)に回転移動
         // 移動フラグを確認して回転軸と回転中心を設定
-        player.RotateAxis = setRotateAxis(flag, player);
-        player.RotatePoint = player.transform.position + (-1) * setRotatePoint(goUpRotatePointArr, flag);
+        player.RotateAxis = Functions.SetRotateAxis(flag) * Const.CUBE_SIZE_HALF;
+        player.RotatePoint = player.transform.position + (-1) * Functions.SetRotatePoint(goUpRotatePointArr, flag) * Const.CUBE_SIZE_HALF;
         
+        // プレイヤーが回転中でなければ
         if(!player.IsRotate)
         {
-            await UniTask.WhenAny(rotateMove(player));
+            // 回転移動のタスクが終わるまで待つ
+            await UniTask.WhenAny(RotateMove());
         }
 
         
@@ -348,21 +285,22 @@ public class PlayerMove
     /// <param name="flag">プレイヤーの移動フラグ</param>
     /// <param name="point">プレイヤーの回転中心配列</param>
     /// <returns></returns>
-    private async void shiftMove(BasePlayer player, int flag, Vector3[] point, CancellationTokenSource cts)
+    private async void shiftMove(int flag, Vector3[] point, CancellationTokenSource cts)
     {
         
         if(player.PlayerMoveCancel)
             return;
+
         // 移動方向フラグ向きに平行移動
-        // 回転軸と回転中心を設定
-        // // 移動フラグを確認して回転軸と回転中心を設定
-        player.RotateAxis = setRotateAxis(flag, player);
-        player.RotatePoint = player.transform.position + setRotatePoint(point, flag);
+        // 移動フラグを確認して回転軸と回転中心を設定
+        player.RotateAxis = Functions.SetRotateAxis(flag) * Const.CUBE_SIZE_HALF;
+        player.RotatePoint = player.transform.position + Functions.SetRotatePoint(point, flag) * Const.CUBE_SIZE_HALF;
         
-        
+        // プレイヤーが回転中でなければ
         if(!player.IsRotate)
         {
-            await UniTask.WhenAny(rotateMove(player));
+            // 回転移動のタスクが終わるまで待つ
+            await UniTask.WhenAny(RotateMove());
         }
     }
 

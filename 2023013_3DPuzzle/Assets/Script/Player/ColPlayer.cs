@@ -14,6 +14,8 @@ namespace Player
         private StageMove stageMove = new StageMove();
         private NeedleMove needleMove;
         
+        
+
         void OnCollisionStay(Collision col)
         {   
             // インスタンス化がnullの場合インスタンス化する
@@ -32,6 +34,7 @@ namespace Player
                     needleMove.ResetTile();
                 }
             }
+
         }
     }
 }
