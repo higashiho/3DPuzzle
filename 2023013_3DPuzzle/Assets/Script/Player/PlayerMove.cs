@@ -58,12 +58,12 @@ public class PlayerMove
         }    
 
         // 座標調整 => 自身の座標取得(キャスト(int) & 偶数まるめ(整数))
-        player.transform.position = Functions.CalcRoundingHalfUp(player.transform.position);
+        player.transform.position = (Vector3)Functions.CalcRoundingHalfUp(player.transform.position);
         
 
         // 移動先座標決定
         // 目標座標取得(キャスト(int) & 偶数まるめ(整数))
-        player.Destination = Functions.CalcRoundingHalfUp((Vector3)input());
+        player.Destination = Functions.CalcRoundingHalfUp(input());
         
         
         // input関数でnullが返ってきたらキャンセル(移動先が選択されていないため)
