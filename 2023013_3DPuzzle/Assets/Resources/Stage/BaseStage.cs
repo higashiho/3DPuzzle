@@ -46,10 +46,6 @@ namespace Stage
         [SerializeField, Header("ステージのステート")]
         protected uint stageState;
         public uint StageState{get{return stageState;}set{stageState = value;}}
-
-        [SerializeField, Header("落下ステージのコントローラークラス")]
-        protected BaseFallTile fallTiles;
-        public BaseFallTile FallTiles{get{return fallTiles;}}
         [SerializeField, Header("スイッチタイルのmaterial")]
         protected Material keyTileMaterial;
         public Material KeyTileMaterial{get{return keyTileMaterial;}}
