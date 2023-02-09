@@ -43,8 +43,8 @@ public class InGameSceneController : MonoBehaviour
         MoveStage = GameObject.FindWithTag("MoveStage").GetComponent<BaseMoveStage>();
         TreasureBox = GameObject.FindWithTag("GoalTile").transform.GetChild(0).GetComponent<BaseBox>();
 
-        //Enemy = GameObject.FindWithTag("Enemy").GetComponent<BaseEnemy>();
         EnemyManager = GameObject.FindWithTag("Enemy").GetComponent<EnemyManagerController>();
+        Enemy = EnemyManager.transform.GetChild(0).GetComponent<BaseEnemy>();
 
         TreasureBoxUI = GameObject.FindWithTag("UI").GetComponent<BaseTreasureBoxUI>();
 

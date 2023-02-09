@@ -39,11 +39,11 @@ namespace Enemy
             if(InGameSceneController.EnemyManager.PlayerTrace.Count > 0)
             {
                 // 座標調整
-                enemy.transform.position = Functions.CalcRoundingHalfUp(enemy.transform.position);
+                enemy.transform.position = (Vector3)Functions.CalcRoundingHalfUp(enemy.transform.position);
                 // 目的地を決める
                 Vector3 destination = InGameSceneController.EnemyManager.PlayerTrace.Dequeue();
                 // 目的地の座標調整
-                destination = Functions.CalcRoundingHalfUp(destination);
+                destination = (Vector3)Functions.CalcRoundingHalfUp(destination);
                 Debug.Log("ElementNum in Queue = " + InGameSceneController.EnemyManager.PlayerTrace.Count);
                 // 移動方向フラグを立てる
                 enemy.MoveFlag = Functions.SetDirection(enemy.transform.position, destination);
@@ -51,7 +51,7 @@ namespace Enemy
                 // 回転移動(平行)
                 shiftMove(enemy.MoveFlag, Const.RotatePointArr, cts);
                 // 座標調整
-                enemy.transform.position = Functions.CalcRoundingHalfUp(enemy.transform.position);
+                enemy.transform.position = (Vector3)Functions.CalcRoundingHalfUp(enemy.transform.position);
                 
 
                 // リセット

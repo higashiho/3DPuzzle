@@ -12,13 +12,16 @@ public class Functions
     /// </summary>
     /// <param name="pos">対象座標</param>
     /// <returns>偶数まるめ後の座標</returns>
-    public static Vector3 CalcRoundingHalfUp(Vector3 pos)
+    public static Vector3? CalcRoundingHalfUp(Vector3? pos)
     {
-        pos.x = (int)Mathf.RoundToInt(pos.x);
-        pos.y = (int)Mathf.RoundToInt(pos.y);
-        pos.z = (int)Mathf.RoundToInt(pos.z);
+        if(pos == null)
+            return null;
+        var tmpPos = (Vector3)pos;
+        tmpPos.x = (int)Mathf.RoundToInt(tmpPos.x);
+        tmpPos.y = (int)Mathf.RoundToInt(tmpPos.y);
+        tmpPos.z = (int)Mathf.RoundToInt(tmpPos.z);
 
-        return pos;
+        return tmpPos;
     }
 
     /// <summary>
