@@ -66,10 +66,34 @@ public class Const
     public const float FADE_MAX_ALPHA = 1.0f;   
     // 以上ビデオ用定数
 
-    // 以下タイトル定数--------------------------
-    public const float FADE_END_VALUE = 1.0f;   //透明度の最大値
-    public const float FADE_TIMER = 2.0f;       //フェードアウト終わるまでの時間
-    // 以上タイトル定数--------------------------
+    // 以下フェード定数--------------------------
+    /// <summary>
+    /// フェードアウト透明度最終値
+    /// </summary>
+    public const float FADE_OUT_ALPHA = 1.0f;
+    /// <summary>
+    /// フェードイン透明度最終値
+    /// </summary>
+    public const float FADE_IN_ALPHA = 0.0f;
+    /// <summary>
+    /// フェード終わるまでの時間
+    /// </summary>
+    public const float FADE_TIMER = 1.0f;
+    /// <summary>
+    /// Imageの塗りつぶし(Fill)速度負荷数
+    /// </summary>
+    public const float DURATION_SPEED = 1.0f;
+    /// <summary>
+    /// ロード待ち時間
+    /// </summary>
+    public const int WAIT_TIME = 4;
+    /// <summary>
+    /// 読み込み画像の間隔
+    /// </summary>
+    public const float LOADING_IMAGE_INTERVAL = 150.0f;
+
+    public const int LOADING_ANIMATION_INFINITY = -1;
+    // 以上フェード定数--------------------------
 
 
     // 以下カメラ用定数--------------------------
@@ -102,6 +126,16 @@ public class Const
     /// </summary>
     public const int UNDER_ROTATE_LIMIT = 20;
     public const int OVER_ROTATE_LIMIT = 70;
+    /// <summary>
+    /// 各ステージのカメラの座標の配列
+    /// </summary>
+    public const int LEFT_UP = 0;
+    public const int RIGHT_UP = 1;
+    public const int RIGHT_UNDER = 2;
+    public const int LEFT_UNDER = 3;
+    public const int CENTER = 4;
+    public const int TO_CENTER_UP_POS = 0;
+    public const int TO_CENTER_UNDER_POS = 1;
     // 以上カメラ用定数--------------------------
 
 
