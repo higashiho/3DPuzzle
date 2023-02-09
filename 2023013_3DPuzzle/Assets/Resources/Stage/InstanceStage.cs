@@ -84,7 +84,10 @@ namespace Stage
             var tmpNum = int.Parse(objName);
             var obj = MonoBehaviour.Instantiate(
                 tmpStage.Stages[tmpNum], 
-                new Vector3(tmpStage.Stages[tmpNum].transform.localScale.x * x, 0,  tmpStage.Stages[tmpNum].transform.localScale.z * z), 
+                new Vector3(
+                    tmpStage.Stages[tmpNum].transform.localScale.x * x,
+                    0,  
+                    tmpStage.Stages[tmpNum].transform.localScale.z * z), 
                 Quaternion.identity, tmpStage.TileParemt.transform);
         }
 
