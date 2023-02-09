@@ -4,6 +4,7 @@ using UnityEngine;
 using Stage;
 using Box;
 using UI;
+using Enemy;
 
 /// <summary>
 /// インゲームでのオブジェクト管理クラス
@@ -20,6 +21,7 @@ public class InGameSceneController : MonoBehaviour
     public static BaseMoveStage MoveStage{get; private set;}
     public static BaseBox TreasureBox{get; private set;}
     public static BaseEnemy Enemy{get; private set;}
+    public static EnemyManagerController EnemyManager{get; private set;}
 
     /// <summary>
     /// 宝箱UI
@@ -41,7 +43,8 @@ public class InGameSceneController : MonoBehaviour
         MoveStage = GameObject.FindWithTag("MoveStage").GetComponent<BaseMoveStage>();
         TreasureBox = GameObject.FindWithTag("GoalTile").transform.GetChild(0).GetComponent<BaseBox>();
 
-        Enemy = GameObject.FindWithTag("Enemy").GetComponent<BaseEnemy>();
+        //Enemy = GameObject.FindWithTag("Enemy").GetComponent<BaseEnemy>();
+        EnemyManager = GameObject.FindWithTag("Enemy").GetComponent<EnemyManagerController>();
 
         TreasureBoxUI = GameObject.FindWithTag("UI").GetComponent<BaseTreasureBoxUI>();
 

@@ -161,4 +161,44 @@ public class Const
     /// </summary>
     public const float POPUP_DELAY_TIME = 3.0f; 
     // 以上UI用定数
+
+    // 以下回転用定数**********************
+
+    /// <summary>
+    /// 回転軸の座標配列
+    /// </summary>
+    public static readonly Vector3[] RoteteAxisArr = new Vector3[7]
+    {
+        new Vector3(0f, 0f, -1f),   // X(正)
+        new Vector3(0f, 0f, 1f),    // X(負)
+        new Vector3(1f, 0f, 0f),    // Z(正)
+        new Vector3(-1f, 0f, 0f),   // Z(負)
+        new Vector3(0f, 1f, 0f),    // Y(正)
+        new Vector3(0f, -1f, 0f),   // Y(負)
+        Vector3.zero                // 初期化用
+    };
+
+    /// <summary>
+    /// 平面を転がるときの回転中心の座標配列
+    /// </summary>
+    public static readonly Vector3[] RotatePointArr = new Vector3[4]
+    {
+        new Vector3(1f, -1f, 0f),
+        new Vector3(-1f, -1f, 0f),
+        new Vector3(0f, -1f, 1f),
+        new Vector3(0f, -1f, -1f)
+    };
+
+    /// <summary>
+    /// 上段のタイルに上るときの回転中心座標の配列
+    /// </summary>
+    public static readonly Vector3[] GoUpRotatePointArr = new Vector3[4]
+    {
+        new Vector3(1f, 1f, 0f),
+        new Vector3(-1f, 1f, 0f),
+        new Vector3(0f, 1f, 1f),
+        new Vector3(0f, 1f, -1f)
+    };
+
+    // 以上回転用定数********************************
 }
