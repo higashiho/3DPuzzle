@@ -17,22 +17,15 @@ namespace button
         protected Button titleBackButton;
         public Button TitleBackButton{get{return titleBackButton;} set{titleBackButton = value;}}
 
-        public EndSceneButtonCon EndSceneButton{get; set;} = new EndSceneButtonCon();
-
-        /// <summary>
-        /// タイトルシーンに戻る関数を呼ぶ
-        /// </summary>
-        public void CallRestart()
-        {
-            EndSceneButton.Restart();
-        }
-
         /// <summary>
         /// シーン遷移の条件を満たす関数を呼び出す
         /// </summary>
         public void CallOnSceneMoveFlag()
         {
-            BaseScene.TmpScene.SceneMoveFlagOn();
+            if(BaseScene.TmpScene.SceneTween == null)
+            {
+                BaseScene.TmpScene.SceneMoveFlagOn();
+            }
         }
     }
 }

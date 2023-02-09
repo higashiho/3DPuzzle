@@ -18,32 +18,30 @@ namespace Scene
         {
             if(tmpScene.SceneMoveOnFlag && tmpScene.SceneTween == null)
             {   
-                Debug.Log("FlagOn");
                 // フェードアウトする
                 tmpScene.SceneTween = tmpScene.fadePanel.DOFade(endValue: Const.FADE_OUT_ALPHA, duration: Const.FADE_TIMER)
                 .SetEase(Ease.Linear)
                 .OnStart(() => 
-                {   Debug.Log("FlagOff");
+                {   
                     // フェードアウト開始時に暗転フラグオフ
                     SceneMoveFlagOff(tmpScene);
                 }   // フェードが終わったら
                 ).OnComplete(() =>
                 {   
-                    Debug.Log("LoadScene");
                     // シーン読み込み
                     SceneManager.LoadScene(tmpSceneName);
-                    // ステートを変える
-                    tmpScene.StateScene = sceneState;
                     // 読み込み中の画像を表示する
                     tmpImage.OnLoadingImages();
                     // ロード中の挙動
                     tmpImage.LoadingImageAnimation();
                     // 4秒待ってフェードイン
                     DOVirtual.DelayedCall(Const.WAIT_TIME, () => 
-                    {   Debug.Log("Delay");
+                    {                           
+                        // ステートを変える
+                        tmpScene.StateScene = sceneState;
 
                         sceneFadeIn(tmpScene, tmpImage);
-                    });                
+                    }, false);               
                 });
             }
         }
@@ -58,6 +56,7 @@ namespace Scene
             .OnComplete(() =>
             {
                 tmpScene.fadePanel.enabled = false;
+                tmpScene.SceneTween = null;
             });
         }
 
@@ -85,7 +84,6 @@ namespace Scene
             FadeIn(tmpScene);
             // 読み込み中画像を非表示にする
             tmpImage.ImageFill.OffLoadingImages(tmpImage);
-            tmpScene.SceneTween = null;
 
             // 透明度、ロード中Tweenの初期化
             for(int i = 0; i < tmpImage.Caircles.Length; i++)

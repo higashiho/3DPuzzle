@@ -55,13 +55,11 @@ namespace Scene
         // BaseはnewできないのでSerializeField
         [SerializeField]
         protected BaseLoadingImage loadingImage;
+        public BaseLoadingImage LoadingImage{get{return loadingImage;}}
+        
         
         //自分を入れる用
-        public static BaseScene TmpScene;
+        public static BaseScene TmpScene{get; protected set;}
         
-        protected void OnDestroy()
-        {
-            DOTween.KillAll();
-        }
     }
 }

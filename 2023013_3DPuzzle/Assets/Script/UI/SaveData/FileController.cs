@@ -77,7 +77,7 @@ public class FileController
             File.WriteAllText(filePath, json);
             return true;
         }
-        catch(Exception e)
+        catch(Exception)
         {
             Debug.LogError("書き込み失敗しました");
             return false;
@@ -90,7 +90,7 @@ public class FileController
         {
             return File.ReadAllText(filePath);
         }
-        catch(Exception e)
+        catch(Exception)
         {
             Debug.LogError("読み込み失敗");
             return "";

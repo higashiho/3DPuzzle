@@ -18,28 +18,23 @@ namespace LoadingImage
         public Image[] Caircles{get{return caircles;}set{caircles = value;}}
         //インスタンス化
         public LoadingImageFill ImageFill{get;private set;} = new LoadingImageFill();
-        public static BaseLoadingImage tmpImage{get; set;}
-        protected SceneButton sceneButton = new SceneButton();
-        public SceneButton SceneButton{get;private set;} = new SceneButton();
-
         /// <summary>
         /// ロード画面読み込み画像--
         /// 円形に等間隔に並べて点滅
         /// </summary>
         public void LoadingImageAnimation()
         {
-            Debug.Log(tmpImage.caircles.Length);
-            for (var i = 0; i < tmpImage.Caircles.Length; i++)
+            for (var i = 0; i < Caircles.Length; i++)
             {
                 // 画像を円状に並べる
-                var angle = -2 * Mathf.PI * i / tmpImage.Caircles.Length;
+                var angle = -2 * Mathf.PI * i / Caircles.Length;
                 // 一つ一つの画像の間隔
-                tmpImage.Caircles[i].rectTransform.anchoredPosition = 
+                Caircles[i].rectTransform.anchoredPosition = 
                 new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0) * Const.LOADING_IMAGE_INTERVAL;
                 // 画像を遅らせながらループして点滅
-                tmpImage.Caircles[i].DOFade(Const.FADE_IN_ALPHA, Const.DURATION_SPEED)
+                Caircles[i].DOFade(Const.FADE_IN_ALPHA, Const.DURATION_SPEED)
                 .SetLoops(Const.LOADING_ANIMATION_INFINITY, LoopType.Yoyo)
-                .SetDelay(Const.DURATION_SPEED * i / tmpImage.Caircles.Length);
+                .SetDelay(Const.DURATION_SPEED * i / Caircles.Length);
                 Debug.Log(i);
             } 
         }
@@ -50,11 +45,6 @@ namespace LoadingImage
         public void OnLoadingImages()
         {
             LoadingImages.enabled = true;
-        }
-
-        protected void OnDestroy()
-        {
-            DOTween.KillAll();
         }
     }
 }

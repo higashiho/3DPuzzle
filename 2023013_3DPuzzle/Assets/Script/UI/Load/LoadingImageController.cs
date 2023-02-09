@@ -13,19 +13,12 @@ namespace LoadingImage
         
         void Awake()
         {
-            // 複数の生成したら破棄
-            if(tmpImage != null)
-            {
-                Destroy(this);
-                return;
-            }
-            tmpImage = this;
         }
         // Start is called before the first frame update
         void Start()
         {
             // 不要なUIを非表示
-            ImageFill.OffLoadingImages(tmpImage);
+            ImageFill.OffLoadingImages(this);
         }
 
         // Update is called once per frame

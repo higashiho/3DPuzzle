@@ -35,19 +35,23 @@ namespace Scene
                 switch(StateScene)
                 {
                     case BaseScene.SceneState.Title:
-                        titleSceneMove.Move(this, loadingImage);
+                        titleSceneMove.Move(this, LoadingImage);
                     break;
 
                     case BaseScene.SceneState.Main:
+                    #if DEBUG
                         if(Input.GetKeyDown("space"))//デバッグ用
                         {
                             SceneMoveFlagOn();
-                            mainSceneMove.Move(this, loadingImage);
+                            mainSceneMove.Move(this, LoadingImage);
                         }
+                    #else
+                    
+                    #endif
                         break;
 
                     case BaseScene.SceneState.End:
-                        EndMove.Move(this, loadingImage);
+                        EndMove.Move(this, LoadingImage);
                     break;
 
                     default:

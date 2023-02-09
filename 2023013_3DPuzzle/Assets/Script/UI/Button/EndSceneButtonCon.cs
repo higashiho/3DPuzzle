@@ -13,7 +13,7 @@ namespace button
         /// </summary>
         public void Restart()
         {
-            BaseScene.TmpScene.EndMove.Move(BaseScene.TmpScene, BaseLoadingImage.tmpImage);
+            BaseScene.TmpScene.EndMove.Move(BaseScene.TmpScene, BaseScene.TmpScene.LoadingImage);
         }
     }
 }
