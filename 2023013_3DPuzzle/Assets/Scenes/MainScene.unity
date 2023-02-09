@@ -697,7 +697,7 @@ Skybox:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1653841987}
   m_Enabled: 1
-  m_CustomSkybox: {fileID: 2100000, guid: 47fbc02ae6c740c4e9641cef9f66f12e, type: 2}
+  m_CustomSkybox: {fileID: 2100000, guid: 3876d0e183013044aab5adba683217d7, type: 2}
 --- !u!114 &1653841992
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -899,6 +899,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5074239100044615774, guid: f22e3dfe2f366fd4cbdbdca6c2a61c9d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 566525474}
+    - target: {fileID: 5074239100044615774, guid: f22e3dfe2f366fd4cbdbdca6c2a61c9d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: PlayTipVideo
+      objectReference: {fileID: 0}
     - target: {fileID: 5074239101153671760, guid: f22e3dfe2f366fd4cbdbdca6c2a61c9d, type: 3}
       propertyPath: m_Pivot.x
       value: 0
