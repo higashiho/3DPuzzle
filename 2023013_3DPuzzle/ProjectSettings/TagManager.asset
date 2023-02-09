@@ -23,6 +23,7 @@ TagManager:
   - TipButton
   - TreasureBoxPanel
   - UI
+  - Enemy
   layers:
   - Default
   - TransparentFX

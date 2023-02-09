@@ -196,7 +196,8 @@ namespace Stage
             InGameSceneController.Player.MoveCount = default;
             // プレイヤーMoveタスクのキャンセルフラグON
             InGameSceneController.Player.PlayerMoveCancel = false;
-
+            // エネミーMoveタスクキャンセルフラグON
+            InGameSceneController.Enemy.EnemyMoveCancel = false;
             resetFlag();
         }
 
