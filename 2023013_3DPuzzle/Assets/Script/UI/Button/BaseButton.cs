@@ -17,8 +17,6 @@ namespace button
         protected Button titleBackButton;
         public Button TitleBackButton{get{return titleBackButton;} set{titleBackButton = value;}}
 
-        public static BaseButton tmpButton{get; set;}
-
         public EndSceneButtonCon EndSceneButton{get; set;} = new EndSceneButtonCon();
 
         /// <summary>

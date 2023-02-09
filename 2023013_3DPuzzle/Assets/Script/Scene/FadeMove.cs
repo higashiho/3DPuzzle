@@ -18,16 +18,18 @@ namespace Scene
         {
             if(tmpScene.SceneMoveOnFlag && tmpScene.SceneTween == null)
             {   
+                Debug.Log("FlagOn");
                 // フェードアウトする
                 tmpScene.SceneTween = tmpScene.fadePanel.DOFade(endValue: Const.FADE_OUT_ALPHA, duration: Const.FADE_TIMER)
                 .SetEase(Ease.Linear)
                 .OnStart(() => 
-                {   
+                {   Debug.Log("FlagOff");
                     // フェードアウト開始時に暗転フラグオフ
                     SceneMoveFlagOff(tmpScene);
                 }   // フェードが終わったら
                 ).OnComplete(() =>
                 {   
+                    Debug.Log("LoadScene");
                     // シーン読み込み
                     SceneManager.LoadScene(tmpSceneName);
                     // ステートを変える
@@ -38,16 +40,9 @@ namespace Scene
                     tmpImage.LoadingImageAnimation();
                     // 4秒待ってフェードイン
                     DOVirtual.DelayedCall(Const.WAIT_TIME, () => 
-                    {
-                        // 微ずれ修正
-                        var tmpColor = tmpScene.fadePanel.color;
-                        tmpColor.a = Const.FADE_OUT_ALPHA;
-                        tmpScene.fadePanel.color = tmpColor;
-                        // シーン明け、フェードイン
-                        FadeIn(tmpScene);
-                        // 読み込み中画像を非表示にする
-                        tmpImage.ImageFill.OffLoadingImages(tmpImage);
-                        tmpScene.SceneTween = null;
+                    {   Debug.Log("Delay");
+
+                        sceneFadeIn(tmpScene, tmpImage);
                     });                
                 });
             }
@@ -73,6 +68,33 @@ namespace Scene
         private void SceneMoveFlagOff(BaseScene tmpScene)
         {
             tmpScene.SceneMoveOnFlag = false;
+        }
+
+        /// <summary>
+        /// 暗転が終わった後の処理
+        /// </summary>
+        /// <param name="tmpScene"></param>
+        /// <param name="tmpImage"></param>
+        private void sceneFadeIn(BaseScene tmpScene, BaseLoadingImage tmpImage)
+        {
+            // 微ずれ修正
+            var tmpColor = tmpScene.fadePanel.color;
+            tmpColor.a = Const.FADE_OUT_ALPHA;
+            tmpScene.fadePanel.color = tmpColor;
+            // シーン明け、フェードイン
+            FadeIn(tmpScene);
+            // 読み込み中画像を非表示にする
+            tmpImage.ImageFill.OffLoadingImages(tmpImage);
+            tmpScene.SceneTween = null;
+
+            // 透明度、ロード中Tweenの初期化
+            for(int i = 0; i < tmpImage.Caircles.Length; i++)
+            {
+                DOTween.Kill(tmpImage.Caircles[i]);
+                tmpColor = tmpImage.Caircles[i].color;
+                tmpColor.a = Const.FADE_MAX_ALPHA;
+                tmpImage.Caircles[i].color = tmpColor;
+            }
         }
     }
 }

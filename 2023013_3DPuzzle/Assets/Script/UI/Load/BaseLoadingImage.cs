@@ -28,6 +28,7 @@ namespace LoadingImage
         /// </summary>
         public void LoadingImageAnimation()
         {
+            Debug.Log(tmpImage.caircles.Length);
             for (var i = 0; i < tmpImage.Caircles.Length; i++)
             {
                 // 画像を円状に並べる
@@ -36,8 +37,10 @@ namespace LoadingImage
                 tmpImage.Caircles[i].rectTransform.anchoredPosition = 
                 new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0) * Const.LOADING_IMAGE_INTERVAL;
                 // 画像を遅らせながらループして点滅
-                tmpImage.Caircles[i].DOFade(Const.FADE_IN_ALPHA, Const.DURATION_SPEED).SetLoops(Const.LOADING_ANIMATION_INFINITY, LoopType.Yoyo)
+                tmpImage.Caircles[i].DOFade(Const.FADE_IN_ALPHA, Const.DURATION_SPEED)
+                .SetLoops(Const.LOADING_ANIMATION_INFINITY, LoopType.Yoyo)
                 .SetDelay(Const.DURATION_SPEED * i / tmpImage.Caircles.Length);
+                Debug.Log(i);
             } 
         }
 
