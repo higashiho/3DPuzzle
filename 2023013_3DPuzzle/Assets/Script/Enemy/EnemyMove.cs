@@ -62,7 +62,11 @@ namespace Enemy
                 // エネミーがプレイヤーに追いついちゃう処理
                 Debug.Log("GameOver");
                 // ゲームオーバー
-
+                if(!InGameSceneController.Player.IsRotate)
+                {
+                    InGameSceneController.Player.PlayerMoveCancel = true;
+                    InGameSceneController.Stages.MoveStage.StageFailure();   
+                } 
             }
         }
 
