@@ -60,6 +60,13 @@ namespace Stage
                 maxX = countChar(tmpLine, ',');
             // 生成
             instance(maxX, maxZ, tmpStageDatas);
+
+            // ステージのハンドル開放
+            Addressables.Release(tmpStage.Handle);
+            for(int i = 0; i < tmpStage.StageBlockHandle.Length; i++)
+            {
+                Addressables.Release(tmpStage.StageBlockHandle[i]);
+            }
         }
 
         /// <summary>
@@ -86,7 +93,6 @@ namespace Stage
         /// <summary>
         /// オブジェクト生成関数
         /// </summary>
-        /// <param name="tmpStage">ステージの実体</param>
         /// <param name="x">生成x座標</param>
         /// <param name="y">生成y座標</param>
         /// <param name="objName">生成するオブジェクト名</param>
@@ -94,12 +100,15 @@ namespace Stage
         {
             // 読み込んだオブジェクトをゲームオブジェクト型に変更
             var tmpNum = int.Parse(objName);
-            var obj = MonoBehaviour.Instantiate(
-                tmpStage.Stages[tmpNum], 
+            // ゲームオブジェクト型にキャスト
+            var tmpObj = (GameObject)tmpStage.StageBlockHandle[tmpNum].Result;
+
+            MonoBehaviour.Instantiate<GameObject>(
+                tmpObj, 
                 new Vector3(
-                    tmpStage.Stages[tmpNum].transform.localScale.x * x,
+                    tmpObj.transform.localScale.x * x,
                     0,  
-                    tmpStage.Stages[tmpNum].transform.localScale.z * z), 
+                    tmpObj.transform.localScale.z * z), 
                 Quaternion.identity, tmpStage.TileParemt.transform);
         }
 

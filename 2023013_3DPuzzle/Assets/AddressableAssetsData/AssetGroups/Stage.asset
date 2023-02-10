@@ -22,6 +22,76 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - CSV
+  - m_GUID: 7209018dd352d1948b4b5eaf77cf6419
+    m_Address: Assets/Prefab/Stage/BlackFallTile.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Stage
+  - m_GUID: b4211e8d5ddfe864596354a201eeed29
+    m_Address: Assets/Prefab/Stage/BlackNeedleTile.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Stage
+  - m_GUID: 5f3504e8f3e2dc645a3b9bf0b827ea32
+    m_Address: Assets/Prefab/Stage/BlackTile.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Stage
+  - m_GUID: ea60f75ec5cf542449001529de2d2da9
+    m_Address: Assets/Prefab/Stage/GoalTile.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Stage
+  - m_GUID: 91fc4657af612324ba2f5db634fff32e
+    m_Address: Assets/Prefab/Stage/KeyTile.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Stage
+  - m_GUID: 51f7188a305000149b900b7130a7ea77
+    m_Address: Assets/Prefab/Stage/MoveTileSwitch.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Stage
+  - m_GUID: b0cbd0c35b395cd4faa33b07501de767
+    m_Address: Assets/Prefab/Stage/NomalTile.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Stage
+  - m_GUID: ffc9a3328fd19394ba20f9569363b8f2
+    m_Address: Assets/Prefab/Stage/StartTile.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Stage
+  - m_GUID: 056912abf230c1b45bfc0b706fbeaf9c
+    m_Address: Assets/Prefab/Stage/SwitchTile.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Stage
+  - m_GUID: 65b9349cae80f66448f84da7118fdf00
+    m_Address: Assets/Prefab/Stage/Walls.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Wall
+  - m_GUID: 4effa268f39f2c94bae8b746a894b563
+    m_Address: Assets/Prefab/Stage/WallTIle.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Stage
+  - m_GUID: 4f54f39bc515a8941a38f43b584b905f
+    m_Address: Assets/Prefab/Stage/WhiteFallTile.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Stage
+  - m_GUID: f1db3c20d847b6340ab3522f0c5a584b
+    m_Address: Assets/Prefab/Stage/WhiteNeedleTile.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Stage
+  - m_GUID: df107c08b4926b548ab0ee9cb165407b
+    m_Address: Assets/Prefab/Stage/WhiteTile.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Stage
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 0344a9d0f0d82454a89bb273d46d022b, type: 2}
   m_SchemaSet:

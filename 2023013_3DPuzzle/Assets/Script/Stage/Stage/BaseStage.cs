@@ -16,13 +16,20 @@ namespace Stage
         [SerializeField, Header("CSVファイルのアドレス")]
         protected AssetReference csvDataAssetRef; 
         public AssetReference CsvDataAssetRef{get{return csvDataAssetRef;} protected set{csvDataAssetRef = value;}}
-        // アドレスのハンドル
+
+        [SerializeField, Header("生成するステージのブロックのアドレス")]
+        protected AssetReference[] stageBlockDataAssetRef = new AssetReference[13]; 
+        public AssetReference[] StageBlockDataAssetRef{get{return stageBlockDataAssetRef;} protected set{stageBlockDataAssetRef = value;}}
+        // ステージアドレスのハンドル
         protected AsyncOperationHandle handle;
         public AsyncOperationHandle Handle{get{return handle;} protected set{handle = value;}}
+        // ステージのブロックの読み込みが終わったかフラグ
+        public bool StageBlockLoadFlag{get; protected set;} = false;
 
-        [SerializeField,Header("生成するステージ")]
-        protected GameObject[] stages = new GameObject[6];
-        public GameObject[] Stages{get{return stages;}}
+        // ステージブロックのハンドル
+        protected AsyncOperationHandle[] stageBlockHandle = new AsyncOperationHandle[13];
+        public AsyncOperationHandle[] StageBlockHandle{get{return stageBlockHandle;} protected set{stageBlockHandle = value;}}
+
         
         [SerializeField, Header("タイルの親")]
         protected GameObject tileParent;
@@ -31,7 +38,11 @@ namespace Stage
         protected GameObject[] keyTiles;
         public GameObject[] KeyTiles{get{return keyTiles;} protected set{keyTiles = value;}}
         [SerializeField, Header("パズルステージの壁")]
-        protected GameObject puzzleStageWall;
+        protected AssetReference puzzleStageWallDataAssetRef; 
+        protected AsyncOperationHandle puzzleStageWallHandle;
+        [SerializeField, Header("白色タイル")]
+        protected GameObject whiteTile;
+        public GameObject WhiteTile{get{return whiteTile;}}
         
         // スイッチステージをクリアしたか
         protected bool clearSwitchStage;
@@ -87,10 +98,6 @@ namespace Stage
         protected StageMove stageMove = new StageMove();
         public StageMove MoveStage{get{return stageMove;}}
 
-        void OnDestroy()
-        {
-            Addressables.Release(handle);
-        }
     }
 
 }

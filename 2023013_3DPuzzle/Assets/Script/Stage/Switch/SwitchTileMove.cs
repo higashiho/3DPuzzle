@@ -43,7 +43,7 @@ namespace Tile
                             {
                                 // 生成してリストに格納
                                 var tmpTileObj = MonoBehaviour.Instantiate(
-                                    InGameSceneController.Stages.Stages[0], 
+                                    InGameSceneController.Stages.WhiteTile, 
                                     StageConst.CHANGE_WALL_POS,
                                     Quaternion.identity,
                                     InGameSceneController.Stages.TileParemt.transform);

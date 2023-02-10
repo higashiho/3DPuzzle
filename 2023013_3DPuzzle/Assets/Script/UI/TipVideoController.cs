@@ -12,13 +12,11 @@ namespace Video
     public class TipVideoController : BaseTipVideo
     {
         // Start is called before the first frame update
-        async void Start()
+        void Start()
         {
+            
             tipVideoMove = new TipVideoMove(this);
             TipVideo = GetComponent<VideoPlayer>();
-
-            // ステージ生成が終わるまで処理を待機
-            await InGameSceneController.Stages.Handle.Task;
         }
 
         // Update is called once per frame

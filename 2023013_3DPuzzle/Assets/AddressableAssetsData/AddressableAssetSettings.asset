@@ -100,6 +100,8 @@ MonoBehaviour:
     m_LabelNames:
     - default
     - CSV
+    - Stage
+    - Wall
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: 7142a1d1cec5c23439939c269d46f5b5, type: 2}

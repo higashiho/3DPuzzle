@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.ResourceManagement.AsyncOperations;
+using UnityEngine.AddressableAssets;
 
 namespace Stage
 {
@@ -14,6 +14,16 @@ namespace Stage
         async void Awake()
         {
             instance = new InstanceStage(this);
+            // ステージのロード
+            for(int i = 0; i < StageBlockHandle.Length; i++)
+            {
+                StageBlockHandle[i] = StageBlockDataAssetRef[i].LoadAssetAsync<GameObject>();
+                await StageBlockHandle[i].Task;
+            }
+
+            // ブロック読み込みが終わったフラグを立てる
+            StageBlockLoadFlag = true;
+
             // アセット参照でのロード
             Handle = csvDataAssetRef.LoadAssetAsync<TextAsset>();
             
@@ -21,10 +31,17 @@ namespace Stage
             Handle.Completed += instance.StageMaking;
             // ロード終了まで待機
             await Handle.Task;
-            // 読み込み終了時のイベントハンドラーに読み込み成功後の処理を実装。
-            // ステージ生成
-            Instantiate(puzzleStageWall, parent:TileParemt.transform);
 
+            // パズルステージでの壁生成
+            // アセット参照でのロード
+            puzzleStageWallHandle = puzzleStageWallDataAssetRef.LoadAssetAsync<GameObject>();
+            await puzzleStageWallHandle.Task;
+            Instantiate<GameObject>((GameObject)puzzleStageWallHandle.Result,
+             parent:TileParemt.transform);
+
+            // ハンドル解放
+            Addressables.Release(puzzleStageWallHandle);
+            
             // オブジェクト配列取得
             KeyTiles = GameObject.FindGameObjectsWithTag("KeyTile");
             WallTiles = GameObject.FindGameObjectsWithTag("WallTile");

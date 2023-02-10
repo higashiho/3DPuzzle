@@ -5,6 +5,7 @@ using Stage;
 using Box;
 using UI;
 using Enemy;
+using Cysharp.Threading.Tasks;
 
 /// <summary>
 /// インゲームでのオブジェクト管理クラス
@@ -45,6 +46,10 @@ public class InGameSceneController : MonoBehaviour
         EnemyManager = GameObject.FindWithTag("Enemy").GetComponent<EnemyManagerController>();
         Enemy = EnemyManager.transform.GetChild(0).GetComponent<BaseEnemy>();
         TreasureBoxUI = GameObject.FindWithTag("UI").GetComponent<BaseTreasureBoxUI>();
+
+        
+        // ステージのブロックが読み込み終わるフラグが立つまで待つ
+        await UniTask.WaitWhile(() => !Stages.StageBlockLoadFlag);
 
         // ステージ生成が終わるまで待機
         await Stages.Handle.Task;
