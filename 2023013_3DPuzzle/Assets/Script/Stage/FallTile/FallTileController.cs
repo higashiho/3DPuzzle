@@ -10,8 +10,11 @@ namespace Stage
     public class FallTileController : BaseFallTile
     {
         // Start is called before the first frame update
-        void Start()
+        async void Start()
         {
+            // ステージ生成が終わるまで待つ
+            await InGameSceneController.Stages.Handle.Task;
+
             FallTiles = GameObject.FindGameObjectsWithTag("Fall");
             FallTileMoves = new FallTileMove(this);
         }
@@ -19,6 +22,11 @@ namespace Stage
         // Update is called once per frame
         void Update()
         {
+            
+            // 要素が増えていないときは処理を行わない
+            if(FallTiles.Length == 0)
+                return;
+
             FallTileMoves.TimeMoveAsync();
         }
     }

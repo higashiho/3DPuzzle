@@ -10,8 +10,11 @@ namespace Stage
     public class NeedleController : BaseNeedle
     {
         // Start is called before the first frame update
-        void Start()
+        async void Start()
         {
+
+            // ステージ生成が終わるまで待つ
+            await InGameSceneController.Stages.Handle.Task;
             // ニードル取得
             NeedleTiles = GameObject.FindGameObjectsWithTag("Needle");
 
@@ -21,6 +24,9 @@ namespace Stage
         // Update is called once per frame
         void Update()
         {
+            // 要素が増えていないときは処理を行わない
+            if(NeedleTiles.Length == 0)
+                return;
             needleMove.Move();
         }
     }

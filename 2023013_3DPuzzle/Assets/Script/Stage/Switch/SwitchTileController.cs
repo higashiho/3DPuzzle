@@ -10,8 +10,11 @@ namespace Stage
     /// </summary>
     public class SwitchTileController : BaseSwitchTile
     {
-        void Start() 
+        async void Start() 
         {
+
+            // ステージ生成が終わるまで待つ
+            await InGameSceneController.Stages.Handle.Task;
             SwutchTiles = GameObject.FindGameObjectsWithTag("SwitchTile");
 
             switchTileMove = new SwitchTileMove(this);

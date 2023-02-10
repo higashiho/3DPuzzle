@@ -10,8 +10,12 @@ namespace Stage
     public class MoveStageController : BaseMoveStage
     {
         // Start is called before the first frame update
-        void Start()
+        async void Start()
         {
+            
+            // ステージ生成が終わるまで待つ
+            await InGameSceneController.Stages.Handle.Task;
+
             moveStage = new MoveStageMove(this);
             OnMoveSwitchs = GameObject.FindGameObjectsWithTag("MoveTileSwitch");
             MoveStageTiles = GameObject.FindGameObjectsWithTag("MoveTile");
@@ -20,6 +24,10 @@ namespace Stage
         // Update is called once per frame
         void Update()
         {
+            
+            // 要素が増えていないときは処理を行わない
+            if(OnMoveSwitchs.Length == 0)
+                return;
             moveStage.Move();
 
         }
