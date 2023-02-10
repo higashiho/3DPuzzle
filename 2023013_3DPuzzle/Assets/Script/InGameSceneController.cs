@@ -34,20 +34,23 @@ public class InGameSceneController : MonoBehaviour
     public static BasePlayer Player{get; private set;}
 
     // Start is called before the first frame update
-    void Awake() 
+    async void Awake() 
     {
+        // 初期取得
         Stages = GameObject.FindWithTag("Stage").GetComponent<BaseStage>();
         Player = GameObject.FindWithTag("Player").GetComponent<BasePlayer>();
         FallTile = GameObject.FindWithTag("FallTiles").GetComponent<BaseFallTile>();
         SwitchTile = GameObject.FindWithTag("SwitchTiles").GetComponent<BaseSwitchTile>();
         MoveStage = GameObject.FindWithTag("MoveStage").GetComponent<BaseMoveStage>();
-        TreasureBox = GameObject.FindWithTag("GoalTile").transform.GetChild(0).GetComponent<BaseBox>();
-
         EnemyManager = GameObject.FindWithTag("Enemy").GetComponent<EnemyManagerController>();
         Enemy = EnemyManager.transform.GetChild(0).GetComponent<BaseEnemy>();
-
         TreasureBoxUI = GameObject.FindWithTag("UI").GetComponent<BaseTreasureBoxUI>();
 
+        // ステージ生成が終わるまで待機
+        await Stages.Handle.Task;
+        TreasureBox = GameObject.FindWithTag("GoalTile").transform.GetChild(0).GetComponent<BaseBox>();
+
+        
 
         // Tweenの最大メモリ初期化
         DG.Tweening.DOTween.SetTweensCapacity(tweenersCapacity:1000, sequencesCapacity:250);

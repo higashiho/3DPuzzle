@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace Stage
 {
@@ -10,10 +11,18 @@ namespace Stage
     public class StageController : BaseStage
     {
         // Start is called before the first frame update
-        void Awake()
+        async void Awake()
         {
+            instance = new InstanceStage(this);
+            // アセット参照でのロード
+            Handle = csvDataAssetRef.LoadAssetAsync<TextAsset>();
+            
+            // 読み込み終了時のイベントハンドラー処理代入
+            Handle.Completed += instance.StageMaking;
+            // ロード終了まで待機
+            await Handle.Task;
+            // 読み込み終了時のイベントハンドラーに読み込み成功後の処理を実装。
             // ステージ生成
-            instance.StageMaking(this, filePath);
             Instantiate(puzzleStageWall, parent:TileParemt.transform);
 
             // オブジェクト配列取得

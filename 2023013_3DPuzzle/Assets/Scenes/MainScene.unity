@@ -826,6 +826,10 @@ PrefabInstance:
       propertyPath: changeTile.Array.data[0]
       value: 
       objectReference: {fileID: 5168073205655824273, guid: df107c08b4926b548ab0ee9cb165407b, type: 3}
+    - target: {fileID: 302579731704811696, guid: 1bd7cf68ce4ebb24db45b71cc0db38e9, type: 3}
+      propertyPath: csvDataAssetRef.m_AssetGUID
+      value: ff8dc30cdbd54ce4aba958abef977a45
+      objectReference: {fileID: 0}
     - target: {fileID: 302579731704811697, guid: 1bd7cf68ce4ebb24db45b71cc0db38e9, type: 3}
       propertyPath: m_Name
       value: Stage

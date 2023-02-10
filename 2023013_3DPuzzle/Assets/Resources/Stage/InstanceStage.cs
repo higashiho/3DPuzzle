@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.ResourceManagement.AsyncOperations;
+using UnityEngine.AddressableAssets;
+
 using System.IO;
 
 namespace Stage
@@ -11,17 +14,26 @@ namespace Stage
     /// </summary>
     public class InstanceStage
     {
-        
-        
+        // インスタンス化
+        private BaseStage tmpStage;
+        public InstanceStage(BaseStage tmp)
+        {
+            tmpStage = tmp;
+        }
+
         /// <summary>
         /// 生成処理関数
         /// </summary>
-        /// <param name="tmpStage">ステージの実体</param> 
-        /// <param name="tmpDataName">生成するステージのCSVファイルのアドレス</param> 
-        public void StageMaking(BaseStage tmpStage, string tmpDataName)
+        public void StageMaking(AsyncOperationHandle obj)
         {
-            // CSVファイルデータ読み取り
-            TextAsset tmpCsvFile = Resources.Load<TextAsset>(tmpDataName);
+
+            // 読み取りが成功していらたCSVファイルデータ読み取り
+            if(obj.Status != AsyncOperationStatus.Succeeded)
+            {
+                Debug.LogError($"AssetReference {tmpStage.CsvDataAssetRef.RuntimeKey} failed to load.");
+                return;
+            }
+            TextAsset tmpCsvFile = tmpStage.CsvDataAssetRef.Asset as TextAsset;
             StringReader tmpReader = new StringReader(tmpCsvFile.text);
             List<string[]> tmpStageDatas = new List<string[]>();
             // 行列確認用変数
@@ -47,7 +59,7 @@ namespace Stage
             if(tmpLine != null)
                 maxX = countChar(tmpLine, ',');
             // 生成
-            instance(tmpStage, maxX, maxZ, tmpStageDatas);
+            instance(maxX, maxZ, tmpStageDatas);
         }
 
         /// <summary>
@@ -58,7 +70,7 @@ namespace Stage
         /// <param name="z">行最大値</param>
         /// <param name="tmpStageData">生成するステージのデータリスト</param>
         /// <param name="tmpDataName">生成するステージのCSVファイルのアドレス</param>
-        private void instance(BaseStage tmpStage, int x,int z, List<string[]> tmpStageData)
+        private void instance(int x,int z, List<string[]> tmpStageData)
         {
             for(int i = 0; i <= x; i++)
             {
@@ -66,7 +78,7 @@ namespace Stage
                 {
                     // ファイルの０の値以外は生成
                     if(tmpStageData[j][i] != "None")
-                        createStageObject(tmpStage, i, z - j, tmpStageData[j][i]);
+                        createStageObject(i, z - j, tmpStageData[j][i]);
                 }
             }
         }
@@ -78,7 +90,7 @@ namespace Stage
         /// <param name="x">生成x座標</param>
         /// <param name="y">生成y座標</param>
         /// <param name="objName">生成するオブジェクト名</param>
-        private void createStageObject(BaseStage tmpStage, int x, int z, string objName)
+        private void createStageObject(int x, int z, string objName)
         {
             // 読み込んだオブジェクトをゲームオブジェクト型に変更
             var tmpNum = int.Parse(objName);

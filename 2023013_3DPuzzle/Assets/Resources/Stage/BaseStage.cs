@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.ResourceManagement.AsyncOperations;
+using UnityEngine.AddressableAssets;
 using TMPro;
 
 namespace Stage
@@ -11,7 +13,12 @@ namespace Stage
     public class BaseStage : MonoBehaviour
     {
         //CSVファイルのパス
-        protected string filePath = "Stage/StagesData";     
+        [SerializeField, Header("CSVファイルのアドレス")]
+        protected AssetReference csvDataAssetRef; 
+        public AssetReference CsvDataAssetRef{get{return csvDataAssetRef;} protected set{csvDataAssetRef = value;}}
+        // アドレスのハンドル
+        protected AsyncOperationHandle handle;
+        public AsyncOperationHandle Handle{get{return handle;} protected set{handle = value;}}
 
         [SerializeField,Header("生成するステージ")]
         protected GameObject[] stages = new GameObject[6];
@@ -76,9 +83,14 @@ namespace Stage
         public Vector3 PopupStartPos{get; protected set;}
 
         // インスタンス化
-        protected InstanceStage instance = new InstanceStage();
+        protected InstanceStage instance;
         protected StageMove stageMove = new StageMove();
         public StageMove MoveStage{get{return stageMove;}}
+
+        void OnDestroy()
+        {
+            Addressables.Release(handle);
+        }
     }
 
 }
