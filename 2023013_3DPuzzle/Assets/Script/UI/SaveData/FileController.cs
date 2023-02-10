@@ -4,96 +4,103 @@ using UnityEngine;
 using System;
 using System.IO;
 
-/// <summary>
-/// セーブデータクラス
-/// </summary>
-[Serializable]
-public class SaveData
-{
-    // プレイヤーの獲得した数字
-    public List<uint> KeyNumber;
-    // プレイヤーがステージをクリアしたか
-    public bool[] ClearFlag;
-
-    /// <summary>
-    /// オブジェクトからJSONに変換
-    /// </summary>
-    /// <returns></returns>
-    public string ToJson()
-    {
-        return JsonUtility.ToJson(this);
-    }
-
-    /// <summary>
-    /// JSONからオブジェクトに変換
-    /// </summary>
-    /// <param name="jsonStr"></param>
-    /// <returns></returns>
-    public SaveData FromJson(string jsonStr)
-    {
-        return JsonUtility.FromJson<SaveData>(jsonStr);
-    }
-}
-
-
-public static class SaveDataManager
+namespace SystemIO
 {
     /// <summary>
-    /// セーブ処理
+    /// セーブデータクラス
     /// </summary>
-    /// <param name="saveData"></param>
-    /// <param name="filePath"></param>
-    public static void SaveJson(SaveData saveData,string filePath)
+    [Serializable]
+    public class SaveData
     {
-        if(FileController.WriteFile(filePath, saveData.ToJson()))
+        // プレイヤーの獲得した数字
+        protected List<uint> keyNumber;
+        public List<uint> KeyNumber{get{return keyNumber;} set{keyNumber = value;}}
+        // プレイヤーがステージをクリアしたか
+        protected bool[] clearFlag;
+        public bool[] ClearFlag{get{return clearFlag;} set{clearFlag = value;}}
+
+        public static SaveData DataSave{get; protected set;}
+
+        /// <summary>
+        /// オブジェクトからJSONに変換
+        /// </summary>
+        /// <returns></returns>
+        public string ToJson()
         {
-            Debug.Log("セーブ完了");
+            return JsonUtility.ToJson(this);
+        }
+
+        /// <summary>
+        /// JSONからオブジェクトに変換
+        /// </summary>
+        /// <param name="jsonStr"></param>
+        /// <returns></returns>
+        public SaveData FromJson(string jsonStr)
+        {
+            return JsonUtility.FromJson<SaveData>(jsonStr);
         }
     }
 
-    /// <summary>
-    /// ロード処理
-    /// </summary>
-    /// <param name="filePath"></param>
-    /// <returns></returns>
-    public static SaveData LoadJson(string filePath)
-    {
-        string json = FileController.ReadFile(filePath);
-        if(!"".Equals(json))
-        {
-            SaveData saveData = new SaveData();
-            return saveData.FromJson(json);
-        }
-        return null;
-    }
-}
 
-public class FileController
-{
-    public static bool WriteFile(string filePath, string json)
+    public static class SaveDataManager
     {
-        try
+        /// <summary>
+        /// セーブ処理
+        /// </summary>
+        /// <param name="saveData"></param>
+        /// <param name="filePath"></param>
+        public static void SaveJson(SaveData saveData,string filePath)
         {
-            File.WriteAllText(filePath, json);
-            return true;
+            if(FileController.WriteFile(filePath, saveData.ToJson()))
+            {
+                Debug.Log("セーブ完了");
+            }
         }
-        catch(Exception)
+
+        /// <summary>
+        /// ロード処理
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <returns></returns>
+        public static SaveData LoadJson(string filePath)
         {
-            Debug.LogError("書き込み失敗しました");
-            return false;
+            string json = FileController.ReadFile(filePath);
+            if(!"".Equals(json))
+            {
+                SaveData saveData = new SaveData();
+                return saveData.FromJson(json);
+            }
+            return null;
         }
     }
 
-    public static string ReadFile(string filePath)
+    public class FileController
     {
-        try
+        public static bool WriteFile(string filePath, string json)
         {
-            return File.ReadAllText(filePath);
+            try
+            {
+                File.WriteAllText(filePath, json);
+                return true;
+            }
+            catch(Exception)
+            {
+                Debug.LogError("書き込み失敗しました");
+                return false;
+            }
         }
-        catch(Exception)
+
+        public static string ReadFile(string filePath)
         {
-            Debug.LogError("読み込み失敗");
-            return "";
+            try
+            {
+                return File.ReadAllText(filePath);
+            }
+            catch(Exception)
+            {
+                Debug.LogError("読み込み失敗");
+                return "";
+            }
         }
     }
 }

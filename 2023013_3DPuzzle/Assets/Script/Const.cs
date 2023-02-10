@@ -95,6 +95,12 @@ public class Const
     public const int LOADING_ANIMATION_INFINITY = -1;
     // 以上フェード定数--------------------------
 
+    // 以下UI定数--------------------------------
+    // セーブボタン移動時間
+    public const float SAVEBUTTON_MOVE_TIME = 0.5f;
+    // 移動先
+    public const float SAVEBUTTON_MOVE_POS = -345.0f;
+
 
     // 以下カメラ用定数--------------------------
     /// <summary>

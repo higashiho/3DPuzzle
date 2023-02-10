@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using DG.Tweening;
 
 namespace Stage
 {
@@ -79,6 +80,9 @@ namespace Stage
         protected InstanceStage instance = new InstanceStage();
         protected StageMove stageMove = new StageMove();
         public StageMove MoveStage{get{return stageMove;}}
+
+        
+
     }
 
 }
