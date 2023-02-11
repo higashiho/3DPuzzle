@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Video;
+using Cysharp.Threading.Tasks;
 
 namespace Video
 {
@@ -13,6 +14,7 @@ namespace Video
         // Start is called before the first frame update
         void Start()
         {
+            
             tipVideoMove = new TipVideoMove(this);
             TipVideo = GetComponent<VideoPlayer>();
         }

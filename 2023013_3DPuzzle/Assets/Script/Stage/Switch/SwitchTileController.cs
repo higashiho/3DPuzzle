@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Tile;
+using Cysharp.Threading.Tasks;
 
 namespace Stage
 {
@@ -10,8 +11,14 @@ namespace Stage
     /// </summary>
     public class SwitchTileController : BaseSwitchTile
     {
-        void Start() 
+        async void Start() 
         {
+            
+            // ステージのブロックが読み込み終わるフラグが立つまで待つ
+            await UniTask.WaitWhile(() => !InGameSceneController.Stages.StageBlockLoadFlag);
+
+            // ステージ生成が終わるまで待つ
+            await InGameSceneController.Stages.Handle.Task;
             SwutchTiles = GameObject.FindGameObjectsWithTag("SwitchTile");
 
             switchTileMove = new SwitchTileMove(this);

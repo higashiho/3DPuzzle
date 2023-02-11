@@ -23,7 +23,7 @@ namespace Box
         /// </summary>
         public void Move()
         {
-            // 接地しているか
+            // 隣接しているか
             if(Chack())  
             {
                 if(Input.GetMouseButtonDown(0) && tmpBox.OverMouse)
@@ -47,9 +47,9 @@ namespace Box
         }
 
         /// <summary>
-        /// プレイヤーとの接地判定関数
+        /// プレイヤーとの隣接判定関数
         /// </summary>
-        /// <returns>接地しているかどうか</returns> 
+        /// <returns>隣接しているかどうか</returns> 
         public bool Chack()
         {
             // 宝箱付きタイルとプレイヤーの座標を比較
@@ -59,7 +59,8 @@ namespace Box
             tmpPos.x = Mathf.RoundToInt(tmpPos.x);
             tmpPos.z = Mathf.RoundToInt(tmpPos.z);
             // プレイヤーの周りにいる確認
-            if(tmpPos.x == Const.CHECK_POS_X || tmpPos.x == -Const.CHECK_POS_X || tmpPos.z == Const.CHECK_POS_Z || tmpPos.z == -Const.CHECK_POS_Z)
+            if(tmpPos.x == Const.CHECK_POS_X || tmpPos.x == -Const.CHECK_POS_X ||
+             tmpPos.z == Const.CHECK_POS_Z || tmpPos.z == -Const.CHECK_POS_Z)
             {
 
                 // プレイヤーの隣にいるか確認
@@ -82,8 +83,8 @@ namespace Box
                 tmpBox.TipButton.gameObject.SetActive(false);
 
                 // 持っている数字をランダムに表示
-                bool[] tmpHaveNums = new bool[4];
                 var tmpTreasureBox = tmpBox.OpenBoxUI.transform.parent.GetComponent<BaseTreasureBoxUI>();
+                bool[] tmpHaveNums = new bool[tmpTreasureBox.PlayerHaveNumText.Length];
                 int tmpCount = 0;
                 while(tmpCount < tmpTreasureBox.PlayerHaveNumText.Length)
                 {
