@@ -54,9 +54,6 @@ namespace Enemy
         public int MoveFlag{get{return moveFlag;}set{moveFlag = value;}}
 
 
-
-
-        
         // タスクキャンセル用変数***********
         
         protected CancellationTokenSource cts = new CancellationTokenSource();

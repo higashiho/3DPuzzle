@@ -44,7 +44,7 @@ namespace Enemy
                 Vector3 destination = InGameSceneController.EnemyManager.PlayerTrace.Dequeue();
                 // 目的地の座標調整
                 destination = (Vector3)Functions.CalcRoundingHalfUp(destination);
-                Debug.Log("ElementNum in Queue = " + InGameSceneController.EnemyManager.PlayerTrace.Count);
+                Debug.Log("destination = " + destination);
                 // 移動方向フラグを立てる
                 enemy.MoveFlag = Functions.SetDirection(enemy.transform.position, destination);
 
@@ -60,11 +60,13 @@ namespace Enemy
             else
             {
                 // エネミーがプレイヤーに追いついちゃう処理
-                Debug.Log("GameOver");
-                // ゲームオーバー
+                
                 if(!InGameSceneController.Player.IsRotate)
                 {
+                    // ゲームオーバー
+                    Debug.Log("GameOver");
                     InGameSceneController.Player.PlayerMoveCancel = true;
+                    enemy.EnemyMoveCancel = true;
                     InGameSceneController.Stages.MoveStage.StageFailure();   
                 } 
             }

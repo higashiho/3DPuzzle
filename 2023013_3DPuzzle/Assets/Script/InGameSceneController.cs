@@ -50,7 +50,7 @@ public class InGameSceneController : MonoBehaviour
 
 
         // Tweenの最大メモリ初期化
-        DG.Tweening.DOTween.SetTweensCapacity(tweenersCapacity:1000, sequencesCapacity:250);
+        DG.Tweening.DOTween.SetTweensCapacity(tweenersCapacity:1250, sequencesCapacity:300);
     }
 
 }
