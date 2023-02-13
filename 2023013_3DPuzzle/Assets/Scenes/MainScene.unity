@@ -697,7 +697,7 @@ Skybox:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1653841987}
   m_Enabled: 1
-  m_CustomSkybox: {fileID: 2100000, guid: 47fbc02ae6c740c4e9641cef9f66f12e, type: 2}
+  m_CustomSkybox: {fileID: 2100000, guid: 3876d0e183013044aab5adba683217d7, type: 2}
 --- !u!114 &1653841992
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -815,17 +815,81 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 302579731704811696, guid: 1bd7cf68ce4ebb24db45b71cc0db38e9, type: 3}
+      propertyPath: whiteTile
+      value: 
+      objectReference: {fileID: 5168073205655824273, guid: df107c08b4926b548ab0ee9cb165407b, type: 3}
+    - target: {fileID: 302579731704811696, guid: 1bd7cf68ce4ebb24db45b71cc0db38e9, type: 3}
       propertyPath: getNumPopupText
       value: 
       objectReference: {fileID: 1785420160}
     - target: {fileID: 302579731704811696, guid: 1bd7cf68ce4ebb24db45b71cc0db38e9, type: 3}
       propertyPath: changeTile.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 302579731704811696, guid: 1bd7cf68ce4ebb24db45b71cc0db38e9, type: 3}
       propertyPath: changeTile.Array.data[0]
       value: 
       objectReference: {fileID: 5168073205655824273, guid: df107c08b4926b548ab0ee9cb165407b, type: 3}
+    - target: {fileID: 302579731704811696, guid: 1bd7cf68ce4ebb24db45b71cc0db38e9, type: 3}
+      propertyPath: csvDataAssetRef.m_AssetGUID
+      value: ff8dc30cdbd54ce4aba958abef977a45
+      objectReference: {fileID: 0}
+    - target: {fileID: 302579731704811696, guid: 1bd7cf68ce4ebb24db45b71cc0db38e9, type: 3}
+      propertyPath: puzzleStageWallDataAssetRef.m_AssetGUID
+      value: 65b9349cae80f66448f84da7118fdf00
+      objectReference: {fileID: 0}
+    - target: {fileID: 302579731704811696, guid: 1bd7cf68ce4ebb24db45b71cc0db38e9, type: 3}
+      propertyPath: stageBlockDataAssetRef.Array.data[0].m_AssetGUID
+      value: df107c08b4926b548ab0ee9cb165407b
+      objectReference: {fileID: 0}
+    - target: {fileID: 302579731704811696, guid: 1bd7cf68ce4ebb24db45b71cc0db38e9, type: 3}
+      propertyPath: stageBlockDataAssetRef.Array.data[1].m_AssetGUID
+      value: 5f3504e8f3e2dc645a3b9bf0b827ea32
+      objectReference: {fileID: 0}
+    - target: {fileID: 302579731704811696, guid: 1bd7cf68ce4ebb24db45b71cc0db38e9, type: 3}
+      propertyPath: stageBlockDataAssetRef.Array.data[2].m_AssetGUID
+      value: ffc9a3328fd19394ba20f9569363b8f2
+      objectReference: {fileID: 0}
+    - target: {fileID: 302579731704811696, guid: 1bd7cf68ce4ebb24db45b71cc0db38e9, type: 3}
+      propertyPath: stageBlockDataAssetRef.Array.data[3].m_AssetGUID
+      value: 91fc4657af612324ba2f5db634fff32e
+      objectReference: {fileID: 0}
+    - target: {fileID: 302579731704811696, guid: 1bd7cf68ce4ebb24db45b71cc0db38e9, type: 3}
+      propertyPath: stageBlockDataAssetRef.Array.data[4].m_AssetGUID
+      value: f1db3c20d847b6340ab3522f0c5a584b
+      objectReference: {fileID: 0}
+    - target: {fileID: 302579731704811696, guid: 1bd7cf68ce4ebb24db45b71cc0db38e9, type: 3}
+      propertyPath: stageBlockDataAssetRef.Array.data[5].m_AssetGUID
+      value: b4211e8d5ddfe864596354a201eeed29
+      objectReference: {fileID: 0}
+    - target: {fileID: 302579731704811696, guid: 1bd7cf68ce4ebb24db45b71cc0db38e9, type: 3}
+      propertyPath: stageBlockDataAssetRef.Array.data[6].m_AssetGUID
+      value: 4f54f39bc515a8941a38f43b584b905f
+      objectReference: {fileID: 0}
+    - target: {fileID: 302579731704811696, guid: 1bd7cf68ce4ebb24db45b71cc0db38e9, type: 3}
+      propertyPath: stageBlockDataAssetRef.Array.data[7].m_AssetGUID
+      value: 7209018dd352d1948b4b5eaf77cf6419
+      objectReference: {fileID: 0}
+    - target: {fileID: 302579731704811696, guid: 1bd7cf68ce4ebb24db45b71cc0db38e9, type: 3}
+      propertyPath: stageBlockDataAssetRef.Array.data[8].m_AssetGUID
+      value: 056912abf230c1b45bfc0b706fbeaf9c
+      objectReference: {fileID: 0}
+    - target: {fileID: 302579731704811696, guid: 1bd7cf68ce4ebb24db45b71cc0db38e9, type: 3}
+      propertyPath: stageBlockDataAssetRef.Array.data[9].m_AssetGUID
+      value: 51f7188a305000149b900b7130a7ea77
+      objectReference: {fileID: 0}
+    - target: {fileID: 302579731704811696, guid: 1bd7cf68ce4ebb24db45b71cc0db38e9, type: 3}
+      propertyPath: stageBlockDataAssetRef.Array.data[10].m_AssetGUID
+      value: ea60f75ec5cf542449001529de2d2da9
+      objectReference: {fileID: 0}
+    - target: {fileID: 302579731704811696, guid: 1bd7cf68ce4ebb24db45b71cc0db38e9, type: 3}
+      propertyPath: stageBlockDataAssetRef.Array.data[11].m_AssetGUID
+      value: b0cbd0c35b395cd4faa33b07501de767
+      objectReference: {fileID: 0}
+    - target: {fileID: 302579731704811696, guid: 1bd7cf68ce4ebb24db45b71cc0db38e9, type: 3}
+      propertyPath: stageBlockDataAssetRef.Array.data[12].m_AssetGUID
+      value: 4effa268f39f2c94bae8b746a894b563
+      objectReference: {fileID: 0}
     - target: {fileID: 302579731704811697, guid: 1bd7cf68ce4ebb24db45b71cc0db38e9, type: 3}
       propertyPath: m_Name
       value: Stage
@@ -899,6 +963,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5074239100044615774, guid: f22e3dfe2f366fd4cbdbdca6c2a61c9d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 566525474}
+    - target: {fileID: 5074239100044615774, guid: f22e3dfe2f366fd4cbdbdca6c2a61c9d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: PlayTipVideo
+      objectReference: {fileID: 0}
     - target: {fileID: 5074239101153671760, guid: f22e3dfe2f366fd4cbdbdca6c2a61c9d, type: 3}
       propertyPath: m_Pivot.x
       value: 0

@@ -1,42 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using LoadingImage;
 
 namespace Scene
 {
     public class TitleSceneMove
     {
-        // シーン遷移
-        public void Move(BaseScene tmpScene)
+        /// <summary>
+        /// TitleからMainへ
+        /// </summary>
+        /// <param name="tmpScene">BaseScene</param>
+        /// <param name="tmpimage">BaseLoadingImage</param>
+        public void Move(BaseScene tmpScene, BaseLoadingImage tmpimage)
         {
             //タイトルシーンからメインシーンへ
-            tmpScene.MoveFade.FadeIn(tmpScene, "MainScene");
-            //tmpScene.StateScene = BaseScene.SceneState.Main;
-        }
-
-        /// <summary>
-        /// マウスがボタンの上に乗ったら
-        /// 押せるようにする
-        /// </summary>
-        /// <param name="tmpTitle">BaseTitle</param>
-        public void OnMouseOver(BaseScene tmpTitle)
-        {
-            if(!tmpTitle.OnToButtonFlag)
-            {
-                tmpTitle.OnToButtonFlag = true;
-            }
-        }
-        /// <summary>
-        /// マウスがボタンの上から離れたら
-        /// 押せなくする
-        /// </summary>
-        /// <param name="tmpTitle">BaseTitle</param>
-        public void OnMouseExit(BaseScene tmpTitle)
-        {
-            if(tmpTitle.OnToButtonFlag)
-            {
-                tmpTitle.OnToButtonFlag = false;
-            }
+            tmpScene.MoveFade.SceneMove(tmpScene, "MainScene", tmpimage, BaseScene.SceneState.Main);
         }
     }
+
 }

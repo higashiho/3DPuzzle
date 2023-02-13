@@ -12,10 +12,16 @@ namespace Cam
         /// </summary>
         /// <param name="tmpCamera">BaseCamera</param> 
         public void Move(BaseCamera tmpCamera)
-        {       
-            SetCamera(tmpCamera);
+        {  
+             if(InGameSceneController.Player.PlayerFailureTween == null && InGameSceneController.Player.PlayerClearTween == null)
+            {     
+                
+                setCamera(tmpCamera);
 
-            ZomeIO(tmpCamera);
+                ZomeIO(tmpCamera);
+            }
+            else
+                followToPlayer(tmpCamera);
         }
 
         /// <summary>
@@ -68,7 +74,7 @@ namespace Cam
             // 初期回転位置を設定
             tmpCamera.DefoultRotation = tmpCamera.camera.transform.rotation;
             // カメラ初期座標
-            tmpCamera.camera.transform.position = tmpCamera.StandCameraPos[4];
+            tmpCamera.camera.transform.position = tmpCamera.StandCameraPos[Const.CENTER];
         }
 
         /// <summary>
@@ -132,9 +138,9 @@ namespace Cam
         /// <param name="point">各ステージの中央を指定する数字</param>
         private void MoveCamera(BaseCamera tmpCamera, int num, int point)
         {
+            // まだ移動していないなら
             if(tmpCamera.CameraTween[num] == null)
             {
-                Debug.Log(tmpCamera.StandCameraPos[point]);
                 var tmpTween = tmpCamera.camera.transform.DOMove(tmpCamera.StandCameraPos[point], Const.CAMERA_MOVE_SPEED)
                 .SetEase(Ease.OutSine).OnStart(() => readyMoveCamera(tmpCamera)).OnComplete(() =>
                 {
@@ -145,10 +151,22 @@ namespace Cam
         }
 
         /// <summary>
+        /// プレイヤーが中央に帰ってきたら中央に戻る
+        /// </summary>
+        public void followToPlayer(BaseCamera tmpCamera)
+        {
+            DOVirtual.DelayedCall(Const.START_BACK_TIME, () =>
+            {
+                tmpCamera.camera.transform.DOMove(tmpCamera.StandCameraPos[Const.CENTER], Const.CAMERA_MOVE_SPEED)
+                .SetEase(Ease.OutSine);
+            });
+        }
+
+        /// <summary>
         /// カメラ移動
         /// </summary>
         /// <param name="tmpCamera">BaseCamera</param>
-        private void SetCamera(BaseCamera tmpCamera)
+        private void setCamera(BaseCamera tmpCamera)
         {   
             // プレイヤーの位置を偶数丸めで正確にする
             var tmpPlayerPos = InGameSceneController.Player.transform.position;
@@ -163,79 +181,81 @@ namespace Cam
             tmpPos.y = Mathf.RoundToInt(tmpPos.y);
             tmpPos.z = Mathf.RoundToInt(tmpPos.z);
 
+
+
             // プレイヤーが左上の無敵エリアに着いたら、カメラが左上のステージの中心に動く-------------------------
-             if(tmpPlayerPos == tmpCamera.CameraMovePos[0,0]
-             || tmpPlayerPos == tmpCamera.CameraMovePos[0,1])
+             if(tmpPlayerPos == tmpCamera.CameraMovePos[Const.LEFT_UP, Const.TO_CENTER_UP_POS]
+             || tmpPlayerPos == tmpCamera.CameraMovePos[Const.LEFT_UP, Const.TO_CENTER_UNDER_POS])
             {
-                MoveCamera(tmpCamera, 0, 0);
+                MoveCamera(tmpCamera, Const.LEFT_UP, Const.LEFT_UP);
             }
 
-            if(tmpPlayerPos.x <= tmpCamera.CameraRotateBorderLine[0].x
-            && tmpPlayerPos.z >= tmpCamera.CameraRotateBorderLine[0].z)
+            if(tmpPlayerPos.x <= tmpCamera.CameraRotateBorderLine[Const.LEFT_UP].x
+            && tmpPlayerPos.z >= tmpCamera.CameraRotateBorderLine[Const.LEFT_UP].z)
             {
-                RotateCamera(tmpCamera, 0);
-                CameraReset(tmpCamera, 0);
+                RotateCamera(tmpCamera, Const.LEFT_UP);
+                CameraReset(tmpCamera, Const.LEFT_UP);
             }
                 
             // プレイヤーが右上の無敵エリアに着いたら、カメラが右上のステージの中心に動く-------------------------
-             if(tmpPlayerPos == tmpCamera.CameraMovePos[1,0]
-             || tmpPlayerPos == tmpCamera.CameraMovePos[1,1])
+             if(tmpPlayerPos == tmpCamera.CameraMovePos[Const.RIGHT_UP, Const.TO_CENTER_UP_POS]
+             || tmpPlayerPos == tmpCamera.CameraMovePos[Const.RIGHT_UP, Const.TO_CENTER_UNDER_POS])
             {
-                MoveCamera(tmpCamera, 1, 1);
+                MoveCamera(tmpCamera, Const.RIGHT_UP, Const.RIGHT_UP);
             }
 
-            if(tmpPlayerPos.x >= tmpCamera.CameraRotateBorderLine[1].x
-            && tmpPlayerPos.z >= tmpCamera.CameraRotateBorderLine[1].z)
+            if(tmpPlayerPos.x >= tmpCamera.CameraRotateBorderLine[Const.RIGHT_UP].x
+            && tmpPlayerPos.z >= tmpCamera.CameraRotateBorderLine[Const.RIGHT_UP].z)
             {
-                RotateCamera(tmpCamera, 1);
-                CameraReset(tmpCamera, 1);
+                RotateCamera(tmpCamera, Const.RIGHT_UP);
+                CameraReset(tmpCamera, Const.RIGHT_UP);
             }
 
             // プレイヤーが右下の無敵エリアに着いたら、カメラが右下のステージの中心に動く----------------------
-             if(tmpPlayerPos == tmpCamera.CameraMovePos[2,0]
-             || tmpPlayerPos == tmpCamera.CameraMovePos[2,1])
+             if(tmpPlayerPos == tmpCamera.CameraMovePos[Const.RIGHT_UNDER, Const.TO_CENTER_UP_POS]
+             || tmpPlayerPos == tmpCamera.CameraMovePos[Const.RIGHT_UNDER, Const.TO_CENTER_UNDER_POS])
             {
-                MoveCamera(tmpCamera, 2, 2);
+                MoveCamera(tmpCamera, Const.RIGHT_UNDER, Const.RIGHT_UNDER);
 
             }
 
-            if(tmpPlayerPos.x >= tmpCamera.CameraRotateBorderLine[2].x
-            && tmpPlayerPos.z <= tmpCamera.CameraRotateBorderLine[2].z)
+            if(tmpPlayerPos.x >= tmpCamera.CameraRotateBorderLine[Const.RIGHT_UNDER].x
+            && tmpPlayerPos.z <= tmpCamera.CameraRotateBorderLine[Const.RIGHT_UNDER].z)
             {
-                RotateCamera(tmpCamera, 2);
-                CameraReset(tmpCamera, 2);
+                RotateCamera(tmpCamera, Const.RIGHT_UNDER);
+                CameraReset(tmpCamera, Const.RIGHT_UNDER);
             }
 
             // プレイヤーが左下の無敵エリアに着いたら、カメラが左下のステージの中心に動く-------------------
-             if(tmpPlayerPos == tmpCamera.CameraMovePos[3,0]
-             || tmpPlayerPos == tmpCamera.CameraMovePos[3,1])
+             if(tmpPlayerPos == tmpCamera.CameraMovePos[Const.LEFT_UNDER, Const.TO_CENTER_UP_POS]
+             || tmpPlayerPos == tmpCamera.CameraMovePos[Const.LEFT_UNDER, Const.TO_CENTER_UNDER_POS])
             {
-                MoveCamera(tmpCamera, 3, 3);
+                MoveCamera(tmpCamera, Const.LEFT_UNDER, Const.LEFT_UNDER);
             }
 
-            if(tmpPlayerPos.x <= tmpCamera.CameraRotateBorderLine[3].x
-            && tmpPlayerPos.z <= tmpCamera.CameraRotateBorderLine[3].z)
+            if(tmpPlayerPos.x <= tmpCamera.CameraRotateBorderLine[Const.LEFT_UNDER].x
+            && tmpPlayerPos.z <= tmpCamera.CameraRotateBorderLine[Const.LEFT_UNDER].z)
             {
-                RotateCamera(tmpCamera, 3);
-                CameraReset(tmpCamera, 3);
+                RotateCamera(tmpCamera, Const.LEFT_UNDER);
+                CameraReset(tmpCamera, Const.LEFT_UNDER);
             }
 
             // プレイヤーが中央の四つ角のどこかに着いたら、カメラが中央のステージの中心に動く-------------------------
-            if(tmpPlayerPos == tmpCamera.CameraCenterMovePos[0]
-            || tmpPlayerPos == tmpCamera.CameraCenterMovePos[1]
-            || tmpPlayerPos == tmpCamera.CameraCenterMovePos[2]
-            || tmpPlayerPos == tmpCamera.CameraCenterMovePos[3])
+            if(tmpPlayerPos == tmpCamera.CameraCenterMovePos[Const.LEFT_UP]
+            || tmpPlayerPos == tmpCamera.CameraCenterMovePos[Const.RIGHT_UP]
+            || tmpPlayerPos == tmpCamera.CameraCenterMovePos[Const.RIGHT_UNDER]
+            || tmpPlayerPos == tmpCamera.CameraCenterMovePos[Const.LEFT_UNDER])
             {
-                MoveCamera(tmpCamera, 4, 4);
+                MoveCamera(tmpCamera, Const.CENTER, Const.CENTER);
             }
 
-            if(tmpPlayerPos.x >= tmpCamera.CameraCenterMovePos[0].x
-            && tmpPlayerPos.x <= tmpCamera.CameraCenterMovePos[1].x
-            && tmpPlayerPos.z <= tmpCamera.CameraCenterMovePos[0].z
-            && tmpPlayerPos.z >= tmpCamera.CameraCenterMovePos[2].z)
+            if(tmpPlayerPos.x >= tmpCamera.CameraCenterMovePos[Const.LEFT_UP].x
+            && tmpPlayerPos.x <= tmpCamera.CameraCenterMovePos[Const.RIGHT_UP].x
+            && tmpPlayerPos.z <= tmpCamera.CameraCenterMovePos[Const.LEFT_UP].z
+            && tmpPlayerPos.z >= tmpCamera.CameraCenterMovePos[Const.RIGHT_UNDER].z)
             {
-                RotateCamera(tmpCamera, 4);
-                CameraReset(tmpCamera, 4);
+                RotateCamera(tmpCamera, Const.CENTER);
+                CameraReset(tmpCamera, Const.CENTER);
             }
         }
     }

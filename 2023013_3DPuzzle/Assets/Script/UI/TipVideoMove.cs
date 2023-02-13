@@ -89,6 +89,9 @@ namespace Video
         /// </summary>
         public void changeClip()
         {
+            // 参照オブジェクトがnullの場合関数終了
+            if(InGameSceneController.TreasureBox == null)
+                return;
             // プレイヤーが安置にいるときのみ処理
             if(InGameSceneController.Stages.StageState == Const.STATE_START)
             {
