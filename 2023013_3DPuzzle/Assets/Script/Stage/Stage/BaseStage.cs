@@ -55,7 +55,7 @@ namespace Stage
         // どのステージをクリアしたかフラグ配列
         [SerializeField]
         protected bool[] stageClearFlags = new bool[4]{false, false, false, false};
-        public bool[] StageClearFlags{get{return stageClearFlags;}set{stageClearFlags = value;}}
+        public bool[] StageClearFlags{get{return stageClearFlags;}set{Debug.Log("InClearFlag");stageClearFlags = value;}}
         
         [SerializeField,Header("生成するBox")]
         protected GameObject prefabBox;

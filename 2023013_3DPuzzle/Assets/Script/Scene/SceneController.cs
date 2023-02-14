@@ -1,9 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using LoadingImage;
 using UnityEngine.UI;
+using DG.Tweening;
 
 namespace Scene
 {
@@ -26,6 +25,15 @@ namespace Scene
         void Start()
         {
             fadePanel = GetComponentInChildren<Image>();
+            DOVirtual.DelayedCall(Const.FADE_TIMER, () =>
+            {
+                fadePanel.DOFade(endValue: Const.FADE_IN_ALPHA, duration: Const.FIRST_FADE_TIMER).SetEase(Ease.Linear)
+                .OnComplete(() =>
+                {
+                    fadePanel.enabled = false;
+                    SceneTween = null;
+                });
+            }, false);
         }
 
         // Update is called once per frame
@@ -39,15 +47,15 @@ namespace Scene
                     break;
 
                     case BaseScene.SceneState.Main:
-                    #if DEBUG
-                        if(Input.GetKeyDown("space"))//デバッグ用
-                        {
-                            SceneMoveFlagOn();
-                            mainSceneMove.Move(this, LoadingImage);
-                        }
-                    #else
-                    
-                    #endif
+                        #if DEBUG
+                            if(Input.GetKeyDown("space"))//デバッグ用
+                            {
+                                SceneMoveFlagOn();
+                                mainSceneMove.Move(this, LoadingImage);
+                            }
+                        #else
+                        
+                        #endif
                         break;
 
                     case BaseScene.SceneState.End:

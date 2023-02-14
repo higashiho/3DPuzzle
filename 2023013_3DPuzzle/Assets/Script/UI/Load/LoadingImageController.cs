@@ -9,11 +9,6 @@ namespace LoadingImage
 {
     public class LoadingImageController : BaseLoadingImage
     {
-        
-        
-        void Awake()
-        {
-        }
         // Start is called before the first frame update
         void Start()
         {

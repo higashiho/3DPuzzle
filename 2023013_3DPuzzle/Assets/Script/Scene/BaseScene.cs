@@ -24,7 +24,6 @@ namespace Scene
         {
             Title,
             Main,
-            MainFinish,
             End
         }
 
@@ -44,10 +43,10 @@ namespace Scene
         public bool SceneMoveOnFlag{get{return sceneMoveOnFlag;} set{sceneMoveOnFlag = value;}}
 
         protected Tween sceneTween = null;
-        public Tween SceneTween{get{return sceneTween;}set{sceneTween = value;}}
+        public Tween SceneTween{get{return sceneTween;} set{sceneTween = value;}}
 
         //インスタンス化
-        protected  TitleSceneMove titleSceneMove = new TitleSceneMove();
+        public  TitleSceneMove titleSceneMove{get;protected set;} = new TitleSceneMove();
         protected  MainSceneMove mainSceneMove = new MainSceneMove();
         public EndSceneMove EndMove{get;private set;} = new EndSceneMove();
         public FadeMove MoveFade{get; private set;} = new FadeMove();

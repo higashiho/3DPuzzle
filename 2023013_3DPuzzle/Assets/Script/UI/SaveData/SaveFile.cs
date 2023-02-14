@@ -1,36 +1,79 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
+using System;
 
 namespace SystemIO
 {
+    [Serializable]
     public class SaveFile : MonoBehaviour
     {
-        string filePath;
+        public static SaveFile SaveLoad{get; protected set;}
+        private string filePath;
+
         void Awake()
         {
-            filePath = Application.persistentDataPath + "/" + ".savedata.json";
+            if(SaveLoad != null)
+            {
+                return;
+            }
+            filePath = Application.persistentDataPath + "/" + ".savedata.txt";
+            Debug.Log(filePath);
+            SaveLoad = this;
         }
 
+        /// <summary>
+        /// データを上書きする
+        /// </summary>
         public void DoSave()
         {
-            SaveData saveData = new SaveData();
-            saveData.KeyNumber = InGameSceneController.Player.HaveNum;
-            saveData.ClearFlag = InGameSceneController.Stages.StageClearFlags;
-            SaveDataManager.SaveJson(saveData, filePath);
+            // 保存するデータを作成
+            var data = new SaveData()
+            {
+                PlayerHasNumber = InGameSceneController.Player.HaveNum,
+
+                ClaerFlags = InGameSceneController.Stages.StageClearFlags,
+            };
+
+            // オブジェクトを JSON 文字列にシリアライズ
+            var json = JsonUtility.ToJson(data);
+
+            // 所定の場所にテキストファイルとして保存
+            File.WriteAllText(Path.Combine(Application.persistentDataPath, ".savedata.txt"), json);
         }
 
+        /// <summary>
+        /// データを読み込む
+        /// </summary>
         public void DoLoad()
         {
-            SaveData saveData = SaveDataManager.LoadJson(filePath);
-            if(saveData != null)
-            {
-                Debug.Log("HasNumber : " + saveData.KeyNumber);
-                InGameSceneController.Player.HaveNum = saveData.KeyNumber;
-                InGameSceneController.Stages.StageClearFlags = saveData.ClearFlag;
-            }
+            var json = File.ReadAllText(Path.Combine(Application.persistentDataPath + "/" + ".savedata.txt"));
+            var data = JsonUtility.FromJson<SaveData>(json);
+
+            InGameSceneController.Player.HaveNum = data.PlayerHasNumber;
+
+            InGameSceneController.Stages.StageClearFlags = data.ClaerFlags;
         }
 
-        public static SaveFile SaveLoad{get; set;}
+        /// <summary>
+        /// 初めからを押したらデータが消える
+        /// </summary>
+        public void ResetSaveData()
+        {
+            // 保存するデータを作成
+            var data = new SaveData()
+            {
+                PlayerHasNumber = {0,0,0,0},
+                ClaerFlags = new bool[4],
+            };
+
+            // オブジェクトを JSON 文字列にシリアライズ
+            var json = JsonUtility.ToJson(data);
+
+            // 所定の場所にテキストファイルとして保存
+            File.WriteAllText(Path.Combine(Application.persistentDataPath, "SaveData.txt"), json);
+        }
+
     }
 }

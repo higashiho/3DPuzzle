@@ -591,6 +591,7 @@ GameObject:
   - component: {fileID: 709039482}
   - component: {fileID: 709039481}
   - component: {fileID: 709039480}
+  - component: {fileID: 709039486}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -694,9 +695,9 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 25
+  m_AdditionalShaderChannelsFlag: 1
   m_SortingLayerID: 0
-  m_SortingOrder: 5
+  m_SortingOrder: 1
   m_TargetDisplay: 0
 --- !u!224 &709039485
 RectTransform:
@@ -720,6 +721,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &709039486
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 709039479}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c01c789dd2fd484ba67a00ed7721e95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &718194658
 GameObject:
   m_ObjectHideFlags: 0
@@ -1203,8 +1216,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0}
-  m_RaycastTarget: 0
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -1659,7 +1672,6 @@ GameObject:
   - component: {fileID: 1414379987}
   - component: {fileID: 1414379986}
   - component: {fileID: 1414379985}
-  - component: {fileID: 1414379984}
   m_Layer: 5
   m_Name: RestartButton
   m_TagString: Untagged
@@ -1688,18 +1700,6 @@ RectTransform:
   m_AnchoredPosition: {x: -500, y: 0}
   m_SizeDelta: {x: 400, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1414379984
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1414379982}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c01c789dd2fd484ba67a00ed7721e95, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1414379985
 MonoBehaviour:
   m_ObjectHideFlags: 0

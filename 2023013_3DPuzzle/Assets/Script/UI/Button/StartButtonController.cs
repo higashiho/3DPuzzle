@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using SystemIO;
+using Scene;
+using DG.Tweening;
 
 namespace button
 {
@@ -16,11 +18,35 @@ namespace button
             RestartButton = transform.GetChild(1).GetComponent<Button>();
             FinishButton = transform.GetChild(2).GetComponent<Button>();
             // ボタンの処理を追加
-            StartButton.onClick.AddListener(CallOnSceneMoveFlag);
+            // スタートボタンを押したら
+            StartButton.onClick.AddListener(() =>
+            {
+                // シーン遷移フラグオン
+                CallOnSceneMoveFlag();
+                    // ボタンを押してフェードアウトが始まってから、シーンのステートが変わるまで待つ
+                    DOVirtual.DelayedCall(Const.WAIT_TIME + Const.FADE_TIMER, () =>
+                    {
+                        // 全てのセーブデータを消す
+                        SaveFile.SaveLoad.ResetSaveData();
+                    });
+            });
+            // 続きからのボタンを押したら
             RestartButton.onClick.AddListener(() =>
             {
+                // シーン遷移フラグオン
                 CallOnSceneMoveFlag();
-                SaveFile.SaveLoad.DoLoad();
+
+                // ボタンを押してフェードアウトが始まってからシーンのステートが変わるまで待つ
+                DOVirtual.DelayedCall(Const.FADE_TIMER, () =>
+                {
+                    // セーブデータを読み込む
+                    SaveFile.SaveLoad.DoLoad();
+                });
+                
+            });
+            FinishButton.onClick.AddListener(() =>
+            {
+                Application.Quit();
             });
         }
         
