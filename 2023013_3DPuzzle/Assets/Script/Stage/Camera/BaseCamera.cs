@@ -64,8 +64,8 @@ namespace Cam
         public Vector3[] CameraRotateBorderLine{get; private set;} =
         {
             new Vector3(52.5f, 5, 67.5f),   //左上
-            new Vector3(67.5f, 5, 67.5f),   //右上
-            new Vector3(67.5f, 5, 57.5f),   //右下
+            new Vector3(77.5f, 5, 67.5f),   //右上
+            new Vector3(77.5f, 5, 57.5f),   //右下
             new Vector3(52.5f, 5, 57.5f),   //左下
         };
         // // 右クリックしたときのマウスの座標

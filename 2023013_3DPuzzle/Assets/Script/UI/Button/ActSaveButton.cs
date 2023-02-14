@@ -18,7 +18,7 @@ namespace button
         }
 
         /// <summary>
-        /// 画面がに移動
+        /// 画面外に移動
         /// </summary>
         /// <param name="tmpButton"></param>
         public void OffSaveButton(BaseButton tmpButton)

@@ -9,23 +9,21 @@ namespace button
 {
     public class BaseButton : MonoBehaviour
     {
-        // タイトルのスタートボタン
+        // スタートボタン
         protected Button startButton;
         public Button StartButton{get{return startButton;} set{startButton = value;}}
-        // タイトルの続きからボタン
+        // 続きからボタン
         protected Button restartButton;
         public Button RestartButton{get{return restartButton;} set{restartButton = value;}}
-        // タイトルのやめるボタン
+        // やめるボタン
         protected Button finishButton;
         public Button FinishButton{get{return finishButton;} set{finishButton = value;}}
-        // エンドのタイトルに戻るボタン
+        // タイトルに戻るボタン
         protected Button titleBackButton;
         public Button TitleBackButton{get{return titleBackButton;} set{titleBackButton = value;}}
-        // メインのセーブしてやめるボタン
+        // セーブしてやめるボタン
         protected  Button saveButton;
         public Button SaveButton{get{return saveButton;} set{saveButton = value;}}
-        // セーブボタンが画面内にいるかのフラグ
-        protected bool stayScreenSaveButton = true;
 
         // インスタンス化
         protected ActSaveButton saveButtonAct = new ActSaveButton();

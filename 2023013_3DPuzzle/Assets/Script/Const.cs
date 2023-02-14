@@ -86,13 +86,15 @@ public class Const
     /// <summary>
     /// ロード待ち時間
     /// </summary>
-    public const int WAIT_TIME = 4;
+    public const int WAIT_TIME = 3;
     /// <summary>
     /// 読み込み画像の間隔
     /// </summary>
     public const float LOADING_IMAGE_INTERVAL = 150.0f;
-
+    // ロード中画面の星の回転回数(回数でロードが終わるわけではないので)
     public const int LOADING_ANIMATION_INFINITY = -1;
+    // ゲームスタート時の明転時間
+    public const float FIRST_FADE_TIMER = 5.0f;
     // 以上フェード定数--------------------------
 
     // 以下UI定数--------------------------------

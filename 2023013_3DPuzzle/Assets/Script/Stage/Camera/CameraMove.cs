@@ -21,7 +21,9 @@ namespace Cam
                 ZomeIO(tmpCamera);
             }
             else
+            {
                 followToPlayer(tmpCamera);
+            }
         }
 
         /// <summary>
@@ -94,10 +96,10 @@ namespace Cam
         }
 
         /// <summary>
-        /// カメラリセット関数
+        /// カメラリセット
         /// </summary>
         /// <param name="tmpCamera">BaseCamera</param>
-        /// <param name="num">各ステージの中央を指定する数字
+        /// <param name="num">各ステージの中央を指定する数字</param>
         private void CameraReset(BaseCamera tmpCamera, int num)
         {
             // カメラリセット(マウスホイールクリック)
@@ -155,11 +157,9 @@ namespace Cam
         /// </summary>
         public void followToPlayer(BaseCamera tmpCamera)
         {
-            DOVirtual.DelayedCall(Const.START_BACK_TIME, () =>
-            {
-                tmpCamera.camera.transform.DOMove(tmpCamera.StandCameraPos[Const.CENTER], Const.CAMERA_MOVE_SPEED)
-                .SetEase(Ease.OutSine);
-            });
+            tmpCamera.camera.transform.rotation = tmpCamera.DefoultRotation;
+            tmpCamera.camera.transform.position = tmpCamera.StandCameraPos[Const.CENTER];
+            tmpCamera.camera.fieldOfView = Const.FIELD_OF_VIEW_DEFAULT;
         }
 
         /// <summary>
@@ -190,6 +190,7 @@ namespace Cam
                 MoveCamera(tmpCamera, Const.LEFT_UP, Const.LEFT_UP);
             }
 
+            // プレイヤーが左上にいる時は、回転範囲が左上中心になる
             if(tmpPlayerPos.x <= tmpCamera.CameraRotateBorderLine[Const.LEFT_UP].x
             && tmpPlayerPos.z >= tmpCamera.CameraRotateBorderLine[Const.LEFT_UP].z)
             {

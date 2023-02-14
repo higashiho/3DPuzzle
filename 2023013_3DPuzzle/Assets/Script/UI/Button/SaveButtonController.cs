@@ -16,12 +16,11 @@ namespace button
             // ボタンに処理を追加
             SaveButton.onClick.AddListener(() =>
             {
+                // 記録をセーブする
+                SaveFile.SaveLoad.DoSave();
+                // 明転が終わっていたら = 早押し防止
                 if(BaseScene.TmpScene.SceneTween == null)
                 {
-                    // 記録をセーブする
-                    SaveFile.SaveLoad.DoSave();
-                    // タイトルに戻るため、今はエンドにいるということにする
-                    BaseScene.TmpScene.StateScene = BaseScene.SceneState.End;
                     // フラグオン
                     CallOnSceneMoveFlag();
                     // タイトルシーンに戻る

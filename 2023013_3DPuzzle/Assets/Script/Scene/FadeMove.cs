@@ -28,6 +28,7 @@ namespace Scene
                 }   // フェードが終わったら
                 ).OnComplete(() =>
                 {   
+    
                     // シーン読み込み
                     SceneManager.LoadScene(tmpSceneName);
                     // 読み込み中の画像を表示する
@@ -89,6 +90,7 @@ namespace Scene
             for(int i = 0; i < tmpImage.Caircles.Length; i++)
             {
                 DOTween.Kill(tmpImage.Caircles[i]);
+                // 微ずれ修正
                 tmpColor = tmpImage.Caircles[i].color;
                 tmpColor.a = Const.FADE_MAX_ALPHA;
                 tmpImage.Caircles[i].color = tmpColor;

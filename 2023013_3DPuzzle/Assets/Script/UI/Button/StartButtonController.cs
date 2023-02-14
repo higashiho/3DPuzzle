@@ -21,63 +21,32 @@ namespace button
             // スタートボタンを押したら
             StartButton.onClick.AddListener(() =>
             {
-                // しーん遷移フラグオン
+                // シーン遷移フラグオン
                 CallOnSceneMoveFlag();
-                if(BaseScene.TmpScene.StateScene != BaseScene.SceneState.Main)
-                {
-                    // ボタンを押してフェードアウトが始まってからシーンのステートが変わるまで待つ
+                    // ボタンを押してフェードアウトが始まってから、シーンのステートが変わるまで待つ
                     DOVirtual.DelayedCall(Const.WAIT_TIME + Const.FADE_TIMER, () =>
                     {
-                        // 何のデータを消すかの場合分け
-                        // 全部データあり
-                        if(SaveData.DataSave.KeyNumber != null && SaveData.DataSave.ClearFlag != null)
-                        {
-                            // 全てのセーブデータを消す
-                            SaveFile.SaveLoad.ResetSaveData();
-                            return;
-                        }
-                        // クリアフラグだけあり
-                        else if(SaveData.DataSave.KeyNumber == null && SaveData.DataSave.ClearFlag != null)
-                        {
-                            SaveFile.SaveLoad.ResetClearFlag();
-                            return;
-                        }
-                        // 獲得数字のみあり
-                        else if(SaveData.DataSave.KeyNumber != null && SaveData.DataSave.ClearFlag == null)
-                        {
-                            SaveFile.SaveLoad.ResetKeyNumber();
-                            return;
-                        }
-                        else
-                        {
-                            return;
-                        }
+                        // 全てのセーブデータを消す
+                        SaveFile.SaveLoad.ResetSaveData();
                     });
-                }
             });
             // 続きからのボタンを押したら
             RestartButton.onClick.AddListener(() =>
             {
                 // シーン遷移フラグオン
                 CallOnSceneMoveFlag();
-                // シーンのステートがMainになるまで待つ
-                if(BaseScene.TmpScene.StateScene != BaseScene.SceneState.Main)
+
+                // ボタンを押してフェードアウトが始まってからシーンのステートが変わるまで待つ
+                DOVirtual.DelayedCall(Const.FADE_TIMER, () =>
                 {
-                    // ボタンを押してフェードアウトが始まってからシーンのステートが変わるまで待つ
-                    DOVirtual.DelayedCall(Const.WAIT_TIME + Const.FADE_TIMER, () =>
-                    {
-                        // データがないときは
-                        if(SaveData.DataSave.KeyNumber == null && SaveData.DataSave.ClearFlag == null)
-                        {
-                            return;
-                        }
-                        else
-                        {
-                        // セーブデータを読み込む
-                        SaveFile.SaveLoad.DoLoad();
-                        }
-                    });
-                }
+                    // セーブデータを読み込む
+                    SaveFile.SaveLoad.DoLoad();
+                });
+                
+            });
+            FinishButton.onClick.AddListener(() =>
+            {
+                Application.Quit();
             });
         }
         
