@@ -5319,7 +5319,7 @@ ParticleSystemRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: e823cd5b5d27c0f4b8256e7c12ee3e6d, type: 2}
-  - {fileID: 10301, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: e823cd5b5d27c0f4b8256e7c12ee3e6d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -10251,7 +10251,7 @@ ParticleSystemRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: e823cd5b5d27c0f4b8256e7c12ee3e6d, type: 2}
-  - {fileID: 10301, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: e823cd5b5d27c0f4b8256e7c12ee3e6d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -10398,27 +10398,75 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4230cbd00e3e3442a2f77f441e09fb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stages:
-  - {fileID: 5168073205655824273, guid: df107c08b4926b548ab0ee9cb165407b, type: 3}
-  - {fileID: 4100615882988292552, guid: 5f3504e8f3e2dc645a3b9bf0b827ea32, type: 3}
-  - {fileID: 5168073205655824273, guid: ffc9a3328fd19394ba20f9569363b8f2, type: 3}
-  - {fileID: 5168073205655824273, guid: 91fc4657af612324ba2f5db634fff32e, type: 3}
-  - {fileID: 5168073205655824273, guid: f1db3c20d847b6340ab3522f0c5a584b, type: 3}
-  - {fileID: 4100615882988292552, guid: b4211e8d5ddfe864596354a201eeed29, type: 3}
-  - {fileID: 5168073205655824273, guid: 4f54f39bc515a8941a38f43b584b905f, type: 3}
-  - {fileID: 4100615882988292552, guid: 7209018dd352d1948b4b5eaf77cf6419, type: 3}
-  - {fileID: 4100615882988292552, guid: 056912abf230c1b45bfc0b706fbeaf9c, type: 3}
-  - {fileID: 4100615882988292552, guid: 51f7188a305000149b900b7130a7ea77, type: 3}
-  - {fileID: 5168073205655824273, guid: ea60f75ec5cf542449001529de2d2da9, type: 3}
-  - {fileID: 3226213973817768160, guid: b0cbd0c35b395cd4faa33b07501de767, type: 3}
-  - {fileID: 3226213973817768160, guid: 4effa268f39f2c94bae8b746a894b563, type: 3}
+  csvDataAssetRef:
+    m_AssetGUID: 
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  stageBlockDataAssetRef:
+  - m_AssetGUID: 
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  - m_AssetGUID: 
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  - m_AssetGUID: 
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  - m_AssetGUID: 
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  - m_AssetGUID: 
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  - m_AssetGUID: 
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  - m_AssetGUID: 
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  - m_AssetGUID: 
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  - m_AssetGUID: 
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  - m_AssetGUID: 
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  - m_AssetGUID: 
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  - m_AssetGUID: 
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  - m_AssetGUID: 
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
   tileParent: {fileID: 8946109332750586246}
   keyTiles: []
-  puzzleStageWall: {fileID: 7746003435433114730, guid: 65b9349cae80f66448f84da7118fdf00, type: 3}
+  puzzleStageWallDataAssetRef:
+    m_AssetGUID: 
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  whiteTile: {fileID: 0}
   stageClearFlags: 00000000
   prefabBox: {fileID: 3226213973817768160, guid: b0cbd0c35b395cd4faa33b07501de767, type: 3}
   stageState: 0
-  fallTiles: {fileID: 1388192265}
   keyTileMaterial: {fileID: 2100000, guid: ef606a9639fccad44a5d00b867fe279d, type: 2}
   tileMaterial: {fileID: 2100000, guid: 1c4ea9309f9b7714fbb7776a849bafd1, type: 2}
   clearCount: 2

@@ -130,6 +130,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 873898458304775235, guid: 38b3a7867c6b1974f996bda894df7239, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
     - target: {fileID: 873898459477959528, guid: 38b3a7867c6b1974f996bda894df7239, type: 3}
       propertyPath: m_RootOrder
       value: 7
@@ -600,6 +604,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4129446191866939129, guid: 0c8e23288f936d842b07a6ec4d30e38c, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
     - target: {fileID: 4129446191866939130, guid: 0c8e23288f936d842b07a6ec4d30e38c, type: 3}
       propertyPath: m_Name
       value: Player 1
@@ -753,7 +761,11 @@ PrefabInstance:
     - target: {fileID: 1615969303, guid: 1bd7cf68ce4ebb24db45b71cc0db38e9, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 10301, guid: 0000000000000000f000000000000000, type: 0}
+      objectReference: {fileID: 2100000, guid: e823cd5b5d27c0f4b8256e7c12ee3e6d, type: 2}
+    - target: {fileID: 1615969303, guid: 1bd7cf68ce4ebb24db45b71cc0db38e9, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: e823cd5b5d27c0f4b8256e7c12ee3e6d, type: 2}
     - target: {fileID: 1615969304, guid: 1bd7cf68ce4ebb24db45b71cc0db38e9, type: 3}
       propertyPath: TrailModule.ratio
       value: 1
@@ -806,6 +818,10 @@ PrefabInstance:
       propertyPath: TrailModule.colorOverLifetime.maxGradient.key1.a
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1952849752, guid: 1bd7cf68ce4ebb24db45b71cc0db38e9, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: e823cd5b5d27c0f4b8256e7c12ee3e6d, type: 2}
     - target: {fileID: 1952849753, guid: 1bd7cf68ce4ebb24db45b71cc0db38e9, type: 3}
       propertyPath: TrailModule.colorOverTrail.minMaxState
       value: 1
@@ -979,6 +995,46 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5074239099418089234, guid: f22e3dfe2f366fd4cbdbdca6c2a61c9d, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 697133893, guid: aec425c6807626144bb2ab2a797981a7, type: 3}
+    - target: {fileID: 5074239099418089236, guid: f22e3dfe2f366fd4cbdbdca6c2a61c9d, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 250
+      objectReference: {fileID: 0}
+    - target: {fileID: 5074239099418089236, guid: f22e3dfe2f366fd4cbdbdca6c2a61c9d, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 5074239099678737250, guid: f22e3dfe2f366fd4cbdbdca6c2a61c9d, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 697133893, guid: aec425c6807626144bb2ab2a797981a7, type: 3}
+    - target: {fileID: 5074239099678737252, guid: f22e3dfe2f366fd4cbdbdca6c2a61c9d, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 250
+      objectReference: {fileID: 0}
+    - target: {fileID: 5074239099678737252, guid: f22e3dfe2f366fd4cbdbdca6c2a61c9d, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 5074239099678737252, guid: f22e3dfe2f366fd4cbdbdca6c2a61c9d, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -195.34595
+      objectReference: {fileID: 0}
+    - target: {fileID: 5074239099980863469, guid: f22e3dfe2f366fd4cbdbdca6c2a61c9d, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 697133893, guid: aec425c6807626144bb2ab2a797981a7, type: 3}
+    - target: {fileID: 5074239099980863471, guid: f22e3dfe2f366fd4cbdbdca6c2a61c9d, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 250
+      objectReference: {fileID: 0}
+    - target: {fileID: 5074239099980863471, guid: f22e3dfe2f366fd4cbdbdca6c2a61c9d, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 5074239100044615774, guid: f22e3dfe2f366fd4cbdbdca6c2a61c9d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -986,6 +1042,18 @@ PrefabInstance:
     - target: {fileID: 5074239100044615774, guid: f22e3dfe2f366fd4cbdbdca6c2a61c9d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: PlayTipVideo
+      objectReference: {fileID: 0}
+    - target: {fileID: 5074239101052284943, guid: f22e3dfe2f366fd4cbdbdca6c2a61c9d, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 697133893, guid: aec425c6807626144bb2ab2a797981a7, type: 3}
+    - target: {fileID: 5074239101052284945, guid: f22e3dfe2f366fd4cbdbdca6c2a61c9d, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 250
+      objectReference: {fileID: 0}
+    - target: {fileID: 5074239101052284945, guid: f22e3dfe2f366fd4cbdbdca6c2a61c9d, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 5074239101153671760, guid: f22e3dfe2f366fd4cbdbdca6c2a61c9d, type: 3}
       propertyPath: m_Pivot.x

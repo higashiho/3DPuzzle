@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace Stage
 {
@@ -18,6 +19,7 @@ namespace Stage
             for(int i = 0; i < StageBlockHandle.Length; i++)
             {
                 StageBlockHandle[i] = StageBlockDataAssetRef[i].LoadAssetAsync<GameObject>();
+
                 await StageBlockHandle[i].Task;
             }
 
@@ -32,15 +34,14 @@ namespace Stage
             // ロード終了まで待機
             await Handle.Task;
 
+
             // パズルステージでの壁生成
             // アセット参照でのロード
-            puzzleStageWallHandle = puzzleStageWallDataAssetRef.LoadAssetAsync<GameObject>();
-            await puzzleStageWallHandle.Task;
-            Instantiate<GameObject>((GameObject)puzzleStageWallHandle.Result,
+            PuzzleStageWallHandle = puzzleStageWallDataAssetRef.LoadAssetAsync<GameObject>();
+            await PuzzleStageWallHandle.Task;
+            Instantiate<GameObject>((GameObject)PuzzleStageWallHandle.Result,
              parent:TileParemt.transform);
 
-            // ハンドル解放
-            Addressables.Release(puzzleStageWallHandle);
             
             // オブジェクト配列取得
             KeyTiles = GameObject.FindGameObjectsWithTag("KeyTile");

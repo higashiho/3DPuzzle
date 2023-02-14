@@ -15,21 +15,18 @@ namespace Stage
         //CSVファイルのパス
         [SerializeField, Header("CSVファイルのアドレス")]
         protected AssetReference csvDataAssetRef; 
-        public AssetReference CsvDataAssetRef{get{return csvDataAssetRef;} protected set{csvDataAssetRef = value;}}
+        public AssetReference CsvDataAssetRef{get{return csvDataAssetRef;}}
 
         [SerializeField, Header("生成するステージのブロックのアドレス")]
         protected AssetReference[] stageBlockDataAssetRef = new AssetReference[13]; 
-        public AssetReference[] StageBlockDataAssetRef{get{return stageBlockDataAssetRef;} protected set{stageBlockDataAssetRef = value;}}
+        public AssetReference[] StageBlockDataAssetRef{get{return stageBlockDataAssetRef;}}
         // ステージアドレスのハンドル
-        protected AsyncOperationHandle handle;
-        public AsyncOperationHandle Handle{get{return handle;} protected set{handle = value;}}
+        public AsyncOperationHandle Handle{get; protected set;}
         // ステージのブロックの読み込みが終わったかフラグ
         public bool StageBlockLoadFlag{get; protected set;} = false;
 
         // ステージブロックのハンドル
-        protected AsyncOperationHandle[] stageBlockHandle = new AsyncOperationHandle[13];
-        public AsyncOperationHandle[] StageBlockHandle{get{return stageBlockHandle;} protected set{stageBlockHandle = value;}}
-
+        public AsyncOperationHandle[] StageBlockHandle{get; protected set;} = new AsyncOperationHandle[13];
         
         [SerializeField, Header("タイルの親")]
         protected GameObject tileParent;
@@ -39,7 +36,7 @@ namespace Stage
         public GameObject[] KeyTiles{get{return keyTiles;} protected set{keyTiles = value;}}
         [SerializeField, Header("パズルステージの壁")]
         protected AssetReference puzzleStageWallDataAssetRef; 
-        protected AsyncOperationHandle puzzleStageWallHandle;
+        public AsyncOperationHandle PuzzleStageWallHandle{get;protected set;}
         [SerializeField, Header("白色タイル")]
         protected GameObject whiteTile;
         public GameObject WhiteTile{get{return whiteTile;}}

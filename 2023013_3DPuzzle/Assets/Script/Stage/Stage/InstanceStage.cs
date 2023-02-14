@@ -61,12 +61,6 @@ namespace Stage
             // 生成
             instance(maxX, maxZ, tmpStageDatas);
 
-            // ステージのハンドル開放
-            Addressables.Release(tmpStage.Handle);
-            for(int i = 0; i < tmpStage.StageBlockHandle.Length; i++)
-            {
-                Addressables.Release(tmpStage.StageBlockHandle[i]);
-            }
         }
 
         /// <summary>

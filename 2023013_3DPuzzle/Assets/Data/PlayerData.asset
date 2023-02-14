@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7aa34add92669fd40ae7404a824cf100, type: 3}
   m_Name: PlayerData
   m_EditorClassIdentifier: 
-  playerMoveTime: 1
+  playerMoveTime: 5

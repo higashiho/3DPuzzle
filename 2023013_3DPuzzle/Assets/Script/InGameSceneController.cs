@@ -6,6 +6,7 @@ using Box;
 using UI;
 using Enemy;
 using Cysharp.Threading.Tasks;
+using UnityEngine.AddressableAssets;
 
 /// <summary>
 /// インゲームでのオブジェクト管理クラス
@@ -37,6 +38,7 @@ public class InGameSceneController : MonoBehaviour
     // Start is called before the first frame update
     async void Awake() 
     {
+        Application.targetFrameRate = 60;
         // 初期取得
         Stages = GameObject.FindWithTag("Stage").GetComponent<BaseStage>();
         Player = GameObject.FindWithTag("Player").GetComponent<BasePlayer>();
@@ -61,4 +63,15 @@ public class InGameSceneController : MonoBehaviour
         DG.Tweening.DOTween.SetTweensCapacity(tweenersCapacity:1500, sequencesCapacity:1000);
     }
 
+    void OnDestroy()
+    {
+        
+        // ステージのハンドル開放
+        Addressables.Release(Stages.Handle);
+        for(int i = 0; i < Stages.StageBlockHandle.Length; i++)
+        {
+            Addressables.Release(Stages.StageBlockHandle[i]);
+        }
+        Addressables.Release(Stages.PuzzleStageWallHandle);
+    }
 }
