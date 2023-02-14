@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 
@@ -15,6 +16,10 @@ namespace Enemy
         [Header("移動中フラグ"), SerializeField]
         protected bool isRotate = false;
         public bool IsRotate{get{return isRotate;}set{isRotate = value;}}
+
+        [Header("エネミー移動禁止フラグ"), SerializeField]
+        private bool isStop;
+        public bool IsStop{get{return isStop;}set{isStop = value;}}
 
         /// <summary>
         /// エネミーの状態管理用列挙体
@@ -54,6 +59,9 @@ namespace Enemy
         public int MoveFlag{get{return moveFlag;}set{moveFlag = value;}}
 
 
+        private UniTask? waitMove;
+        public UniTask? WaitMove{get{return waitMove;}set{waitMove = value;}}
+
         // タスクキャンセル用変数***********
         
         protected CancellationTokenSource cts = new CancellationTokenSource();
@@ -61,6 +69,9 @@ namespace Enemy
         protected bool enemyMoveCancel = false;
         public bool EnemyMoveCancel{get{return enemyMoveCancel;}set{enemyMoveCancel = value;}}
 
+        protected Tween playerFailureTween;
+        public Tween PlayerFailureTween{get{return playerFailureTween;}set{playerFailureTween = value;}}
+        public bool B_ResetPlayer;
 
         public void OnDestroy()
         {

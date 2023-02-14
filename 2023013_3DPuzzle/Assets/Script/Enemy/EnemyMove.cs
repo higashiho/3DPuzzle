@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Stage;
@@ -14,7 +15,7 @@ namespace Enemy
     public class EnemyMove 
     {
         private BaseEnemy enemy;
-
+        
         // コンストラクタ
         public EnemyMove(BaseEnemy tmpEnemy)
         {
@@ -25,7 +26,7 @@ namespace Enemy
         /// 移動処理(プレイヤーの通ったタイルをたどっていく)
         /// </summary>
         /// <param name="cts">キャンセレーショントークンソース</param>
-        public  void Move(CancellationTokenSource cts)
+        public void Move(CancellationTokenSource cts)
         {   
             // エネミーが回転中またはステージの移動中は動かない
             if(enemy.IsRotate || InGameSceneController.Stages.Moving)
@@ -34,17 +35,17 @@ namespace Enemy
                 resetMoveValue();
                 return;
             }
-
+            
             // プレイヤーの通った座標を保管するQueueの要素数が0より大きかったら
             if(InGameSceneController.EnemyManager.PlayerTrace.Count > 0)
             {
+                
                 // 座標調整
                 enemy.transform.position = (Vector3)Functions.CalcRoundingHalfUp(enemy.transform.position);
                 // 目的地を決める
                 Vector3 destination = InGameSceneController.EnemyManager.PlayerTrace.Dequeue();
                 // 目的地の座標調整
                 destination = (Vector3)Functions.CalcRoundingHalfUp(destination);
-                Debug.Log("destination = " + destination);
                 // 移動方向フラグを立てる
                 enemy.MoveFlag = Functions.SetDirection(enemy.transform.position, destination);
 
@@ -63,15 +64,21 @@ namespace Enemy
                 
                 if(!InGameSceneController.Player.IsRotate)
                 {
-                    // ゲームオーバー
-                    Debug.Log("GameOver");
+                    
                     InGameSceneController.Player.PlayerMoveCancel = true;
                     enemy.EnemyMoveCancel = true;
-                    InGameSceneController.Stages.MoveStage.StageFailure();   
+                    // 何回も呼ばれてる
+                    if(!enemy.B_ResetPlayer)
+                    {
+                        enemy.B_ResetPlayer = true;
+                        InGameSceneController.Stages.MoveStage.StageFailure();   
+                        
+                    }
                 } 
             }
         }
 
+        
 
         /// <summary>
         /// 移動に使った変数を初期化する関数
