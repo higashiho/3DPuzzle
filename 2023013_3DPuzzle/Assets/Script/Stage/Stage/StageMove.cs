@@ -161,6 +161,7 @@ namespace Stage
         /// </summary>
         public void StageFailure()
         {
+            
             // ステート保管
             tmpStageState = InGameSceneController.Stages.StageState;
 
@@ -198,6 +199,8 @@ namespace Stage
             InGameSceneController.Player.PlayerMoveCancel = false;
             // エネミーMoveタスクキャンセルフラグON
             InGameSceneController.Enemy.EnemyMoveCancel = false;
+            // プレイヤーがエネミーに追いつかれてリスタートされるフラグOFF
+            InGameSceneController.Enemy.B_ResetPlayer = false;
             resetFlag();
         }
 

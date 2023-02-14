@@ -29,6 +29,7 @@ namespace Player
                 if(!InGameSceneController.Player.IsRotate)
                 {
                     InGameSceneController.Player.PlayerMoveCancel = true;
+                    InGameSceneController.Enemy.EnemyMoveCancel = true;
                     //InGameSceneController.Player.cts.Cancel();
                     stageMove.StageFailure();   
                     needleMove.ResetTile();

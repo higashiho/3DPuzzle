@@ -55,6 +55,8 @@ namespace Tile
                                 InGameSceneController.Stages.ChangeTile[0].SetActive(true);
                             }
                         }
+                        // エネミー止める
+                        InGameSceneController.Enemy.IsStop = true;
                     }
                     InGameSceneController.Stages.ClearSwitchStage = true;
                 }
