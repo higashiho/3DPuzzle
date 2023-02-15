@@ -20,10 +20,6 @@ namespace Cam
 
                 ZomeIO(tmpCamera);
             }
-            else
-            {
-                followToPlayer(tmpCamera);
-            }
         }
 
         /// <summary>
@@ -133,11 +129,11 @@ namespace Cam
         }
 
         /// <summary>
-        /// カメラ移動<=カメラリセット・配列の初期化・移動準備
+        /// カメラの移動
         /// </summary>
         /// <param name="tmpCamera">BaseCamera</param>
-        /// <param name="num">Tweenを指定する数字</param>
-        /// <param name="point">各ステージの中央を指定する数字</param>
+        /// <param name="num">移動tween</param>
+        /// <param name="point">各ステージのカメラの位置の配列を指定する数字</param>
         private void MoveCamera(BaseCamera tmpCamera, int num, int point)
         {
             // まだ移動していないなら

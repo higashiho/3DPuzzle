@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
-using Tile;
+using Cam;
 
 namespace Stage
 {
@@ -119,7 +119,12 @@ namespace Stage
             }
             // ２秒後に５秒かけて移動
             InGameSceneController.Player.transform.DOLocalPath(tmpPath, StageConst.CLEAR_MOVE_TIME, PathType.Linear, PathMode.Full3D).SetDelay(StageConst.CLEAR_STOP_TIME).
-            SetEase(Ease.OutQuad).OnComplete(compReset);
+            SetEase(Ease.OutQuad).OnComplete(() =>
+            {
+                // 上昇したらカメラが中央に戻る
+                InGameSceneController.Camera.CameraMove.followToPlayer(InGameSceneController.Camera);
+                compReset();
+            });
         }
 
         /// <summary>
