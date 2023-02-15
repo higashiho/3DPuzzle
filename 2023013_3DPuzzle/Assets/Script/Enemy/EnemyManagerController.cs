@@ -56,7 +56,9 @@ namespace Enemy
             {
                 case EnemyState.Init:
 
+                    // プレイヤーがステージ内に入ってからのmoveCount初期化
                     moveCountInStage = null;
+                    // エネミーの生成位置初期化
                     EnemyStartPos = null;
                     // プレイヤーがステージ内にいる場合
                     if(PlayerInStage())
@@ -67,15 +69,16 @@ namespace Enemy
                         
                         if(moveCountInStage != null)
                         {
-                            // エネミー待機状態
+                            // エネミー生成待機状態に更新
                             EnemyPhase = EnemyState.Wait;
-                            
                         }
                     }
 
                     break;
                 case EnemyState.Wait:
 
+                    // 現在のプレイヤーのmoveCountからステージに入った瞬間のmoveCountを引いて
+                    // エネミーの待機Countより多かった場合
                     if(player.MoveCount - moveCountInStage > enemyDatas.WaitMoveCount)
                     {
                         // エネミー生成座標設定
@@ -91,6 +94,7 @@ namespace Enemy
                     {
                         // エネミー待機状態
                         EnemyPhase = EnemyState.Reset;
+                        
                     }
                     
 
@@ -101,8 +105,8 @@ namespace Enemy
                     if(!this.transform.GetChild(0).gameObject.activeSelf)
                     {
                         EnemyPhase = EnemyState.Init;
-                        // プレイヤーの通った座標を保管するQueue初期化
                         PlayerTrace.Clear();
+                        moveCountInStage = null;
                     }
                     break;
             }

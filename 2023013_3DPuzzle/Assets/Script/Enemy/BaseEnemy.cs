@@ -21,6 +21,10 @@ namespace Enemy
         private bool isStop;
         public bool IsStop{get{return isStop;}set{isStop = value;}}
 
+        [Header("エネミーデフォルト角度"), SerializeField]
+        private Vector3 defaultAngle;
+        public Vector3 DefaultAngle{get{return defaultAngle;}set{defaultAngle = value;}}
+
         /// <summary>
         /// エネミーの状態管理用列挙体
         /// </summary>
@@ -29,6 +33,7 @@ namespace Enemy
             Move,
             Reset
         }
+
         /// <summary>
         /// エネミー状態管理変数
         /// </summary>
@@ -58,32 +63,42 @@ namespace Enemy
         private int moveFlag = -1;
         public int MoveFlag{get{return moveFlag;}set{moveFlag = value;}}
 
-
+        /// <summary>
+        /// エネミー移動待機タスク
+        /// </summary>
         private UniTask? waitMove;
         public UniTask? WaitMove{get{return waitMove;}set{waitMove = value;}}
 
-        // タスクキャンセル用変数***********
-        
+        // タスクキャンセレーショントークン
         protected CancellationTokenSource cts = new CancellationTokenSource();
+
         [Header("エネミー移動キャンセル"), SerializeField]
         protected bool enemyMoveCancel = false;
         public bool EnemyMoveCancel{get{return enemyMoveCancel;}set{enemyMoveCancel = value;}}
 
-        protected Tween playerFailureTween;
-        public Tween PlayerFailureTween{get{return playerFailureTween;}set{playerFailureTween = value;}}
+        /// <summary>
+        /// プレイヤーリセットフラグ
+        /// </summary>
         public bool B_ResetPlayer;
+
 
         public void OnDestroy()
         {
-            this.transform.position = Vector3.zero;
             EnemyMoveCancel = true;
             cts.Cancel();
         }
 
         void OnEnable()
         {
+            // 生成座標設定
             this.transform.position = (Vector3)InGameSceneController.EnemyManager.EnemyStartPos;
+            // エネミーステートmoveに更新
             EnemyState = EnemyPhase.Move;
+
+            IsStop = false;
+            this.transform.position = (Vector3)Functions.CalcRoundingHalfUp(this.transform.position);
+            this.transform.rotation = Quaternion.identity;
+            WaitMove = null;
         }
         
         public EnemyMove EnemyMove;

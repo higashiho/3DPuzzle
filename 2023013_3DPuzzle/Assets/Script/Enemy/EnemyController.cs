@@ -25,10 +25,10 @@ namespace Enemy
                     if(WaitMove == null)
                     {
                         WaitMove = UniTask.Delay(EnemyDatas.MoveInterval * Const.CHANGE_SECOND, cancellationToken: cts.Token);
-                        if(cts.IsCancellationRequested)
-                        {
-                            break;
-                        }
+                        // if(cts.IsCancellationRequested)
+                        // {
+                        //     break;
+                        // }
                         await (UniTask)WaitMove;
 
                         
@@ -55,6 +55,7 @@ namespace Enemy
                     {
                         EnemyState = EnemyPhase.Move;
                         IsStop = false;
+                        //InGameSceneController.EnemyManager.PlayerTrace.Clear();
                     }
                     
                     break;

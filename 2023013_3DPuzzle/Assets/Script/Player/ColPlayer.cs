@@ -29,8 +29,9 @@ namespace Player
                 if(!InGameSceneController.Player.IsRotate && InGameSceneController.Player.PlayerFailureTween == null)
                 {
                     InGameSceneController.Player.PlayerMoveCancel = true;
+                    Debug.Log(InGameSceneController.Player.PlayerMoveCancel);
                     InGameSceneController.Enemy.EnemyMoveCancel = true;
-                    //InGameSceneController.Player.cts.Cancel();
+                    InGameSceneController.Enemy.IsStop = true;
                     stageMove.StageFailure();   
                     needleMove.ResetTile();
                 }

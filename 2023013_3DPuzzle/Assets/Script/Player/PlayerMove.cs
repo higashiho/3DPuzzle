@@ -77,6 +77,7 @@ public class PlayerMove
         // プレイヤーMoveタスクキャンセル処理
         if(player.PlayerMoveCancel)
         {
+            Debug.Log(InGameSceneController.Player.PlayerMoveCancel);
             // 移動に使った値初期化
             resetMoveValue();
             return;
@@ -168,7 +169,11 @@ public class PlayerMove
         {
             // タスクキャンセル処理
             if(player.PlayerMoveCancel)
+            {
+                Debug.Log(InGameSceneController.Player.PlayerMoveCancel);
                 break;
+            }
+            
             
             sumAngle += player.CubeAngle;
 
@@ -213,7 +218,10 @@ public class PlayerMove
     private async void ascendingMove(int flag, Vector3[] point, Vector3[] goUpRotatePointArr, CancellationTokenSource cts)
     {
         if(player.PlayerMoveCancel)
+        {
+            Debug.Log(InGameSceneController.Player.PlayerMoveCancel);
             return;
+        }
         // Y軸(正)に回転移動
         // 移動フラグを確認して回転軸と回転中心を設定
         player.RotateAxis = Functions.SetRotateAxis(flag) * Const.CUBE_SIZE_HALF;
@@ -251,7 +259,10 @@ public class PlayerMove
     private async void descendingMove(int flag, Vector3[] point, Vector3[] goUpRotatePointArr, CancellationTokenSource cts)
     {
         if(player.PlayerMoveCancel)
+        {
+            Debug.Log(InGameSceneController.Player.PlayerMoveCancel);
             return;
+        }
         // 平行移動(X軸またはY軸)に回転移動
         // 移動フラグを確認して回転軸と回転中心を決定
         player.RotateAxis = Functions.SetRotateAxis(flag) * Const.CUBE_SIZE_HALF;
@@ -289,7 +300,10 @@ public class PlayerMove
     {
         
         if(player.PlayerMoveCancel)
+        {
+            Debug.Log(InGameSceneController.Player.PlayerMoveCancel);
             return;
+        }
 
         // 移動方向フラグ向きに平行移動
         // 移動フラグを確認して回転軸と回転中心を設定
