@@ -70,7 +70,7 @@ namespace Enemy
                     InGameSceneController.Player.PlayerMoveCancel = true;
                     enemy.EnemyMoveCancel = true;
                     // 何回も呼ばれてる
-                    if(!enemy.B_ResetPlayer)
+                    if(!enemy.B_ResetPlayer && InGameSceneController.Player.PlayerFailureTween == null)
                     {
                         enemy.B_ResetPlayer = true;
                         InGameSceneController.Stages.MoveStage.StageFailure();   
