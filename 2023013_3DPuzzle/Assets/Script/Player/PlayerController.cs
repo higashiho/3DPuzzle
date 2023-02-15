@@ -14,7 +14,7 @@ public class PlayerController : BasePlayer
         PlayerMove = new PlayerMove(this);
         Needle = GameObject.Find("Needles").GetComponent<BaseNeedle>();
         StartPos = this.transform.position;
-        ChooseObj = this.gameObject;
+        ChooseObj = null;
     }
 
     // Update is called once per frame

@@ -87,6 +87,12 @@ namespace Enemy
                         // エネミー待機状態
                         EnemyPhase = EnemyState.Reset;
                     }
+                    if(!PlayerInStage())
+                    {
+                        // エネミー待機状態
+                        EnemyPhase = EnemyState.Reset;
+                    }
+                    
 
                     break;
 
