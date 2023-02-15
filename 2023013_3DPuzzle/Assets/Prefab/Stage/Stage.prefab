@@ -553,7 +553,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveFlag: 0
-  moveStageTiles: []
+  moveStageTiles:
+  - {fileID: 4371230094018466983}
+  - {fileID: 2234588472849059038}
+  - {fileID: 8417868718076902962}
+  - {fileID: 5326296842339595988}
+  - {fileID: 5743114420783859169}
   moveStageObj: {fileID: 0}
   onMoveSwitchs: []
   changeSwitchFlag: 1
@@ -1424,7 +1429,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 700
+      scalar: 600
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -4489,9 +4494,9 @@ ParticleSystem:
     ratio: 1
     lifetime:
       serializedVersion: 2
-      minMaxState: 0
+      minMaxState: 3
       scalar: 1
-      minScalar: 1
+      minScalar: 0
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -4554,13 +4559,13 @@ ParticleSystem:
     attachRibbonsToTransform: 0
     colorOverLifetime:
       serializedVersion: 2
-      minMaxState: 0
+      minMaxState: 1
       minColor: {r: 1, g: 1, b: 1, a: 1}
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
-        key1: {r: 1, g: 1, b: 1, a: 1}
+        key1: {r: 1, g: 1, b: 1, a: 0}
         key2: {r: 0, g: 0, b: 0, a: 0}
         key3: {r: 0, g: 0, b: 0, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
@@ -4618,7 +4623,7 @@ ParticleSystem:
     widthOverTrail:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 3
+      scalar: 10
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -4670,7 +4675,7 @@ ParticleSystem:
         m_RotationOrder: 4
     colorOverTrail:
       serializedVersion: 2
-      minMaxState: 0
+      minMaxState: 1
       minColor: {r: 1, g: 1, b: 1, a: 1}
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
@@ -9486,13 +9491,13 @@ ParticleSystem:
     attachRibbonsToTransform: 0
     colorOverLifetime:
       serializedVersion: 2
-      minMaxState: 0
+      minMaxState: 1
       minColor: {r: 1, g: 1, b: 1, a: 1}
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
-        key1: {r: 1, g: 1, b: 1, a: 1}
+        key1: {r: 1, g: 1, b: 1, a: 0}
         key2: {r: 0, g: 0, b: 0, a: 0}
         key3: {r: 0, g: 0, b: 0, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
@@ -9602,13 +9607,13 @@ ParticleSystem:
         m_RotationOrder: 4
     colorOverTrail:
       serializedVersion: 2
-      minMaxState: 0
+      minMaxState: 1
       minColor: {r: 1, g: 1, b: 1, a: 1}
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
-        key1: {r: 1, g: 1, b: 1, a: 1}
+        key1: {r: 1, g: 1, b: 1, a: 0}
         key2: {r: 0, g: 0, b: 0, a: 0}
         key3: {r: 0, g: 0, b: 0, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
@@ -10399,71 +10404,71 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   csvDataAssetRef:
-    m_AssetGUID: 
+    m_AssetGUID: ff8dc30cdbd54ce4aba958abef977a45
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
   stageBlockDataAssetRef:
-  - m_AssetGUID: 
+  - m_AssetGUID: df107c08b4926b548ab0ee9cb165407b
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
-  - m_AssetGUID: 
+  - m_AssetGUID: 5f3504e8f3e2dc645a3b9bf0b827ea32
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
-  - m_AssetGUID: 
+  - m_AssetGUID: ffc9a3328fd19394ba20f9569363b8f2
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
-  - m_AssetGUID: 
+  - m_AssetGUID: 91fc4657af612324ba2f5db634fff32e
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
-  - m_AssetGUID: 
+  - m_AssetGUID: f1db3c20d847b6340ab3522f0c5a584b
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
-  - m_AssetGUID: 
+  - m_AssetGUID: b4211e8d5ddfe864596354a201eeed29
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
-  - m_AssetGUID: 
+  - m_AssetGUID: 4f54f39bc515a8941a38f43b584b905f
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
-  - m_AssetGUID: 
+  - m_AssetGUID: 7209018dd352d1948b4b5eaf77cf6419
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
-  - m_AssetGUID: 
+  - m_AssetGUID: 056912abf230c1b45bfc0b706fbeaf9c
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
-  - m_AssetGUID: 
+  - m_AssetGUID: 51f7188a305000149b900b7130a7ea77
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
-  - m_AssetGUID: 
+  - m_AssetGUID: ea60f75ec5cf542449001529de2d2da9
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
-  - m_AssetGUID: 
+  - m_AssetGUID: b0cbd0c35b395cd4faa33b07501de767
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
-  - m_AssetGUID: 
+  - m_AssetGUID: 4effa268f39f2c94bae8b746a894b563
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
   tileParent: {fileID: 8946109332750586246}
   keyTiles: []
   puzzleStageWallDataAssetRef:
-    m_AssetGUID: 
+    m_AssetGUID: 65b9349cae80f66448f84da7118fdf00
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
-  whiteTile: {fileID: 0}
+  whiteTile: {fileID: 5168073205655824273, guid: df107c08b4926b548ab0ee9cb165407b, type: 3}
   stageClearFlags: 00000000
   prefabBox: {fileID: 3226213973817768160, guid: b0cbd0c35b395cd4faa33b07501de767, type: 3}
   stageState: 0
@@ -11827,6 +11832,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0280c28db6ad2b34fb67249610be9b29, type: 3}
+--- !u!1 &8417868718076902962 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8417868718288101744, guid: 0280c28db6ad2b34fb67249610be9b29, type: 3}
+  m_PrefabInstance: {fileID: 230154050}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &234365958
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12988,6 +12998,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0280c28db6ad2b34fb67249610be9b29, type: 3}
+--- !u!1 &5326296842339595988 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5326296841939633251, guid: 0280c28db6ad2b34fb67249610be9b29, type: 3}
+  m_PrefabInstance: {fileID: 402092727}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &403708862
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17845,6 +17860,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0280c28db6ad2b34fb67249610be9b29, type: 3}
+--- !u!1 &5743114420783859169 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5743114422162015296, guid: 0280c28db6ad2b34fb67249610be9b29, type: 3}
+  m_PrefabInstance: {fileID: 1448935841}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1451401884
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20726,6 +20746,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0280c28db6ad2b34fb67249610be9b29, type: 3}
+--- !u!1 &4371230094018466983 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 738371719631634873, guid: 0280c28db6ad2b34fb67249610be9b29, type: 3}
+  m_PrefabInstance: {fileID: 3933476146114549022}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5356430189737913976
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20827,3 +20852,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0280c28db6ad2b34fb67249610be9b29, type: 3}
+--- !u!1 &2234588472849059038 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6149390965923144358, guid: 0280c28db6ad2b34fb67249610be9b29, type: 3}
+  m_PrefabInstance: {fileID: 5356430189737913976}
+  m_PrefabAsset: {fileID: 0}
