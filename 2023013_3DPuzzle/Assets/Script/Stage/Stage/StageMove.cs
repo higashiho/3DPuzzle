@@ -118,7 +118,7 @@ namespace Stage
                 tmpPath[i].y += StageConst.CLEAR_MAX_POS_Y;
             }
             // ２秒後に５秒かけて移動
-            InGameSceneController.Player.transform.DOLocalPath(tmpPath, StageConst.CLEAR_MOVE_TIME, PathType.Linear, PathMode.Full3D).SetDelay(StageConst.CLEAR_STOP_TIME).
+            InGameSceneController.Player.transform.DOLocalPath(tmpPath, StageConst.CLEAR_MOVE_TIME).SetDelay(StageConst.CLEAR_STOP_TIME).
             SetEase(Ease.OutQuad).OnComplete(compReset);
         }
 
@@ -179,7 +179,7 @@ namespace Stage
             // ４秒後にスタート地点に戻る
             InGameSceneController.Player.transform.DORotate(Vector3.zero, Const.START_BACK_TIME).SetEase(Ease.Linear);
             InGameSceneController.Player.PlayerFailureTween =  InGameSceneController.Player.transform.DOPath(
-                tmpMovePos, Const.START_BACK_TIME, PathType.CatmullRom, PathMode.Full3D).
+                tmpMovePos, Const.START_BACK_TIME, PathType.CatmullRom).
             SetEase(Ease.Linear).OnComplete(() => failureReset());
 
         }
