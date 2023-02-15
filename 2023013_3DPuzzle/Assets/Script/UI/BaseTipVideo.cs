@@ -55,7 +55,7 @@ namespace Video
         {
             // 再生中フラグを折って停止
             tipVideoMove.EndVideo();
-            
+            PlayTaskFlag = true;
         }
     }
 }

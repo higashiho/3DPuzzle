@@ -11,6 +11,7 @@ public class PlayerController : BasePlayer
     // Start is called before the first frame update
     void Start()
     {
+        InGameSceneController.Player = this;
         PlayerMove = new PlayerMove(this);
         Needle = GameObject.Find("Needles").GetComponent<BaseNeedle>();
         StartPos = this.transform.position;

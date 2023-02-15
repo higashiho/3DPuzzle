@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.AddressableAssets;
 using TMPro;
@@ -12,6 +13,8 @@ namespace Stage
     /// </summary>
     public class BaseStage : MonoBehaviour
     {
+        public Text aiueo;
+        public float aiueocount;
         //CSVファイルのパス
         [SerializeField, Header("CSVファイルのアドレス")]
         protected AssetReference csvDataAssetRef; 
