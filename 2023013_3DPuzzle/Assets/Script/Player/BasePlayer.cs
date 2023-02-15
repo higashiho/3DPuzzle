@@ -8,6 +8,7 @@ using DG.Tweening;
 
 public class BasePlayer : MonoBehaviour
 {
+    
     [Header("プレイヤーのデータ"), SerializeField]
     protected PlayerData playerData;
     public PlayerData PlayersData{get{return playerData;}private set{playerData = value;}}
@@ -77,6 +78,7 @@ public class BasePlayer : MonoBehaviour
     public void OnDestroy()
     {
         PlayerMoveCancel = true;
+        Debug.Log(InGameSceneController.Player.PlayerMoveCancel);
         cts.Cancel();
     }
 
