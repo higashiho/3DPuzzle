@@ -94,7 +94,7 @@ public class Const
     // ロード中画面の星の回転回数(回数でロードが終わるわけではないので)
     public const int LOADING_ANIMATION_INFINITY = -1;
     // ゲームスタート時の明転時間
-    public const float FIRST_FADE_TIMER = 5.0f;
+    public const float FIRST_FADE_TIMER = 2.0f;
     // 以上フェード定数--------------------------
 
     // 以下UI定数--------------------------------

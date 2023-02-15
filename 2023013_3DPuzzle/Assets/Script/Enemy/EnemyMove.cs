@@ -37,7 +37,7 @@ namespace Enemy
             }
             
             // プレイヤーの通った座標を保管するQueueの要素数が0より大きかったら
-            if(InGameSceneController.EnemyManager.PlayerTrace.Count > 0 )
+            if(InGameSceneController.EnemyManager.PlayerTrace.Count > 0)
             {
                 
                 // 座標調整
@@ -60,20 +60,18 @@ namespace Enemy
                 // リセット
                 resetMoveValue();
             }
-            else if(InGameSceneController.Stages.StageState != Const.STATE_START)
+            else
             {
                 // エネミーがプレイヤーに追いついちゃう処理
-                // プレイヤーの回転が終わったら判定
+                
                 if(!InGameSceneController.Player.IsRotate)
                 {
-                    // プレイヤーの移動キャンセルON
+                    
                     InGameSceneController.Player.PlayerMoveCancel = true;
-                    // エネミーの移動キャンセルOFF
                     enemy.EnemyMoveCancel = true;
-                    // ステージ失敗処理
-                    if(!enemy.B_ResetPlayer)
+                    // 何回も呼ばれてる
+                    if(!enemy.B_ResetPlayer && InGameSceneController.Player.PlayerFailureTween == null)
                     {
-                        // 何回もこの処理を実行しないようにするフラグON
                         enemy.B_ResetPlayer = true;
                         InGameSceneController.Stages.MoveStage.StageFailure();   
                         

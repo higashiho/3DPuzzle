@@ -24,6 +24,7 @@ TagManager:
   - TreasureBoxPanel
   - UI
   - Enemy
+  - Camera
   layers:
   - Default
   - TransparentFX
