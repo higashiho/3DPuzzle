@@ -22,7 +22,6 @@ namespace Stage
 
             moveStage = new MoveStageMove(this);
             OnMoveSwitchs = GameObject.FindGameObjectsWithTag("MoveTileSwitch");
-            MoveStageTiles = GameObject.FindGameObjectsWithTag("MoveTile");
         }
 
         // Update is called once per frame

@@ -40,7 +40,6 @@ public class InGameSceneController : MonoBehaviour
     // Start is called before the first frame update
     async void Awake() 
     {
-        Application.targetFrameRate = 60;
         // 初期取得
         Stages = GameObject.FindWithTag("Stage").GetComponent<BaseStage>();
         Player = GameObject.FindWithTag("Player").GetComponent<BasePlayer>();

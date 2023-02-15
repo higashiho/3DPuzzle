@@ -86,6 +86,6 @@ namespace Enemy
             EnemyState = EnemyPhase.Move;
         }
         
-        protected EnemyMove enemyMove;
+        public EnemyMove EnemyMove;
     }
 }

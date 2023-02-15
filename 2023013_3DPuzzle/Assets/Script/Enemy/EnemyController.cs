@@ -10,7 +10,7 @@ namespace Enemy
     {
         void Start()
         {
-            enemyMove = new EnemyMove(this);
+            EnemyMove = new EnemyMove(this);
             B_ResetPlayer = false;
             IsStop = false;
         }
@@ -25,11 +25,17 @@ namespace Enemy
                     if(WaitMove == null)
                     {
                         WaitMove = UniTask.Delay(EnemyDatas.MoveInterval * Const.CHANGE_SECOND, cancellationToken: cts.Token);
+                        if(cts.IsCancellationRequested)
+                        {
+                            break;
+                        }
                         await (UniTask)WaitMove;
 
+                        
                         if(!IsStop)
                         { 
-                            enemyMove.Move(cts);
+                            
+                            EnemyMove.Move(cts);
                             WaitMove = null;
                         }
                     }
@@ -37,7 +43,7 @@ namespace Enemy
                     
 
                     // プレイヤーがステージからでたとき
-                    if(!enemyMove.EnterStage())
+                    if(!EnemyMove.EnterStage())
                     {
                         EnemyState = EnemyPhase.Reset;
                         this.gameObject.SetActive(false);
@@ -53,6 +59,8 @@ namespace Enemy
                     
                     break;
             }
+
+            
             
             
         }

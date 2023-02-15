@@ -51,6 +51,8 @@ namespace Enemy
 
                 // 回転移動(平行)
                 shiftMove(enemy.MoveFlag, Const.RotatePointArr, cts);
+                if(cts.IsCancellationRequested)
+                    return;
                 // 座標調整
                 enemy.transform.position = (Vector3)Functions.CalcRoundingHalfUp(enemy.transform.position);
                 
