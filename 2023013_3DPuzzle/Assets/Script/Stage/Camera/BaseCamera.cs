@@ -97,9 +97,6 @@ namespace Cam
 
         // インスタンス化
         protected CameraMove cameraMove = new CameraMove();
-        public CameraMove CameraMove{get{return cameraMove;} set{CameraMove = value;}}
-
-        protected BaseCamera tmpCamera;
-        public BaseCamera TmpCamera{get{return tmpCamera;} set{tmpCamera = value;}}
+        public CameraMove CameraMove{get{return cameraMove;} private set{cameraMove = value;}}
     }
 }

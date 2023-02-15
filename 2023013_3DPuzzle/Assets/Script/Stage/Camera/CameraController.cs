@@ -9,13 +9,13 @@ namespace Cam
         // Start is called before the first frame update
         void Start()
         {
-            cameraMove.CameraInsetance(this);
+            CameraMove.CameraInsetance(this);
         }
 
         // Update is called once per frame
         void LateUpdate()
         {
-            cameraMove.Move(this);
+            CameraMove.Move(this);
         }
     }
 }
