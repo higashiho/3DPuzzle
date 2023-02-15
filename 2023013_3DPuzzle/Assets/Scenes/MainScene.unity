@@ -123,6 +123,16 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &154832415 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5326296842339595988, guid: 1bd7cf68ce4ebb24db45b71cc0db38e9, type: 3}
+  m_PrefabInstance: {fileID: 1731969940}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &405271458 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8417868718076902962, guid: 1bd7cf68ce4ebb24db45b71cc0db38e9, type: 3}
+  m_PrefabInstance: {fileID: 1731969940}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &505798805
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -319,6 +329,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &585518296 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5743114420783859169, guid: 1bd7cf68ce4ebb24db45b71cc0db38e9, type: 3}
+  m_PrefabInstance: {fileID: 1731969940}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &801429597 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2234588472849059038, guid: 1bd7cf68ce4ebb24db45b71cc0db38e9, type: 3}
+  m_PrefabInstance: {fileID: 1731969940}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &927636214 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4371230094018466983, guid: 1bd7cf68ce4ebb24db45b71cc0db38e9, type: 3}
+  m_PrefabInstance: {fileID: 1731969940}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1096155000
 GameObject:
   m_ObjectHideFlags: 0
@@ -757,7 +782,31 @@ PrefabInstance:
     - target: {fileID: 1388192265, guid: 1bd7cf68ce4ebb24db45b71cc0db38e9, type: 3}
       propertyPath: warningPanel
       value: 
+      objectReference: {fileID: 3859672967366005922}
+    - target: {fileID: 1514817137, guid: 1bd7cf68ce4ebb24db45b71cc0db38e9, type: 3}
+      propertyPath: moveStageTiles.Array.size
+      value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 1514817137, guid: 1bd7cf68ce4ebb24db45b71cc0db38e9, type: 3}
+      propertyPath: moveStageTiles.Array.data[0]
+      value: 
+      objectReference: {fileID: 927636214}
+    - target: {fileID: 1514817137, guid: 1bd7cf68ce4ebb24db45b71cc0db38e9, type: 3}
+      propertyPath: moveStageTiles.Array.data[1]
+      value: 
+      objectReference: {fileID: 801429597}
+    - target: {fileID: 1514817137, guid: 1bd7cf68ce4ebb24db45b71cc0db38e9, type: 3}
+      propertyPath: moveStageTiles.Array.data[2]
+      value: 
+      objectReference: {fileID: 405271458}
+    - target: {fileID: 1514817137, guid: 1bd7cf68ce4ebb24db45b71cc0db38e9, type: 3}
+      propertyPath: moveStageTiles.Array.data[3]
+      value: 
+      objectReference: {fileID: 154832415}
+    - target: {fileID: 1514817137, guid: 1bd7cf68ce4ebb24db45b71cc0db38e9, type: 3}
+      propertyPath: moveStageTiles.Array.data[4]
+      value: 
+      objectReference: {fileID: 585518296}
     - target: {fileID: 1615969303, guid: 1bd7cf68ce4ebb24db45b71cc0db38e9, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -1153,3 +1202,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f22e3dfe2f366fd4cbdbdca6c2a61c9d, type: 3}
+--- !u!114 &3859672967366005922 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5074239100083104490, guid: f22e3dfe2f366fd4cbdbdca6c2a61c9d, type: 3}
+  m_PrefabInstance: {fileID: 3859672967366005921}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
