@@ -345,7 +345,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tipVideoClip:
-  - {fileID: 32900000, guid: 5b916428ba411f946a78484c71541ff0, type: 3}
+  - {fileID: 32900000, guid: 4d048c7f56800144da189507e8963547, type: 3}
   - {fileID: 32900000, guid: 8d2af6661e80dd741b8d0314edf88905, type: 3}
   - {fileID: 32900000, guid: 4329ed802aabbd44d9e920c0b83b1310, type: 3}
   - {fileID: 32900000, guid: 91f395aacf1920b4c8ef1640245b52ae, type: 3}
@@ -843,10 +843,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 582276566, guid: 1bd7cf68ce4ebb24db45b71cc0db38e9, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 635918342, guid: 1bd7cf68ce4ebb24db45b71cc0db38e9, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1388192265, guid: 1bd7cf68ce4ebb24db45b71cc0db38e9, type: 3}
       propertyPath: warningPanel
       value: 
       objectReference: {fileID: 3859672967366005922}
+    - target: {fileID: 1616767476, guid: 1bd7cf68ce4ebb24db45b71cc0db38e9, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 302579731704811696, guid: 1bd7cf68ce4ebb24db45b71cc0db38e9, type: 3}
       propertyPath: aiueo
       value: 

@@ -42,6 +42,7 @@ public class InGameSceneController : MonoBehaviour
     async void Awake() 
     {
         // 初期取得
+        Player = GameObject.FindWithTag("Player").GetComponent<BasePlayer>();
         Stages = GameObject.FindWithTag("Stage").GetComponent<BaseStage>();
         FallTile = GameObject.FindWithTag("FallTiles").GetComponent<BaseFallTile>();
         SwitchTile = GameObject.FindWithTag("SwitchTiles").GetComponent<BaseSwitchTile>();
