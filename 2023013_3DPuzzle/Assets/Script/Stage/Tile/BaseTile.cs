@@ -41,7 +41,9 @@ namespace Tile
             if(!InGameSceneController.Player.OnMove)
             {   
                 // プレイヤーが１マス以内にいる 
-                if(checkTheDistanceFromPlayer() && !InGameSceneController.TreasureBox.OpenBoxUI.gameObject.activeSelf)
+                if(checkTheDistanceFromPlayer()
+                 && !InGameSceneController.TreasureBox.OpenBoxUI.gameObject.activeSelf
+                 && !InGameSceneController.TipVideo.OnPlay)
                 {
                     //Sphereの色を赤色に変化
                     this.GetComponent<Renderer>().material.color = Color.red;
