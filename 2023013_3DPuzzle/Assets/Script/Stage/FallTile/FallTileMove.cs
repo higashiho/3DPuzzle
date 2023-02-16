@@ -179,8 +179,9 @@ namespace Stage
 
                 return;
             }
-            // スタート位置帰還
-            InGameSceneController.Stages.MoveStage.StageFailure();
+            if(InGameSceneController.Player.PlayerFailureTween == null)
+                // スタート位置帰還
+                InGameSceneController.Stages.MoveStage.StageFailure();
 
             // 初期化
             tmpColor.a = 0;

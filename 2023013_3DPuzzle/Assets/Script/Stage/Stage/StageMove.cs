@@ -205,6 +205,7 @@ namespace Stage
             InGameSceneController.Player.MoveCount = default;
             // プレイヤーMoveタスクのキャンセルフラグON
             InGameSceneController.Player.PlayerMoveCancel = false;
+            Debug.Log(InGameSceneController.Player.PlayerMoveCancel);
             // エネミーMoveタスクキャンセルフラグON
             InGameSceneController.Enemy.EnemyMoveCancel = false;
             // プレイヤーがエネミーに追いつかれてリスタートされるフラグOFF

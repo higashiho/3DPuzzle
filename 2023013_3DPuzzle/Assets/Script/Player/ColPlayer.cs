@@ -26,11 +26,12 @@ namespace Player
             if(col.gameObject.tag == "Needle" && col.transform.GetChild(0).gameObject.activeSelf)
             {
                 // 挙動終わりに判定
-                if(!InGameSceneController.Player.IsRotate)
+                if(!InGameSceneController.Player.IsRotate && InGameSceneController.Player.PlayerFailureTween == null)
                 {
                     InGameSceneController.Player.PlayerMoveCancel = true;
+                    Debug.Log(InGameSceneController.Player.PlayerMoveCancel);
                     InGameSceneController.Enemy.EnemyMoveCancel = true;
-                    //InGameSceneController.Player.cts.Cancel();
+                    InGameSceneController.Enemy.IsStop = true;
                     stageMove.StageFailure();   
                     needleMove.ResetTile();
                 }
