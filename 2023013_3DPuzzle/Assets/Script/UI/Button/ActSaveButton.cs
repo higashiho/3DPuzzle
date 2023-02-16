@@ -13,8 +13,9 @@ namespace button
         /// <param name="tmpButton"></param>
         public void ActiveSaveButton(BaseButton tmpButton)
         {
-            tmpButton.SaveButton.transform.DOLocalMoveX(default, Const.SAVEBUTTON_MOVE_TIME)
-            .SetEase(Ease.Linear);
+            if(tmpButton.SaveButtonTween[0] == null)
+            tmpButton.SaveButtonTween[0] = tmpButton.SaveButton.transform.DOLocalMoveX(default, Const.SAVEBUTTON_MOVE_TIME)
+            .SetEase(Ease.Linear).OnStart(() => tmpButton.SaveButtonTween[1] = null);
         }
 
         /// <summary>
@@ -23,8 +24,9 @@ namespace button
         /// <param name="tmpButton"></param>
         public void OffSaveButton(BaseButton tmpButton)
         {
-            tmpButton.SaveButton.transform.DOLocalMoveX(Const.SAVEBUTTON_MOVE_POS, Const.SAVEBUTTON_MOVE_TIME)
-            .SetEase(Ease.Linear);
+            if(tmpButton.SaveButtonTween[1] == null)
+            tmpButton.SaveButtonTween[1] = tmpButton.SaveButton.transform.DOLocalMoveX(Const.SAVEBUTTON_MOVE_POS, Const.SAVEBUTTON_MOVE_TIME)
+            .SetEase(Ease.Linear).OnStart(() => tmpButton.SaveButtonTween[0] = null);
         }
     }
 }

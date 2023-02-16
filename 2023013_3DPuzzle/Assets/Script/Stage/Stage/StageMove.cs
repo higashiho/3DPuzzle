@@ -165,7 +165,7 @@ namespace Stage
         /// </summary>
         public void StageFailure()
         {
-            
+
             // ステート保管
             tmpStageState = InGameSceneController.Stages.StageState;
 
@@ -183,7 +183,7 @@ namespace Stage
             // ４秒後にスタート地点に戻る
             InGameSceneController.Player.transform.DORotate(Vector3.zero, Const.START_BACK_TIME).SetEase(Ease.Linear);
             InGameSceneController.Player.PlayerFailureTween =  InGameSceneController.Player.transform.DOPath(
-                tmpMovePos, Const.START_BACK_TIME, PathType.CatmullRom).
+                tmpMovePos, Const.START_BACK_TIME, PathType.Linear).
             SetEase(Ease.Linear).OnComplete(() => 
             {
                 InGameSceneController.Camera.CameraMove.followToPlayer(InGameSceneController.Camera);

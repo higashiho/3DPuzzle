@@ -35,14 +35,15 @@ public class InGameSceneController : MonoBehaviour
     /// <summary>
     /// Player
     /// </summary>
-    public static BasePlayer Player{get; private set;}
+    private static BasePlayer player;
+    public static BasePlayer Player{get{return player;}set{player = value;}}
 
     // Start is called before the first frame update
     async void Awake() 
     {
         // 初期取得
-        Stages = GameObject.FindWithTag("Stage").GetComponent<BaseStage>();
         Player = GameObject.FindWithTag("Player").GetComponent<BasePlayer>();
+        Stages = GameObject.FindWithTag("Stage").GetComponent<BaseStage>();
         FallTile = GameObject.FindWithTag("FallTiles").GetComponent<BaseFallTile>();
         SwitchTile = GameObject.FindWithTag("SwitchTiles").GetComponent<BaseSwitchTile>();
         MoveStage = GameObject.FindWithTag("MoveStage").GetComponent<BaseMoveStage>();
@@ -62,7 +63,7 @@ public class InGameSceneController : MonoBehaviour
         
 
         // Tweenの最大メモリ初期化
-        DG.Tweening.DOTween.SetTweensCapacity(tweenersCapacity:1500, sequencesCapacity:1000);
+        DG.Tweening.DOTween.SetTweensCapacity(tweenersCapacity:500, sequencesCapacity:250);
     }
 
     void OnDestroy()

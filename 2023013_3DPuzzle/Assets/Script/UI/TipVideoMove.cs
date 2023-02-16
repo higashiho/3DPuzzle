@@ -27,9 +27,21 @@ namespace Video
                 if(!tmpVideo.OnPlay)
                 {
                     // フラグを折って停止コールバックに追加して再生
+                    tmpVideo.PlayTaskFlag = false;
                     tmpVideo.OnPlay = true;
                     tmpVideo.TipVideo.loopPointReached += tmpVideo.FinishPlayingVideo;
                     tmpVideo.TipVideo.Play();
+                    // アルファ値を1秒かけて最大値にする
+                    while(true)
+                    {
+                        // アルファ値が最大値になったら抜ける
+                        if(tmpVideo.TipVideo.targetCameraAlpha >= Const.FADE_MAX_ALPHA || tmpVideo.PlayTaskFlag)
+                            break;
+
+                        // １０ミリ秒に0.1アルファ値を増やす
+                        tmpVideo.TipVideo.targetCameraAlpha += Const.FADE_VIDEO_NUM;
+                        await UniTask.Delay(Const.FADE_VIDEO_TIME);
+                    }
                 }
                 // フラグがたっているときに押されたら消す
                 else
@@ -37,17 +49,7 @@ namespace Video
                     tmpVideo.FinishPlayingVideo(tmpVideo.TipVideo);
                     return;
                 }
-                // アルファ値を1秒かけて最大値にする
-                while(true)
-                {
-                    // アルファ値が最大値になったら抜ける
-                    if(tmpVideo.TipVideo.targetCameraAlpha >= Const.FADE_MAX_ALPHA)
-                        break;
-
-                    // １０ミリ秒に0.1アルファ値を増やす
-                    tmpVideo.TipVideo.targetCameraAlpha += Const.FADE_VIDEO_NUM;
-                    await UniTask.Delay(Const.FADE_VIDEO_TIME);
-                }
+                
             }
         }
 
@@ -174,11 +176,14 @@ namespace Video
         /// <returns></returns>
         public async void EndVideo()
         {
+            tmpVideo.OnPlay = false;
+            // 初期化
+            tmpVideo.TipVideo.Stop();
             // アルファ値を1秒かけて0にする
             while(true)
             {
                 // アルファ値が0になったら抜ける
-                if(tmpVideo.TipVideo.targetCameraAlpha <= 0)
+                if(tmpVideo.TipVideo.targetCameraAlpha <= 0 || tmpVideo.OnPlay)
                     break;
 
                 // １０ミリ秒に0.1アルファ値を減らす
@@ -186,9 +191,6 @@ namespace Video
                 await UniTask.Delay(Const.FADE_VIDEO_TIME);
             }
             
-            // 初期化
-            tmpVideo.OnPlay = false;
-            tmpVideo.TipVideo.Stop();
         }
     }
 }

@@ -25,6 +25,10 @@ namespace button
         protected  Button saveButton;
         public Button SaveButton{get{return saveButton;} set{saveButton = value;}}
 
+        // セーブbutton挙動Tween
+        protected Tween[] saveButtonTween = new Tween[2];
+        public Tween[] SaveButtonTween{get{return saveButtonTween;} set{saveButtonTween = value;}}
+
         // インスタンス化
         protected ActSaveButton saveButtonAct = new ActSaveButton();
         public ActSaveButton SaveButtonAct{get{return saveButtonAct;}}
