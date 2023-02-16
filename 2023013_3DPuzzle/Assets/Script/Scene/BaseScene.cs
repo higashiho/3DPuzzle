@@ -41,9 +41,12 @@ namespace Scene
         [SerializeField]
         protected bool sceneMoveOnFlag;
         public bool SceneMoveOnFlag{get{return sceneMoveOnFlag;} set{sceneMoveOnFlag = value;}}
-
+        // シーン移動のTWeen
         protected Tween sceneTween = null;
         public Tween SceneTween{get{return sceneTween;} set{sceneTween = value;}}
+        // エンドシーンボックスの移動先
+        protected Vector3Int endBoxPos = new Vector3Int(0, 1, 0);
+        public Vector3Int EndBoxPos{get{return endBoxPos;} set{endBoxPos = value;}}
 
         //インスタンス化
         public  TitleSceneMove titleSceneMove{get;protected set;} = new TitleSceneMove();

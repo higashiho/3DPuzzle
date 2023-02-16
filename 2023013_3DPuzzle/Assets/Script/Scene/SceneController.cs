@@ -31,7 +31,6 @@ namespace Scene
                 .OnComplete(() =>
                 {
                     fadePanel.enabled = false;
-                    SceneTween = null;
                 });
             }, false);
         }
@@ -56,6 +55,10 @@ namespace Scene
                         #else
                         
                         #endif
+                        if(SceneMoveOnFlag && SceneTween == null)
+                        {
+                            mainSceneMove.Move(this, LoadingImage);
+                        }
                         break;
 
                     case BaseScene.SceneState.End:

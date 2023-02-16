@@ -25,6 +25,7 @@ TagManager:
   - UI
   - Enemy
   - Camera
+  - SceneController
   layers:
   - Default
   - TransparentFX

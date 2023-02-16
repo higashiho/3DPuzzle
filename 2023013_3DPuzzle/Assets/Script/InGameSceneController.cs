@@ -8,6 +8,7 @@ using Enemy;
 using Cysharp.Threading.Tasks;
 using UnityEngine.AddressableAssets;
 using Cam;
+using Scene;
 
 /// <summary>
 /// インゲームでのオブジェクト管理クラス
@@ -26,6 +27,7 @@ public class InGameSceneController : MonoBehaviour
     public static BaseEnemy Enemy{get; private set;}
     public static EnemyManagerController EnemyManager{get; private set;}
     public static BaseCamera Camera{get; private set;}
+    public static BaseScene Scene{get; private set;}
 
     /// <summary>
     /// 宝箱UI
@@ -50,6 +52,7 @@ public class InGameSceneController : MonoBehaviour
         Enemy = EnemyManager.transform.GetChild(0).GetComponent<BaseEnemy>();
         TreasureBoxUI = GameObject.FindWithTag("UI").GetComponent<BaseTreasureBoxUI>();
         Camera = GameObject.FindWithTag("Camera").GetComponent<BaseCamera>();
+        Scene = GameObject.FindWithTag("SceneController").GetComponent<BaseScene>();
 
         
         // ステージのブロックが読み込み終わるフラグが立つまで待つ

@@ -102,6 +102,7 @@ public class Const
     public const float SAVEBUTTON_MOVE_TIME = 0.5f;
     // 移動先
     public const float SAVEBUTTON_MOVE_POS = -345.0f;
+    // 以上UI定数-------------------------------------
 
 
     // 以下カメラ用定数--------------------------
@@ -145,6 +146,12 @@ public class Const
     public const int TO_CENTER_UP_POS = 0;
     public const int TO_CENTER_UNDER_POS = 1;
     // 以上カメラ用定数--------------------------
+
+    // 以下エンドシーンオブジェクト定数
+    // エンドシーンボックス回転速度
+    public const float END_BOX_ROTATE_TIME = 1.5f;
+
+    // 以上エンドシーン定数
 
 
     // 以下回転用定数
