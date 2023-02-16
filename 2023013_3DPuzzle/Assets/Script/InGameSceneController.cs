@@ -9,6 +9,7 @@ using Cysharp.Threading.Tasks;
 using UnityEngine.AddressableAssets;
 using Cam;
 using Scene;
+using Video;
 
 /// <summary>
 /// インゲームでのオブジェクト管理クラス
@@ -27,6 +28,7 @@ public class InGameSceneController : MonoBehaviour
     public static BaseEnemy Enemy{get; private set;}
     public static EnemyManagerController EnemyManager{get; private set;}
     public static BaseCamera Camera{get; private set;}
+    public static BaseTipVideo TipVideo{get; private set;}
     public static BaseScene Scene{get; private set;}
 
     /// <summary>
@@ -37,14 +39,15 @@ public class InGameSceneController : MonoBehaviour
     /// <summary>
     /// Player
     /// </summary>
-    public static BasePlayer Player{get; private set;}
+    private static BasePlayer player;
+    public static BasePlayer Player{get{return player;}set{player = value;}}
 
     // Start is called before the first frame update
     async void Awake() 
     {
         // 初期取得
-        Stages = GameObject.FindWithTag("Stage").GetComponent<BaseStage>();
         Player = GameObject.FindWithTag("Player").GetComponent<BasePlayer>();
+        Stages = GameObject.FindWithTag("Stage").GetComponent<BaseStage>();
         FallTile = GameObject.FindWithTag("FallTiles").GetComponent<BaseFallTile>();
         SwitchTile = GameObject.FindWithTag("SwitchTiles").GetComponent<BaseSwitchTile>();
         MoveStage = GameObject.FindWithTag("MoveStage").GetComponent<BaseMoveStage>();
@@ -53,6 +56,7 @@ public class InGameSceneController : MonoBehaviour
         TreasureBoxUI = GameObject.FindWithTag("UI").GetComponent<BaseTreasureBoxUI>();
         Camera = GameObject.FindWithTag("Camera").GetComponent<BaseCamera>();
         Scene = GameObject.FindWithTag("SceneController").GetComponent<BaseScene>();
+        TipVideo = GameObject.FindWithTag("TipVideo").GetComponent<BaseTipVideo>();
 
         
         // ステージのブロックが読み込み終わるフラグが立つまで待つ
@@ -65,7 +69,7 @@ public class InGameSceneController : MonoBehaviour
         
 
         // Tweenの最大メモリ初期化
-        DG.Tweening.DOTween.SetTweensCapacity(tweenersCapacity:1500, sequencesCapacity:1000);
+        DG.Tweening.DOTween.SetTweensCapacity(tweenersCapacity:500, sequencesCapacity:250);
     }
 
     void OnDestroy()

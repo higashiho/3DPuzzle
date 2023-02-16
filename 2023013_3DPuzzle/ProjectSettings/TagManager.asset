@@ -25,6 +25,7 @@ TagManager:
   - UI
   - Enemy
   - Camera
+  - TipVideo
   - SceneController
   layers:
   - Default
