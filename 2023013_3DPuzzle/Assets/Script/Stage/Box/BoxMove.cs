@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UI;
+using Scene;
 
 namespace Box
 {
@@ -135,6 +136,7 @@ namespace Box
             // エフェクトを両方再生
             InGameSceneController.TreasureBoxUI.ClearEfect[0].Play();
             InGameSceneController.TreasureBoxUI.ClearEfect[1].Play();
+            InGameSceneController.Scene.SceneMoveFlagOn();
         }
     }
 }
