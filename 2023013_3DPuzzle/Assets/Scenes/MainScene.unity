@@ -277,7 +277,7 @@ GameObject:
   - component: {fileID: 566525474}
   m_Layer: 0
   m_Name: TipVideoPlayer
-  m_TagString: Untagged
+  m_TagString: TipVideo
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
