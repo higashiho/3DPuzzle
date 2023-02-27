@@ -845,11 +845,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 582276566, guid: 1bd7cf68ce4ebb24db45b71cc0db38e9, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 635918342, guid: 1bd7cf68ce4ebb24db45b71cc0db38e9, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1388192265, guid: 1bd7cf68ce4ebb24db45b71cc0db38e9, type: 3}
       propertyPath: warningPanel
@@ -857,7 +857,7 @@ PrefabInstance:
       objectReference: {fileID: 3859672967366005922}
     - target: {fileID: 1616767476, guid: 1bd7cf68ce4ebb24db45b71cc0db38e9, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 302579731704811696, guid: 1bd7cf68ce4ebb24db45b71cc0db38e9, type: 3}
       propertyPath: aiueo
